@@ -415,6 +415,9 @@
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uqV-DH-WEQ">
                                 <rect key="frame" x="62" y="266" width="250" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Ajb-iz-uaH"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -425,7 +428,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fdd-vx-WaH">
                                 <rect key="frame" x="62" y="313" width="250" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="YtL-sT-Vsw"/>
+                                    <constraint firstAttribute="height" constant="30" id="Cnz-dw-oQ6"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -435,10 +438,10 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UeR-fx-zxs">
-                                <rect key="frame" x="62" y="363" width="250" height="48"/>
+                                <rect key="frame" x="62" y="363" width="250" height="46"/>
                                 <color key="backgroundColor" red="0.015686274509803921" green="0.3411764705882353" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="YkU-qQ-xSt"/>
+                                    <constraint firstAttribute="height" constant="46" id="EU4-Gc-5Ow"/>
                                 </constraints>
                                 <state key="normal" title="Login">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -456,26 +459,26 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="L2D_LOGO" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FiU-j3-uuG">
-                                <rect key="frame" x="16" y="38" width="321" height="205"/>
+                                <rect key="frame" x="31" y="108" width="313" height="115"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="205" id="I1Q-JG-sRE"/>
+                                    <constraint firstAttribute="height" constant="115" id="tqi-Tk-Aze"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wwf-Mw-Wzf" firstAttribute="trailing" secondItem="fdd-vx-WaH" secondAttribute="trailing" constant="63" id="0Oy-gQ-WNl"/>
-                            <constraint firstItem="FiU-j3-uuG" firstAttribute="leading" secondItem="wwf-Mw-Wzf" secondAttribute="leading" constant="16" id="8Gh-we-auU"/>
-                            <constraint firstItem="UeR-fx-zxs" firstAttribute="leading" secondItem="wwf-Mw-Wzf" secondAttribute="leading" constant="62" id="9Th-RW-rxT"/>
-                            <constraint firstItem="fdd-vx-WaH" firstAttribute="leading" secondItem="wwf-Mw-Wzf" secondAttribute="leading" constant="62" id="HbA-Ok-jsh"/>
-                            <constraint firstItem="uqV-DH-WEQ" firstAttribute="leading" secondItem="wwf-Mw-Wzf" secondAttribute="leading" constant="62" id="JTr-9y-fcd"/>
-                            <constraint firstItem="wwf-Mw-Wzf" firstAttribute="trailing" secondItem="uqV-DH-WEQ" secondAttribute="trailing" constant="63" id="KuQ-Cg-Opn"/>
-                            <constraint firstItem="FiU-j3-uuG" firstAttribute="top" secondItem="wwf-Mw-Wzf" secondAttribute="top" constant="18" id="Mdz-Em-2Wr"/>
-                            <constraint firstItem="uqV-DH-WEQ" firstAttribute="top" secondItem="FiU-j3-uuG" secondAttribute="bottom" constant="23" id="QPi-NE-O26"/>
-                            <constraint firstItem="wwf-Mw-Wzf" firstAttribute="trailing" secondItem="FiU-j3-uuG" secondAttribute="trailing" constant="38" id="Txp-C6-kgf"/>
-                            <constraint firstItem="fdd-vx-WaH" firstAttribute="top" secondItem="uqV-DH-WEQ" secondAttribute="bottom" constant="17" id="abf-J2-sq1"/>
-                            <constraint firstItem="UeR-fx-zxs" firstAttribute="top" secondItem="fdd-vx-WaH" secondAttribute="bottom" constant="20" id="iAM-Xm-Lur"/>
-                            <constraint firstItem="wwf-Mw-Wzf" firstAttribute="trailing" secondItem="UeR-fx-zxs" secondAttribute="trailing" constant="63" id="tF7-5Q-nQW"/>
+                            <constraint firstItem="wwf-Mw-Wzf" firstAttribute="trailing" secondItem="FiU-j3-uuG" secondAttribute="trailing" constant="31" id="5ct-tA-gMc"/>
+                            <constraint firstItem="wwf-Mw-Wzf" firstAttribute="trailing" secondItem="uqV-DH-WEQ" secondAttribute="trailing" constant="63" id="HNj-8g-aD5"/>
+                            <constraint firstItem="fdd-vx-WaH" firstAttribute="top" secondItem="uqV-DH-WEQ" secondAttribute="bottom" constant="17" id="Rvx-3a-PVG"/>
+                            <constraint firstItem="uqV-DH-WEQ" firstAttribute="top" secondItem="FiU-j3-uuG" secondAttribute="bottom" constant="43" id="YSZ-h8-DQL"/>
+                            <constraint firstItem="wwf-Mw-Wzf" firstAttribute="trailing" secondItem="fdd-vx-WaH" secondAttribute="trailing" constant="63" id="d3B-4q-gTI"/>
+                            <constraint firstItem="UeR-fx-zxs" firstAttribute="top" secondItem="fdd-vx-WaH" secondAttribute="bottom" constant="20" id="fXr-Wd-ISA"/>
+                            <constraint firstItem="fdd-vx-WaH" firstAttribute="leading" secondItem="wwf-Mw-Wzf" secondAttribute="leading" constant="62" id="gfk-zK-mjf"/>
+                            <constraint firstItem="uqV-DH-WEQ" firstAttribute="leading" secondItem="wwf-Mw-Wzf" secondAttribute="leading" constant="62" id="npV-zq-i49"/>
+                            <constraint firstItem="FiU-j3-uuG" firstAttribute="leading" secondItem="wwf-Mw-Wzf" secondAttribute="leading" constant="31" id="p2U-xT-3Md"/>
+                            <constraint firstItem="wwf-Mw-Wzf" firstAttribute="trailing" secondItem="UeR-fx-zxs" secondAttribute="trailing" constant="63" id="q8p-Xh-w05"/>
+                            <constraint firstItem="FiU-j3-uuG" firstAttribute="top" secondItem="wwf-Mw-Wzf" secondAttribute="top" constant="88" id="svC-Re-WP9"/>
+                            <constraint firstItem="UeR-fx-zxs" firstAttribute="leading" secondItem="wwf-Mw-Wzf" secondAttribute="leading" constant="62" id="wNu-mK-zCT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wwf-Mw-Wzf"/>
                     </view>
@@ -1084,7 +1087,7 @@
     </scenes>
     <resources>
         <image name="4Star" width="1123" height="250"/>
-        <image name="L2D_LOGO" width="1024" height="682"/>
+        <image name="L2D_LOGO" width="634" height="233"/>
         <image name="Menu-1" width="36" height="36"/>
         <image name="account" width="36" height="36"/>
         <image name="download" width="112" height="112"/>
