@@ -1,15 +1,21 @@
 PODS:
-  - Alamofire (4.5.0)
-  - SwiftyJSON (3.1.4)
+  - Alamofire (4.6.0)
+  - SnapKit (4.0.0)
+  - SwiftyJSON (4.0.0)
+  - VGPlayer (0.2.0):
+    - SnapKit (~> 4.0.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.4)
-  - SwiftyJSON (~> 3.1)
+  - Alamofire (~> 4.6)
+  - SwiftyJSON (~> 4.0)
+  - VGPlayer (~> 0.2)
 
 SPEC CHECKSUMS:
-  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+  VGPlayer: a1787135559aa3b9201ebdc733ee283315492289
 
-PODFILE CHECKSUM: ea101e95b9c752e48ddbf4772b2770ff1443ad8f
+PODFILE CHECKSUM: b829870f0b194b22304c7f1d547755118db2ae04
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.3.1

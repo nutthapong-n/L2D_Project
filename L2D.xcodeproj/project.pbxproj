@@ -18,6 +18,7 @@
 		320AA34A1F29C9A100AE9428 /* Course.model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320AA3491F29C9A100AE9428 /* Course.model.swift */; };
 		32A537081F28480C00E53CAC /* CourseContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A537071F28480C00E53CAC /* CourseContentViewController.swift */; };
 		32A5370A1F28538F00E53CAC /* LoginSeque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A537091F28538F00E53CAC /* LoginSeque.swift */; };
+		32BAEECB1F31C04F00927BD6 /* CoursePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BAEECA1F31C04F00927BD6 /* CoursePreviewViewController.swift */; };
 		32D772CB1F24B4300093F6A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D772C91F24B4300093F6A2 /* Main.storyboard */; };
 		32D772CD1F24B4300093F6A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32D772CC1F24B4300093F6A2 /* Assets.xcassets */; };
 		32D772D01F24B4300093F6A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D772CE1F24B4300093F6A2 /* LaunchScreen.storyboard */; };
@@ -72,6 +73,7 @@
 		320AA3491F29C9A100AE9428 /* Course.model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.model.swift; sourceTree = "<group>"; };
 		32A537071F28480C00E53CAC /* CourseContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseContentViewController.swift; sourceTree = "<group>"; };
 		32A537091F28538F00E53CAC /* LoginSeque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSeque.swift; sourceTree = "<group>"; };
+		32BAEECA1F31C04F00927BD6 /* CoursePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePreviewViewController.swift; sourceTree = "<group>"; };
 		32D772C01F24B4300093F6A2 /* L2D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = L2D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32D772CA1F24B4300093F6A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		32D772CC1F24B4300093F6A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -171,6 +173,15 @@
 			path = ProfileControlGroup;
 			sourceTree = "<group>";
 		};
+		32BAEECE1F31CC5F00927BD6 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				320AA3491F29C9A100AE9428 /* Course.model.swift */,
+				32F7494F1F2F1AE5004A33DD /* Category.model.swift */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
 		32D772B71F24B4300093F6A2 = {
 			isa = PBXGroup;
 			children = (
@@ -207,12 +218,12 @@
 				320AA3461F299C0800AE9428 /* MyCourseControlGroup */,
 				320AA34B1F29D87700AE9428 /* SearchControl */,
 				32A537061F28477200E53CAC /* ProfileControlGroup */,
+				32F7494C1F2F18C1004A33DD /* CategoryControl */,
 				32D772FD1F24DF4F0093F6A2 /* MYViewController.swift */,
 				32EA97391F274B69006E90C1 /* MainTabViewController.swift */,
 				32A537071F28480C00E53CAC /* CourseContentViewController.swift */,
-				320AA3491F29C9A100AE9428 /* Course.model.swift */,
-				32F7494C1F2F18C1004A33DD /* CategoryControl */,
-				32F7494F1F2F1AE5004A33DD /* Category.model.swift */,
+				32BAEECE1F31CC5F00927BD6 /* model */,
+				32BAEECA1F31C04F00927BD6 /* CoursePreviewViewController.swift */,
 			);
 			path = L2D;
 			sourceTree = "<group>";
@@ -448,13 +459,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-L2DTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6FA484ED78A90E71B5A4C0C4 /* [CP] Check Pods Manifest.lock */ = {
@@ -463,13 +477,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-L2D-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A3C645C7C947BA64C828166D /* [CP] Embed Pods Frameworks */ = {
@@ -523,9 +540,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-L2D/Pods-L2D-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/VGPlayer/VGPlayer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VGPlayer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -538,13 +564,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-L2DUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -570,6 +599,7 @@
 				320AA34A1F29C9A100AE9428 /* Course.model.swift in Sources */,
 				320AA3431F29987100AE9428 /* MyCourseTableViewCell.swift in Sources */,
 				32D772F41F24BA3F0093F6A2 /* LoginViewController.swift in Sources */,
+				32BAEECB1F31C04F00927BD6 /* CoursePreviewViewController.swift in Sources */,
 				320AA3481F29C32700AE9428 /* SearchTableViewCell.swift in Sources */,
 				320A262A1F25CCE400DF92BD /* CourseListsTableViewCell.swift in Sources */,
 				32D772F81F24BD4D0093F6A2 /* MyCourseViewController.swift in Sources */,

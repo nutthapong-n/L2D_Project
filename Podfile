@@ -6,8 +6,9 @@ target 'L2D' do
   use_frameworks!
 
   # Pods for L2D
-  pod 'SwiftyJSON', '~> 3.1'
-  pod 'Alamofire', '~> 4.4'
+  pod 'SwiftyJSON', '~> 4.0'
+  pod 'Alamofire', '~> 4.6'
+  pod 'VGPlayer', '~> 0.2'
 
   target 'L2DTests' do
     inherit! :search_paths

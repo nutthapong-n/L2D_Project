@@ -12,12 +12,14 @@ import UIKit
 class AppDelegate: UIResponder , UIApplicationDelegate {
     
     var window: UIWindow?
+    static var restrictRotation : Bool = true;
+    static var hasLogin : Bool = false;
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         UINavigationBar.appearance().barTintColor = UIColor(red:0.13, green:0.28, blue:0.28, alpha:1.0)
         UINavigationBar.appearance().tintColor = UIColor(red:0.89, green:0.89, blue:0.89, alpha:1.0)
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue : UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue) : UIColor.white]
         // Override point for customization after application launch.
         return true
     }
@@ -42,6 +44,21 @@ class AppDelegate: UIResponder , UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+//    func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {
+//        return UIInterfaceOrientationMask.portrait
+//    }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask
+    {
+        
+        if AppDelegate.restrictRotation {
+            return UIInterfaceOrientationMask.portrait
+        }
+        else {
+            return UIInterfaceOrientationMask.allButUpsideDown
+        }
     }
 
 }
