@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController,UIImagePickerControllerDelegate , UINavigationControllerDelegate {
+class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate , UINavigationControllerDelegate {
     
     var detail = ["New course" ,"Reccommend","In Trend"]
     
