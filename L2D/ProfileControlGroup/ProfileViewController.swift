@@ -8,14 +8,29 @@
 
 import UIKit
 
-class ProfileViewController: BaseViewController {
+class ProfileViewController: UIViewController,UIImagePickerControllerDelegate , UINavigationControllerDelegate {
     
     var detail = ["New course" ,"Reccommend","In Trend"]
     
-    @IBOutlet weak var homeTable: UITableView!
+//    @IBOutlet weak var homeTable: UITableView!
+    @IBOutlet weak var ChangeUserProfileButton: UIButton!
+    @IBOutlet weak var imageView: UIImageView!
+   
+    @IBAction func DismissKeyboardName(_ sender: Any) {
+        self.resignFirstResponder()
+    }
+    @IBAction func DismissKeyboardSurname(_ sender: Any) {
+        self.resignFirstResponder()
+    }
+    @IBAction func DismissKeyboardEmail(_ sender: Any) {
+        self.resignFirstResponder()
+    }
     
+    var imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
+        ChangeUserProfileButton.layer.cornerRadius = 5;
+        ChangeUserProfileButton.clipsToBounds = true;
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
@@ -25,8 +40,25 @@ class ProfileViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func GoFacebook(_ sender: Any) {
-        UIApplication.shared.open(URL(string:"https://www.facebook.com/nutthapong.nakpipud")!)
+//    @IBAction func GoFacebook(_ sender: Any) {
+//        UIApplication.shared.open(URL(string:"https://www.facebook.com/nutthapong.nakpipud")!)
+//    }
+    
+    @IBAction func ChangeUserProfileClicked(_ sender: Any) {
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.allowsEditing = false
+            
+        self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!){
+        self.dismiss(animated: true, completion: nil)
+        print("select image done!")
+        imageView.image = image
     }
     
 
