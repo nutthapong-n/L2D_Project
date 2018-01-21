@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gSP-vc-DkY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -462,7 +462,7 @@
             </objects>
             <point key="canvasLocation" x="2120.8000000000002" y="-838.83058470764627"/>
         </scene>
-        <!--Login View Controller-->
+        <!--login-->
         <scene sceneID="Ry0-5Z-c8o">
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" id="gSP-vc-DkY" customClass="LoginViewController" customModule="L2D" sceneMemberID="viewController">
@@ -539,6 +539,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wwf-Mw-Wzf"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="login" image="login_icon" id="AQC-vZ-P6r">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="4hG-bG-HWt"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -550,7 +553,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZuS-CA-kB4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-759.20000000000005" y="-105.69715142428787"/>
+            <point key="canvasLocation" x="-961" y="-107"/>
         </scene>
         <!--Main Tab View Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -567,9 +570,7 @@
                     <connections>
                         <segue destination="bZk-VJ-j7Q" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="6id-1V-zte" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="jyd-FR-dqG" kind="relationship" relationship="viewControllers" id="WsA-7M-wIQ"/>
-                        <segue destination="cpp-l2-Zyw" kind="relationship" relationship="viewControllers" id="85J-bG-PKG"/>
-                        <segue destination="zhj-L1-uIb" kind="relationship" relationship="viewControllers" id="FMi-Vs-g9h"/>
+                        <segue destination="gSP-vc-DkY" kind="relationship" relationship="viewControllers" id="PZY-Tf-WXJ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -598,7 +599,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mti-3C-vPj">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="table_list" rowHeight="200" id="5Wr-kN-NeU" customClass="MyCourseTableViewCell" customModule="L2D" customModuleProvider="target">
@@ -730,7 +731,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="o5a-rU-efq">
-                                <rect key="frame" x="0.0" y="418" width="375" height="200"/>
+                                <rect key="frame" x="0.0" y="467" width="375" height="200"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j15-TL-Gvw">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
@@ -794,13 +795,13 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wyc-pG-qlg">
-                                <rect key="frame" x="16" y="79" width="343" height="321"/>
+                                <rect key="frame" x="16" y="79" width="343" height="370"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="50T-0P-iY0">
-                                        <rect key="frame" x="8" y="8" width="327" height="230"/>
+                                        <rect key="frame" x="8" y="8" width="327" height="279"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="efI-je-snh">
-                                                <rect key="frame" x="0.0" y="0.0" width="327" height="230"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="327" height="279"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nut" translatesAutoresizingMaskIntoConstraints="NO" id="0ue-dE-uQl">
                                                         <rect key="frame" x="8" y="8" width="60" height="60"/>
@@ -821,7 +822,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="q8A-fe-K2j">
-                                                        <rect key="frame" x="0.0" y="76" width="327" height="154"/>
+                                                        <rect key="frame" x="0.0" y="76" width="327" height="203"/>
                                                         <color key="backgroundColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -839,7 +840,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xBd-K1-Qgi">
-                                        <rect key="frame" x="43" y="249" width="256" height="64"/>
+                                        <rect key="frame" x="43" y="298" width="256" height="64"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XSL-jB-T7G">
                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
@@ -968,7 +969,7 @@
         <!--Account-->
         <scene sceneID="Q4u-TP-XKC">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zhj-L1-uIb" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ProfileNavigator" automaticallyAdjustsScrollViewInsets="NO" id="zhj-L1-uIb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Account" image="account" id="RTO-cv-ZhO"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BgR-7O-vS1">
@@ -993,7 +994,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yyN-Jk-81G">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="vdC-3E-YJ3">
                                     <size key="itemSize" width="375" height="194"/>
@@ -1083,7 +1084,7 @@
         <!--My Course-->
         <scene sceneID="Jng-3y-Ftj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jyd-FR-dqG" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MyCourseNavigator" automaticallyAdjustsScrollViewInsets="NO" id="jyd-FR-dqG" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="-1" title="My Course" image="mycourse" id="MFo-3m-OE2">
                         <inset key="largeContentSizeImageInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
                     </tabBarItem>
@@ -1099,7 +1100,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fth-Uf-aSL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1471.2" y="608.54572713643188"/>
+            <point key="canvasLocation" x="1406" y="609"/>
         </scene>
         <!--Search-->
         <scene sceneID="Zwy-Ts-1Po">
@@ -1153,6 +1154,7 @@
         <image name="home" width="36" height="36"/>
         <image name="java" width="150" height="150"/>
         <image name="keyboard" width="150" height="150"/>
+        <image name="login_icon" width="15" height="15"/>
         <image name="mycourse" width="36" height="36"/>
         <image name="nut" width="958" height="958"/>
         <image name="play" width="36" height="36"/>
@@ -1161,6 +1163,6 @@
         <image name="youtube" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8bS-Jk-mxm"/>
+        <segue reference="l5Y-20-7so"/>
     </inferredMetricsTieBreakers>
 </document>

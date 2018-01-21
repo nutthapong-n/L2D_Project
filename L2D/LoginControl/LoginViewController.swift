@@ -50,6 +50,20 @@ class LoginViewController: UIViewController {
         
     }
     
+    func myAlert(text : String){
+        self.resignFirstResponder()
+        let alert = UIAlertController(title:"Fail!",message: text, preferredStyle: .alert)
+        
+        let dismissBtn = UIAlertAction(title:"Close",style: .cancel, handler:{
+            (alert: UIAlertAction) -> Void in
+            
+        })
+        
+        alert.addAction(dismissBtn)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "LoginSeque"{
             if let uName = username.text, let pass = password.text{
@@ -59,28 +73,26 @@ class LoginViewController: UIViewController {
 
                     //กำหนดให้ตัวแปล mySqe คือเส้นเชื่อมระหว่างหน้า
                     let mySqe = segue as! LoginSeque
-                    mySqe.username = uName //ส่งข้อมูลไปเก็บในตัวแปร username ของอีกหน้า
-                    mySqe.password = pass
 
-
-                    //กำหนดให้ตัวแปล DestinationView คือหน้าวิวปลายทาง
-                    let DestinationView = segue.destination as! MainTabViewController
-                    //กำหนดค่าให้ตัวแปลของอีกหน้านึง (เหมือนการส่งข้อมูลข้ามหน้า)
-                    DestinationView.userID = 1
-
-//                }else{
-//                    //else alert incorrect
-//                    self.resignFirstResponder()
-//                    let alert = UIAlertController(title:"Fail!",message:"you username or password incorrect", preferredStyle: .alert)
+                if(uName == "admin" && pass == "admin"){
+                    AppDelegate.hasLogin = true;
+                    mySqe.login_success = true;
+                }else{
+                    mySqe.login_success = false;
+                    myAlert(text : "login fail")
+                }
+                
+//                let parameters: Parameters = ["musername" : "meejansumit","mpassword" : "mit0805813950" ]
+//                Alamofire.request("http://158.108.207.7:8090/elearning/member/login",method : .post, parameters : parameters , encoding: JSONEncoding.default)
+//                    .responseJSON{
 //
-//                    let dismissBtn = UIAlertAction(title:"Close",style: .cancel, handler:{
-//                        (alert: UIAlertAction) -> Void in
-//
-//                    })
-//
-//                    alert.addAction(dismissBtn)
-//
-//                    self.present(alert, animated: true, completion: nil)
+//                        response in
+//                        print(response)
+//                        if let value = response.result.value{
+//                            let json = JSON(value)
+//                            print(json)
+//                            print(response.request)
+//                        }
 //                }
                 
             }
