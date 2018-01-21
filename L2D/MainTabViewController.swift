@@ -24,7 +24,21 @@ class MainTabViewController: UITabBarController  {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+
+    
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if(AppDelegate.hasLogin == true){
+            let courseTab = self.storyboard?.instantiateViewController(withIdentifier: "ProfileNavigator")
+            let courseTabBarItem = UITabBarItem(title: "profile", image: UIImage(named: "account"), selectedImage: UIImage(named: "account"))
+            
+            courseTab?.tabBarItem = courseTabBarItem
+            self.viewControllers?.removeLast() //remove login tab
+            self.viewControllers?.append(courseTab!)
+           
+        }
     }
     /*
     // MARK: - Navigation

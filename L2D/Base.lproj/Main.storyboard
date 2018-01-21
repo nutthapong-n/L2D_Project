@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gSP-vc-DkY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -461,7 +461,7 @@
             </objects>
             <point key="canvasLocation" x="2120.8000000000002" y="-838.83058470764627"/>
         </scene>
-        <!--Login View Controller-->
+        <!--login-->
         <scene sceneID="Ry0-5Z-c8o">
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" id="gSP-vc-DkY" customClass="LoginViewController" customModule="L2D" sceneMemberID="viewController">
@@ -538,6 +538,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wwf-Mw-Wzf"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="login" image="login_icon" id="AQC-vZ-P6r">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="4hG-bG-HWt"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -549,7 +552,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZuS-CA-kB4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-759.20000000000005" y="-105.69715142428787"/>
+            <point key="canvasLocation" x="-961" y="-107"/>
         </scene>
         <!--Main Tab View Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -566,9 +569,7 @@
                     <connections>
                         <segue destination="bZk-VJ-j7Q" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="6id-1V-zte" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="jyd-FR-dqG" kind="relationship" relationship="viewControllers" id="WsA-7M-wIQ"/>
-                        <segue destination="cpp-l2-Zyw" kind="relationship" relationship="viewControllers" id="85J-bG-PKG"/>
-                        <segue destination="zhj-L1-uIb" kind="relationship" relationship="viewControllers" id="FMi-Vs-g9h"/>
+                        <segue destination="gSP-vc-DkY" kind="relationship" relationship="viewControllers" id="PZY-Tf-WXJ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -597,7 +598,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mti-3C-vPj">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="table_list" rowHeight="200" id="5Wr-kN-NeU" customClass="MyCourseTableViewCell" customModule="L2D" customModuleProvider="target">
@@ -937,7 +938,7 @@
         <!--Account-->
         <scene sceneID="Q4u-TP-XKC">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zhj-L1-uIb" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ProfileNavigator" automaticallyAdjustsScrollViewInsets="NO" id="zhj-L1-uIb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Account" image="account" id="RTO-cv-ZhO"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BgR-7O-vS1">
@@ -962,7 +963,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yyN-Jk-81G">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="vdC-3E-YJ3">
                                     <size key="itemSize" width="375" height="194"/>
@@ -1052,7 +1053,7 @@
         <!--My Course-->
         <scene sceneID="Jng-3y-Ftj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jyd-FR-dqG" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MyCourseNavigator" automaticallyAdjustsScrollViewInsets="NO" id="jyd-FR-dqG" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="-1" title="My Course" image="mycourse" id="MFo-3m-OE2">
                         <inset key="largeContentSizeImageInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
                     </tabBarItem>
@@ -1068,7 +1069,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fth-Uf-aSL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1471.2" y="608.54572713643188"/>
+            <point key="canvasLocation" x="1406" y="609"/>
         </scene>
         <!--Search-->
         <scene sceneID="Zwy-Ts-1Po">
@@ -1120,12 +1121,13 @@
         <image name="home" width="36" height="36"/>
         <image name="java" width="150" height="150"/>
         <image name="keyboard" width="150" height="150"/>
+        <image name="login_icon" width="15" height="15"/>
         <image name="mycourse" width="36" height="36"/>
         <image name="nut" width="958" height="958"/>
         <image name="play" width="36" height="36"/>
         <image name="search" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="IVk-gA-Azc"/>
+        <segue reference="l5Y-20-7so"/>
     </inferredMetricsTieBreakers>
 </document>

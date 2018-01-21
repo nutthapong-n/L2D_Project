@@ -12,14 +12,18 @@ import SwiftyJSON;
 
 class LoginSeque: UIStoryboardSegue  {
     
-    var username : String?
-    var password: String?
+    var login_success : Bool?
     
     override func perform() {
-        let toViewController = self.destination
-        let fromViewController = self.source
         
-        fromViewController.present(toViewController, animated: true, completion: nil)
+
+        
+        if(login_success)!{
+            let toViewController = self.destination
+            let fromViewController = self.source
+            fromViewController.present(toViewController, animated: true, completion: nil)
+        }
+        
         
         
     }
