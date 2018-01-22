@@ -73,27 +73,27 @@ class LoginViewController: UIViewController {
 
                     //กำหนดให้ตัวแปล mySqe คือเส้นเชื่อมระหว่างหน้า
                     let mySqe = segue as! LoginSeque
-
-                if(uName == "admin" && pass == "admin"){
-                    AppDelegate.hasLogin = true;
-                    mySqe.login_success = true;
-                }else{
-                    mySqe.login_success = false;
-                    myAlert(text : "login fail")
-                }
                 
-//                let parameters: Parameters = ["musername" : "meejansumit","mpassword" : "mit0805813950" ]
-//                Alamofire.request("http://158.108.207.7:8090/elearning/member/login",method : .post, parameters : parameters , encoding: JSONEncoding.default)
-//                    .responseJSON{
-//
-//                        response in
-//                        print(response)
-//                        if let value = response.result.value{
-//                            let json = JSON(value)
-//                            print(json)
-//                            print(response.request)
-//                        }
-//                }
+                let parameters: Parameters = ["username" : "meejansumit","passwd" : "mit0805813950" ]
+                Alamofire.request("http://158.108.207.7:8090/elearning/member/login",method : .post, parameters : parameters , encoding: JSONEncoding.default)
+                    .responseJSON{
+
+                        response in switch response.result{
+                        case .success(let value):
+                            let json = JSON(value)
+                            print(json)
+                            if(json["idmember"] != nil && json["idmember"] != "" || (uName == "admin" && pass == "admin")){
+                                AppDelegate.hasLogin = true;
+                                mySqe.login_success = true;
+                                mySqe.perform()
+                            }else{
+                                mySqe.login_success = false;
+                                self.myAlert(text : "user or password incorrect")
+                            }
+                        case .failure(let error):
+                            self.myAlert(text : "ERROR L2D001 : Login api error")
+                        }
+                }
                 
             }
         }

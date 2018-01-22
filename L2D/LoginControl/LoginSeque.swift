@@ -7,12 +7,10 @@
 //
 
 import UIKit
-import Alamofire;
-import SwiftyJSON;
 
 class LoginSeque: UIStoryboardSegue  {
     
-    var login_success : Bool?
+    var login_success : Bool? = false;
     
     override func perform() {
         
