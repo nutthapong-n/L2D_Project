@@ -1324,11 +1324,6 @@
         <image name="search" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
-        <segue reference="3i2-e4-53u"/>
-        <segue reference="HEf-aj-Cuq"/>
-=======
         <segue reference="IVk-gA-Azc"/>
->>>>>>> 73d1dcf4a65ebece19a262f10fc5d7217fe594b0
     </inferredMetricsTieBreakers>
 </document>
