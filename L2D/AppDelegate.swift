@@ -61,5 +61,6 @@ class AppDelegate: UIResponder , UIApplicationDelegate {
             return UIInterfaceOrientationMask.allButUpsideDown
         }
     }
+    
 
 }

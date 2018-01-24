@@ -42,25 +42,58 @@ class RegisterViewController: UIViewController {
                 let rePass = rePass_input.text,
                 let email = e_mail_input.text{
                 
-                
-                
-                let parameters: Parameters = [
-                    "name" : name,
-                    "surname" : surname,
-                    "username" : username,
-                    "passwd" : pass,
-                    "email" : email
-                ]
-                
-                let regisSeque = segue as! RegisterSeque
-                regisSeque.parameters = parameters
-                
-                regisSeque.regis_success = true;
-                
+
+                if(username == "" || pass == "" || email == ""){
+                    self.alert(text: "please enter username , password and e-mail")
+                }else if(pass != rePass){
+                    self.alert(text: "password doesn't match")
+                }else{
+                    let parameters: Parameters = [
+                        "name" : name,
+                        "surname" : surname,
+                        "username" : username,
+                        "passwd" : pass,
+                        "email" : email
+                    ]
+                    
+                    Alamofire.request("http://158.108.207.7:8090/elearning/member/add",method : .post, parameters : parameters , encoding: JSONEncoding.default)
+                        .responseJSON{
+                            
+                            response in switch response.result{
+                            case .success(let value):
+                                let json = JSON(value)
+                                let message  = json["message"]
+                                if(message != ""){
+                                    AppDelegate.hasLogin = true;
+                                    let regisSeque = segue as! RegisterSeque
+                                    regisSeque.regis_success = true
+                                    regisSeque.perform()
+                                }else{
+                                    self.alert(text: "usrname already exist in system")
+                                }
+                            case .failure(let error):
+                                self.alert(text : "ERROR CODE : 500 (sever error) : \(error)")
+                            }
+                    }
+                }
 
             }
             
         }
+    }
+    
+    func alert(text : String){
+        self.resignFirstResponder()
+        let alert = UIAlertController(title:"Fail!",message: text, preferredStyle: .alert)
+        
+        let dismissBtn = UIAlertAction(title:"Close",style: .cancel, handler:{
+            (alert: UIAlertAction) -> Void in
+            
+        })
+        
+        alert.addAction(dismissBtn)
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
 

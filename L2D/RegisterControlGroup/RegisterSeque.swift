@@ -12,28 +12,14 @@ import SwiftyJSON
 
 class RegisterSeque: UIStoryboardSegue {
     
-    var regis_success : Bool?
-    var parameters : Parameters?
+    var regis_success : Bool? = false
+    
     
     override func perform() {
-        if(parameters?.count != 0){
-            Alamofire.request("http://192.168.43.236:8090/elearning/member/add",method : .post, parameters : parameters , encoding: JSONEncoding.default)
-                .responseJSON{
-                    
-                    response in switch response.result{
-                    case .success(let value):
-                        let json = JSON(value)
-                        if(json != nil){
-                            AppDelegate.hasLogin = true;
-                            let toViewController = self.destination
-                            let fromViewController = self.source
-                            fromViewController.present(toViewController, animated: true, completion: nil)
-                        }
-                    case .failure(let error):
-                        print(error)
-                    }
-            }
-            
+        if(regis_success == true){
+            let toViewController = self.destination
+            let fromViewController = self.source
+            fromViewController.present(toViewController, animated: true, completion: nil)
 
         }
     }
