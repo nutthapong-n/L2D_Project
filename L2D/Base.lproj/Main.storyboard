@@ -819,7 +819,7 @@
                                                                             <action selector="ChangeUserProfileClicked:" destination="r2b-Sb-OQV" eventType="touchUpInside" id="La0-7i-sKM"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nut" translatesAutoresizingMaskIntoConstraints="NO" id="0ue-dE-uQl">
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nut" translatesAutoresizingMaskIntoConstraints="NO" id="0ue-dE-uQl">
                                                                         <rect key="frame" x="93" y="8" width="181" height="223"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="0ue-dE-uQl" secondAttribute="height" multiplier="142:175" id="o7t-Lr-nhX"/>
@@ -1323,7 +1323,7 @@
         <image name="search" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3i2-e4-53u"/>
-        <segue reference="l5Y-20-7so"/>
+        <segue reference="JnU-a7-irk"/>
+        <segue reference="IVk-gA-Azc"/>
     </inferredMetricsTieBreakers>
 </document>
