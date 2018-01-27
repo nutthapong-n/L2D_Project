@@ -62,7 +62,7 @@ class Course : NSObject{
                                 key: this_course["key"].stringValue,
                                 name : this_course["name"].stringValue,
                                 owner: "",
-                                img: "java"
+                                img: "keyboard"
                             ))
                         }
                     
