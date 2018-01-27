@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate , UINavigationControllerDelegate {
     
@@ -14,7 +16,11 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
     
 //    @IBOutlet weak var homeTable: UITableView!
     @IBOutlet weak var imageView: UIImageView!
-   
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var surnameTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var profileTextField: UITextView!
+    
     @IBAction func DismissKeyboardName(_ sender: Any) {
         self.resignFirstResponder()
     }
@@ -30,6 +36,7 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        setProfileInformation()
 
     }
     
@@ -43,6 +50,20 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
             AppDelegate.hasLogin = false
         }
         
+    }
+    
+    func myAlert(title : String,text : String){
+        self.resignFirstResponder()
+        let alert = UIAlertController(title:title,message: text, preferredStyle: .alert)
+        
+        let dismissBtn = UIAlertAction(title:"Close",style: .cancel, handler:{
+            (alert: UIAlertAction) -> Void in
+            
+        })
+        
+        alert.addAction(dismissBtn)
+        
+        self.present(alert, animated: true, completion: nil)
     }
 
 //    @IBAction func GoFacebook(_ sender: Any) {
@@ -64,6 +85,33 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
         print("select image done!")
         imageView.image = image
     }
+    
+    func setProfileInformation(){
+        nameTextField.text = AppDelegate.userData?.name
+        surnameTextField.text = AppDelegate.userData?.surname
+        emailTextField.text = AppDelegate.userData?.email
+    }
+    @IBAction func updateProfileClicked(_ sender: Any) {
+        let parameters: Parameters = [
+            "idmember" : AppDelegate.userData?.idmember ?? "",
+            "name" : nameTextField.text ?? "",
+            "surname" : surnameTextField.text ?? "",
+            "email" : emailTextField.text ?? "",
+            "profile" : ""
+        ]
+        
+        Alamofire.request(Network.IP_Address_Master+"/member/update",method : .put, parameters : parameters , encoding: JSONEncoding.default)
+            .responseJSON{
+                
+                response in switch response.result{
+                case .success(let value):
+                    let json = JSON(value)
+                    print(json)
+                    self.myAlert(title: "Success!", text: "Your profile has been successfully updated!")
+                case .failure(let error):
+                    self.myAlert(title: "Failed!", text: error as! String)
+                }
+    }
     /*
     // MARK: - Navigation
 
@@ -73,7 +121,7 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
         // Pass the selected object to the new view controller.
     }
     */
-
+    }
 }
 extension ProfileViewController : UICollectionViewDataSource , UICollectionViewDelegate{
     func numberOfSections(in collectionView: UICollectionView) -> Int {

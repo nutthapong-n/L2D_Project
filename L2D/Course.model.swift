@@ -88,4 +88,33 @@ class Course : NSObject{
                 }
             }
     }
+    
+    class func getMyCourse(completion : @escaping ( [Course]) -> Void){
+        var course = [Course]()
+        
+        Alamofire.request(Network.IP_Address_Master+"/course?studentId=\(AppDelegate.userData?.idmember ?? 0)",method: .get,encoding: JSONEncoding.default).responseJSON{
+            response in switch response.result{
+            case .success(let value):
+                let json = JSON(value)
+                for obj in json{
+                    let this_course = obj.1
+                    course.append(Course(
+                        id : Int(this_course["id"].stringValue)!,
+                        categoryId: Int(this_course["categoryId"].stringValue)!,
+                        detail: this_course["detail"].stringValue,
+                        createdDate: Float(this_course["createdDate"].stringValue)!,
+                        key: this_course["key"].stringValue,
+                        name : this_course["name"].stringValue,
+                        owner: "",
+                        img: "java"
+                    ))
+                }
+                completion(course)
+            case .failure(let error):
+                print(error)
+            }
+            
+        }
+        
+    }
 }
