@@ -13,7 +13,6 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
     var detail = ["New course" ,"Reccommend","In Trend"]
     
 //    @IBOutlet weak var homeTable: UITableView!
-    @IBOutlet weak var ChangeUserProfileButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
    
     @IBAction func DismissKeyboardName(_ sender: Any) {
@@ -29,29 +28,34 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
     var imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
-        ChangeUserProfileButton.layer.cornerRadius = 5;
-        ChangeUserProfileButton.clipsToBounds = true;
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "redirectAfterLogout"){
+            AppDelegate.hasLogin = false
+        }
+        
+    }
 
 //    @IBAction func GoFacebook(_ sender: Any) {
 //        UIApplication.shared.open(URL(string:"https://www.facebook.com/nutthapong.nakpipud")!)
 //    }
     
-    @IBAction func ChangeUserProfileClicked(_ sender: Any) {
-        
+    @IBAction func changeUserProfileClicked(_ sender: Any) {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
             imagePicker.delegate = self
             imagePicker.sourceType = .photoLibrary
             imagePicker.allowsEditing = false
             
-        self.present(imagePicker, animated: true, completion: nil)
+            self.present(imagePicker, animated: true, completion: nil)
         }
     }
     
@@ -60,8 +64,6 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
         print("select image done!")
         imageView.image = image
     }
-    
-
     /*
     // MARK: - Navigation
 
@@ -73,8 +75,6 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
     */
 
 }
-
-
 extension ProfileViewController : UICollectionViewDataSource , UICollectionViewDelegate{
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -97,6 +97,5 @@ extension ProfileViewController : UICollectionViewDataSource , UICollectionViewD
         return cell
     }
     
-    
-    
 }
+
