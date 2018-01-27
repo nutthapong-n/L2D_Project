@@ -83,11 +83,21 @@ class LoginViewController: UIViewController {
                             let json = JSON(value)
                             let status = json["status"].rawString()
                             if( status != "false" || (uName == "admin" && pass == "admin")){
-                                AppDelegate.hasLogin = true;
-                                mySqe.login_success = true;
+                                
+                                let user  = User_model(
+                                    name : json["name"].stringValue,
+                                    idmember : Int(json["idmember"].stringValue)!,
+                                    surname : json["surname"].stringValue,
+                                    email : json["email"].stringValue,
+                                    type : json["type"].stringValue
+                                )
+                                
+                                AppDelegate.userData = user
+                                AppDelegate.hasLogin = true
+                                mySqe.login_success = true
                                 mySqe.perform()
                             }else{
-                                mySqe.login_success = false;
+                                mySqe.login_success = false
                                 self.myAlert(text : "user or password incorrect")
                             }
                         case .failure(let error):

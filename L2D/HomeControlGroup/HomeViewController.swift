@@ -11,20 +11,35 @@ import UIKit
 class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewDataSource{
     
 
-    var course:[Course] = Course.generateModelArray()
+    var course:[Course]?
     var detail = ["New course" ,"Reccommend","In Trend"]
     
     @IBOutlet weak var homeTable: UITableView!
- 
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
+    
+    override func loadView() {
+        super.loadView()
+        Course.getAllCourse { (result) in
+            self.course = result
+//            self.homeTable.reloadInputViews()
+//            self.reloadInputViews()
+//            self.homeTable.reloadInputViews()
+            self.homeTable.reloadData()
+            print(result)
+        }
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -33,7 +48,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         return detail.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 250
     }
     
     
@@ -42,6 +57,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         
         if indexPath.row == 0{
            let cell = self.homeTable.dequeueReusableCell(withIdentifier: "table_head_list" , for: indexPath) as! HomeHeaderTableViewCell
+            cell.MyCollecttionView.reloadData()
             
             cell.textLabel?.numberOfLines = 0
             
@@ -54,12 +70,13 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
             layout.scrollDirection = UICollectionViewScrollDirection.horizontal
             layout.minimumInteritemSpacing = 0
             layout.minimumLineSpacing = 0
-            
             cell.MyCollecttionView.collectionViewLayout = layout
             
             return cell
         }else{
+
            let cell = self.homeTable.dequeueReusableCell(withIdentifier: "table_list" , for: indexPath) as! CourseListsTableViewCell
+            cell.MyCollecttionView.reloadData()
             
             var label : String?
             
@@ -96,22 +113,28 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return course.count
+        if(course == nil){
+            return 0;
+        }else{
+            return course!.count
+        }
+        
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
-        
             
-            let thisCourse = course[indexPath.row]
-            cell.img_btn.setBackgroundImage(UIImage(named: thisCourse.img), for: .normal)
-            //                UIImage(named: "java")
-            cell.shadowBox.layer.shadowColor = UIColor.black.cgColor
-            cell.shadowBox.layer.shadowOffset = CGSize(width:0, height:0)
-            cell.shadowBox.layer.shadowOpacity = 0.8
-            cell.shadowBox.layer.shadowRadius = 4
+        let thisCourse = course![indexPath.row]
+//        cell.img_btn.setBackgroundImage(UIImage(named: thisCourse.img), for: .normal)
+
+        cell.initCell(img: thisCourse.img, name: thisCourse.name)
+        //Content
+//        let title = cell.viewWithTag(1) as! UILabel
+//        title.text = thisCourse.name
+        
+        
             return cell
             
         

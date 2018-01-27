@@ -14,7 +14,7 @@ class AppDelegate: UIResponder , UIApplicationDelegate {
     var window: UIWindow?
     static var restrictRotation : Bool = true;
     static var hasLogin : Bool = false;
-    static var userData : Array<Any>?
+    static var userData : User_model?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
