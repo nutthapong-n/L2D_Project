@@ -16,6 +16,9 @@
 		320AA3451F29989500AE9428 /* MyCourseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320AA3441F29989500AE9428 /* MyCourseCollectionViewCell.swift */; };
 		320AA3481F29C32700AE9428 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320AA3471F29C32700AE9428 /* SearchTableViewCell.swift */; };
 		320AA34A1F29C9A100AE9428 /* Course.model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320AA3491F29C9A100AE9428 /* Course.model.swift */; };
+		320EE453201C7E4B00511558 /* User.model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320EE452201C7E4B00511558 /* User.model.swift */; };
+		32165330201849940001000D /* Section.model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3216532F201849940001000D /* Section.model.swift */; };
+		32165332201849A10001000D /* SubSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32165331201849A10001000D /* SubSection.swift */; };
 		323D9DB82015917400C95B90 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323D9DB72015917400C95B90 /* RegisterViewController.swift */; };
 		323D9DBA2015B22600C95B90 /* RegisterSeque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323D9DB92015B22600C95B90 /* RegisterSeque.swift */; };
 		32A537081F28480C00E53CAC /* CourseContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A537071F28480C00E53CAC /* CourseContentViewController.swift */; };
@@ -74,6 +77,9 @@
 		320AA3441F29989500AE9428 /* MyCourseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCourseCollectionViewCell.swift; sourceTree = "<group>"; };
 		320AA3471F29C32700AE9428 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		320AA3491F29C9A100AE9428 /* Course.model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.model.swift; sourceTree = "<group>"; };
+		320EE452201C7E4B00511558 /* User.model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.model.swift; sourceTree = "<group>"; };
+		3216532F201849940001000D /* Section.model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.model.swift; sourceTree = "<group>"; };
+		32165331201849A10001000D /* SubSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubSection.swift; sourceTree = "<group>"; };
 		323D9DB72015917400C95B90 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		323D9DB92015B22600C95B90 /* RegisterSeque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSeque.swift; sourceTree = "<group>"; };
 		32A537071F28480C00E53CAC /* CourseContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseContentViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +200,9 @@
 			children = (
 				320AA3491F29C9A100AE9428 /* Course.model.swift */,
 				32F7494F1F2F1AE5004A33DD /* Category.model.swift */,
+				3216532F201849940001000D /* Section.model.swift */,
+				32165331201849A10001000D /* SubSection.swift */,
+				320EE452201C7E4B00511558 /* User.model.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -619,9 +628,12 @@
 				320AA3431F29987100AE9428 /* MyCourseTableViewCell.swift in Sources */,
 				32D772F41F24BA3F0093F6A2 /* LoginViewController.swift in Sources */,
 				323D9DB82015917400C95B90 /* RegisterViewController.swift in Sources */,
+				32165332201849A10001000D /* SubSection.swift in Sources */,
 				32BAEECB1F31C04F00927BD6 /* CoursePreviewViewController.swift in Sources */,
 				320AA3481F29C32700AE9428 /* SearchTableViewCell.swift in Sources */,
 				320A262A1F25CCE400DF92BD /* CourseListsTableViewCell.swift in Sources */,
+				32165330201849940001000D /* Section.model.swift in Sources */,
+				320EE453201C7E4B00511558 /* User.model.swift in Sources */,
 				32D772F81F24BD4D0093F6A2 /* MyCourseViewController.swift in Sources */,
 				32F749491F2F18A0004A33DD /* CategoryCollectionViewCell.swift in Sources */,
 				32F749501F2F1AE5004A33DD /* Category.model.swift in Sources */,

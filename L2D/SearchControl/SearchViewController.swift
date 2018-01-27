@@ -81,13 +81,13 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         case selectedScope.name.rawValue:
             //fix of not searching when backspacing
             dataAry = initialDataAry.filter({ (mod) -> Bool in
-                return mod.name.lowercased().contains(text.lowercased())
+                return (mod.name.lowercased().contains(text.lowercased()))
             })
             self.myTableView.reloadData()
         case selectedScope.owner.rawValue:
             //fix of not searching when backspacing
             dataAry = initialDataAry.filter({ (mod) -> Bool in
-                return mod.owner.lowercased().contains(text.lowercased())
+                return (mod.owner.lowercased().contains(text.lowercased()))
             })
             self.myTableView.reloadData()
         default:
