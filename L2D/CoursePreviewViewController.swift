@@ -8,7 +8,8 @@
 
 import UIKit
 
-class CoursePreviewViewController: UIViewController {
+class CoursePreviewViewController: UIViewController{
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

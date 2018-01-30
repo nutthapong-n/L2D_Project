@@ -10,15 +10,54 @@ import UIKit
 import VGPlayer
 import SnapKit
 
-class CourseContentViewController: UIViewController {
+class CourseContentViewController: UIViewController , UITableViewDelegate , UITableViewDataSource {
+
     
     
-    @IBOutlet weak var PreviewPicture: UIImageView!
-    @IBOutlet weak var tranparentBox: UIView!
-    @IBOutlet weak var playButton: UIButton!
     
     var player = VGPlayer()
+    var courseId : Int?
+    var course : Course?
+    @IBOutlet weak var tableviewTopConst : NSLayoutConstraint!
+    @IBOutlet weak var table : UITableView!
     
+    
+    override func loadView() {
+        super.loadView()
+        
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "mytltle \(section)"
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(section == 0 || section == 1){
+            return 1
+        }else{
+            return 10
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell : UITableViewCell
+        
+        if(indexPath.section == 0){
+            cell = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: indexPath) as! CourseSectionHeaderTableViewCell
+        }else if(indexPath.section == 1){
+            cell = self.table.dequeueReusableCell(withIdentifier: "section", for: indexPath) as! CourseSectionTableViewCell
+            
+        }else{
+            cell = self.table.dequeueReusableCell(withIdentifier: "sub_section", for: indexPath) as! CourseSubsectionTableViewCell
+        }
+        
+        return cell
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +80,33 @@ class CourseContentViewController: UIViewController {
             make.height.equalTo(strongSelf.view.snp.width).multipliedBy(3.0/4.0) // you can 9.0/16.0
         }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(DismissPage))
+        tableviewTopConst.constant = UIScreen.main.bounds.width*3.0/4.0
+        Course.getCoureById(id: courseId!, completion: { (result) in
+            self.course = result
+        })
+        
+       
+        
+//        let enrollBtn : UIButton = UIButton(frame: CGRect())
+//        enrollBtn.setTitle("test", for: .normal)
+//        enrollBtn.setTitleColor( UIColor(red:0.15, green:0.00, blue:0.00, alpha:1.0) , for: .normal)
+//        enrollBtn.translatesAutoresizingMaskIntoConstraints = false;
+//        view.addSubview(enrollBtn)
+//
+//
+//        //left
+//        let leftConst = NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: .equal, toItem: enrollBtn, attribute: .trailing, multiplier: 1.0, constant: 100)
+//        //right
+//
+//        //top
+//        var topLenght = UIScreen.main.bounds.width*3/4
+//        let topConst = NSLayoutConstraint(item: enrollBtn, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1.0, constant: topLenght)
+//
+//        //bottom
+//
+//        self.view.addConstraints([leftConst,topConst])
+        
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(DismissPage))
     }
 
     override func didReceiveMemoryWarning() {

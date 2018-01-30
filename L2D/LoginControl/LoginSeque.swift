@@ -14,8 +14,6 @@ class LoginSeque: UIStoryboardSegue  {
     
     override func perform() {
         
-
-        
         if(login_success)!{
             let toViewController = self.destination
             let fromViewController = self.source

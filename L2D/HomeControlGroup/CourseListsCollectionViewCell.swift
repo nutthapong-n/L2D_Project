@@ -24,6 +24,7 @@ class CourseListsCollectionViewCell: UICollectionViewCell{
 //        c_name.text = "Label"
     }
     
+    
     func initCell(img : String , name : String) {
         self.img_btn.setBackgroundImage(UIImage(named: img), for: .normal)
         if(self.c_name != nil){

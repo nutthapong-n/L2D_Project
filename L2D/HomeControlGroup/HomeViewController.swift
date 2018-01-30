@@ -40,6 +40,14 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let course_segue = segue as! CoursePreviewSegue
+        let desView = segue.destination as! CourseContentViewController
+        
+        desView.courseId = 30
+        
+    }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

@@ -21,6 +21,13 @@
 		32165332201849A10001000D /* SubSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32165331201849A10001000D /* SubSection.swift */; };
 		323D9DB82015917400C95B90 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323D9DB72015917400C95B90 /* RegisterViewController.swift */; };
 		323D9DBA2015B22600C95B90 /* RegisterSeque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323D9DB92015B22600C95B90 /* RegisterSeque.swift */; };
+		3240808A20201A0800352AD1 /* SectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3240808920201A0800352AD1 /* SectionTableViewCell.swift */; };
+		3240808C20201A1500352AD1 /* SubSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3240808B20201A1500352AD1 /* SubSectionTableViewCell.swift */; };
+		32408091202049E100352AD1 /* CoursePreviewSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32408090202049E100352AD1 /* CoursePreviewSegue.swift */; };
+		3240809520205C4D00352AD1 /* CourseSubsectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3240809420205C4D00352AD1 /* CourseSubsectionTableViewCell.swift */; };
+		3240809720205C7400352AD1 /* CourseSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3240809620205C7400352AD1 /* CourseSectionTableViewCell.swift */; };
+		32847E3A201F5B10002F60EC /* CoursePreviewTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32847E39201F5B10002F60EC /* CoursePreviewTable.swift */; };
+		32847E3C201F5F23002F60EC /* CourseSectionHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32847E3B201F5F23002F60EC /* CourseSectionHeaderTableViewCell.swift */; };
 		32A537081F28480C00E53CAC /* CourseContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A537071F28480C00E53CAC /* CourseContentViewController.swift */; };
 		32A5370A1F28538F00E53CAC /* LoginSeque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A537091F28538F00E53CAC /* LoginSeque.swift */; };
 		32BAEECB1F31C04F00927BD6 /* CoursePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BAEECA1F31C04F00927BD6 /* CoursePreviewViewController.swift */; };
@@ -82,6 +89,13 @@
 		32165331201849A10001000D /* SubSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubSection.swift; sourceTree = "<group>"; };
 		323D9DB72015917400C95B90 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		323D9DB92015B22600C95B90 /* RegisterSeque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSeque.swift; sourceTree = "<group>"; };
+		3240808920201A0800352AD1 /* SectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTableViewCell.swift; sourceTree = "<group>"; };
+		3240808B20201A1500352AD1 /* SubSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubSectionTableViewCell.swift; sourceTree = "<group>"; };
+		32408090202049E100352AD1 /* CoursePreviewSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePreviewSegue.swift; sourceTree = "<group>"; };
+		3240809420205C4D00352AD1 /* CourseSubsectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSubsectionTableViewCell.swift; sourceTree = "<group>"; };
+		3240809620205C7400352AD1 /* CourseSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSectionTableViewCell.swift; sourceTree = "<group>"; };
+		32847E39201F5B10002F60EC /* CoursePreviewTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePreviewTable.swift; sourceTree = "<group>"; };
+		32847E3B201F5F23002F60EC /* CourseSectionHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSectionHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		32A537071F28480C00E53CAC /* CourseContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseContentViewController.swift; sourceTree = "<group>"; };
 		32A537091F28538F00E53CAC /* LoginSeque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSeque.swift; sourceTree = "<group>"; };
 		32BAEECA1F31C04F00927BD6 /* CoursePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePreviewViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +187,20 @@
 			path = RegisterControlGroup;
 			sourceTree = "<group>";
 		};
+		3240808D20201A3000352AD1 /* CourseContentControlGroup */ = {
+			isa = PBXGroup;
+			children = (
+				32A537071F28480C00E53CAC /* CourseContentViewController.swift */,
+				32847E39201F5B10002F60EC /* CoursePreviewTable.swift */,
+				32847E3B201F5F23002F60EC /* CourseSectionHeaderTableViewCell.swift */,
+				3240808920201A0800352AD1 /* SectionTableViewCell.swift */,
+				3240808B20201A1500352AD1 /* SubSectionTableViewCell.swift */,
+				3240809420205C4D00352AD1 /* CourseSubsectionTableViewCell.swift */,
+				3240809620205C7400352AD1 /* CourseSectionTableViewCell.swift */,
+			);
+			path = CourseContentControlGroup;
+			sourceTree = "<group>";
+		};
 		327CBB6A1F2605C8000A274A /* HomeControlGroup */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,10 +274,11 @@
 				32F7494C1F2F18C1004A33DD /* CategoryControl */,
 				32D772FD1F24DF4F0093F6A2 /* MYViewController.swift */,
 				32EA97391F274B69006E90C1 /* MainTabViewController.swift */,
-				32A537071F28480C00E53CAC /* CourseContentViewController.swift */,
+				3240808D20201A3000352AD1 /* CourseContentControlGroup */,
 				32BAEECE1F31CC5F00927BD6 /* model */,
 				32BAEECA1F31C04F00927BD6 /* CoursePreviewViewController.swift */,
 				323D9DBB20163EA800C95B90 /* RegisterControlGroup */,
+				32408090202049E100352AD1 /* CoursePreviewSegue.swift */,
 			);
 			path = L2D;
 			sourceTree = "<group>";
@@ -617,6 +646,7 @@
 				F7243198201A26F800C0D0A3 /* ProfileSeque.swift in Sources */,
 				32D772FC1F24BD660093F6A2 /* ProfileViewController.swift in Sources */,
 				32DFBE2B1F2B52BF008AA3DA /* BaseViewController.swift in Sources */,
+				3240809720205C7400352AD1 /* CourseSectionTableViewCell.swift in Sources */,
 				32A5370A1F28538F00E53CAC /* LoginSeque.swift in Sources */,
 				32DFBE271F2B4DCE008AA3DA /* HomeViewController.swift in Sources */,
 				32D772FA1F24BD5A0093F6A2 /* SearchViewController.swift in Sources */,
@@ -625,15 +655,21 @@
 				32EA97361F26F9EC006E90C1 /* ProfileTableViewCell.swift in Sources */,
 				32EA973A1F274B69006E90C1 /* MainTabViewController.swift in Sources */,
 				320AA34A1F29C9A100AE9428 /* Course.model.swift in Sources */,
+				3240808C20201A1500352AD1 /* SubSectionTableViewCell.swift in Sources */,
+				32847E3A201F5B10002F60EC /* CoursePreviewTable.swift in Sources */,
 				320AA3431F29987100AE9428 /* MyCourseTableViewCell.swift in Sources */,
 				32D772F41F24BA3F0093F6A2 /* LoginViewController.swift in Sources */,
+				32847E3C201F5F23002F60EC /* CourseSectionHeaderTableViewCell.swift in Sources */,
 				323D9DB82015917400C95B90 /* RegisterViewController.swift in Sources */,
 				32165332201849A10001000D /* SubSection.swift in Sources */,
 				32BAEECB1F31C04F00927BD6 /* CoursePreviewViewController.swift in Sources */,
+				3240809520205C4D00352AD1 /* CourseSubsectionTableViewCell.swift in Sources */,
 				320AA3481F29C32700AE9428 /* SearchTableViewCell.swift in Sources */,
 				320A262A1F25CCE400DF92BD /* CourseListsTableViewCell.swift in Sources */,
+				32408091202049E100352AD1 /* CoursePreviewSegue.swift in Sources */,
 				32165330201849940001000D /* Section.model.swift in Sources */,
 				320EE453201C7E4B00511558 /* User.model.swift in Sources */,
+				3240808A20201A0800352AD1 /* SectionTableViewCell.swift in Sources */,
 				32D772F81F24BD4D0093F6A2 /* MyCourseViewController.swift in Sources */,
 				32F749491F2F18A0004A33DD /* CategoryCollectionViewCell.swift in Sources */,
 				32F749501F2F1AE5004A33DD /* Category.model.swift in Sources */,
