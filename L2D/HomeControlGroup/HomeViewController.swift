@@ -42,9 +42,14 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        let course_segue = segue as! CoursePreviewSegue
-        let desView = segue.destination as! CourseContentViewController
+        if(segue.identifier == "sideBar"){
+            
+        }else{
+            let desView = segue.destination as! CourseContentViewController
+            
+            desView.courseId = 30
+        }
         
-        desView.courseId = 30
         
     }
     

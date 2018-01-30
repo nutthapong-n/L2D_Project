@@ -264,7 +264,7 @@
                     <navigationItem key="navigationItem" title="Home" id="VhW-8P-yGj">
                         <barButtonItem key="leftBarButtonItem" title="Category" id="Ohp-no-JZX">
                             <connections>
-                                <segue destination="Qfg-pN-xG1" kind="presentation" id="nRJ-8a-p5w"/>
+                                <segue destination="Qfg-pN-xG1" kind="presentation" identifier="sideBar" id="nRJ-8a-p5w"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
