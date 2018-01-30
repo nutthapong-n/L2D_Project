@@ -52,6 +52,7 @@
 		9F0AB778FEB589B986C4AF04 /* Pods_L2D.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 628FECEAE29B926C973DCD56 /* Pods_L2D.framework */; };
 		A4C36E472D5D7A5ED8095AB4 /* Pods_L2DUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89280523A7ADD259A797660E /* Pods_L2DUITests.framework */; };
 		F7243198201A26F800C0D0A3 /* ProfileSeque.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7243197201A26F800C0D0A3 /* ProfileSeque.swift */; };
+		F73B7D64201C8E98007A3C1E /* Network.model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73B7D63201C8E98007A3C1E /* Network.model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +129,7 @@
 		7F855F0705F2A24B4F2B08C6 /* Pods-L2DUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-L2DUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-L2DUITests/Pods-L2DUITests.release.xcconfig"; sourceTree = "<group>"; };
 		89280523A7ADD259A797660E /* Pods_L2DUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_L2DUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7243197201A26F800C0D0A3 /* ProfileSeque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSeque.swift; sourceTree = "<group>"; };
+		F73B7D63201C8E98007A3C1E /* Network.model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.model.swift; sourceTree = "<group>"; };
 		FB1E0EFD2F0EE9B2FC576BC9 /* Pods_L2DTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_L2DTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -231,6 +233,7 @@
 				3216532F201849940001000D /* Section.model.swift */,
 				32165331201849A10001000D /* SubSection.swift */,
 				320EE452201C7E4B00511558 /* User.model.swift */,
+				F73B7D63201C8E98007A3C1E /* Network.model.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 				320EE453201C7E4B00511558 /* User.model.swift in Sources */,
 				3240808A20201A0800352AD1 /* SectionTableViewCell.swift in Sources */,
 				32D772F81F24BD4D0093F6A2 /* MyCourseViewController.swift in Sources */,
+				F73B7D64201C8E98007A3C1E /* Network.model.swift in Sources */,
 				32F749491F2F18A0004A33DD /* CategoryCollectionViewCell.swift in Sources */,
 				32F749501F2F1AE5004A33DD /* Category.model.swift in Sources */,
 				32F7494B1F2F18B6004A33DD /* CategoryViewController.swift in Sources */,

@@ -90,6 +90,7 @@ class LoginViewController: UIViewController {
                                     surname : json["surname"].stringValue,
                                     email : json["email"].stringValue,
                                     type : json["type"].stringValue
+                                    
                                 )
                                 
                                 AppDelegate.userData = user

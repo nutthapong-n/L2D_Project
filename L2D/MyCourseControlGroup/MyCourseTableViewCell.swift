@@ -11,14 +11,20 @@ import UIKit
 class MyCourseTableViewCell: UITableViewCell {
     
     
-    @IBOutlet weak var header_btn: UIButton!
-    @IBOutlet weak var MyCollectionView: UICollectionView!
+//    @IBOutlet weak var header_btn: UIButton!
+//    @IBOutlet weak var MyCollectionView: UICollectionView!
     
-    
+    @IBOutlet weak var content_container: UIView!
+    @IBOutlet weak var courseName: UILabel!
+    @IBOutlet weak var courseDetail: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        content_container.layer.shadowColor = UIColor.black.cgColor
+        content_container.layer.shadowOffset = CGSize(width:0, height:0)
+        content_container.layer.shadowOpacity = 0.8
+        content_container.layer.shadowRadius = 4
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
