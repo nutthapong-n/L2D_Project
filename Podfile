@@ -9,6 +9,7 @@ target 'L2D' do
   pod 'SwiftyJSON', '~> 4.0'
   pod 'Alamofire', '~> 4.6'
   pod 'VGPlayer', '~> 0.2'
+  pod 'SideMenu', '~> 3.1'
 
   target 'L2DTests' do
     inherit! :search_paths

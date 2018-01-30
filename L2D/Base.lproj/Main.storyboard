@@ -261,7 +261,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" id="VhW-8P-yGj"/>
+                    <navigationItem key="navigationItem" title="Home" id="VhW-8P-yGj">
+                        <barButtonItem key="leftBarButtonItem" title="Category" id="Ohp-no-JZX">
+                            <connections>
+                                <segue destination="Qfg-pN-xG1" kind="presentation" id="nRJ-8a-p5w"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="homeTable" destination="SF5-tU-w9m" id="4dC-Ir-bYA"/>
                     </connections>
@@ -1349,6 +1355,54 @@
             </objects>
             <point key="canvasLocation" x="549.27536231884062" y="-838.04347826086962"/>
         </scene>
+        <!--Category Menu-->
+        <scene sceneID="eNS-Fx-8ST">
+            <objects>
+                <tableViewController id="QQa-88-5Ng" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="AxA-Py-tgQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="vx7-0l-GaD">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vx7-0l-GaD" id="4yp-p1-cw1">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="QQa-88-5Ng" id="2EE-BI-Ndw"/>
+                            <outlet property="delegate" destination="QQa-88-5Ng" id="Fge-PD-HLp"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Category Menu" id="1J0-9K-lk6"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vAW-Fu-JMB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2457" y="-1573"/>
+        </scene>
+        <!--Side Menu Navigation Controller-->
+        <scene sceneID="fxJ-GN-Uaz">
+            <objects>
+                <navigationController id="Qfg-pN-xG1" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ESY-pn-hpE">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="leftSide" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="QQa-88-5Ng" kind="relationship" relationship="rootViewController" id="t3u-lQ-HkX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dQH-o1-dNf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1420" y="-1573"/>
+        </scene>
         <!--Search-->
         <scene sceneID="Zwy-Ts-1Po">
             <objects>
@@ -1427,12 +1481,7 @@
         <image name="xcode" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
         <segue reference="JnU-a7-irk"/>
         <segue reference="IVk-gA-Azc"/>
-=======
-        <segue reference="AuJ-w7-qds"/>
-        <segue reference="8bS-Jk-mxm"/>
->>>>>>> 338834a154dc9fef075652ed51ca5503ca9c773e
     </inferredMetricsTieBreakers>
 </document>
