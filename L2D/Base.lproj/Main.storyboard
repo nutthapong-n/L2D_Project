@@ -1358,31 +1358,55 @@
         <!--Category Menu-->
         <scene sceneID="eNS-Fx-8ST">
             <objects>
-                <tableViewController id="QQa-88-5Ng" sceneMemberID="viewController">
+                <tableViewController id="QQa-88-5Ng" customClass="SideMenuTableViewController" customModule="L2D" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="AxA-Py-tgQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="vx7-0l-GaD">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryList" id="vx7-0l-GaD" customClass="SideMenuTableViewCell" customModule="L2D" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vx7-0l-GaD" id="4yp-p1-cw1">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eaZ-we-Os4">
+                                            <rect key="frame" x="0.0" y="6" width="414" height="30"/>
+                                            <state key="normal" title="CategoryName"/>
+                                            <connections>
+                                                <action selector="CategoryName:" destination="jGV-di-fBb" eventType="touchUpInside" id="ipB-Xw-89d"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="eaZ-we-Os4" firstAttribute="centerY" secondItem="4yp-p1-cw1" secondAttribute="centerY" id="azp-H0-alo"/>
+                                        <constraint firstItem="eaZ-we-Os4" firstAttribute="leading" secondItem="4yp-p1-cw1" secondAttribute="leading" id="qad-ro-pNF"/>
+                                        <constraint firstAttribute="trailing" secondItem="eaZ-we-Os4" secondAttribute="trailing" id="vXI-pd-M2k"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="btn" destination="eaZ-we-Os4" id="GPx-bm-QZU"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="QQa-88-5Ng" id="2EE-BI-Ndw"/>
                             <outlet property="delegate" destination="QQa-88-5Ng" id="Fge-PD-HLp"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Category Menu" id="1J0-9K-lk6"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="categoryTableView" destination="AxA-Py-tgQ" id="nuh-5W-BXv"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAW-Fu-JMB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="jGV-di-fBb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2457" y="-1573"/>
+            <point key="canvasLocation" x="2456.521739130435" y="-1573.3695652173915"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="fxJ-GN-Uaz">
@@ -1482,6 +1506,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JnU-a7-irk"/>
-        <segue reference="IVk-gA-Azc"/>
+        <segue reference="8bS-Jk-mxm"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -27,16 +27,16 @@ class User_model: NSObject {
     
     class func getAllCat() -> [Category]{
         var cate = [Category]()
-        cate.append(Category(name:"Programmer"))
-        cate.append(Category(name:"Design"))
-        cate.append(Category(name:"Business"))
-        cate.append(Category(name:"Marketing"))
-        cate.append(Category(name:"Music"))
-        cate.append(Category(name:"IT & Software"))
-        cate.append(Category(name:"Development"))
-        cate.append(Category(name:"Helth"))
-        cate.append(Category(name:"Fitness"))
-        cate.append(Category(name:"Productivity"))
+        cate.append(Category(name:"Programmer", courseIdList: [Int]()))
+        cate.append(Category(name:"Design",courseIdList:[Int]()))
+        cate.append(Category(name:"Business",courseIdList:[Int]()))
+        cate.append(Category(name:"Marketing",courseIdList:[Int]()))
+        cate.append(Category(name:"Music",courseIdList:[Int]()))
+        cate.append(Category(name:"IT & Software",courseIdList:[Int]()))
+        cate.append(Category(name:"Development",courseIdList:[Int]()))
+        cate.append(Category(name:"Helth",courseIdList:[Int]()))
+        cate.append(Category(name:"Fitness",courseIdList:[Int]()))
+        cate.append(Category(name:"Productivity",courseIdList:[Int]()))
         return cate
     }
 
