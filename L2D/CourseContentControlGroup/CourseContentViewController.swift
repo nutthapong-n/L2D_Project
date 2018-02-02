@@ -18,8 +18,9 @@ class CourseContentViewController: UIViewController , UITableViewDelegate , UITa
     var player = VGPlayer()
     var courseId : Int?
     var course : Course?
+    var showCourse : [CourseForShow_Model] = []
     @IBOutlet weak var tableviewTopConst : NSLayoutConstraint!
-    @IBOutlet weak var table : UITableView!
+    @IBOutlet weak var table : CoursePreviewTable!
     
     
     override func loadView() {
@@ -28,50 +29,135 @@ class CourseContentViewController: UIViewController , UITableViewDelegate , UITa
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "mytltle \(section)"
+        if(section == 0 || section == 2){
+            return nil
+        }else{
+            return "Contents"
+        }
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(section == 0 || section == 1){
+        if(section == 0){
             return 1
         }else{
-            return 10
+            return self.showCourse.count
         }
         
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : UITableViewCell
-        
-        if(indexPath.section == 0){
-            cell = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: indexPath) as! CourseSectionHeaderTableViewCell
-        }else if(indexPath.section == 1){
-            cell = self.table.dequeueReusableCell(withIdentifier: "section", for: indexPath) as! CourseSectionTableViewCell
-            
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if(indexPath.section == 1){
+            return 50
+        }else if(indexPath.section == 2){
+            return 40
         }else{
-            cell = self.table.dequeueReusableCell(withIdentifier: "sub_section", for: indexPath) as! CourseSubsectionTableViewCell
+            return 80
         }
-        
-        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if(indexPath.section == 0){
+            let cell = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: indexPath) as! CourseSectionHeaderTableViewCell
+            cell.titleLabel.text = course?.name
+            return cell
+        }else{//is a section and sub section
+            let sectionLocal = self.showCourse
+            if(sectionLocal[indexPath.row].type == 0){//if is section
+                let section = self.showCourse[indexPath.row]
+                let cell = self.table.dequeueReusableCell(withIdentifier: "section", for: indexPath) as! CourseSectionTableViewCell
+                cell.section_id = section.id
+                cell.sec_label.text = section.name
+                
+                return cell
+            }else{ // if is subsection
+                let sub_section = self.showCourse[indexPath.row]
+                let cell = self.table.dequeueReusableCell(withIdentifier: "sub_section", for: indexPath) as! CourseSubsectionTableViewCell
+                cell.Subsection_id = sub_section.id
+                cell.name = sub_section.name
+                cell.name_label.text = sub_section.name
+                
+                return cell
+            }
+
+            
+        }
+    }
+    
+    func closeAllExpand(){
+        for sec in self.showCourse{
+            let elemIndex = self.showCourse.index(of: sec)
+            if(sec.type == 1){
+                self.showCourse.remove(at: elemIndex!)
+                table.beginUpdates()
+                let myindexPath = IndexPath(row: elemIndex!, section: 1)
+                table.deleteRows(at: [myindexPath], with: .top)
+                table.endUpdates()
+            }else{
+                let myIndexPath = IndexPath(row: elemIndex!, section: 1)
+                let cell = table.cellForRow(at: myIndexPath) as! CourseSectionTableViewCell
+                cell.expandsion = false
+                cell.expand_img.isHighlighted = false
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if(self.showCourse[indexPath.row].type == 0){
+            let cell = tableView.cellForRow(at: indexPath) as! CourseSectionTableViewCell
+            if(!cell.expandsion){
+                closeAllExpand()
+                for sec in (course?.section)!{
+                    if(sec.id == cell.section_id){
+                        let index = course?.section?.index(of: sec)
+                        if var myCounter = index{
+                            for sub in sec.subSection!{
+                                myCounter += 1
+                                self.showCourse.insert(CourseForShow_Model(name: sub.name , id: sub.id, type: 1), at: myCounter)
+                                //                    self.showCourse.append(CourseForShow_Model(name: sub.name , id: sub.id, type: 1))
+                                table.beginUpdates()
+                                let myindexPath = IndexPath(row: myCounter, section: 1)
+                                table.insertRows(at: [myindexPath] ,with: .top)
+                                table.endUpdates()
+                            }
+                            cell.expand_img.isHighlighted = true
+                            cell.expandsion = true
+                            break
+                        }
+                    }
+                }
+            }else{
+                closeAllExpand()
+            }
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableviewTopConst.constant = UIScreen.main.bounds.width*3.0/4.0 - 20
+        Course.getCoureById(id: courseId!, completion: { (result) in
+            self.course = result
+            for section in result.section!{
+                self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0))
+            }
+            self.player.displayView.titleLabel.text = self.course?.name
+        })
+        
         AppDelegate.restrictRotation = false;
         let url = URL(string: "http://lxdqncdn.miaopai.com/stream/6IqHc-OnSMBIt-LQjPJjmA__.mp4?ssig=a81b90fdeca58e8ea15c892a49bce53f&time_stamp=1508166491488")!
         
         self.player.replaceVideo(url)
         view.addSubview(self.player.displayView)
         
-//        self.player.play()
+        //        self.player.play()
         self.player.backgroundMode = .proceed
         self.player.delegate = self
         self.player.displayView.delegate = self
-        self.player.displayView.titleLabel.text = "China NO.1"
         self.player.displayView.snp.makeConstraints { [weak self] (make) in
             guard let strongSelf = self else { return }
             make.top.equalTo(strongSelf.view.snp.top)
@@ -79,34 +165,6 @@ class CourseContentViewController: UIViewController , UITableViewDelegate , UITa
             make.right.equalTo(strongSelf.view.snp.right)
             make.height.equalTo(strongSelf.view.snp.width).multipliedBy(3.0/4.0) // you can 9.0/16.0
         }
-        
-        tableviewTopConst.constant = UIScreen.main.bounds.width*3.0/4.0
-        Course.getCoureById(id: courseId!, completion: { (result) in
-            self.course = result
-        })
-        
-       
-        
-//        let enrollBtn : UIButton = UIButton(frame: CGRect())
-//        enrollBtn.setTitle("test", for: .normal)
-//        enrollBtn.setTitleColor( UIColor(red:0.15, green:0.00, blue:0.00, alpha:1.0) , for: .normal)
-//        enrollBtn.translatesAutoresizingMaskIntoConstraints = false;
-//        view.addSubview(enrollBtn)
-//
-//
-//        //left
-//        let leftConst = NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: .equal, toItem: enrollBtn, attribute: .trailing, multiplier: 1.0, constant: 100)
-//        //right
-//
-//        //top
-//        var topLenght = UIScreen.main.bounds.width*3/4
-//        let topConst = NSLayoutConstraint(item: enrollBtn, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1.0, constant: topLenght)
-//
-//        //bottom
-//
-//        self.view.addConstraints([leftConst,topConst])
-        
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(DismissPage))
     }
 
     override func didReceiveMemoryWarning() {

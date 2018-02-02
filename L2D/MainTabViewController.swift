@@ -29,21 +29,25 @@ class MainTabViewController: UITabBarController  {
     
     override func viewWillAppear(_ animated: Bool) {
         if(AppDelegate.hasLogin == true){
+            if(self.viewControllers?.count == 3){
+                
             
-            //create tab profile
-            let profileTab = self.storyboard?.instantiateViewController(withIdentifier: "ProfileNavigator")
-            let profileTabBarItem = UITabBarItem(title: "profile", image: UIImage(named: "account"), selectedImage: UIImage(named: "account"))
-            profileTab?.tabBarItem = profileTabBarItem
-            
-            //create my course tab
-            let courseTab = self.storyboard?.instantiateViewController(withIdentifier: "MyCourseNavigator")
-            let courseTabBarItem = UITabBarItem(title: "my course", image: UIImage(named: "mycourse"), selectedImage: UIImage(named: "mycourse"))
-            courseTab?.tabBarItem = courseTabBarItem
-            
-            
-            self.viewControllers?.removeLast() //remove login tab
-            self.viewControllers?.append(courseTab!)
-            self.viewControllers?.append(profileTab!)
+                //create tab profile
+                let profileTab = self.storyboard?.instantiateViewController(withIdentifier: "ProfileNavigator")
+                let profileTabBarItem = UITabBarItem(title: "profile", image: UIImage(named: "account"), selectedImage: UIImage(named: "account"))
+                profileTab?.tabBarItem = profileTabBarItem
+                
+                //create my course tab
+                let courseTab = self.storyboard?.instantiateViewController(withIdentifier: "MyCourseNavigator")
+                let courseTabBarItem = UITabBarItem(title: "my course", image: UIImage(named: "mycourse"), selectedImage: UIImage(named: "mycourse"))
+                courseTab?.tabBarItem = courseTabBarItem
+                
+                
+                self.viewControllers?.removeLast() //remove login tab
+                self.viewControllers?.append(courseTab!)
+                self.viewControllers?.append(profileTab!)
+                
+            }
            
         }
     }
