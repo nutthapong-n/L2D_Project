@@ -19,6 +19,19 @@ class Course : NSObject{
     var detail : String
     var createdDate : Float
     var key : String
+    var section : [Section_model]?
+    
+    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String , section : [Section_model]) {
+        self.id = id
+        self.categoryId = categoryId
+        self.detail = detail
+        self.createdDate = createdDate
+        self.key = key
+        self.name = name
+        self.owner = owner
+        self.img = img
+        self.section = section
+    }
     
     init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String) {
         self.id = id
@@ -45,12 +58,29 @@ class Course : NSObject{
     
     class func getCoureById( id:Int , completion : @escaping ( Course) -> ()){
         let urlString = "http://158.108.207.7:8090/elearning/course?id=28"
-        Alamofire.request(urlString,method : .get , encoding: JSONEncoding.default)
-            .responseJSON{
-                
-                response in switch response.result{
-                case .success(let value):
-                    let json = JSON(value)
+        
+        let course = Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard" , section : [
+            Section_model(id: 1, name: "section1", subSection: [
+                SubSection(id: 1, name: "section1_sub1"),
+                SubSection(id: 2, name: "section1_sub2"),
+                SubSection(id: 3, name: "section1_sub3")]),
+            Section_model(id: 2, name: "section2", subSection: [
+                SubSection(id: 1, name: "section2_sub1"),
+                SubSection(id: 2, name: "section2_sub2"),
+                SubSection(id: 3, name: "section2_sub3")]),
+            Section_model(id: 3, name: "section3", subSection: [
+                SubSection(id: 1, name: "section3_sub1"),
+                SubSection(id: 2, name: "section3_sub2"),
+                SubSection(id: 3, name: "section3_sub3")])
+            ])
+        
+        completion(course)
+//        Alamofire.request(urlString,method : .get , encoding: JSONEncoding.default)
+//            .responseJSON{
+//
+//                response in switch response.result{
+//                case .success(let value):
+//                    let json = JSON(value)
 //                    let course = Course(
 //                            id : Int(json["id"].stringValue)!,
 //                            categoryId: json["categoryId"].stringValue == "" ? -1 : Int(json["categoryId"].stringValue)!,
@@ -61,22 +91,25 @@ class Course : NSObject{
 //                            owner: "",
 //                            img: "keyboard"
 //                        )
-                    let course = Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard")
-                    completion(course)
-                case .failure(let error):
-                    let course = Course(
-                        id : 0,
-                        categoryId: 0,
-                        detail: "",
-                        createdDate: 0,
-                        key: "",
-                        name : "error",
-                        owner: "",
-                        img: "java"
-                    )
-                    completion(course)
-                    }
-                }
+//                    completion(course)
+//                case .failure(let error):
+//                    let course = Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard" , section : [
+//                        Section_model(id: 1, name: "section1", subSection: [
+//                            SubSection(id: 1, name: "sub1"),
+//                            SubSection(id: 2, name: "sub2"),
+//                            SubSection(id: 3, name: "sub3")]),
+//                        Section_model(id: 1, name: "section2", subSection: [
+//                            SubSection(id: 1, name: "sub1"),
+//                            SubSection(id: 2, name: "sub2"),
+//                            SubSection(id: 3, name: "sub3")]),
+//                        Section_model(id: 1, name: "section3", subSection: [
+//                            SubSection(id: 1, name: "sub1"),
+//                            SubSection(id: 2, name: "sub2"),
+//                            SubSection(id: 3, name: "sub3")])
+//                        ])
+//                    completion(course)
+//                    }
+//                }
         }
     
     

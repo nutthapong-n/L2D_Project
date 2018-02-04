@@ -9,7 +9,14 @@
 import UIKit
 
 class CourseSectionTableViewCell: UITableViewCell {
-
+    
+    var section_id : Int?
+    var subSection_id : [Int] = []
+    var expandsion : Bool = false
+    @IBOutlet weak var sec_img: UIImageView!
+    @IBOutlet weak var sec_label: UILabel!
+    @IBOutlet weak var expand_img : UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

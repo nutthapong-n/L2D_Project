@@ -58,6 +58,11 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let desView = segue.destination as! CourseContentViewController
+        desView.courseId = 30
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
         print("trues --------")

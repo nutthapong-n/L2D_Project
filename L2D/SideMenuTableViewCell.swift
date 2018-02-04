@@ -1,15 +1,16 @@
 //
-//  SectionTableViewCell.swift
+//  SideMenuTableViewCell.swift
 //  L2D
 //
-//  Created by Watcharagorn mayomthong on 30/1/2561 BE.
-//  Copyright © 2561 Watcharagorn mayomthong. All rights reserved.
+//  Created by Magnus on 1/30/18.
+//  Copyright © 2018 Watcharagorn mayomthong. All rights reserved.
 //
 
 import UIKit
 
-class SectionTableViewCell: UITableViewCell {
+class SideMenuTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var btn : UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
