@@ -591,7 +591,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
                 <searchDisplayController searchResultsTitle="" id="cjF-5l-4Jf"/>
             </objects>
-            <point key="canvasLocation" x="2460" y="-838.83058470764627"/>
+            <point key="canvasLocation" x="2891" y="-880"/>
         </scene>
         <!--Sign In-->
         <scene sceneID="Ry0-5Z-c8o">
@@ -1457,7 +1457,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAW-Fu-JMB" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="jGV-di-fBb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2456.521739130435" y="-1573.3695652173915"/>
+            <point key="canvasLocation" x="3019" y="-1732"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="fxJ-GN-Uaz">
@@ -1476,7 +1476,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dQH-o1-dNf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1420" y="-1573"/>
+            <point key="canvasLocation" x="1800" y="-1732"/>
         </scene>
         <!--Search-->
         <scene sceneID="Zwy-Ts-1Po">
@@ -1560,6 +1560,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JnU-a7-irk"/>
-        <segue reference="D10-sT-fdj"/>
+        <segue reference="IVk-gA-Azc"/>
     </inferredMetricsTieBreakers>
 </document>
