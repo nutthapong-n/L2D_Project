@@ -9,6 +9,9 @@
 import UIKit
 
 class CourseSectionHeaderTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var titleLabel : UILabel!
+    @IBOutlet weak var enroll_btn : UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,5 +23,6 @@ class CourseSectionHeaderTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
 
 }

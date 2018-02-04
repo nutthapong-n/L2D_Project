@@ -10,8 +10,18 @@ import UIKit
 
 class Section_model: NSObject {
     
-    var id : Int?
-    var name : String?
+    var id : Int
+    var name : String
+    var subSection : [SubSection]?
+    
+    init(id : Int ,name:String ,subSection : [SubSection]?) {
+        self.id = id
+        self.name = name
+        if(subSection != nil){
+            self.subSection = subSection
+        }
+        
+    }
     
 
 }

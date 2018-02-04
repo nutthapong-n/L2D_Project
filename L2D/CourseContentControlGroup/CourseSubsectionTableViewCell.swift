@@ -9,6 +9,11 @@
 import UIKit
 
 class CourseSubsectionTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var name_label: UILabel!
+    var Subsection_id : Int?
+    var name : String?
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
