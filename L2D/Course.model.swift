@@ -44,6 +44,25 @@ class Course : NSObject{
         self.img = img
     }
     
+    func Register(completion : @escaping (Bool) -> ()){
+        let url = "\(Network.IP_Address_Master)/course/addRegis?courseId=\(self.id)&memberId=\(String(describing: AppDelegate.userData?.idmember))"
+        print(url)
+        Alamofire.request(url,method : .get , encoding: JSONEncoding.default)
+            .responseJSON{
+                
+                response in switch response.result{
+                case .success(let value):
+                    
+                    completion(true)
+                    
+                    
+                //                        let array = json[0]["name"].rawString()
+                case .failure(let error):
+                    completion(false)
+                }
+        }
+    }
+    
     class func generateModelArray() -> [Course]{
         var course = [Course]()
         course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard"))
@@ -111,6 +130,8 @@ class Course : NSObject{
 //                    }
 //                }
         }
+    
+    
     
     
     class func getAllCourse(completion : @escaping ( [Course]) -> Void){

@@ -10,9 +10,10 @@ import UIKit
 
 class CourseListsCollectionViewCell: UICollectionViewCell{
     
-    @IBOutlet weak var img_btn: UIButton!
+    @IBOutlet weak var img_btn: HomeCellButton!
     @IBOutlet weak var shadowBox: UIView!
     @IBOutlet weak var c_name: UILabel!
+    var course_id : Int?
 
     
     override func awakeFromNib() {
@@ -24,11 +25,15 @@ class CourseListsCollectionViewCell: UICollectionViewCell{
 //        c_name.text = "Label"
     }
     
+    @IBAction func open_cause(_ sender: UIButton) {
+
+    }
     
-    func initCell(img : String , name : String) {
+    func initCell(img : String , name : String , id : Int) {
         self.img_btn.setBackgroundImage(UIImage(named: img), for: .normal)
         if(self.c_name != nil){
             self.c_name.text = " \(name)"
+            self.img_btn.id = id
         }
         
     }

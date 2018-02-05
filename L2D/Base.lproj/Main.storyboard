@@ -158,13 +158,14 @@
                                                                         <rect key="frame" x="10" y="7" width="244" height="178"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </view>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l2n-Yy-N7J">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l2n-Yy-N7J" customClass="HomeCellButton" customModule="L2D" customModuleProvider="target">
                                                                         <rect key="frame" x="10" y="7" width="244" height="178"/>
                                                                         <state key="normal" backgroundImage="java">
                                                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </state>
                                                                         <connections>
-                                                                            <segue destination="6R4-bl-1qS" kind="show" id="SM5-AG-Mfh"/>
+                                                                            <action selector="open_cause:" destination="xlI-4I-Db2" eventType="touchUpInside" id="xee-17-WCC"/>
+                                                                            <segue destination="6R4-bl-1qS" kind="show" id="zpI-Tb-1ZC"/>
                                                                         </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelsdfgsdgdsgsdfgsdfgsdjfglkj" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rl-k9-Quv">
@@ -279,7 +280,7 @@
         <!--Course Content View Controller-->
         <scene sceneID="pew-c0-0Pl">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="6R4-bl-1qS" customClass="CourseContentViewController" customModule="L2D" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CourseControllorBoard" hidesBottomBarWhenPushed="YES" id="6R4-bl-1qS" customClass="CourseContentViewController" customModule="L2D" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AZb-4a-dNg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -311,6 +312,16 @@
                                                     <state key="normal" title="Enroll now!">
                                                         <color key="titleColor" red="0.058842056689905747" green="0.12781567258883253" blue="0.046123884337488291" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="enroll:" destination="6R4-bl-1qS" eventType="touchUpInside" id="jXu-K1-CnR"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

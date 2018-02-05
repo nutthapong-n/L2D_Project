@@ -107,33 +107,51 @@ class CourseContentViewController: UIViewController , UITableViewDelegate , UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(self.showCourse[indexPath.row].type == 0){
-            let cell = tableView.cellForRow(at: indexPath) as! CourseSectionTableViewCell
-            if(!cell.expandsion){
-                closeAllExpand()
-                for sec in (course?.section)!{
-                    if(sec.id == cell.section_id){
-                        let index = course?.section?.index(of: sec)
-                        if var myCounter = index{
-                            for sub in sec.subSection!{
-                                myCounter += 1
-                                self.showCourse.insert(CourseForShow_Model(name: sub.name , id: sub.id, type: 1), at: myCounter)
-                                //                    self.showCourse.append(CourseForShow_Model(name: sub.name , id: sub.id, type: 1))
-                                table.beginUpdates()
-                                let myindexPath = IndexPath(row: myCounter, section: 1)
-                                table.insertRows(at: [myindexPath] ,with: .top)
-                                table.endUpdates()
+        
+        //isHeader
+        if(indexPath.section == 0){
+        
+        }else{
+            if(self.showCourse[indexPath.row].type == 0){
+                let cell = tableView.cellForRow(at: indexPath) as! CourseSectionTableViewCell
+                if(!cell.expandsion){
+                    closeAllExpand()
+                    for sec in (course?.section)!{
+                        if(sec.id == cell.section_id){
+                            let index = course?.section?.index(of: sec)
+                            if var myCounter = index{
+                                for sub in sec.subSection!{
+                                    myCounter += 1
+                                    self.showCourse.insert(CourseForShow_Model(name: sub.name , id: sub.id, type: 1), at: myCounter)
+                                    //                    self.showCourse.append(CourseForShow_Model(name: sub.name , id: sub.id, type: 1))
+                                    table.beginUpdates()
+                                    let myindexPath = IndexPath(row: myCounter, section: 1)
+                                    table.insertRows(at: [myindexPath] ,with: .top)
+                                    table.endUpdates()
+                                }
+                                cell.expand_img.isHighlighted = true
+                                cell.expandsion = true
+                                break
                             }
-                            cell.expand_img.isHighlighted = true
-                            cell.expandsion = true
-                            break
                         }
                     }
+                }else{
+                    closeAllExpand()
                 }
-            }else{
-                closeAllExpand()
             }
+
         }
+    }
+    @IBAction func enroll(_ sender: UIButton) {
+        course?.Register(completion: { (result) in
+            if(result){
+                sender.setTitle("enrolled", for: .normal)
+                sender.isEnabled = false
+                sender.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
+            }else{
+                print("enroll error")
+            }
+        })
     }
     
     override func viewDidLoad() {

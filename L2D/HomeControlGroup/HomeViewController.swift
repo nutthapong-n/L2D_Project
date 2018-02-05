@@ -13,6 +13,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
 
     var course:[Course]?
     var detail = ["New course" ,"Reccommend","In Trend"]
+    var selectedId : Int = 0
     
     @IBOutlet weak var homeTable: UITableView!
     
@@ -30,7 +31,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
 //            self.reloadInputViews()
 //            self.homeTable.reloadInputViews()
             self.homeTable.reloadData()
-            print(result)
+//            print(result)
         }
     }
     
@@ -42,12 +43,13 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        let course_segue = segue as! CoursePreviewSegue
+        
         if(segue.identifier == "sideBar"){
             
         }else{
+            let sender = sender as! HomeCellButton
             let desView = segue.destination as! CourseContentViewController
-            
-            desView.courseId = 30
+            desView.courseId = sender.id
         }
         
         
@@ -140,12 +142,8 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
             
         let thisCourse = course![indexPath.row]
-//        cell.img_btn.setBackgroundImage(UIImage(named: thisCourse.img), for: .normal)
-
-        cell.initCell(img: thisCourse.img, name: thisCourse.name)
-        //Content
-//        let title = cell.viewWithTag(1) as! UILabel
-//        title.text = thisCourse.name
+//        cell.img_btn.initId(id: thisCourse.id)
+        cell.initCell(img: thisCourse.img, name: thisCourse.name , id : thisCourse.id)
         
         
             return cell
