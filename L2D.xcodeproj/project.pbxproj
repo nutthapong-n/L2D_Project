@@ -49,8 +49,10 @@
 		32F749501F2F1AE5004A33DD /* Category.model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F7494F1F2F1AE5004A33DD /* Category.model.swift */; };
 		9F0AB778FEB589B986C4AF04 /* Pods_L2D.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 628FECEAE29B926C973DCD56 /* Pods_L2D.framework */; };
 		A4C36E472D5D7A5ED8095AB4 /* Pods_L2DUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89280523A7ADD259A797660E /* Pods_L2DUITests.framework */; };
-		F7243198201A26F800C0D0A3 /* ProfileSeque.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7243197201A26F800C0D0A3 /* ProfileSeque.swift */; };
+		F7243198201A26F800C0D0A3 /* ProfileSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7243197201A26F800C0D0A3 /* ProfileSegue.swift */; };
 		F73B7D64201C8E98007A3C1E /* Network.model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73B7D63201C8E98007A3C1E /* Network.model.swift */; };
+		F7817AA42027103D000EBAB9 /* CourseInCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7817AA32027103D000EBAB9 /* CourseInCategoryTableViewCell.swift */; };
+		F7B313282026F736000AB6CD /* CourseCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B313272026F736000AB6CD /* CourseCategoryTableViewController.swift */; };
 		F7EC3C042020846A00FE9058 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EC3C032020846A00FE9058 /* SideMenuTableViewCell.swift */; };
 		F7EC3C062020883300FE9058 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EC3C052020883300FE9058 /* SideMenuTableViewController.swift */; };
 /* End PBXBuildFile section */
@@ -126,8 +128,10 @@
 		628FECEAE29B926C973DCD56 /* Pods_L2D.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_L2D.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F855F0705F2A24B4F2B08C6 /* Pods-L2DUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-L2DUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-L2DUITests/Pods-L2DUITests.release.xcconfig"; sourceTree = "<group>"; };
 		89280523A7ADD259A797660E /* Pods_L2DUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_L2DUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F7243197201A26F800C0D0A3 /* ProfileSeque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSeque.swift; sourceTree = "<group>"; };
+		F7243197201A26F800C0D0A3 /* ProfileSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSegue.swift; sourceTree = "<group>"; };
 		F73B7D63201C8E98007A3C1E /* Network.model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.model.swift; sourceTree = "<group>"; };
+		F7817AA32027103D000EBAB9 /* CourseInCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInCategoryTableViewCell.swift; sourceTree = "<group>"; };
+		F7B313272026F736000AB6CD /* CourseCategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCategoryTableViewController.swift; sourceTree = "<group>"; };
 		F7EC3C032020846A00FE9058 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		F7EC3C052020883300FE9058 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		FB1E0EFD2F0EE9B2FC576BC9 /* Pods_L2DTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_L2DTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,7 +223,7 @@
 				32D772FB1F24BD660093F6A2 /* ProfileViewController.swift */,
 				32EA97351F26F9EC006E90C1 /* ProfileTableViewCell.swift */,
 				32EA97371F26FA08006E90C1 /* ProfileCollectionViewCell.swift */,
-				F7243197201A26F800C0D0A3 /* ProfileSeque.swift */,
+				F7243197201A26F800C0D0A3 /* ProfileSegue.swift */,
 			);
 			path = ProfileControlGroup;
 			sourceTree = "<group>";
@@ -318,6 +322,8 @@
 			children = (
 				32F749481F2F18A0004A33DD /* CategoryCollectionViewCell.swift */,
 				32F7494A1F2F18B6004A33DD /* CategoryViewController.swift */,
+				F7B313272026F736000AB6CD /* CourseCategoryTableViewController.swift */,
+				F7817AA32027103D000EBAB9 /* CourseInCategoryTableViewCell.swift */,
 			);
 			path = CategoryControl;
 			sourceTree = "<group>";
@@ -649,10 +655,11 @@
 				32A537081F28480C00E53CAC /* CourseContentViewController.swift in Sources */,
 				3203BC381F2B99F300CA990D /* AppDelegate.swift in Sources */,
 				320AA3451F29989500AE9428 /* MyCourseCollectionViewCell.swift in Sources */,
-				F7243198201A26F800C0D0A3 /* ProfileSeque.swift in Sources */,
+				F7243198201A26F800C0D0A3 /* ProfileSegue.swift in Sources */,
 				32D772FC1F24BD660093F6A2 /* ProfileViewController.swift in Sources */,
 				32DFBE2B1F2B52BF008AA3DA /* BaseViewController.swift in Sources */,
 				3240809720205C7400352AD1 /* CourseSectionTableViewCell.swift in Sources */,
+				F7817AA42027103D000EBAB9 /* CourseInCategoryTableViewCell.swift in Sources */,
 				32A5370A1F28538F00E53CAC /* LoginSeque.swift in Sources */,
 				32DFBE271F2B4DCE008AA3DA /* HomeViewController.swift in Sources */,
 				32D772FA1F24BD5A0093F6A2 /* SearchViewController.swift in Sources */,
@@ -669,6 +676,7 @@
 				32165332201849A10001000D /* SubSection.swift in Sources */,
 				32BAEECB1F31C04F00927BD6 /* CoursePreviewViewController.swift in Sources */,
 				3240809520205C4D00352AD1 /* CourseSubsectionTableViewCell.swift in Sources */,
+				F7B313282026F736000AB6CD /* CourseCategoryTableViewController.swift in Sources */,
 				320AA3481F29C32700AE9428 /* SearchTableViewCell.swift in Sources */,
 				320A262A1F25CCE400DF92BD /* CourseListsTableViewCell.swift in Sources */,
 				32165330201849940001000D /* Section.model.swift in Sources */,

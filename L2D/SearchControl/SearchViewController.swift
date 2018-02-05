@@ -18,7 +18,7 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
     
     let searchBar = UISearchBar(frame: CGRect(x:0,y:0,width:(UIScreen.main.bounds.width),height:70))
     var initialDataAry:[Course] = Course.generateModelArray()
-    var dataAry:[Course] = Course.generateModelArray()
+    var dataAry = [Course]()
     
     @IBOutlet weak var myTableView: UITableView!
     @IBOutlet weak var barContainerTable: UITableView!
@@ -50,25 +50,41 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
     // MARK: - search bar delegate
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchBar.setShowsCancelButton(true, animated: true)
-        if searchText.isEmpty {
-            dataAry = initialDataAry
-            self.myTableView.reloadData()
-        }else {
-            filterTableView(ind: searchBar.selectedScopeButtonIndex, text: searchText)
-        }
+//        if searchText.isEmpty {
+//            dataAry = initialDataAry
+//            self.myTableView.reloadData()
+//        }else {
+//            filterTableView(ind: searchBar.selectedScopeButtonIndex, text: searchText)
+//        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let desView = segue.destination as! CourseContentViewController
         desView.courseId = 30
     }
-    
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
+//        Course.getCourseBySearchName(courseName: <#T##String#>, completion: <#T##([Course]) -> Void#>)
         print("trues --------")
-        
+        searchBar.endEditing(true)
+
     }
 
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        print("end editing")
+        if (searchBar.text != "") {
+            Course.getCourseBySearchName(courseName: searchBar.text!, completion: {(result) in
+                self.dataAry = result
+                self.myTableView.reloadData()
+            })
+        }else{
+            self.dataAry.removeAll()
+            self.myTableView.reloadData()
+        }
+    }
+    
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         // Stop doing the search stuff
         // and clear the text in the search bar
@@ -76,7 +92,7 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         // Hide the cancel button
         searchBar.endEditing(true)
         searchBar.setShowsCancelButton(false, animated: true)
-        dataAry = initialDataAry
+//        dataAry = initialDataAry
         self.myTableView.reloadData()
         
     }

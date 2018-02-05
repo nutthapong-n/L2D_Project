@@ -190,5 +190,62 @@ class Course : NSObject{
         }
         
     }
+    
+    class func getCourseByCourseId(courseID : Int, completion : @escaping (Course) -> Void){
+        
+        Alamofire.request(Network.IP_Address_Master+"/course?idCourse=\(courseID)",method : .get, encoding: JSONEncoding.default)
+            .responseJSON{
+                
+                response in switch response.result{
+                case .success(let value):
+                    let this_course = JSON(value)
+                    
+                    print(this_course)
+                    completion(Course(
+                        id : Int(this_course["id"].stringValue)!,
+                        categoryId: Int(this_course["categoryId"].stringValue)!,
+                        detail: this_course["detail"].stringValue,
+                        createdDate: Float(this_course["createdDate"].stringValue)!,
+                        key: this_course["key"].stringValue,
+                        name : this_course["name"].stringValue,
+                        owner: "",
+                        img: "java"
+                    ))
+                case .failure(let error):
+                    print(error)
+                    
+                }
+        }
+            
+    }
+    
+    class func getCourseBySearchName(courseName:String, completion : @escaping ( [Course]) -> Void){
+        var course = [Course]()
+        
+        Alamofire.request(Network.IP_Address_Master+"/course?name=\(courseName)",method: .get,encoding: JSONEncoding.default).responseJSON{
+            response in switch response.result{
+            case .success(let value):
+                let json = JSON(value)
+                for obj in json{
+                    let this_course = obj.1
+                    course.append(Course(
+                        id : Int(this_course["id"].stringValue)!,
+                        categoryId: Int(this_course["categoryId"].stringValue)!,
+                        detail: this_course["detail"].stringValue,
+                        createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
+                        key: this_course["key"].stringValue,
+                        name : this_course["name"].stringValue,
+                        owner: "",
+                        img: "java"
+                    ))
+                }
+                completion(course)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+        
+    
 }
 

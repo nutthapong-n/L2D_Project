@@ -1,25 +1,39 @@
 //
-//  SideMenuTableViewController.swift
+//  CategoryTableViewController.swift
 //  L2D
 //
-//  Created by Magnus on 1/30/18.
+//  Created by Magnus on 2/4/18.
 //  Copyright © 2018 Watcharagorn mayomthong. All rights reserved.
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
-class SideMenuTableViewController: UITableViewController {
+class CourseCategoryTableViewController: UITableViewController {
     
-    var category = [Category]()
-    @IBOutlet var categoryTableView: UITableView!
+    @IBOutlet weak var CourseInCategoryTable: UITableView!
+    @IBOutlet weak var TopBarTitle: UINavigationItem!
     
-    var clickedName:String = ""
-    var clickedIndex:Int = 0
-    
+    var categoryName:String = "Category"
+    var courseIdList = [Int]()
+    var courseList = [Course]()
+    var rowSelected:Int = -1
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        self.courseList.removeAll()
+        self.CourseInCategoryTable.reloadData()
         
+        if courseIdList != [Int]() {
+            for courseID in courseIdList {
+                Course.getCourseByCourseId(courseID: courseID, completion:{(result) in
+                    self.courseList.append(result)
+                    self.CourseInCategoryTable.reloadData()
+                })
+            }
+        }
+        self.TopBarTitle.title = categoryName
+        super.viewDidLoad()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -28,34 +42,25 @@ class SideMenuTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        Category.getAllCategory{
-            (result) in
-            self.category = result
-            self.categoryTableView.reloadData()
-        }
-    }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if(segue.identifier == "GetCourseInCategory"){
-//
-//            let catSegue = segue as! CategorySegue
-//            let navController = catSegue.destination as! UINavigationController
-//            let tableViewController = navController.topViewController as! CourseCategoryTableViewController
-//            tableViewController.categoryName = clickedName
-//            tableViewController.courseIdList = category[clickedIndex].courseIdList!
+//        if courseIdList != [Int]() {
+//            self.courseList.removeAll()
+//            for courseID in courseIdList {
+//                Course.getCourseByCourseId(courseID: courseID, completion:{(result) in
+//                    self.courseList.append(result)
+//                    self.CourseInCategoryTable.reloadData()
+//                })
+//            }
 //        }
-//    }
+//
+//        self.TopBarTitle.title = categoryName
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-//
-//    @IBAction func categoryClicked(_ sender: UIButton) {
-//        clickedName = sender.currentTitle!
-//        clickedIndex = sender.tag
-//
-//    }
+    
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -65,28 +70,31 @@ class SideMenuTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return category.count
+        return courseList.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryList", for: indexPath) as! SideMenuTableViewCell
-        let dataCategory = category[indexPath.row]
-        cell.CategoryMenu.text = dataCategory.name
-        cell.CourseInCategoryCount.text = "\(dataCategory.courseIdList?.count ?? 0)"
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CourseInCategoryCell", for: indexPath) as! CourseInCategoryTableViewCell
+
+        //Configure the cell...
+        
+        let data = courseList[indexPath.row]
+        
+        cell.CourseNameLabel.text = data.name
+        cell.CourseDetailLabel.text = data.detail
 
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dest = storyboard?.instantiateViewController(withIdentifier: "CourseCategoryTableViewController") as! CourseCategoryTableViewController
-        dest.categoryName = self.category[indexPath.row].name
-        dest.courseIdList = self.category[indexPath.row].courseIdList!
+//        rowSelected = indexPath.row
+        let desView = storyboard?.instantiateViewController(withIdentifier: "CourseContentViewController") as! CourseContentViewController
+        desView.courseId = courseList[indexPath.row].id
+        print(desView.courseId as Any)
         
-        navigationController?.pushViewController(dest, animated: true)
+        navigationController?.pushViewController(desView, animated: true)
     }
-    
 
     /*
     // Override to support conditional editing of the table view.

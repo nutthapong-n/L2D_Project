@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileSeque: UIStoryboardSegue  {
+class ProfileSegue: UIStoryboardSegue  {
     
     override func perform() {
             let toViewController = self.destination
