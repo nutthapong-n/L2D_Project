@@ -10,7 +10,11 @@ import UIKit
 
 class SideMenuTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var btn : UIButton!
+//    @IBOutlet weak var btn : UIButton!
+    @IBOutlet weak var CategoryMenu: UILabel!
+    @IBOutlet weak var CourseInCategoryCount: UILabel!
+    @IBOutlet weak var ItemPerRow: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

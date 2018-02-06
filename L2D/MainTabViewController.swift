@@ -34,12 +34,12 @@ class MainTabViewController: UITabBarController  {
             
                 //create tab profile
                 let profileTab = self.storyboard?.instantiateViewController(withIdentifier: "ProfileNavigator")
-                let profileTabBarItem = UITabBarItem(title: "profile", image: UIImage(named: "account"), selectedImage: UIImage(named: "account"))
+                let profileTabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "account"), selectedImage: UIImage(named: "account"))
                 profileTab?.tabBarItem = profileTabBarItem
                 
                 //create my course tab
                 let courseTab = self.storyboard?.instantiateViewController(withIdentifier: "MyCourseNavigator")
-                let courseTabBarItem = UITabBarItem(title: "my course", image: UIImage(named: "mycourse"), selectedImage: UIImage(named: "mycourse"))
+                let courseTabBarItem = UITabBarItem(title: "My Csourses", image: UIImage(named: "mycourse"), selectedImage: UIImage(named: "mycourse"))
                 courseTab?.tabBarItem = courseTabBarItem
                 
                 

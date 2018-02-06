@@ -14,6 +14,8 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     var course:[Course]?
     var detail = ["New course" ,"Reccommend","In Trend"]
     var selectedId : Int = 0
+    var count = 0
+    var currentRow = 0
     
     @IBOutlet weak var homeTable: UITableView!
     
@@ -69,7 +71,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
+        currentRow = indexPath.row
         if indexPath.row == 0{
            let cell = self.homeTable.dequeueReusableCell(withIdentifier: "table_head_list" , for: indexPath) as! HomeHeaderTableViewCell
             cell.MyCollecttionView.reloadData()
@@ -131,22 +133,28 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
         if(course == nil){
             return 0;
         }else{
-            return course!.count
+            return 2
+//            return course!.count
         }
         
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
-            
+        
+        let identifier = collectionView.restorationIdentifier
         let thisCourse = course![indexPath.row]
-//        cell.img_btn.initId(id: thisCourse.id)
-        cell.initCell(img: thisCourse.img, name: thisCourse.name , id : thisCourse.id)
-        
-        
+        if(identifier == "HeaderCollection"){
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseHeaderCollectionViewCell
+            cell.initCell(img: thisCourse.img, id: thisCourse.id)
             return cell
+        }else{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
+            cell.initCell(img: thisCourse.img, name: thisCourse.name , id : thisCourse.id)
+            return cell
+        }
+
+        
             
         
     }

@@ -12,19 +12,8 @@ class CategoryViewController: BaseViewController ,UICollectionViewDataSource ,UI
     
     var cate:[Category] = Category.getAllCat()
 
-    @IBOutlet weak var CategoryCollection: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let itemWidth = view.frame.width
-        let itemHeight = CGFloat(194.0)
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width:itemWidth, height:itemHeight)
-        layout.scrollDirection = UICollectionViewScrollDirection.vertical
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        
-        CategoryCollection.collectionViewLayout = layout
 
         // Do any additional setup after loading the view.
     }

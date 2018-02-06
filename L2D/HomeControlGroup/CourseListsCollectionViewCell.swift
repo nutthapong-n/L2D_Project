@@ -13,7 +13,6 @@ class CourseListsCollectionViewCell: UICollectionViewCell{
     @IBOutlet weak var img_btn: HomeCellButton!
     @IBOutlet weak var shadowBox: UIView!
     @IBOutlet weak var c_name: UILabel!
-    var course_id : Int?
 
     
     override func awakeFromNib() {
@@ -30,6 +29,7 @@ class CourseListsCollectionViewCell: UICollectionViewCell{
     }
     
     func initCell(img : String , name : String , id : Int) {
+        
         self.img_btn.setBackgroundImage(UIImage(named: img), for: .normal)
         if(self.c_name != nil){
             self.c_name.text = " \(name)"
