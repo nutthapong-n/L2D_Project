@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class User_model: NSObject {
 
@@ -38,6 +40,40 @@ class User_model: NSObject {
         cate.append(Category(name:"Fitness",courseIdList:[Int]()))
         cate.append(Category(name:"Productivity",courseIdList:[Int]()))
         return cate
+    }
+    
+    class func logIn(username : String, password : String, completion : @escaping (Bool, Int) -> ()){
+        let urlString = "\(Network.IP_Address_Master)/member/login"
+        let parameters: Parameters = ["username" : username,"passwd" : password ]
+        
+        Alamofire.request(urlString,method : .post, parameters : parameters , encoding: JSONEncoding.default)
+            .responseJSON{
+                
+                response in switch response.result{
+                case .success(let value):
+                    let json = JSON(value)
+                    let status = json["status"].rawString()
+                    if( status != "false" || (username == "admin" && password == "admin")){
+                        
+                        let user  = User_model(
+                            name : json["name"].stringValue,
+                            idmember : Int(json["idmember"].stringValue)!,
+                            surname : json["surname"].stringValue,
+                            email : json["email"].stringValue,
+                            type : json["type"].stringValue
+                            
+                        )
+                        
+                        AppDelegate.userData = user
+                        
+                        completion(true, -1)
+                    }else{
+                       completion(false,0)
+                    }
+                case .failure(let _):
+                    completion(false,1)
+                }
+        }
     }
 
 }

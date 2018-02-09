@@ -20,6 +20,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var pass_input: UITextField!
     @IBOutlet weak var rePass_input: UITextField!
     @IBOutlet weak var e_mail_input: UITextField!
+    var backRequest : Bool?
     
 
     override func viewDidLoad() {
@@ -65,9 +66,14 @@ class RegisterViewController: UIViewController {
                                 let message  = json["message"]
                                 if(message != ""){
                                     AppDelegate.hasLogin = true;
-                                    let regisSeque = segue as! RegisterSeque
-                                    regisSeque.regis_success = true
-                                    regisSeque.perform()
+                                    if(self.backRequest != nil){
+                                        self.navigationController?.popViewController(animated: true)
+                                        AppDelegate.reLoadRequest = true
+                                    }else{
+                                        let regisSeque = segue as! RegisterSeque
+                                        regisSeque.regis_success = true
+                                        regisSeque.perform()
+                                    }
                                 }else{
                                     self.alert(text: "usrname already exist in system")
                                 }

@@ -12,9 +12,10 @@ import UIKit
 class AppDelegate: UIResponder , UIApplicationDelegate {
     
     var window: UIWindow?
-    static var restrictRotation : Bool = true;
-    static var hasLogin : Bool = false;
+    static var restrictRotation : Bool = true
+    static var hasLogin : Bool = false
     static var userData : User_model?
+    static var reLoadRequest : Bool?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         

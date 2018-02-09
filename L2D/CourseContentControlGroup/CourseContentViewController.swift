@@ -106,6 +106,30 @@ class CourseContentViewController: UIViewController , UITableViewDelegate , UITa
         }
     }
     
+    func alert(text : String){
+        self.resignFirstResponder()
+        let alert = UIAlertController(title:"Fail!",message: text, preferredStyle: .alert)
+        
+        let dismissBtn = UIAlertAction(title:"Close",style: .cancel, handler:{
+            (alert: UIAlertAction) -> Void in
+            
+        })
+        
+        let registerBtn = UIAlertAction(title:"Register",style: .default, handler:{
+            (alert: UIAlertAction) -> Void in
+            
+            let registerController = self.storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
+            registerController.backRequest = true
+            self.navigationController?.pushViewController(registerController, animated: true)
+        })
+        
+        alert.addAction(dismissBtn)
+        alert.addAction(registerBtn)
+        
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         //isHeader
@@ -149,6 +173,7 @@ class CourseContentViewController: UIViewController , UITableViewDelegate , UITa
                 sender.isEnabled = false
                 sender.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
             }else{
+                self.alert(text: "enrollment fail")
                 print("enroll error")
             }
         })

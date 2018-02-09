@@ -37,6 +37,31 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if(AppDelegate.reLoadRequest != nil){
+            AppDelegate.reLoadRequest = nil
+            let tabBar = self.tabBarController as! MainTabViewController
+            if(AppDelegate.hasLogin == true && tabBar.viewControllers?.count == 3 ){
+
+                    //create tab profile
+                    let profileTab = self.storyboard?.instantiateViewController(withIdentifier: "ProfileNavigator")
+                    let profileTabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "account"), selectedImage: UIImage(named: "account"))
+                    profileTab?.tabBarItem = profileTabBarItem
+                
+                    //create my course tab
+                    let courseTab = self.storyboard?.instantiateViewController(withIdentifier: "MyCourseNavigator")
+                    let courseTabBarItem = UITabBarItem(title: "My Csourses", image: UIImage(named: "mycourse"), selectedImage: UIImage(named: "mycourse"))
+                    courseTab?.tabBarItem = courseTabBarItem
+                
+                
+                    tabBar.viewControllers?.removeLast() //remove login tab
+                    tabBar.viewControllers?.append(courseTab!)
+                    tabBar.viewControllers?.append(profileTab!)
+                
+            }
+        }
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -133,8 +158,8 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
         if(course == nil){
             return 0;
         }else{
-            return 2
-//            return course!.count
+//            return 2
+            return course!.count
         }
         
     }

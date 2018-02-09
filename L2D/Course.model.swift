@@ -45,19 +45,22 @@ class Course : NSObject{
     }
     
     func Register(completion : @escaping (Bool) -> ()){
-        let url = "\(Network.IP_Address_Master)/course/addRegis?courseId=\(self.id)&memberId=\(String(describing: AppDelegate.userData?.idmember))"
+        let user_id = AppDelegate.userData?.idmember
+        let user_id_str = user_id != nil ? "\(user_id!)" : ""
+        let url = "\(Network.IP_Address_Master)/course/addRegis?courseId=\(self.id)&memberId=\(user_id_str)"
         print(url)
-        Alamofire.request(url,method : .get , encoding: JSONEncoding.default)
+        Alamofire.request(url,method : .post , encoding: JSONEncoding.default)
             .responseJSON{
                 
                 response in switch response.result{
                 case .success(let value):
-                    
+                    print(value)
                     completion(true)
                     
                     
                 //                        let array = json[0]["name"].rawString()
                 case .failure(let error):
+                    print(error)
                     completion(false)
                 }
         }
@@ -76,9 +79,9 @@ class Course : NSObject{
     }
     
     class func getCoureById( id:Int , completion : @escaping ( Course) -> ()){
-        let urlString = "http://158.108.207.7:8090/elearning/course?id=28"
+        let urlString = "\(Network.IP_Address_Master)/course?id=\(id)"
         
-        let course = Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard" , section : [
+        let course = Course(id:id, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard" , section : [
             Section_model(id: 1, name: "section1", subSection: [
                 SubSection(id: 1, name: "section1_sub1"),
                 SubSection(id: 2, name: "section1_sub2"),
@@ -165,6 +168,7 @@ class Course : NSObject{
                     
 //                        let array = json[0]["name"].rawString()
                 case .failure(let error):
+                    print(error)
                     var course = [Course]()
                     course.append(Course(
                         id : 0,

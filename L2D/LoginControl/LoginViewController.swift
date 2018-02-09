@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import Alamofire
-import SwiftyJSON
+//import Alamofire
+//import SwiftyJSON
 
 class LoginViewController: UIViewController {
     @IBOutlet weak var login_button: UIButton!
@@ -67,44 +67,22 @@ class LoginViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "LoginSeque"{
             if let uName = username.text, let pass = password.text{
+                let mySqe = segue as! LoginSeque
                 
-                
-//                if uName == "admin" && pass=="admin"{
-
-                    //กำหนดให้ตัวแปล mySqe คือเส้นเชื่อมระหว่างหน้า
-                    let mySqe = segue as! LoginSeque
-                
-                let parameters: Parameters = ["username" : uName,"passwd" : pass ]
-                Alamofire.request("http://158.108.207.7:8090/elearning/member/login",method : .post, parameters : parameters , encoding: JSONEncoding.default)
-                    .responseJSON{
-
-                        response in switch response.result{
-                        case .success(let value):
-                            let json = JSON(value)
-                            let status = json["status"].rawString()
-                            if( status != "false" || (uName == "admin" && pass == "admin")){
-                                
-                                let user  = User_model(
-                                    name : json["name"].stringValue,
-                                    idmember : Int(json["idmember"].stringValue)!,
-                                    surname : json["surname"].stringValue,
-                                    email : json["email"].stringValue,
-                                    type : json["type"].stringValue
-                                    
-                                )
-                                
-                                AppDelegate.userData = user
-                                AppDelegate.hasLogin = true
-                                mySqe.login_success = true
-                                mySqe.perform()
-                            }else{
-                                mySqe.login_success = false
-                                self.myAlert(text : "user or password incorrect")
-                            }
-                        case .failure(let error):
-                            self.myAlert(text : "ERROR CODE : 500 (sever error) : \(error)")
+                User_model.logIn(username: uName, password: pass, completion: { (status, code) in
+                    if(status){
+                        AppDelegate.hasLogin = true
+                        mySqe.login_success = true
+                        mySqe.perform()
+                    }else{
+                        if(code == 0){
+                            mySqe.login_success = false
+                            self.myAlert(text : "user or password incorrect")
+                        }else if(code == 1){
+                            self.myAlert(text : "ERROR CODE : 500 (sever error)")
                         }
-                }
+                    }
+                })
                 
             }
         }

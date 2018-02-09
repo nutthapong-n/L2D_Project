@@ -1176,7 +1176,7 @@
         <!--Register-->
         <scene sceneID="PFX-vG-R7u">
             <objects>
-                <viewController id="bBK-JW-cX3" customClass="RegisterViewController" customModule="L2D" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterViewController" id="bBK-JW-cX3" customClass="RegisterViewController" customModule="L2D" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lzj-X3-vbq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1576,7 +1576,7 @@
         <image name="xcode" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JnU-a7-irk"/>
+        <segue reference="3i2-e4-53u"/>
         <segue reference="IVk-gA-Azc"/>
     </inferredMetricsTieBreakers>
 </document>
