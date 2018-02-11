@@ -73,11 +73,18 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         print("end editing")
-        if (searchBar.text != "") {
+        if (searchBar.text != "" && searchBar.selectedScopeButtonIndex == 0) {
             Course.getCourseBySearchName(courseName: searchBar.text!, completion: {(result) in
                 self.dataAry = result
                 self.myTableView.reloadData()
             })
+            print("search by course name")
+        }else if (searchBar.text != "" && searchBar.selectedScopeButtonIndex == 1) {
+            Course.getCourseBySearchInstructor(instructorName: searchBar.text!, completion: {(result) in
+                self.dataAry = result
+                self.myTableView.reloadData()
+            })
+            print("search by instructor name")
         }else{
             self.dataAry.removeAll()
             self.myTableView.reloadData()

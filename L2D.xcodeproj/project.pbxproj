@@ -55,6 +55,7 @@
 		F73B7D64201C8E98007A3C1E /* Network.model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73B7D63201C8E98007A3C1E /* Network.model.swift */; };
 		F7817AA42027103D000EBAB9 /* CourseInCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7817AA32027103D000EBAB9 /* CourseInCategoryTableViewCell.swift */; };
 		F7B313282026F736000AB6CD /* CourseCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B313272026F736000AB6CD /* CourseCategoryTableViewController.swift */; };
+		F7C1337820300CCF00B747EA /* ProfileUpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C1337720300CCF00B747EA /* ProfileUpdatePasswordViewController.swift */; };
 		F7EC3C042020846A00FE9058 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EC3C032020846A00FE9058 /* SideMenuTableViewCell.swift */; };
 		F7EC3C062020883300FE9058 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EC3C052020883300FE9058 /* SideMenuTableViewController.swift */; };
 /* End PBXBuildFile section */
@@ -136,6 +137,7 @@
 		F73B7D63201C8E98007A3C1E /* Network.model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.model.swift; sourceTree = "<group>"; };
 		F7817AA32027103D000EBAB9 /* CourseInCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		F7B313272026F736000AB6CD /* CourseCategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCategoryTableViewController.swift; sourceTree = "<group>"; };
+		F7C1337720300CCF00B747EA /* ProfileUpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdatePasswordViewController.swift; sourceTree = "<group>"; };
 		F7EC3C032020846A00FE9058 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		F7EC3C052020883300FE9058 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		FB1E0EFD2F0EE9B2FC576BC9 /* Pods_L2DTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_L2DTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,6 +232,7 @@
 				32EA97351F26F9EC006E90C1 /* ProfileTableViewCell.swift */,
 				32EA97371F26FA08006E90C1 /* ProfileCollectionViewCell.swift */,
 				F7243197201A26F800C0D0A3 /* ProfileSegue.swift */,
+				F7C1337720300CCF00B747EA /* ProfileUpdatePasswordViewController.swift */,
 			);
 			path = ProfileControlGroup;
 			sourceTree = "<group>";
@@ -663,6 +666,7 @@
 				320AA3451F29989500AE9428 /* MyCourseCollectionViewCell.swift in Sources */,
 				F7243198201A26F800C0D0A3 /* ProfileSegue.swift in Sources */,
 				32D772FC1F24BD660093F6A2 /* ProfileViewController.swift in Sources */,
+				F7C1337820300CCF00B747EA /* ProfileUpdatePasswordViewController.swift in Sources */,
 				32DFBE2B1F2B52BF008AA3DA /* BaseViewController.swift in Sources */,
 				3240809720205C7400352AD1 /* CourseSectionTableViewCell.swift in Sources */,
 				F7817AA42027103D000EBAB9 /* CourseInCategoryTableViewCell.swift in Sources */,
