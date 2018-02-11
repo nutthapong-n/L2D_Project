@@ -71,6 +71,13 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let desView = storyboard?.instantiateViewController(withIdentifier: "CourseControllorBoard") as! CourseContentViewController
+        desView.courseId = courses[indexPath.row].id
+        
+        navigationController?.pushViewController(desView, animated: true)
+    }
 
     /*
     // MARK: - Navigation
