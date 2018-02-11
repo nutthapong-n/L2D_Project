@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: BaseViewController {
     
     
     @IBOutlet weak var regis_button: UIButton!

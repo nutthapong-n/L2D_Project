@@ -10,7 +10,7 @@ import UIKit
 import VGPlayer
 import SnapKit
 
-class CourseContentViewController: UIViewController , UITableViewDelegate , UITableViewDataSource {
+class CourseContentViewController: BaseViewController , UITableViewDelegate , UITableViewDataSource {
 
     
     
@@ -22,6 +22,25 @@ class CourseContentViewController: UIViewController , UITableViewDelegate , UITa
     @IBOutlet weak var tableviewTopConst : NSLayoutConstraint!
     @IBOutlet weak var table : CoursePreviewTable!
     
+    lazy var refreshControl : UIRefreshControl = {
+        let rc = UIRefreshControl()
+        rc.addTarget(self, action: #selector(actualizarDators) , for: .valueChanged)
+        rc.tintColor = UIColor.black
+        return rc
+    }()
+    
+    @objc func actualizarDators(_ refreshControl : UIRefreshControl){
+        Course.getCoureById(id: courseId!, completion: { (result) in
+            self.course = result
+            self.showCourse = []
+            for section in result.section!{
+                self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0))
+            }
+            self.player.displayView.titleLabel.text = self.course?.name
+            self.table.reloadData()
+            refreshControl.endRefreshing()
+        })
+    }
     
     override func loadView() {
         super.loadView()
@@ -181,7 +200,7 @@ class CourseContentViewController: UIViewController , UITableViewDelegate , UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        table.addSubview(self.refreshControl)
         tableviewTopConst.constant = UIScreen.main.bounds.width*3.0/4.0 - 20
         Course.getCoureById(id: courseId!, completion: { (result) in
             self.course = result

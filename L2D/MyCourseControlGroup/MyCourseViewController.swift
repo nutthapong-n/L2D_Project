@@ -17,22 +17,39 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
 //    var courses:[Course] = Course.generateModelArray()
 //    var allMyCourse:[Course] = Course.getMyCourse()
     var courses:[Course] = []
+    
+    lazy var refreshControl : UIRefreshControl = {
+        let rc = UIRefreshControl()
+        rc.addTarget(self, action: #selector(actualizarDators) , for: .valueChanged)
+        rc.tintColor = UIColor.black
+        return rc
+    }()
+    
+    @objc func actualizarDators(_ refreshControl : UIRefreshControl){
+        Course.getMyCourse{ (result) in
+            self.courses = result
+            self.homeTable.reloadData()
+            refreshControl.endRefreshing()
+        }
+        
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.homeTable.addSubview(self.refreshControl)
+        Course.getMyCourse{ (result) in
+            self.courses = result
+            self.homeTable.reloadData()
+//            print(result)
+        }
         // Do any additional setup after loading the view.
     }
+
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        Course.getMyCourse{ (result) in
-            self.courses = result
-            //            self.homeTable.reloadInputViews()
-            //            self.reloadInputViews()
-            //            self.homeTable.reloadInputViews()
-            self.homeTable.reloadData()
-            print(result)
-        }
+
     }
     
 
