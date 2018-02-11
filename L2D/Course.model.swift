@@ -47,6 +47,11 @@ class Course : NSObject{
     func Register(completion : @escaping (Bool) -> ()){
         let user_id = AppDelegate.userData?.idmember
         let user_id_str = user_id != nil ? "\(user_id!)" : ""
+        if(self.id == 0 || user_id_str == ""){
+            print("L2D Warning : coursr id or user id is null")
+            completion(false)
+            return
+        }
         let url = "\(Network.IP_Address_Master)/course/addRegis?courseId=\(self.id)&memberId=\(user_id_str)"
         print(url)
         Alamofire.request(url,method : .post , encoding: JSONEncoding.default)

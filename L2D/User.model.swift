@@ -42,6 +42,13 @@ class User_model: NSObject {
         return cate
     }
     
+    
+    ///Login func
+    ///
+    /// - Parameters:
+    ///   - username: username
+    ///   - password: password
+    ///   - completion: Bool is login status, Int is error status
     class func logIn(username : String, password : String, completion : @escaping (Bool, Int) -> ()){
         let urlString = "\(Network.IP_Address_Master)/member/login"
         let parameters: Parameters = ["username" : username,"passwd" : password ]

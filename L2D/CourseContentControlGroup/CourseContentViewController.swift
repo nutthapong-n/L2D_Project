@@ -106,9 +106,9 @@ class CourseContentViewController: UIViewController , UITableViewDelegate , UITa
         }
     }
     
-    func alert(text : String){
+    func alert(header : String, text : String){
         self.resignFirstResponder()
-        let alert = UIAlertController(title:"Fail!",message: text, preferredStyle: .alert)
+        let alert = UIAlertController(title: header, message: text, preferredStyle: .alert)
         
         let dismissBtn = UIAlertAction(title:"Close",style: .cancel, handler:{
             (alert: UIAlertAction) -> Void in
@@ -173,7 +173,7 @@ class CourseContentViewController: UIViewController , UITableViewDelegate , UITa
                 sender.isEnabled = false
                 sender.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
             }else{
-                self.alert(text: "enrollment fail")
+                self.alert(header : "Fail",text: "Enrollment fail, Please ensure you have register")
                 print("enroll error")
             }
         })

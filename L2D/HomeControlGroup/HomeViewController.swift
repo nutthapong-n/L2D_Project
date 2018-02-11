@@ -17,11 +17,28 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     var count = 0
     var currentRow = 0
     
+    lazy var refreshControl : UIRefreshControl = {
+        let rc = UIRefreshControl()
+        rc.addTarget(self, action: #selector(actualizarDators) , for: .valueChanged)
+        rc.tintColor = UIColor.black
+        return rc
+    }()
     @IBOutlet weak var homeTable: UITableView!
     
 
+    @objc func actualizarDators(_ refreshControl : UIRefreshControl){
+        Course.getAllCourse { (result) in
+            self.course = result
+            self.homeTable.reloadData()
+            refreshControl.endRefreshing()
+            //            print(result)
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.homeTable.addSubview(self.refreshControl)
 
     }
     
@@ -29,9 +46,6 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         super.loadView()
         Course.getAllCourse { (result) in
             self.course = result
-//            self.homeTable.reloadInputViews()
-//            self.reloadInputViews()
-//            self.homeTable.reloadInputViews()
             self.homeTable.reloadData()
 //            print(result)
         }

@@ -10,7 +10,7 @@ import UIKit
 //import Alamofire
 //import SwiftyJSON
 
-class LoginViewController: UIViewController {
+class LoginViewController: BaseViewController {
     @IBOutlet weak var login_button: UIButton!
     
     @IBOutlet weak var username: UITextField!
