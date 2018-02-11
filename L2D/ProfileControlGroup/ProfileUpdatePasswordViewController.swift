@@ -42,7 +42,7 @@ class ProfileUpdatePasswordViewController: UIViewController {
     }
 
     @IBAction func confirmUpdateClicked(_ sender: Any) {
-        if(newPsswd.text == retypeNewPsswd.text){
+        if((newPsswd.text == retypeNewPsswd.text) && (newPsswd.text != nil)){
             //Do change psswd
             let parameters: Parameters = [
                 "idmember" : AppDelegate.userData?.idmember ?? "",
