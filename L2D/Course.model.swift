@@ -84,59 +84,65 @@ class Course : NSObject{
     }
     
     class func getCoureById( id:Int , completion : @escaping ( Course) -> ()){
-        let urlString = "\(Network.IP_Address_Master)/course?id=\(id)"
+        let urlString = "\(Network.IP_Address_Master)/course?courseId=\(id)"
         
-        let course = Course(id:id, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard" , section : [
-            Section_model(id: 1, name: "section1", subSection: [
-                SubSection(id: 1, name: "section1_sub1"),
-                SubSection(id: 2, name: "section1_sub2"),
-                SubSection(id: 3, name: "section1_sub3")]),
-            Section_model(id: 2, name: "section2", subSection: [
-                SubSection(id: 1, name: "section2_sub1"),
-                SubSection(id: 2, name: "section2_sub2"),
-                SubSection(id: 3, name: "section2_sub3")]),
-            Section_model(id: 3, name: "section3", subSection: [
-                SubSection(id: 1, name: "section3_sub1"),
-                SubSection(id: 2, name: "section3_sub2"),
-                SubSection(id: 3, name: "section3_sub3")])
-            ])
-        
-        completion(course)
-//        Alamofire.request(urlString,method : .get , encoding: JSONEncoding.default)
-//            .responseJSON{
-//
-//                response in switch response.result{
-//                case .success(let value):
-//                    let json = JSON(value)
-//                    let course = Course(
-//                            id : Int(json["id"].stringValue)!,
-//                            categoryId: json["categoryId"].stringValue == "" ? -1 : Int(json["categoryId"].stringValue)!,
-//                            detail: json["detail"].stringValue,
-//                            createdDate: json["createdDate"].stringValue == "" ? -1 : Float(json["createdDate"].stringValue)!,
-//                            key: json["key"].stringValue,
-//                            name : json["name"].stringValue,
-//                            owner: "",
-//                            img: "keyboard"
-//                        )
-//                    completion(course)
-//                case .failure(let error):
-//                    let course = Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard" , section : [
-//                        Section_model(id: 1, name: "section1", subSection: [
-//                            SubSection(id: 1, name: "sub1"),
-//                            SubSection(id: 2, name: "sub2"),
-//                            SubSection(id: 3, name: "sub3")]),
-//                        Section_model(id: 1, name: "section2", subSection: [
-//                            SubSection(id: 1, name: "sub1"),
-//                            SubSection(id: 2, name: "sub2"),
-//                            SubSection(id: 3, name: "sub3")]),
-//                        Section_model(id: 1, name: "section3", subSection: [
-//                            SubSection(id: 1, name: "sub1"),
-//                            SubSection(id: 2, name: "sub2"),
-//                            SubSection(id: 3, name: "sub3")])
-//                        ])
-//                    completion(course)
-//                    }
-//                }
+        Alamofire.request(urlString,method : .get , encoding: JSONEncoding.default)
+            .responseJSON{
+
+                response in switch response.result{
+                case .success(let value):
+                    let json = JSON(value)
+                    
+                    let course = Course(
+                            id : Int(json["id"].stringValue)!,
+                            categoryId: json["categoryId"].stringValue == "" ? -1 : Int(json["categoryId"].stringValue)!,
+                            detail: json["detail"].stringValue,
+                            createdDate: json["createdDate"].stringValue == "" ? -1 : Float(json["createdDate"].stringValue)!,
+                            key: json["key"].stringValue,
+                            name : json["name"].stringValue,
+                            owner: "",
+                            img: "keyboard",
+                            section : []
+                        )
+                    
+                    let sections = json["sectionList"].arrayValue
+                    
+                    for section in sections{
+                        let thisSection = Section_model(
+                            id: section["id"].intValue,
+                            name: section["content"].stringValue,
+                            subSection: [])
+                        
+                        let subSections = section["sub-section"].arrayValue
+                        for sub in subSections{
+                            let thisSub = SubSection(
+                                id: sub["id"].intValue,
+                                name: sub["content"].stringValue)
+                            
+                            thisSection.subSection?.append(thisSub)
+                        }
+                        course.section?.append(thisSection)
+                    }
+                    
+                    completion(course)
+                case .failure(let error):
+                    let course = Course(id:id, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard" , section : [
+                        Section_model(id: 1, name: "section1", subSection: [
+                            SubSection(id: 1, name: "section1_sub1"),
+                            SubSection(id: 2, name: "section1_sub2"),
+                            SubSection(id: 3, name: "section1_sub3")]),
+                        Section_model(id: 2, name: "section2", subSection: [
+                            SubSection(id: 1, name: "section2_sub1"),
+                            SubSection(id: 2, name: "section2_sub2"),
+                            SubSection(id: 3, name: "section2_sub3")]),
+                        Section_model(id: 3, name: "section3", subSection: [
+                            SubSection(id: 1, name: "section3_sub1"),
+                            SubSection(id: 2, name: "section3_sub2"),
+                            SubSection(id: 3, name: "section3_sub3")])
+                        ])
+                    completion(course)
+                    }
+                }
         }
     
     
@@ -271,6 +277,7 @@ class Course : NSObject{
                 }
                 completion(course)
             case .failure(let error):
+                completion(course)
                 print(error)
             }
         }
@@ -278,8 +285,8 @@ class Course : NSObject{
     
     class func getCourseBySearchInstructor(instructorName:String, completion : @escaping ([Course])-> Void){
         var course = [Course]()
-        
-        Alamofire.request(Network.IP_Address_Master+"/course?teacherName=\(instructorName)",method: .get,encoding: JSONEncoding.default).responseJSON{
+        let url = "\(Network.IP_Address_Master)/course?teacherName=\(instructorName)"
+        Alamofire.request(url,method: .get,encoding: JSONEncoding.default).responseJSON{
             response in switch response.result{
             case.success(let value):
                 let json = JSON(value)
@@ -298,6 +305,7 @@ class Course : NSObject{
                 }
                 completion(course)
             case.failure(let error):
+                completion(course)
                 print(error)
             }
         }

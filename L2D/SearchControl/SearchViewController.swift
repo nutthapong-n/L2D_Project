@@ -22,12 +22,41 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
     
     @IBOutlet weak var myTableView: UITableView!
     @IBOutlet weak var barContainerTable: UITableView!
-
     @IBOutlet weak var content_container: UIView!
+    
+    lazy var refreshControl : UIRefreshControl = {
+        let rc = UIRefreshControl()
+        rc.addTarget(self, action: #selector(actualizarDators) , for: .valueChanged)
+        rc.tintColor = UIColor.black
+        return rc
+    }()
+    
+    @objc func actualizarDators(_ refreshControl : UIRefreshControl){
+        if (searchBar.text != "" && searchBar.selectedScopeButtonIndex == 0) {
+            Course.getCourseBySearchName(courseName: searchBar.text!, completion: {(result) in
+                self.dataAry = result
+                self.myTableView.reloadData()
+                refreshControl.endRefreshing()
+            })
+        }else if (searchBar.text != "" && searchBar.selectedScopeButtonIndex == 1) {
+            Course.getCourseBySearchInstructor(instructorName: searchBar.text!, completion: {(result) in
+                self.dataAry = result
+                self.myTableView.reloadData()
+                refreshControl.endRefreshing()
+            })
+        }else{
+            self.dataAry.removeAll()
+            self.myTableView.reloadData()
+            refreshControl.endRefreshing()
+        }
+        
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.searchBarSetup()
+        myTableView.addSubview(refreshControl)
         
 
         // Do any additional setup after loading the view.
@@ -50,17 +79,12 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
     // MARK: - search bar delegate
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchBar.setShowsCancelButton(true, animated: true)
-//        if searchText.isEmpty {
-//            dataAry = initialDataAry
-//            self.myTableView.reloadData()
-//        }else {
-//            filterTableView(ind: searchBar.selectedScopeButtonIndex, text: searchText)
-//        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let desView = segue.destination as! CourseContentViewController
-        desView.courseId = 30
+        let courseCell = sender as! SearchTableViewCell
+        desView.courseId = courseCell.id
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -74,16 +98,10 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         print("end editing")
         if (searchBar.text != "" && searchBar.selectedScopeButtonIndex == 0) {
-            Course.getCourseBySearchName(courseName: searchBar.text!, completion: {(result) in
-                self.dataAry = result
-                self.myTableView.reloadData()
-            })
+            reloadData(type: 0, text: searchBar.text!)
             print("search by course name")
         }else if (searchBar.text != "" && searchBar.selectedScopeButtonIndex == 1) {
-            Course.getCourseBySearchInstructor(instructorName: searchBar.text!, completion: {(result) in
-                self.dataAry = result
-                self.myTableView.reloadData()
-            })
+            reloadData(type: 1, text: searchBar.text!)
             print("search by instructor name")
         }else{
             self.dataAry.removeAll()
@@ -104,23 +122,38 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         
     }
     
-    func filterTableView(ind:Int,text:String) {
-        switch ind {
-        case selectedScope.name.rawValue:
-            //fix of not searching when backspacing
-            dataAry = initialDataAry.filter({ (mod) -> Bool in
-                return (mod.name.lowercased().contains(text.lowercased()))
+    ///
+    /// - Parameter type: 0 is course name
+    ///                   1 is instructor name
+    func reloadData(type : Int , text : String){
+        switch type {
+        case 0:
+            Course.getCourseBySearchName(courseName: text, completion: {(result) in
+                self.dataAry = result
+                self.myTableView.reloadData()
             })
-            self.myTableView.reloadData()
-        case selectedScope.owner.rawValue:
-            //fix of not searching when backspacing
-            dataAry = initialDataAry.filter({ (mod) -> Bool in
-                return (mod.owner.lowercased().contains(text.lowercased()))
+        case 1:
+            Course.getCourseBySearchInstructor(instructorName: text, completion: {(result) in
+                self.dataAry = result
+                self.myTableView.reloadData()
             })
-            self.myTableView.reloadData()
+            
+        default:
+            print("in other case")
+        }
+        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        switch selectedScope {
+        case 0:
+            reloadData(type: 0, text: searchBar.text!)
+        case 1:
+            reloadData(type: 1, text: searchBar.text!)
         default:
             print("no type")
         }
+
     }
     
 
@@ -148,7 +181,7 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         let model = dataAry[indexPath.row]
         
         
-        
+        cell.id = model.id
         cell.cellLabel.text = model.name
         cell.ownerLabel.text = "Instructor: \(model.owner)"
 

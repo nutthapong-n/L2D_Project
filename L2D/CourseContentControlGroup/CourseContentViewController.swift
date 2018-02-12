@@ -207,6 +207,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             for section in result.section!{
                 self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0))
             }
+            self.table.reloadData()
             self.player.displayView.titleLabel.text = self.course?.name
         })
         
