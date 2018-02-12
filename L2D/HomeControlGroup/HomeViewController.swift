@@ -11,8 +11,14 @@ import UIKit
 class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewDataSource{
     
 
-    var course:[Course]?
-    var detail = ["New course" ,"Reccommend","In Trend"]
+//    var course:[Course]?
+    var courses : [String : [Course]] = [
+        "slide" : [],
+        "new" : [],
+        "top" : []
+    ]
+    var courseSaparator : [Course] = []
+    var detail = ["New course" ,"New Courses","Top Courses"]
     var selectedId : Int = 0
     var count = 0
     var currentRow = 0
@@ -27,8 +33,10 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     
 
     @objc func actualizarDators(_ refreshControl : UIRefreshControl){
-        Course.getAllCourse { (result) in
-            self.course = result
+        Course.getTopCourse(amount: 8) { (result) in
+//            self.courses["slide"] = result
+//            self.courses["new"] = result
+            self.courses["top"] = result
             self.homeTable.reloadData()
             refreshControl.endRefreshing()
             //            print(result)
@@ -44,10 +52,11 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     
     override func loadView() {
         super.loadView()
-        Course.getAllCourse { (result) in
-            self.course = result
+        Course.getTopCourse(amount: 8) { (result) in
+//            self.courses["slide"] = result
+//            self.courses["new"] = result
+            self.courses["top"] = result
             self.homeTable.reloadData()
-//            print(result)
         }
     }
     
@@ -165,16 +174,22 @@ enum CellError: Error {
 }
 
 extension HomeViewController : UICollectionViewDataSource , UICollectionViewDelegate{
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if(course == nil){
-            return 0;
+        
+        
+        if(currentRow == 0){
+            courseSaparator =  courses["slide"]!
+        }else if(currentRow == 1){
+            courseSaparator = courses["new"]!
         }else{
-//            return 2
-            return course!.count
+            courseSaparator = courses["top"]!
         }
+        
+        return courseSaparator.count
         
     }
     
@@ -182,7 +197,7 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let identifier = collectionView.restorationIdentifier
-        let thisCourse = course![indexPath.row]
+        let thisCourse = courseSaparator[indexPath.row]
         if(identifier == "HeaderCollection"){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseHeaderCollectionViewCell
             cell.initCell(img: thisCourse.img, id: thisCourse.id)

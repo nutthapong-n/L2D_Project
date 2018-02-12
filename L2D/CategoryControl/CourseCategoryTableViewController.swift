@@ -20,6 +20,7 @@ class CourseCategoryTableViewController: UITableViewController {
     var courseList = [Course]()
     var rowSelected:Int = -1
     
+    
     override func viewDidLoad() {
         self.courseList.removeAll()
         self.CourseInCategoryTable.reloadData()

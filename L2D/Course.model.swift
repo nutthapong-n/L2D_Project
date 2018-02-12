@@ -83,6 +83,37 @@ class Course : NSObject{
         return course
     }
     
+    class func getTopCourse(amount : Int, completion : @escaping ([Course]) -> ()){
+        let url = "\(Network.IP_Address_Master)/course?top=\(amount)"
+        Alamofire.request(url,method: .get,encoding: JSONEncoding.default).responseJSON{
+            response in
+            var courses : [Course] = []
+            switch response.result{
+            case .success(let value):
+                let json = JSON(value)
+                for obj in json{
+                    let this_course = obj.1
+                    courses.append(Course(
+                        id : this_course["id"].intValue,
+                        categoryId: this_course["categoryId"].intValue,
+                        detail: this_course["detail"].stringValue,
+                        createdDate: this_course["createdDate"].floatValue,
+                        key: this_course["key"].stringValue,
+                        name : this_course["name"].stringValue,
+                        owner: "",
+                        img: "java"
+                    ))
+                }
+                
+                completion(courses)
+            case .failure(let error):
+                completion(courses)
+                print(error)
+            }
+            
+        }
+    }
+    
     class func getCoureById( id:Int , completion : @escaping ( Course) -> ()){
         let urlString = "\(Network.IP_Address_Master)/course?courseId=\(id)"
         
@@ -229,7 +260,7 @@ class Course : NSObject{
     
     class func getCourseByCourseId(courseID : Int, completion : @escaping (Course) -> Void){
         
-        Alamofire.request(Network.IP_Address_Master+"/course?idCourse=\(courseID)",method : .get, encoding: JSONEncoding.default)
+        Alamofire.request(Network.IP_Address_Master+"/course?courseId=\(courseID)",method : .get, encoding: JSONEncoding.default)
             .responseJSON{
                 
                 response in switch response.result{
