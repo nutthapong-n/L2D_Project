@@ -52,9 +52,9 @@ class Course : NSObject{
             completion(false)
             return
         }
-        let url = "\(Network.IP_Address_Master)/course/addRegis?courseId=\(self.id)&memberId=\(user_id_str)"
-        print(url)
-        Alamofire.request(url,method : .post , encoding: JSONEncoding.default)
+        let url = "\(Network.IP_Address_Master)/course/addRegis"
+        let parameters: Parameters = ["courseId" : self.id,"memberId" : user_id_str ]
+        Alamofire.request(url,method : .post ,parameters : parameters, encoding: JSONEncoding.default)
             .responseJSON{
                 
                 response in switch response.result{
@@ -101,7 +101,7 @@ class Course : NSObject{
                         key: this_course["key"].stringValue,
                         name : this_course["name"].stringValue,
                         owner: "",
-                        img: "java"
+                        img: "download"
                     ))
                 }
                 
@@ -171,6 +171,7 @@ class Course : NSObject{
                             SubSection(id: 2, name: "section3_sub2"),
                             SubSection(id: 3, name: "section3_sub3")])
                         ])
+                    print(error)
                     completion(course)
                     }
                 }
@@ -240,9 +241,9 @@ class Course : NSObject{
                     let this_course = obj.1
                     course.append(Course(
                         id : Int(this_course["id"].stringValue)!,
-                        categoryId: Int(this_course["categoryId"].stringValue)!,
+                        categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue,
                         detail: this_course["detail"].stringValue,
-                        createdDate: Float(this_course["createdDate"].stringValue)!,
+                        createdDate: this_course["createdDate"] == JSON.null ? 0.0 : this_course["createdDate"].floatValue ,
                         key: this_course["key"].stringValue,
                         name : this_course["name"].stringValue,
                         owner: "",
@@ -289,6 +290,10 @@ class Course : NSObject{
     class func getCourseBySearchName(courseName:String, completion : @escaping ( [Course]) -> Void){
         var course = [Course]()
         
+        if(courseName == ""){
+            return
+        }
+        
         Alamofire.request(Network.IP_Address_Master+"/course?name=\(courseName)",method: .get,encoding: JSONEncoding.default).responseJSON{
             response in switch response.result{
             case .success(let value):
@@ -297,7 +302,7 @@ class Course : NSObject{
                     let this_course = obj.1
                     course.append(Course(
                         id : Int(this_course["id"].stringValue)!,
-                        categoryId: Int(this_course["categoryId"].stringValue)!,
+                        categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
                         detail: this_course["detail"].stringValue,
                         createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
                         key: this_course["key"].stringValue,
@@ -317,6 +322,9 @@ class Course : NSObject{
     class func getCourseBySearchInstructor(instructorName:String, completion : @escaping ([Course])-> Void){
         var course = [Course]()
         let url = "\(Network.IP_Address_Master)/course?teacherName=\(instructorName)"
+        if(instructorName == ""){
+            return
+        }
         Alamofire.request(url,method: .get,encoding: JSONEncoding.default).responseJSON{
             response in switch response.result{
             case.success(let value):
@@ -325,7 +333,7 @@ class Course : NSObject{
                     let this_course = obj.1
                     course.append(Course(
                         id : Int(this_course["id"].stringValue)!,
-                        categoryId: Int(this_course["categoryId"].stringValue)!,
+                        categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue,
                         detail: this_course["detail"].stringValue,
                         createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
                         key: this_course["key"].stringValue,

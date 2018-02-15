@@ -57,6 +57,8 @@ class RegisterViewController: BaseViewController {
                         "email" : email
                     ]
                     
+                    
+                    
                     Alamofire.request("http://158.108.207.7:8090/elearning/member/add",method : .post, parameters : parameters , encoding: JSONEncoding.default)
                         .responseJSON{
                             

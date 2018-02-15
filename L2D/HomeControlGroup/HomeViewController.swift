@@ -34,8 +34,8 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
 
     @objc func actualizarDators(_ refreshControl : UIRefreshControl){
         Course.getTopCourse(amount: 8) { (result) in
-//            self.courses["slide"] = result
-//            self.courses["new"] = result
+            self.courses["slide"] = result
+            self.courses["new"] = result
             self.courses["top"] = result
             self.homeTable.reloadData()
             refreshControl.endRefreshing()
@@ -53,8 +53,8 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     override func loadView() {
         super.loadView()
         Course.getTopCourse(amount: 8) { (result) in
-//            self.courses["slide"] = result
-//            self.courses["new"] = result
+            self.courses["slide"] = result
+            self.courses["new"] = result
             self.courses["top"] = result
             self.homeTable.reloadData()
         }
