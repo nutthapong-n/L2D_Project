@@ -91,7 +91,8 @@ class Course : NSObject{
             switch response.result{
             case .success(let value):
                 let json = JSON(value)
-                for obj in json{
+                let objCourse = json["courses"]
+                for obj in objCourse{
                     let this_course = obj.1
                     courses.append(Course(
                         id : this_course["id"].intValue,
