@@ -116,7 +116,6 @@ class Course : NSObject{
     
     class func getCoureById( id:Int , completion : @escaping ( Course) -> ()){
         let urlString = "\(Network.IP_Address_Master)/course?courseId=\(id)"
-        
         Alamofire.request(urlString,method : .get , encoding: JSONEncoding.default)
             .responseJSON{
 
