@@ -20,17 +20,48 @@ class CourseCategoryTableViewController: UITableViewController {
     var courseList = [Course]()
     var rowSelected:Int = -1
     
+    func myAlert(title : String,text : String){
+        self.resignFirstResponder()
+        let alert = UIAlertController(title:title,message: text, preferredStyle: .alert)
+        
+        let dismissBtn = UIAlertAction(title:"Close",style: .cancel, handler:{
+            (alert: UIAlertAction) -> Void in
+            self.navigationController?.popViewController(animated: true)
+        })
+        
+        alert.addAction(dismissBtn)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         self.courseList.removeAll()
         self.CourseInCategoryTable.reloadData()
         
         if courseIdList != [Int]() {
-            for courseID in courseIdList {
-                Course.getCourseByCourseId(courseID: courseID, completion:{(result) in
-                    self.courseList.append(result)
+            
+            if courseIdList.count == 1 {
+                Course.getCourseByCourseId(courseID: courseIdList[0], completion:{(result,errMsg) in
+                    if errMsg != nil{
+                        self.myAlert(title: "Error", text: errMsg!)
+                    }
+                    else if result != nil {
+                        self.courseList.append(result!)
+                    }
                     self.CourseInCategoryTable.reloadData()
                 })
+            }
+            else{
+                Course.getCourseByCourseIdList(courseID: courseIdList, completion: {(result,errMsg) in
+                    if errMsg != nil{
+                        self.myAlert(title: "Error", text: errMsg!)
+                    }
+                    else if result != nil{
+                        self.courseList = result!
+                    }
+                    self.CourseInCategoryTable.reloadData()
+                })
+    
             }
         }
         self.TopBarTitle.title = categoryName

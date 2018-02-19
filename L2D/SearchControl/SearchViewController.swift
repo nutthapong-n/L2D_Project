@@ -31,17 +31,41 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         return rc
     }()
     
+    func myAlert(title : String,text : String){
+        self.resignFirstResponder()
+        let alert = UIAlertController(title:title,message: text, preferredStyle: .alert)
+        
+        let dismissBtn = UIAlertAction(title:"Close",style: .cancel, handler:{
+            (alert: UIAlertAction) -> Void in
+            self.navigationController?.popViewController(animated: true)
+        })
+        
+        alert.addAction(dismissBtn)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @objc func actualizarDators(_ refreshControl : UIRefreshControl){
         if (searchBar.text != "" && searchBar.selectedScopeButtonIndex == 0) {
-            Course.getCourseBySearchName(courseName: searchBar.text!, completion: {(result) in
-                self.dataAry = result
-                self.myTableView.reloadData()
+            Course.getCourseBySearchName(courseName: searchBar.text!, completion: {(result, errMsg) in
+                if(errMsg != nil){
+                    self.myAlert(title: "Error", text: errMsg!)
+                }else{
+                    self.dataAry = result!
+                    self.myTableView.reloadData()
+                }
+        
                 refreshControl.endRefreshing()
             })
         }else if (searchBar.text != "" && searchBar.selectedScopeButtonIndex == 1) {
-            Course.getCourseBySearchInstructor(instructorName: searchBar.text!, completion: {(result) in
-                self.dataAry = result
-                self.myTableView.reloadData()
+            Course.getCourseBySearchInstructor(instructorName: searchBar.text!, completion: {(result, errMsg) in
+                if errMsg != nil {
+                    self.myAlert(title: "Error", text: errMsg!)
+                }else{
+                    self.dataAry = result!
+                    self.myTableView.reloadData()
+                }
+                
                 refreshControl.endRefreshing()
             })
         }else{
@@ -128,14 +152,22 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
     func reloadData(type : Int , text : String){
         switch type {
         case 0:
-            Course.getCourseBySearchName(courseName: text, completion: {(result) in
-                self.dataAry = result
-                self.myTableView.reloadData()
+            Course.getCourseBySearchName(courseName: text, completion: {(result, errMsg) in
+                if errMsg != nil {
+                    self.myAlert(title: "Error", text: errMsg!)
+                }else{
+                    self.dataAry = result!
+                    self.myTableView.reloadData()
+                }
             })
         case 1:
-            Course.getCourseBySearchInstructor(instructorName: text, completion: {(result) in
-                self.dataAry = result
-                self.myTableView.reloadData()
+            Course.getCourseBySearchInstructor(instructorName: text, completion: {(result, errMsg) in
+                if errMsg != nil {
+                    self.myAlert(title: "Error", text: errMsg!)
+                }else{
+                    self.dataAry = result!
+                    self.myTableView.reloadData()
+                }
             })
             
         default:

@@ -29,15 +29,36 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         return rc
     }()
     
+    func myAlert(title : String,text : String){
+        self.resignFirstResponder()
+        let alert = UIAlertController(title:title,message: text, preferredStyle: .alert)
+        
+        let dismissBtn = UIAlertAction(title:"Close",style: .cancel, handler:{
+            (alert: UIAlertAction) -> Void in
+            self.navigationController?.popViewController(animated: true)
+        })
+        
+        alert.addAction(dismissBtn)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @objc func actualizarDators(_ refreshControl : UIRefreshControl){
-        Course.getCoureById(id: courseId!, completion: { (result) in
-            self.course = result
-            self.showCourse = []
-            for section in result.section!{
-                self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0))
+        Course.getCoureById(id: courseId!, completion: { (result,msg) in
+            
+            if(msg != nil){
+                self.myAlert(title: "Error", text: msg!)
             }
-            self.player.displayView.titleLabel.text = self.course?.name
-            self.table.reloadData()
+            else{
+                self.course = result
+                self.showCourse = []
+                for section in (result?.section!)!{
+                    self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0))
+                }
+                self.player.displayView.titleLabel.text = self.course?.name
+                self.table.reloadData()
+            }
+            
             refreshControl.endRefreshing()
         })
     }
@@ -202,13 +223,18 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         super.viewDidLoad()
         table.addSubview(self.refreshControl)
         tableviewTopConst.constant = UIScreen.main.bounds.width*3.0/4.0 - 20
-        Course.getCoureById(id: courseId!, completion: { (result) in
-            self.course = result
-            for section in result.section!{
-                self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0))
+        Course.getCoureById(id: courseId!, completion: { (result,errMsg) in
+            if(errMsg != nil){
+                self.myAlert(title: "Error", text: errMsg!)
+            }else{
+                self.course = result
+                for section in (result?.section!)!{
+                    self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0))
+                }
+                self.table.reloadData()
+                self.player.displayView.titleLabel.text = self.course?.name
             }
-            self.table.reloadData()
-            self.player.displayView.titleLabel.text = self.course?.name
+            
         })
         
         AppDelegate.restrictRotation = false;

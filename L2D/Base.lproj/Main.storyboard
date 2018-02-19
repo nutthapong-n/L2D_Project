@@ -627,7 +627,7 @@
                                 <rect key="frame" x="62.666666666666657" y="377.66666666666669" width="289" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                 <connections>
                                     <action selector="DisMissKeyboardForPassWord:" destination="gSP-vc-DkY" eventType="editingDidEndOnExit" id="v9C-kq-vY7"/>
                                 </connections>
@@ -1131,19 +1131,19 @@
                                 <rect key="frame" x="58" y="115" width="298" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uQv-rY-lTr">
                                 <rect key="frame" x="58" y="161" width="298" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Retype New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xps-GS-NUz">
                                 <rect key="frame" x="58" y="209" width="298" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BaD-Qr-13E">
                                 <rect key="frame" x="94" y="301" width="227" height="30"/>
@@ -1277,7 +1277,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                 <connections>
                                     <action selector="DisMissKeyboardForUserName:" destination="gSP-vc-DkY" eventType="editingDidEndOnExit" id="sMx-hy-MBQ"/>
                                 </connections>
@@ -1289,7 +1289,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                 <connections>
                                     <action selector="DisMissKeyboardForUserName:" destination="gSP-vc-DkY" eventType="editingDidEndOnExit" id="1JX-Oc-CvD"/>
                                 </connections>
@@ -1654,7 +1654,7 @@
         <image name="xcode" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AuJ-w7-qds"/>
-        <segue reference="IVk-gA-Azc"/>
+        <segue reference="3i2-e4-53u"/>
+        <segue reference="D10-sT-fdj"/>
     </inferredMetricsTieBreakers>
 </document>
