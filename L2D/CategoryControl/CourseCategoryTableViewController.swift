@@ -115,7 +115,7 @@ class CourseCategoryTableViewController: UITableViewController {
         
         cell.CourseNameLabel.text = data.name
         cell.CourseDetailLabel.text = data.detail
-
+        cell.selectionStyle = .none
         return cell
     }
     

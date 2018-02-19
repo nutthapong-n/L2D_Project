@@ -105,7 +105,8 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
         
         cell.courseName.text = modelData.name
         cell.courseDetail.text = modelData.detail
-        
+        cell.instructorName.text = "Instructor : \(modelData.owner)"
+        cell.selectionStyle = .none
         
         return cell
     }

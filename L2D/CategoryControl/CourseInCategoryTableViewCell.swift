@@ -18,10 +18,10 @@ class CourseInCategoryTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-//        ItemViewBox.layer.shadowColor = UIColor.black.cgColor
-//        ItemViewBox.layer.shadowOffset = CGSize(width:0, height:0)
-//        ItemViewBox.layer.shadowOpacity = 0.8
-//        ItemViewBox.layer.shadowRadius = 4
+        ItemViewBox.layer.shadowColor = UIColor.black.cgColor
+        ItemViewBox.layer.shadowOffset = CGSize(width:0, height:0)
+        ItemViewBox.layer.shadowOpacity = 0.8
+        ItemViewBox.layer.shadowRadius = 4
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

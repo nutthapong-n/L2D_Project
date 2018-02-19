@@ -74,6 +74,7 @@ class SideMenuTableViewController: UITableViewController {
         let dataCategory = category[indexPath.row]
         cell.CategoryMenu.text = dataCategory.name
         cell.CourseInCategoryCount.text = "\(dataCategory.courseIdList?.count ?? 0)"
+        cell.selectionStyle = .none
         // Configure the cell...
 
         return cell
