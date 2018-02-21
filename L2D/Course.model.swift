@@ -123,22 +123,23 @@ class Course : NSObject{
                 response in switch response.result{
                 case .success(let value):
                     let json = JSON(value)
-                    
+                    let jResponse = json["response"].dictionaryValue
+                    let jCourse = json["course"].dictionaryValue
                     let course = Course(
-                            id : Int(json["id"].stringValue)!,
-                            categoryId: json["categoryId"].stringValue == "" ? -1 : Int(json["categoryId"].stringValue)!,
-                            detail: json["detail"].stringValue,
-                            createdDate: json["createdDate"].stringValue == "" ? -1 : Float(json["createdDate"].stringValue)!,
-                            key: json["key"].stringValue,
-                            name : json["name"].stringValue,
+                        id : (jCourse["id"]?.intValue)!,
+                        categoryId: jCourse["categoryId"]?.stringValue == "" ? -1 : (jCourse["categoryId"]?.intValue)!,
+                        detail: (jCourse["detail"]?.stringValue)!,
+                        createdDate: jCourse["createdDate"]?.stringValue == "" ? -1 : (jCourse["createdDate"]?.floatValue)!,
+                        key: (jCourse["key"]?.stringValue)!,
+                        name : (jCourse["name"]?.stringValue)!,
                             owner: "",
                             img: "keyboard",
                             section : []
                         )
                     
-                    let sections = json["sectionList"].arrayValue
+                    let sections = jCourse["sectionList"]?.arrayValue
                     
-                    for section in sections{
+                    for section in sections!{
                         let thisSection = Section_model(
                             id: section["id"].intValue,
                             name: section["content"].stringValue,

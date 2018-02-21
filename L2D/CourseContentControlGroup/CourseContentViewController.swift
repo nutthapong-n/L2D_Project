@@ -212,7 +212,10 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         })
         
         AppDelegate.restrictRotation = false;
-        let url = URL(string: "http://lxdqncdn.miaopai.com/stream/6IqHc-OnSMBIt-LQjPJjmA__.mp4?ssig=a81b90fdeca58e8ea15c892a49bce53f&time_stamp=1508166491488")!
+//        let url = URL(string: "http://lxdqncdn.miaopai.com/stream/6IqHc-OnSMBIt-LQjPJjmA__.mp4?ssig=a81b90fdeca58e8ea15c892a49bce53f&time_stamp=1508166491488")!
+        
+        let url = URL(string: "http://158.108.207.7:8080/api/ts/key999/25/30/index.m3u8")!
+        
         
         self.player.replaceVideo(url)
         view.addSubview(self.player.displayView)
