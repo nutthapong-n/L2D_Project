@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/Course.model.swift"
-            timestampString = "540739714.460673"
+            timestampString = "540755811.970305"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "92"
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/Course.model.swift"
-            timestampString = "540739714.46134"
+            timestampString = "540755811.970381"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "getTopCourse(amount:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/Course.model.swift"
-            timestampString = "540739714.461742"
+            timestampString = "540755811.970438"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "getTopCourse(amount:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/Course.model.swift"
-            timestampString = "540739714.462116"
+            timestampString = "540755811.97049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "getCoureById(id:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/Course.model.swift"
-            timestampString = "540739714.462484"
+            timestampString = "540755811.97054"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "getTopCourse(amount:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/Course.model.swift"
-            timestampString = "540739714.462851"
+            timestampString = "540755811.97059"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
             landmarkName = "getCoureById(id:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/Course.model.swift"
-            timestampString = "540739714.463222"
+            timestampString = "540755811.970638"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "getTopCourse(amount:completion:)"
             landmarkType = "7">
             <Locations>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/Course.model.swift"
-            timestampString = "540739714.463586"
+            timestampString = "540755811.970687"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "getTopCourse(amount:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,12 +170,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/MyCourseControlGroup/MyCourseViewController.swift"
-            timestampString = "540044817.096184"
+            timestampString = "540755811.97074"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "viewDidAppear(_:)"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "actualizarDators(_:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -218,44 +218,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/MyCourseControlGroup/MyCourseViewController.swift"
-            timestampString = "540044817.096234"
+            timestampString = "540755811.970786"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "viewDidAppear(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "L2D/MyCourseControlGroup/MyCourseViewController.swift"
-            timestampString = "540044817.09628"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "viewDidAppear(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "L2D/MyCourseControlGroup/MyCourseViewController.swift"
-            timestampString = "540044817.096324"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "viewDidAppear(_:)"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "actualizarDators(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -266,7 +234,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/SideMenuTableViewController.swift"
-            timestampString = "540739714.464057"
+            timestampString = "540755811.970834"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "20"
@@ -282,7 +250,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/SideMenuTableViewController.swift"
-            timestampString = "540739714.464426"
+            timestampString = "540755811.971187"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "30"
@@ -298,7 +266,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/SideMenuTableViewController.swift"
-            timestampString = "540739714.464708"
+            timestampString = "540755811.971454"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "34"
@@ -378,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/CategoryControl/CourseCategoryTableViewController.swift"
-            timestampString = "540016864.315534"
+            timestampString = "540755811.971782"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "CourseCategoryTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -394,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/Course.model.swift"
-            timestampString = "540739714.465066"
+            timestampString = "540755811.9718421"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
             landmarkName = "getAllCourse(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -410,27 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/Course.model.swift"
-            timestampString = "540739714.4655499"
+            timestampString = "540755811.971894"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
-            landmarkName = "getAllCourse(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "L2D/Course.model.swift"
-            timestampString = "540739714.465934"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
             landmarkName = "getMyCourse(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -442,11 +394,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/CategoryControl/CourseCategoryTableViewController.swift"
-            timestampString = "540016864.315709"
+            timestampString = "540755811.971948"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -458,11 +410,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/CategoryControl/CourseCategoryTableViewController.swift"
-            timestampString = "540016864.31575"
+            timestampString = "540755811.971998"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "CourseCategoryTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -490,11 +442,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/CategoryControl/CourseCategoryTableViewController.swift"
-            timestampString = "540016864.315807"
+            timestampString = "540755811.972067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "CourseCategoryTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -506,11 +458,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/CategoryControl/CourseCategoryTableViewController.swift"
-            timestampString = "540016864.315848"
+            timestampString = "540755811.972118"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -522,11 +474,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/CategoryControl/CourseCategoryTableViewController.swift"
-            timestampString = "540016864.315887"
+            timestampString = "540755811.972167"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -538,7 +490,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/CategoryControl/CourseCategoryTableViewController.swift"
-            timestampString = "540016864.315924"
+            timestampString = "540755811.972216"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "22"
@@ -554,13 +506,77 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "L2D/ProfileControlGroup/ProfileUpdatePasswordViewController.swift"
-            timestampString = "540045261.686765"
+            timestampString = "540751197.515831"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "44"
             endingLineNumber = "44"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "confirmUpdateClicked(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "L2D/Course.model.swift"
+            timestampString = "540755811.972283"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "337"
+            endingLineNumber = "337"
+            landmarkName = "getCourseByCourseIdList(courseID:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "L2D/CategoryControl/CourseCategoryTableViewController.swift"
+            timestampString = "540755811.972332"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "L2D.CourseCategoryTableViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "L2D"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/magnus/Project/L2D_Project/L2D/CategoryControl/CourseCategoryTableViewController.swift"
+                  timestampString = "540744996.087954"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "718">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Array&lt;L2D.Course&gt;) -&gt; () in L2D.CourseCategoryTableViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "L2D"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/magnus/Project/L2D_Project/L2D/CategoryControl/CourseCategoryTableViewController.swift"
+                  timestampString = "540744996.091763"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "38"
+                  endingLineNumber = "38"
+                  offsetFromSymbolStart = "18">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -25,22 +25,43 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
         return rc
     }()
     
+    func myAlert(title : String,text : String){
+        self.resignFirstResponder()
+        let alert = UIAlertController(title:title,message: text, preferredStyle: .alert)
+        
+        let dismissBtn = UIAlertAction(title:"Close",style: .cancel, handler:{
+            (alert: UIAlertAction) -> Void in
+            self.navigationController?.popViewController(animated: true)
+        })
+        
+        alert.addAction(dismissBtn)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @objc func actualizarDators(_ refreshControl : UIRefreshControl){
-        Course.getMyCourse{ (result) in
-            self.courses = result
-            self.homeTable.reloadData()
+        Course.getMyCourse{ (result,errMsg) in
+            if(errMsg != nil){
+                self.myAlert(title: "Error", text: errMsg!)
+            }else{
+                self.courses = result!
+                self.homeTable.reloadData()
+            }
+
             refreshControl.endRefreshing()
         }
-        
-        
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.homeTable.addSubview(self.refreshControl)
-        Course.getMyCourse{ (result) in
-            self.courses = result
-            self.homeTable.reloadData()
+        Course.getMyCourse{ (result,errMsg) in
+            if(errMsg != nil){
+                self.myAlert(title: "Error", text: errMsg!)
+            }else{
+                self.courses = result!
+                self.homeTable.reloadData()
+            }
 //            print(result)
         }
         // Do any additional setup after loading the view.
@@ -84,7 +105,8 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
         
         cell.courseName.text = modelData.name
         cell.courseDetail.text = modelData.detail
-        
+        cell.instructorName.text = "Instructor : \(modelData.owner)"
+        cell.selectionStyle = .none
         
         return cell
     }

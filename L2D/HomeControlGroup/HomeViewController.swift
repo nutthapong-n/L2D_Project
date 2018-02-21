@@ -31,13 +31,31 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     }()
     @IBOutlet weak var homeTable: UITableView!
     
+    func myAlert(title : String,text : String){
+        self.resignFirstResponder()
+        let alert = UIAlertController(title:title,message: text, preferredStyle: .alert)
+        
+        let dismissBtn = UIAlertAction(title:"Close",style: .cancel, handler:{
+            (alert: UIAlertAction) -> Void in
+            self.navigationController?.popViewController(animated: true)
+        })
+        
+        alert.addAction(dismissBtn)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
 
     @objc func actualizarDators(_ refreshControl : UIRefreshControl){
-        Course.getTopCourse(amount: 8) { (result) in
-            self.courses["slide"] = result
-            self.courses["new"] = result
-            self.courses["top"] = result
-            self.homeTable.reloadData()
+        Course.getTopCourse(amount: 8) { (result,errMsg) in
+            if(errMsg != nil){
+                self.myAlert(title: "Error", text: errMsg!)
+            }else{
+                self.courses["slide"] = result
+                self.courses["new"] = result
+                self.courses["top"] = result
+                self.homeTable.reloadData()
+            }
+            
             refreshControl.endRefreshing()
             //            print(result)
         }
@@ -52,11 +70,16 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     
     override func loadView() {
         super.loadView()
-        Course.getTopCourse(amount: 8) { (result) in
-            self.courses["slide"] = result
-            self.courses["new"] = result
-            self.courses["top"] = result
-            self.homeTable.reloadData()
+        Course.getTopCourse(amount: 8) { (result,errMsg) in
+            if(errMsg != nil){
+                self.myAlert(title: "Error", text: errMsg!)
+            }else{
+                self.courses["slide"] = result
+                self.courses["new"] = result
+                self.courses["top"] = result
+                self.homeTable.reloadData()
+            }
+       
         }
     }
     
