@@ -46,17 +46,34 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     }
 
     @objc func actualizarDators(_ refreshControl : UIRefreshControl){
+        var TopSuccess : Bool = false
+        var NewSuccess : Bool = false
         Course.getTopCourse(amount: 8) { (result,errMsg) in
+            TopSuccess = true
             if(errMsg != nil){
                 self.myAlert(title: "Error", text: errMsg!)
             }else{
                 self.courses["slide"] = result
-                self.courses["new"] = result
                 self.courses["top"] = result
-                self.homeTable.reloadData()
+                self.homeTable.reloadRows(at: [IndexPath(row: 0, section: 0),IndexPath(row: 1, section: 0)], with: .fade)
             }
-            
-            refreshControl.endRefreshing()
+            if(NewSuccess && TopSuccess){
+                refreshControl.endRefreshing()
+            }
+            //            print(result)
+        }
+        
+        Course.getNewCourse(amount: 8) { (result,errMsg) in
+            NewSuccess = true
+            if(errMsg != nil){
+                self.myAlert(title: "Error", text: errMsg!)
+            }else{
+                self.courses["new"] = result
+                self.homeTable.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .fade)
+            }
+            if(NewSuccess && TopSuccess){
+                refreshControl.endRefreshing()
+            }
             //            print(result)
         }
         
@@ -70,16 +87,33 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     
     override func loadView() {
         super.loadView()
+        var TopSuccess : Bool = false
+        var NewSuccess : Bool = false
         Course.getTopCourse(amount: 8) { (result,errMsg) in
+            TopSuccess = true
             if(errMsg != nil){
                 self.myAlert(title: "Error", text: errMsg!)
             }else{
                 self.courses["slide"] = result
-                self.courses["new"] = result
                 self.courses["top"] = result
+            }
+            if(NewSuccess && TopSuccess){
+               self.homeTable.reloadData()
+            }
+            //            print(result)
+        }
+        
+        Course.getNewCourse(amount: 8) { (result,errMsg) in
+            NewSuccess = true
+            if(errMsg != nil){
+                self.myAlert(title: "Error", text: errMsg!)
+            }else{
+                self.courses["new"] = result
+            }
+            if(NewSuccess && TopSuccess){
                 self.homeTable.reloadData()
             }
-       
+            //            print(result)
         }
     }
     
@@ -138,6 +172,9 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 250
     }
+    
+
+
     
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -212,18 +249,34 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
             courseSaparator = courses["top"]!
         }
         
+        collectionView.restorationIdentifier = "\(currentRow)"
         return courseSaparator.count
         
     }
     
     
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let identifier = collectionView.restorationIdentifier
+        if(identifier != "\(currentRow)"){
+            currentRow = Int(identifier!)!
+            if(currentRow == 0){
+                courseSaparator =  courses["slide"]!
+            }else if(currentRow == 1){
+                courseSaparator = courses["new"]!
+            }else{
+                courseSaparator = courses["top"]!
+            }
+        }
         let thisCourse = courseSaparator[indexPath.row]
-        if(identifier == "HeaderCollection"){
+        if(identifier == "0"){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseHeaderCollectionViewCell
             cell.initCell(img: thisCourse.img, id: thisCourse.id)
+            return cell
+        }else if(identifier == "1"){
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
+            cell.initCell(img: thisCourse.img, name: thisCourse.name , id : thisCourse.id)
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell

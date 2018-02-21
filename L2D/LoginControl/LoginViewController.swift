@@ -16,6 +16,7 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var username: UITextField!
     
     @IBOutlet weak var password: UITextField!
+    var backRequest : Bool?
     
     
     override func viewDidLoad() {
@@ -72,8 +73,14 @@ class LoginViewController: BaseViewController {
                 User_model.logIn(username: uName, password: pass, completion: { (status, code) in
                     if(status){
                         AppDelegate.hasLogin = true
-                        mySqe.login_success = true
-                        mySqe.perform()
+                        if(self.backRequest != nil){
+                            self.navigationController?.popViewController(animated: true)
+                            AppDelegate.reLoadRequest = true
+                        }else{
+                            mySqe.login_success = true
+                            mySqe.perform()
+                        }
+                        
                     }else{
                         if(code == 0){
                             mySqe.login_success = false
@@ -85,6 +92,14 @@ class LoginViewController: BaseViewController {
                 })
                 
             }
+        }else if( segue.identifier == "regisSegue"){
+            let des = segue.destination as! RegisterViewController
+            if(backRequest)!{
+                des.backRequest = true
+            }else{
+                des.backRequest = false
+            }
+            
         }
     }
     

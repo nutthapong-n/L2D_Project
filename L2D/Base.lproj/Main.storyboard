@@ -52,7 +52,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" restorationIdentifier="HeaderCollection" bounces="NO" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="white" minimumZoomScale="0.0" maximumZoomScale="0.0" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tmp-RJ-g9A">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" restorationIdentifier="HeaderCollection" bounces="NO" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="white" minimumZoomScale="0.0" maximumZoomScale="0.0" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tmp-RJ-g9A" customClass="BaseUICollectView" customModule="L2D" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="249"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="v9N-yt-KMU">
@@ -137,7 +137,7 @@
                                                         <color key="titleShadowColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                 </button>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="ContentCollection" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zPR-7u-9Co">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="ContentCollection" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zPR-7u-9Co" customClass="BaseUICollectView" customModule="L2D" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="30" width="414" height="297"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="IFG-L4-v3u">
@@ -648,7 +648,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="goLogin:" destination="gSP-vc-DkY" eventType="touchUpInside" id="IDU-Ac-PRi"/>
-                                    <segue destination="bBK-JW-cX3" kind="show" id="oTN-ik-zIg"/>
+                                    <segue destination="bBK-JW-cX3" kind="show" identifier="regisSegue" id="oTN-ik-zIg"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="L2D_LOGO" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FiU-j3-uuG">
@@ -1628,7 +1628,7 @@
         <!--Login-->
         <scene sceneID="J9R-KU-tT4">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Hje-ZD-vhS" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoginNavigator" automaticallyAdjustsScrollViewInsets="NO" id="Hje-ZD-vhS" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Login" image="login_icon" id="AQC-vZ-P6r">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
@@ -1684,7 +1684,7 @@
         <image name="xcode" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3i2-e4-53u"/>
-        <segue reference="D10-sT-fdj"/>
+        <segue reference="JnU-a7-irk"/>
+        <segue reference="zpI-Tb-1ZC"/>
     </inferredMetricsTieBreakers>
 </document>

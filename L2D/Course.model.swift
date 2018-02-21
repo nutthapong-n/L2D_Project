@@ -123,6 +123,111 @@ class Course : NSObject{
         }
     }
     
+    class func getNewCourse(amount : Int, completion : @escaping (_ course:[Course]?, _ errorMessage:String?) -> ()){
+        let url = "\(Network.IP_Address_Master)/course?new=\(amount)"
+        Alamofire.request(url,method: .get,encoding: JSONEncoding.default).responseJSON{
+            response in
+            var courses : [Course] = []
+            switch response.result{
+            case .success(let value):
+                let json = JSON(value)
+                
+                let result = json["response"]
+                if(result["status"] == false){
+                    print(result["message"])
+                    completion(nil,result["message"].stringValue)
+                    return
+                }
+                
+                let objCourses = json["courses"]
+                for obj in objCourses{
+                    let this_course = obj.1
+                    courses.append(Course(
+                        id : this_course["id"].intValue,
+                        categoryId: this_course["categoryId"].intValue,
+                        detail: this_course["detail"].stringValue,
+                        createdDate: this_course["createdDate"].floatValue,
+                        key: this_course["key"].stringValue,
+                        name : this_course["name"].stringValue,
+                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["member"]["name"]) \(this_course["teacher"]["member"]["surname"])" : "",
+                        img: "download"
+                    ))
+                }
+                
+                completion(courses,nil)
+            case .failure(let error):
+                completion(nil,error.localizedDescription)
+                print(error)
+            }
+            
+        }
+    }
+    
+    class func getCoureWithCheckRegis( id:Int , completion : @escaping (_ course: Course?, _ errorMessage:String?, _ isRegis:Bool?) -> ()){
+        let urlString = "\(Network.IP_Address_Master)/course/isRegis"
+        let user_id = AppDelegate.userData?.idmember
+        let user_id_str = user_id != nil ? "\(user_id!)" : "0"
+        let parameters: Parameters = ["memberId" : user_id_str,"courseId" : id ]
+        
+        
+        Alamofire.request(urlString, method : .post , parameters : parameters , encoding: JSONEncoding.default )
+            .responseJSON{
+                
+                response in switch response.result{
+                case .success(let value):
+                    let json = JSON(value)
+                    let result = json["response"]
+                    let courseJSON = json["course"]
+                    let isRegis = json["isRegis"].boolValue
+                    
+                    if(result["status"] == false){
+                        print(result["message"])
+                        completion(nil,result["message"].stringValue,isRegis)
+                        return
+                    }
+                    
+                    
+                    
+                    let course = Course(
+                        id :  courseJSON["id"].intValue,
+                        categoryId: courseJSON["categoryId"].stringValue == "" ? -1 : courseJSON["categoryId"].intValue,
+                        detail: courseJSON["detail"].stringValue,
+                        createdDate: courseJSON["createdDate"].stringValue == "" ? -1 : courseJSON["createdDate"].floatValue,
+                        key: courseJSON["key"].stringValue,
+                        name : courseJSON["name"].stringValue,
+                        owner: courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["member"]["name"]) \(courseJSON["teacher"]["member"]["surname"])" : "",
+                        img: "keyboard",
+                        section : []
+                    )
+                    
+                    let sections = courseJSON["sectionList"].arrayValue
+                    
+                    for section in sections{
+                        let thisSection = Section_model(
+                            id: section["id"].intValue,
+                            name: section["content"].stringValue,
+                            subSection: [])
+                        
+                        let subSections = section["sub-section"].arrayValue
+                        for sub in subSections{
+                            let thisSub = SubSection(
+                                id: sub["id"].intValue,
+                                name: sub["content"].stringValue)
+                            
+                            thisSection.subSection?.append(thisSub)
+                        }
+                        course.section?.append(thisSection)
+                    }
+                    
+                    completion(course,nil,isRegis)
+                case .failure(let error):
+                    print(error)
+                    //                    completion(course)
+                    completion(nil, error.localizedDescription,false)
+                }
+        }
+    }
+    
     class func getCoureById( id:Int , completion : @escaping (_ course: Course?, _ errorMessage:String?) -> ()){
         let urlString = "\(Network.IP_Address_Master)/course?courseId=\(id)"
         Alamofire.request(urlString,method : .get , encoding: JSONEncoding.default)
@@ -155,7 +260,7 @@ class Course : NSObject{
                     
                     let sections = courseJSON["sectionList"].arrayValue
                     
-                    for section in sections!{
+                    for section in sections{
                         let thisSection = Section_model(
                             id: section["id"].intValue,
                             name: section["content"].stringValue,
@@ -174,20 +279,6 @@ class Course : NSObject{
                     
                     completion(course,nil)
                 case .failure(let error):
-                    let course = Course(id:id, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard" , section : [
-                        Section_model(id: 1, name: "section1", subSection: [
-                            SubSection(id: 1, name: "section1_sub1"),
-                            SubSection(id: 2, name: "section1_sub2"),
-                            SubSection(id: 3, name: "section1_sub3")]),
-                        Section_model(id: 2, name: "section2", subSection: [
-                            SubSection(id: 1, name: "section2_sub1"),
-                            SubSection(id: 2, name: "section2_sub2"),
-                            SubSection(id: 3, name: "section2_sub3")]),
-                        Section_model(id: 3, name: "section3", subSection: [
-                            SubSection(id: 1, name: "section3_sub1"),
-                            SubSection(id: 2, name: "section3_sub2"),
-                            SubSection(id: 3, name: "section3_sub3")])
-                        ])
                     print(error)
 //                    completion(course)
                     completion(nil,error.localizedDescription)

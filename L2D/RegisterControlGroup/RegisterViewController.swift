@@ -67,9 +67,18 @@ class RegisterViewController: BaseViewController {
                                 let json = JSON(value)
                                 let message  = json["message"]
                                 if(message != ""){
-                                    AppDelegate.hasLogin = true;
+                                    let user  = User_model(
+                                        name : json["name"].stringValue,
+                                        idmember : Int(json["idmember"].stringValue)!,
+                                        surname : json["surname"].stringValue,
+                                        email : json["email"].stringValue,
+                                        type : json["type"].stringValue
+                                        
+                                    )
+                                    AppDelegate.hasLogin = true
+                                    AppDelegate.userData = user
                                     if(self.backRequest != nil){
-                                        self.navigationController?.popViewController(animated: true)
+                                        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]; self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3 ], animated: true)
                                         AppDelegate.reLoadRequest = true
                                     }else{
                                         let regisSeque = segue as! RegisterSeque

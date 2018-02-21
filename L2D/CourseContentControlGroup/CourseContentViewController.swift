@@ -18,6 +18,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     var player = VGPlayer()
     var courseId : Int?
     var course : Course?
+    var isRegis : Bool = false
     var showCourse : [CourseForShow_Model] = []
     @IBOutlet weak var tableviewTopConst : NSLayoutConstraint!
     @IBOutlet weak var table : CoursePreviewTable!
@@ -44,14 +45,22 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     }
     
     @objc func actualizarDators(_ refreshControl : UIRefreshControl){
-        Course.getCoureById(id: courseId!, completion: { (result,msg) in
-            
+        
+        let table_header = table.dequeueReusableCell(withIdentifier: "sectionHeader", for: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
+        let enroll_btn = table_header.enroll_btn
+        
+        Course.getCoureWithCheckRegis(id: courseId!) { (result, msg, isRegis) in
             if(msg != nil){
                 self.myAlert(title: "Error", text: msg!)
             }
             else{
                 self.course = result
                 self.showCourse = []
+                if(isRegis)!{
+                    enroll_btn?.setTitle("enrolled", for: .normal)
+                    enroll_btn?.isEnabled = false
+                    enroll_btn?.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
+                }
                 for section in (result?.section!)!{
                     self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0))
                 }
@@ -60,7 +69,10 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             }
             
             refreshControl.endRefreshing()
-        })
+        }
+       
+
+
     }
     
     override func loadView() {
@@ -103,6 +115,11 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(indexPath.section == 0){
             let cell = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: indexPath) as! CourseSectionHeaderTableViewCell
+            if(isRegis){
+                cell.enroll_btn.setTitle("enrolled", for: .normal)
+                cell.enroll_btn.isEnabled = false
+                cell.enroll_btn.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
+            }
             cell.titleLabel.text = course?.name
             return cell
         }else{//is a section and sub section
@@ -144,30 +161,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 cell.expand_img.isHighlighted = false
             }
         }
-    }
-    
-    func alert(header : String, text : String){
-        self.resignFirstResponder()
-        let alert = UIAlertController(title: header, message: text, preferredStyle: .alert)
-        
-        let dismissBtn = UIAlertAction(title:"Close",style: .cancel, handler:{
-            (alert: UIAlertAction) -> Void in
-            
-        })
-        
-        let registerBtn = UIAlertAction(title:"Register",style: .default, handler:{
-            (alert: UIAlertAction) -> Void in
-            
-            let registerController = self.storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
-            registerController.backRequest = true
-            self.navigationController?.pushViewController(registerController, animated: true)
-        })
-        
-        alert.addAction(dismissBtn)
-        alert.addAction(registerBtn)
-        
-        
-        self.present(alert, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -213,8 +206,9 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 sender.isEnabled = false
                 sender.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
             }else{
-                self.alert(header : "Fail",text: "Enrollment fail, Please ensure you have register")
-                print("enroll error")
+                let loginController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                loginController.backRequest = true
+                self.navigationController?.pushViewController(loginController, animated: true)
             }
         })
     }
@@ -223,19 +217,27 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         super.viewDidLoad()
         table.addSubview(self.refreshControl)
         tableviewTopConst.constant = UIScreen.main.bounds.width*3.0/4.0 - 20
-        Course.getCoureById(id: courseId!, completion: { (result,errMsg) in
-            if(errMsg != nil){
-                self.myAlert(title: "Error", text: errMsg!)
-            }else{
+        
+        Course.getCoureWithCheckRegis(id: courseId!) { (result, msg, isRegis) in
+            if(msg != nil){
+                self.myAlert(title: "Error", text: msg!)
+            }
+            else{
                 self.course = result
+                if(isRegis)!{
+                    self.isRegis = isRegis!
+                }
                 for section in (result?.section!)!{
                     self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0))
                 }
-                self.table.reloadData()
                 self.player.displayView.titleLabel.text = self.course?.name
+                self.table.reloadData()
             }
             
-        })
+        }
+
+
+
         
         AppDelegate.restrictRotation = false;
 //        let url = URL(string: "http://lxdqncdn.miaopai.com/stream/6IqHc-OnSMBIt-LQjPJjmA__.mp4?ssig=a81b90fdeca58e8ea15c892a49bce53f&time_stamp=1508166491488")!
