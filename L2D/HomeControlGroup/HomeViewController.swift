@@ -20,8 +20,26 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     var courseSaparator : [Course] = []
     var detail = ["New course" ,"New Courses","Top Courses"]
     var selectedId : Int = 0
-    var count = 0
+    var SlideShowcount = 0
     var currentRow = 0
+    var headerCell : HomeHeaderTableViewCell?
+    var helloWorldTimer : Timer?
+    
+    @objc func sayHello()
+    {
+        currentRow = 0
+        SlideShowcount += 1
+        
+        let collecttion = headerCell?.MyCollecttionView
+        
+        if  SlideShowcount  == 8
+        {
+            SlideShowcount = 0
+        }
+        
+        collecttion?.scrollToItem(at: IndexPath(item: SlideShowcount, section: 0), at: UICollectionViewScrollPosition.right, animated: true)
+        
+    }
     
     lazy var refreshControl : UIRefreshControl = {
         let rc = UIRefreshControl()
@@ -173,6 +191,12 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         return 250
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if(indexPath.row == 1 && helloWorldTimer == nil){
+            helloWorldTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(sayHello), userInfo: nil, repeats: true)
+        }
+    }
+    
 
 
     
@@ -182,6 +206,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         currentRow = indexPath.row
         if indexPath.row == 0{
            let cell = self.homeTable.dequeueReusableCell(withIdentifier: "table_head_list" , for: indexPath) as! HomeHeaderTableViewCell
+            
             cell.MyCollecttionView.reloadData()
             
             cell.textLabel?.numberOfLines = 0
@@ -196,6 +221,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
             layout.minimumInteritemSpacing = 0
             layout.minimumLineSpacing = 0
             cell.MyCollecttionView.collectionViewLayout = layout
+            headerCell = cell
             
             return cell
         }else{

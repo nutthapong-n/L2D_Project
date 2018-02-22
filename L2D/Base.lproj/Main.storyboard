@@ -481,10 +481,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wB4-z9-rkA">
-                                                    <rect key="frame" x="8" y="14" width="399" height="122"/>
+                                                    <rect key="frame" x="8" y="8" width="399" height="133.66666666666666"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="4Star" translatesAutoresizingMaskIntoConstraints="NO" id="L5p-ic-MoL">
-                                                            <rect key="frame" x="129" y="94" width="115" height="28"/>
+                                                            <rect key="frame" x="129" y="105.66666666666667" width="115" height="28.000000000000014"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="28" id="0Ci-RD-2Gd"/>
                                                                 <constraint firstAttribute="width" constant="115" id="ki4-bn-qA3"/>
@@ -497,13 +497,13 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="download" translatesAutoresizingMaskIntoConstraints="NO" id="3V8-LL-29j">
-                                                            <rect key="frame" x="0.0" y="0.0" width="120" height="122"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="120" height="133.66666666666666"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="120" id="I5T-eK-7EW"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instructor Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lf2-od-glf">
-                                                            <rect key="frame" x="129" y="51" width="255" height="21"/>
+                                                            <rect key="frame" x="129" y="56.333333333333329" width="255" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -526,9 +526,9 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="wB4-z9-rkA" firstAttribute="top" secondItem="i7s-LM-9cZ" secondAttribute="top" constant="14" id="2jm-fp-xTn"/>
+                                                <constraint firstItem="wB4-z9-rkA" firstAttribute="top" secondItem="i7s-LM-9cZ" secondAttribute="top" constant="8" id="2jm-fp-xTn"/>
                                                 <constraint firstAttribute="trailing" secondItem="wB4-z9-rkA" secondAttribute="trailing" constant="7" id="Aju-fn-3gu"/>
-                                                <constraint firstAttribute="bottom" secondItem="wB4-z9-rkA" secondAttribute="bottom" constant="13.5" id="RHd-3e-Czh"/>
+                                                <constraint firstAttribute="bottom" secondItem="wB4-z9-rkA" secondAttribute="bottom" constant="8" id="RHd-3e-Czh"/>
                                                 <constraint firstItem="wB4-z9-rkA" firstAttribute="leading" secondItem="i7s-LM-9cZ" secondAttribute="leading" constant="8" id="hB5-m8-Xw9"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1623,7 +1623,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IrH-1R-MsR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1421.5999999999999" y="-837.93103448275872"/>
+            <point key="canvasLocation" x="3119" y="-838"/>
         </scene>
         <!--Login-->
         <scene sceneID="J9R-KU-tT4">
@@ -1685,6 +1685,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JnU-a7-irk"/>
-        <segue reference="zpI-Tb-1ZC"/>
+        <segue reference="IVk-gA-Azc"/>
     </inferredMetricsTieBreakers>
 </document>

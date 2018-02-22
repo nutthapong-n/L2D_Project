@@ -109,7 +109,7 @@ class Course : NSObject{
                         createdDate: this_course["createdDate"].floatValue,
                         key: this_course["key"].stringValue,
                         name : this_course["name"].stringValue,
-                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["member"]["name"]) \(this_course["teacher"]["member"]["surname"])" : "",
+                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                         img: "download"
                     ))
                 }
@@ -149,7 +149,7 @@ class Course : NSObject{
                         createdDate: this_course["createdDate"].floatValue,
                         key: this_course["key"].stringValue,
                         name : this_course["name"].stringValue,
-                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["member"]["name"]) \(this_course["teacher"]["member"]["surname"])" : "",
+                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                         img: "download"
                     ))
                 }
@@ -195,7 +195,7 @@ class Course : NSObject{
                         createdDate: courseJSON["createdDate"].stringValue == "" ? -1 : courseJSON["createdDate"].floatValue,
                         key: courseJSON["key"].stringValue,
                         name : courseJSON["name"].stringValue,
-                        owner: courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["member"]["name"]) \(courseJSON["teacher"]["member"]["surname"])" : "",
+                        owner: courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["name"]) \(courseJSON["teacher"]["surname"])" : "",
                         img: "keyboard",
                         section : []
                     )
@@ -253,7 +253,7 @@ class Course : NSObject{
                             createdDate: courseJSON["createdDate"].stringValue == "" ? -1 : Float(courseJSON["createdDate"].stringValue)!,
                             key: courseJSON["key"].stringValue,
                             name : courseJSON["name"].stringValue,
-                            owner: courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["member"]["name"]) \(courseJSON["teacher"]["member"]["surname"])" : "",
+                            owner: courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["name"]) \(courseJSON["teacher"]["surname"])" : "",
                             img: "keyboard",
                             section : []
                         )
@@ -318,7 +318,7 @@ class Course : NSObject{
                                 createdDate: this_course["createdDate"].stringValue == "" ? -1 : Float(this_course["createdDate"].stringValue)!,
                                 key: this_course["key"].stringValue,
                                 name : this_course["name"].stringValue,
-                                owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["member"]["name"]) \(this_course["teacher"]["member"]["surname"])" : "",
+                                owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                                 img: "keyboard"
                             ))
                         }
@@ -372,7 +372,7 @@ class Course : NSObject{
                         createdDate: this_course["createdDate"] == JSON.null ? 0.0 : this_course["createdDate"].floatValue ,
                         key: this_course["key"].stringValue,
                         name : this_course["name"].stringValue,
-                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["member"]["name"]) \(this_course["teacher"]["member"]["surname"])" : "",
+                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                         img: "java"
                     ))
                 }
@@ -412,7 +412,7 @@ class Course : NSObject{
                         createdDate: Float(this_course["createdDate"].stringValue)!,
                         key: this_course["key"].stringValue,
                         name : this_course["name"].stringValue,
-                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["member"]["name"]) \(this_course["teacher"]["member"]["surname"])" : "",
+                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                         img: "java"
                     ),nil)
                 case .failure(let error):
@@ -452,7 +452,7 @@ class Course : NSObject{
                             createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
                             key: this_course["key"].stringValue,
                             name : this_course["name"].stringValue,
-                            owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["member"]["name"]) \(this_course["teacher"]["member"]["surname"])" : "",
+                            owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                             img: "java"
                         ))
                     }
@@ -496,7 +496,7 @@ class Course : NSObject{
                         createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
                         key: this_course["key"].stringValue,
                         name : this_course["name"].stringValue,
-                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["member"]["name"]) \(this_course["teacher"]["member"]["surname"])" : "",
+                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                         img: "java"
                     ))
                 }
@@ -536,7 +536,7 @@ class Course : NSObject{
                         createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
                         key: this_course["key"].stringValue,
                         name : this_course["name"].stringValue,
-                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["member"]["name"]) \(this_course["teacher"]["member"]["surname"])" : "",
+                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                         img: "java"
                     ))
                 }
