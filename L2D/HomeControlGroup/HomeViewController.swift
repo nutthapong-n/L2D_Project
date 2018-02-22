@@ -19,7 +19,6 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     ]
     var courseSaparator : [Course] = []
     var detail = ["New course" ,"New Courses","Top Courses"]
-    var selectedId : Int = 0
     var SlideShowcount = 0
     var currentRow = 0
     var headerCell : HomeHeaderTableViewCell?
