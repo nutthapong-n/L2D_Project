@@ -192,7 +192,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(indexPath.row == 1 && helloWorldTimer == nil){
-            helloWorldTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(sayHello), userInfo: nil, repeats: true)
+            helloWorldTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(sayHello), userInfo: nil, repeats: true)
         }
     }
     

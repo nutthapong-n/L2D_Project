@@ -94,7 +94,8 @@ class LoginViewController: BaseViewController {
             }
         }else if( segue.identifier == "regisSegue"){
             let des = segue.destination as! RegisterViewController
-            if(backRequest)!{
+            
+            if(backRequest != nil && backRequest!){
                 des.backRequest = true
             }else{
                 des.backRequest = false

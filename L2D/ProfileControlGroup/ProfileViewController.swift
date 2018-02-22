@@ -48,6 +48,8 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "redirectAfterLogout"){
             AppDelegate.hasLogin = false
+            AppDelegate.userData = nil
+            AppDelegate.reLoadRequest = nil
         }
         
     }
