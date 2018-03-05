@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.6.0)
+  - Cosmos (15.0.0)
   - SideMenu (3.1.5)
   - SnapKit (4.0.0)
   - SwiftyJSON (4.0.0)
@@ -8,17 +9,19 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.6)
+  - Cosmos (~> 15.0)
   - SideMenu (~> 3.1)
   - SwiftyJSON (~> 4.0)
   - VGPlayer (~> 0.2)
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  Cosmos: a6dbd3d0baa0cc8f51f8598f7508d5a09d0a9ade
   SideMenu: 47dbf9e4d878062d8994aed43f6e4bf6c1fea30b
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   VGPlayer: a1787135559aa3b9201ebdc733ee283315492289
 
-PODFILE CHECKSUM: c7ffe9ca689030ae607c7a025fbb836cbe590b13
+PODFILE CHECKSUM: f4d0975a2a09af5e1b7fa60ac041f17b5b639f71
 
 COCOAPODS: 1.4.0

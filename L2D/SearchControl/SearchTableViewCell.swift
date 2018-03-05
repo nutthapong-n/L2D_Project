@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Cosmos
 
 class SearchTableViewCell: UITableViewCell {
 
@@ -14,6 +15,7 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var ownerLabel: UILabel!
     @IBOutlet weak var cellLabel: UILabel!
     @IBOutlet weak var course_img: UIImageView!
+    @IBOutlet weak var course_star: CosmosView!
     var id : Int?
     
     override func awakeFromNib() {

@@ -42,7 +42,8 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
     @objc func actualizarDators(_ refreshControl : UIRefreshControl){
         Course.getMyCourse{ (result,errMsg) in
             if(errMsg != nil){
-                self.myAlert(title: "Error", text: errMsg!)
+//                self.myAlert(title: "Error", text: errMsg!)
+                print("Error : \(errMsg ?? "") in func:actualizarDators")
             }else{
                 self.courses = result!
                 self.homeTable.reloadData()
@@ -57,7 +58,8 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
         self.homeTable.addSubview(self.refreshControl)
         Course.getMyCourse{ (result,errMsg) in
             if(errMsg != nil){
-                self.myAlert(title: "Error", text: errMsg!)
+//                self.myAlert(title: "Error", text: errMsg!)
+                print("Error : \(errMsg ?? "") in func:viewDidLoad")
             }else{
                 self.courses = result!
                 self.homeTable.reloadData()

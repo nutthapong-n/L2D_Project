@@ -43,7 +43,8 @@ class CourseCategoryTableViewController: UITableViewController {
             if courseIdList.count == 1 {
                 Course.getCourseByCourseId(courseID: courseIdList[0], completion:{(result,errMsg) in
                     if errMsg != nil{
-                        self.myAlert(title: "Error", text: errMsg!)
+//                        self.myAlert(title: "Error", text: errMsg!)
+                        print("Error : \(errMsg ?? "") in func:viewDidLoad")
                     }
                     else if result != nil {
                         self.courseList.append(result!)
@@ -54,7 +55,8 @@ class CourseCategoryTableViewController: UITableViewController {
             else{
                 Course.getCourseByCourseIdList(courseID: courseIdList, completion: {(result,errMsg) in
                     if errMsg != nil{
-                        self.myAlert(title: "Error", text: errMsg!)
+//                        self.myAlert(title: "Error", text: errMsg!)
+                        print("Error : \(errMsg ?? "") in func:viewDidLoad")
                     }
                     else if result != nil{
                         self.courseList = result!
@@ -115,7 +117,10 @@ class CourseCategoryTableViewController: UITableViewController {
         
         cell.CourseNameLabel.text = data.name
         cell.CourseDetailLabel.text = data.detail
+        cell.CourseInstructor.text = data.owner
         cell.selectionStyle = .none
+        cell.course_rating.settings.updateOnTouch = false
+        cell.course_rating.rating = data.rating
         return cell
     }
     
