@@ -11,6 +11,7 @@ target 'L2D' do
   pod 'VGPlayer', '~> 0.2'
   pod 'SideMenu', '~> 3.1'
   pod 'Cosmos', '~> 15.0'
+  pod 'AAPlayer', '~> 1.0'
 
   target 'L2DTests' do
     inherit! :search_paths
