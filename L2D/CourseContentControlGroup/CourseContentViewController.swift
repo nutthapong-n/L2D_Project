@@ -7,21 +7,24 @@
 //
 
 import UIKit
-import VGPlayer
-import SnapKit
+import AAPlayer
 
-class CourseContentViewController: BaseViewController , UITableViewDelegate , UITableViewDataSource {
+class CourseContentViewController: BaseViewController , UITableViewDelegate , UITableViewDataSource, AAPlayerDelegate {
 
     
     
     
-    var player = VGPlayer()
     var courseId : Int?
     var course : Course?
     var isRegis : Bool = false
     var showCourse : [CourseForShow_Model] = []
     @IBOutlet weak var tableviewTopConst : NSLayoutConstraint!
     @IBOutlet weak var table : CoursePreviewTable!
+    @IBOutlet weak var player: AAPlayer!
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    @IBOutlet weak var player_buttom_const: NSLayoutConstraint!
     
     lazy var refreshControl : UIRefreshControl = {
         let rc = UIRefreshControl()
@@ -62,9 +65,9 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     enroll_btn?.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
                 }
                 for section in (result?.section!)!{
-                    self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0))
+                    self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: ""))
                 }
-                self.player.displayView.titleLabel.text = self.course?.name
+//                self.player.displayView.titleLabel.text = self.course?.name
                 self.table.reloadData()
             }
             
@@ -75,9 +78,10 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
 
     }
     
+
+    
     override func loadView() {
-        super.loadView()
-        
+        super.loadView()        
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -137,6 +141,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 cell.Subsection_id = sub_section.id
                 cell.name = sub_section.name
                 cell.name_label.text = sub_section.name
+                cell.fileKey = sub_section.fileKey
                 
                 return cell
             }
@@ -179,7 +184,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                             if var myCounter = index{
                                 for sub in sec.subSection!{
                                     myCounter += 1
-                                    self.showCourse.insert(CourseForShow_Model(name: sub.name , id: sub.id, type: 1), at: myCounter)
+                                    self.showCourse.insert(CourseForShow_Model(name: sub.name , id: sub.id, type: 1, fileKey: sub.videoKEY), at: myCounter)
                                     //                    self.showCourse.append(CourseForShow_Model(name: sub.name , id: sub.id, type: 1))
                                     table.beginUpdates()
                                     let myindexPath = IndexPath(row: myCounter, section: 1)
@@ -195,6 +200,15 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 }else{
                     closeAllExpand()
                 }
+            }else{//is sub section
+                let cell = tableView.cellForRow(at: indexPath) as! CourseSubsectionTableViewCell
+                Course.getfile(key: cell.fileKey!, completion: { (path, error) in
+                    let url = "http://158.108.207.7:8080/\(path ?? "")"
+                    self.player.playVideo(url)
+                    self.player.startPlayback()
+                })
+                
+                
             }
 
         }
@@ -212,11 +226,22 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             }
         })
     }
+    @IBAction func close_page(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("was touch")
+    }
+    
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         table.addSubview(self.refreshControl)
-        tableviewTopConst.constant = UIScreen.main.bounds.width*3.0/4.0 - 20
+        tableviewTopConst.constant = 1/3*UIScreen.main.bounds.height
+        player_buttom_const.constant = 2/3*UIScreen.main.bounds.height
         
         Course.getCoureWithCheckRegis(id: courseId!) { (result, msg, isRegis) in
             if(msg != nil){
@@ -228,13 +253,16 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     self.isRegis = isRegis!
                 }
                 for section in (result?.section!)!{
-                    self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0))
+                    self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: "" ))
                 }
-                self.player.displayView.titleLabel.text = self.course?.name
+//                self.player.displayView.titleLabel.text = self.course?.name
                 self.table.reloadData()
             }
             
         }
+        
+        
+        
 
 
 
@@ -242,24 +270,12 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         AppDelegate.restrictRotation = false;
 //        let url = URL(string: "http://lxdqncdn.miaopai.com/stream/6IqHc-OnSMBIt-LQjPJjmA__.mp4?ssig=a81b90fdeca58e8ea15c892a49bce53f&time_stamp=1508166491488")!
         
-        let url = URL(string: "http://158.108.207.7:8080/api/ts/key999/25/30/index.m3u8")!
+//        let url = URL(string: "http://158.108.207.7:8080/api/ts/key999/25/30/index.m3u8")!
         
-        
-        self.player.replaceVideo(url)
-        view.addSubview(self.player.displayView)
-        
-        //        self.player.play()
-        self.player.backgroundMode = .proceed
-        self.player.delegate = self
-        self.player.displayView.delegate = self
-        self.player.displayView.snp.makeConstraints { [weak self] (make) in
-            guard let strongSelf = self else { return }
-            make.top.equalTo(strongSelf.view.snp.top)
-            make.left.equalTo(strongSelf.view.snp.left)
-            make.right.equalTo(strongSelf.view.snp.right)
-            make.height.equalTo(strongSelf.view.snp.width).multipliedBy(3.0/4.0) // you can 9.0/16.0
-        }
+        player.delegate = self
+        player.playVideo("http://158.108.207.7:8080/api/ts/key999/25/30/index.m3u8")
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -268,22 +284,35 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        self.navigationController?.navigationBar.barTintColor = UIColor.white.withAlphaComponent(0.5)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: false)
-//        self.player.play()
+        NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+//        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.default, animated: false)
-        UIApplication.shared.setStatusBarHidden(false, with: .none)
-        self.player.pause()
+        player.pausePlayback()
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+//        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.28, blue:0.28, alpha:1.0)
+//        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.default, animated: false)
+    }
+    
+    @objc func deviceRotated(){
+        if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+            player_buttom_const.constant = 0
+            // Resize other things
+        }
+        if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
+            player_buttom_const.constant = 2/3*UIScreen.main.bounds.height
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         AppDelegate.restrictRotation = true;
+        
     }
     
     @objc func DismissPage(){
@@ -303,33 +332,3 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
 
 }
 
-extension CourseContentViewController: VGPlayerDelegate {
-    func vgPlayer(_ player: VGPlayer, playerFailed error: VGPlayerError) {
-        print(error)
-    }
-    func vgPlayer(_ player: VGPlayer, stateDidChange state: VGPlayerState) {
-        print("player State ",state)
-    }
-    func vgPlayer(_ player: VGPlayer, bufferStateDidChange state: VGPlayerBufferstate) {
-        print("buffer State", state)
-    }
-    
-}
-
-extension CourseContentViewController: VGPlayerViewDelegate {
-    
-    func vgPlayerView(_ playerView: VGPlayerView, willFullscreen fullscreen: Bool) {
-        
-    }
-    func vgPlayerView(didTappedClose playerView: VGPlayerView) {
-        if playerView.isFullScreen {
-            playerView.exitFullscreen()
-        } else {
-            self.navigationController?.popViewController(animated: true)
-        }
-        
-    }
-    func vgPlayerView(didDisplayControl playerView: VGPlayerView) {
-        UIApplication.shared.setStatusBarHidden(!playerView.isDisplayControl, with: .fade)
-    }
-}

@@ -200,7 +200,7 @@ class Course : NSObject{
                         section : []
                     )
                     
-                    let sections = courseJSON["sectionList"].arrayValue
+                    let sections = courseJSON["sectionList"].arrayValue.sorted()
                     
                     for section in sections{
                         let thisSection = Section_model(
@@ -208,13 +208,29 @@ class Course : NSObject{
                             name: section["content"].stringValue,
                             subSection: [])
                         
-                        let subSections = section["sub-section"].arrayValue
+
+                        let subSections = section["sub-section"].arrayValue.sorted()
+                        
                         for sub in subSections{
-                            let thisSub = SubSection(
-                                id: sub["id"].intValue,
-                                name: sub["content"].stringValue)
+                            let secResult = thisSection.checkDuplicateSubsection(rank: sub["rank"].intValue)
+                            let duplicate = secResult.result
+                            var index = secResult.index
+                            if(!duplicate){
+                                let thisSub = SubSection(id: sub["id"].intValue ,rank: sub["rank"].intValue)
+                                thisSection.subSection?.append(thisSub)
+                                index = (thisSection.subSection?.count)!-1
+                            }
                             
-                            thisSection.subSection?.append(thisSub)
+                            
+                            if(sub["contentType"].stringValue == "VIDEO"){
+                                thisSection.subSection?[index].videoKEY = sub["content"].stringValue
+                                
+                            }else{
+                                thisSection.subSection?[index].name = sub["content"].stringValue
+                            }
+                            
+                            
+
                         }
                         course.section?.append(thisSection)
                     }
@@ -258,7 +274,7 @@ class Course : NSObject{
                             section : []
                         )
                     
-                    let sections = courseJSON["sectionList"].arrayValue
+                    let sections = courseJSON["sectionList"].arrayValue.sorted()
                     
                     for section in sections{
                         let thisSection = Section_model(
@@ -266,13 +282,28 @@ class Course : NSObject{
                             name: section["content"].stringValue,
                             subSection: [])
                         
-                        let subSections = section["sub-section"].arrayValue
+                        let subSections = section["sub-section"].arrayValue.sorted()
+                        
                         for sub in subSections{
-                            let thisSub = SubSection(
-                                id: sub["id"].intValue,
-                                name: sub["content"].stringValue)
+                            let secResult = thisSection.checkDuplicateSubsection(rank: sub["rank"].intValue)
+                            let duplicate = secResult.result
+                            var index = secResult.index
+                            if(!duplicate){
+                                let thisSub = SubSection(id: sub["id"].intValue ,rank: sub["rank"].intValue)
+                                thisSection.subSection?.append(thisSub)
+                                index = (thisSection.subSection?.count)!-1
+                            }
                             
-                            thisSection.subSection?.append(thisSub)
+                            
+                            if(sub["contentType"].stringValue == "VIDEO"){
+                                thisSection.subSection?[index].videoKEY = sub["content"].stringValue
+                                
+                            }else{
+                                thisSection.subSection?[index].name = sub["content"].stringValue
+                            }
+                            
+                            
+                            
                         }
                         course.section?.append(thisSection)
                     }
@@ -547,6 +578,25 @@ class Course : NSObject{
             }
         }
         
+    }
+    
+    class func getfile(key : String, completion : @escaping (_ filePath : String? , _ errorMessage:String?) -> Void){
+        let url = "\(Network.IP_Address_Course)/api/app?id=\(key)"
+        let headers: HTTPHeaders = [
+            "token": "key999",
+        ]
+        
+        Alamofire.request(url ,method: .get ,encoding: JSONEncoding.default, headers : headers).responseString{
+            response in switch response.result{
+            case.success(let value):
+
+                completion(value,nil)
+            case.failure(let error):
+                
+                completion(nil,error.localizedDescription)
+                print(error)
+            }
+        }
     }
         
     

@@ -10,6 +10,7 @@ target 'L2D' do
   pod 'Alamofire', '~> 4.6'
   pod 'VGPlayer', '~> 0.2'
   pod 'SideMenu', '~> 3.1'
+  pod 'AAPlayer', '~> 1.0'
 
   target 'L2DTests' do
     inherit! :search_paths

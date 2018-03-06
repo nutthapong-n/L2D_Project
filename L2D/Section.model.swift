@@ -23,5 +23,14 @@ class Section_model: NSObject {
         
     }
     
+    func checkDuplicateSubsection(rank : Int) -> (result : Bool ,index : Int){
+        for sub in subSection!{
+            if(sub.rank == rank){
+                return (true , (subSection?.index(of: sub))!)
+            }
+        }
+        return (false , -1)
+    }
+    
 
 }

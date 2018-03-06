@@ -10,4 +10,5 @@ import UIKit
 
 class Network: NSObject {
     static let IP_Address_Master = "http://158.108.207.7:8090/elearning"
+    static let IP_Address_Course = "http://158.108.207.7:8080"
 }
