@@ -83,7 +83,8 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         Course.getNewCourse(amount: 8) { (result,errMsg) in
             NewSuccess = true
             if(errMsg != nil){
-                self.myAlert(title: "Error", text: errMsg!)
+//                self.myAlert(title: "Error", text: errMsg!)
+                print("Error : \(errMsg ?? "") in func:actualizarDators")
             }else{
                 self.courses["new"] = result
                 self.homeTable.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .fade)
@@ -123,7 +124,8 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         Course.getNewCourse(amount: 8) { (result,errMsg) in
             NewSuccess = true
             if(errMsg != nil){
-                self.myAlert(title: "Error", text: errMsg!)
+//                self.myAlert(title: "Error", text: errMsg!)
+                print("Error : \(errMsg ?? "") in func:loadView")
             }else{
                 self.courses["new"] = result
             }
@@ -302,10 +304,14 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
         }else if(identifier == "1"){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
             cell.initCell(img: thisCourse.img, name: thisCourse.name , id : thisCourse.id)
+            cell.course_rating.settings.updateOnTouch = false
+            cell.course_rating.rating = thisCourse.rating
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
             cell.initCell(img: thisCourse.img, name: thisCourse.name , id : thisCourse.id)
+            cell.course_rating.settings.updateOnTouch = false
+            cell.course_rating.rating = thisCourse.rating
             return cell
         }
 

@@ -49,7 +49,9 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         if (searchBar.text != "" && searchBar.selectedScopeButtonIndex == 0) {
             Course.getCourseBySearchName(courseName: searchBar.text!, completion: {(result, errMsg) in
                 if(errMsg != nil){
-                    self.myAlert(title: "Error", text: errMsg!)
+//                    self.myAlert(title: "Error", text: errMsg!)
+                    self.myAlert(title: "Not found", text: "")
+                    print("Error : \(errMsg ?? "from func actualizarDators")")
                 }else{
                     self.dataAry = result!
                     self.myTableView.reloadData()
@@ -60,7 +62,9 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         }else if (searchBar.text != "" && searchBar.selectedScopeButtonIndex == 1) {
             Course.getCourseBySearchInstructor(instructorName: searchBar.text!, completion: {(result, errMsg) in
                 if errMsg != nil {
-                    self.myAlert(title: "Error", text: errMsg!)
+//                    self.myAlert(title: "Error", text: errMsg!)
+                    self.myAlert(title: "Not found", text: "")
+                    print("Error : \(errMsg ?? "from func actualizarDators")")
                 }else{
                     self.dataAry = result!
                     self.myTableView.reloadData()
@@ -154,7 +158,9 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         case 0:
             Course.getCourseBySearchName(courseName: text, completion: {(result, errMsg) in
                 if errMsg != nil {
-                    self.myAlert(title: "Error", text: errMsg!)
+//                    self.myAlert(title: "Error", text: errMsg!)
+                    self.myAlert(title: "Not found", text: "")
+                    print("Error : \(errMsg ?? "from func:reload data / get course by search name")")
                 }else{
                     self.dataAry = result!
                     self.myTableView.reloadData()
@@ -163,7 +169,9 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         case 1:
             Course.getCourseBySearchInstructor(instructorName: text, completion: {(result, errMsg) in
                 if errMsg != nil {
-                    self.myAlert(title: "Error", text: errMsg!)
+//                    self.myAlert(title: "Error", text: errMsg!)
+                    self.myAlert(title: "Not found", text: "")
+                    print("Error : \(errMsg ?? "from func:reload data / get course by search instuctor")")
                 }else{
                     self.dataAry = result!
                     self.myTableView.reloadData()
@@ -216,6 +224,8 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         cell.id = model.id
         cell.cellLabel.text = model.name
         cell.ownerLabel.text = "Instructor: \(model.owner)"
+        cell.course_star.settings.updateOnTouch = false
+        cell.course_star.rating = model.rating
 
         
         
@@ -224,8 +234,9 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
     
     //add delegate method for pushing to new detail controller
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-//        vc.dataModel = dataAry[indexPath.row]
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "CourseControllorBoard") as! CourseContentViewController
+////        vc.dataModel = dataAry[indexPath.row]
+//        vc.courseId = dataAry[indexPath.row].id
 //        self.navigationController?.pushViewController(vc, animated: true)
         
     }

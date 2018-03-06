@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import Cosmos
 
 class CourseListsCollectionViewCell: UICollectionViewCell{
     
     @IBOutlet weak var img_btn: HomeCellButton!
     @IBOutlet weak var shadowBox: UIView!
     @IBOutlet weak var c_name: UILabel!
-
+    @IBOutlet weak var course_rating: CosmosView!
+    
     
     override func awakeFromNib() {
         shadowBox.layer.shadowColor = UIColor.black.cgColor
