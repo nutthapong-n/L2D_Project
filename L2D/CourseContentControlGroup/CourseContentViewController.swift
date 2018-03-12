@@ -83,8 +83,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             
             refreshControl.endRefreshing()
         }
-       
-
 
     }
     
@@ -129,24 +127,26 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(indexPath.section == 0){
             let cell = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: indexPath) as! CourseSectionHeaderTableViewCell
+            
+            cell.ratingBar.didFinishTouchingCosmos = { rating in
+                Course.rateCourse(CourseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, rating: cell.ratingBar.rating){
+                    (result) in
+                    if(result){
+                        self.myAlert(title: "Success", text: "you rated this course with \(cell.ratingBar.rating) points.")
+                    }else{
+                        self.myAlert(title: "Rating error", text: "")
+                    }
+                    
+                }
+            }
+            
             if(isRegis){
                 cell.enroll_btn.setTitle("enrolled", for: .normal)
                 cell.enroll_btn.isEnabled = false
                 cell.enroll_btn.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
                 
-                cell.ratingBar.isHidden = false
                 cell.ratingBar.rating = rating!
-                cell.ratingBar.didFinishTouchingCosmos = { rating in
-                    Course.rateCourse(CourseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, rating: cell.ratingBar.rating){
-                        (result) in
-                        if(result){
-                            self.myAlert(title: "Success", text: "you rated this course with \(cell.ratingBar.rating) points.")
-                        }else{
-                            self.myAlert(title: "Rating error", text: "")
-                        }
-                        
-                    }
-                }
+                cell.ratingBar.isHidden = false
             }
             else{
                 cell.ratingBar.isHidden = true
@@ -246,6 +246,12 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 sender.setTitle("enrolled", for: .normal)
                 sender.isEnabled = false
                 sender.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
+                
+                let table_header = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
+                
+                let ratingBar = table_header.ratingBar
+                ratingBar?.rating = 0.0
+                ratingBar?.isHidden = false
             }else{
                 let loginController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
                 loginController.backRequest = true
