@@ -23,6 +23,7 @@
 		323D9DBA2015B22600C95B90 /* RegisterSeque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323D9DB92015B22600C95B90 /* RegisterSeque.swift */; };
 		3240809520205C4D00352AD1 /* CourseSubsectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3240809420205C4D00352AD1 /* CourseSubsectionTableViewCell.swift */; };
 		3240809720205C7400352AD1 /* CourseSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3240809620205C7400352AD1 /* CourseSectionTableViewCell.swift */; };
+		3248884F204EBDAF00D4CE70 /* L2DColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3248884E204EBDAF00D4CE70 /* L2DColor.swift */; };
 		325D7A2A202191B40081F443 /* CourseForShow.Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325D7A29202191B40081F443 /* CourseForShow.Model.swift */; };
 		3276AB03203DCDB90078C611 /* BaseUICollectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3276AB02203DCDB90078C611 /* BaseUICollectView.swift */; };
 		32847E3A201F5B10002F60EC /* CoursePreviewTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32847E39201F5B10002F60EC /* CoursePreviewTable.swift */; };
@@ -98,6 +99,7 @@
 		323D9DB92015B22600C95B90 /* RegisterSeque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSeque.swift; sourceTree = "<group>"; };
 		3240809420205C4D00352AD1 /* CourseSubsectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSubsectionTableViewCell.swift; sourceTree = "<group>"; };
 		3240809620205C7400352AD1 /* CourseSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSectionTableViewCell.swift; sourceTree = "<group>"; };
+		3248884E204EBDAF00D4CE70 /* L2DColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2DColor.swift; sourceTree = "<group>"; };
 		325D7A29202191B40081F443 /* CourseForShow.Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseForShow.Model.swift; sourceTree = "<group>"; };
 		3276AB02203DCDB90078C611 /* BaseUICollectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUICollectView.swift; sourceTree = "<group>"; };
 		32847E39201F5B10002F60EC /* CoursePreviewTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePreviewTable.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				32165331201849A10001000D /* SubSection.swift */,
 				320EE452201C7E4B00511558 /* User.model.swift */,
 				F73B7D63201C8E98007A3C1E /* Network.model.swift */,
+				3248884E204EBDAF00D4CE70 /* L2DColor.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				TargetAttributes = {
 					32D772BF1F24B4300093F6A2 = {
 						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
 					};
 					32D772D51F24B4300093F6A2 = {
 						CreatedOnToolsVersion = 9.0;
@@ -689,6 +693,7 @@
 				320AA34A1F29C9A100AE9428 /* Course.model.swift in Sources */,
 				32847E3A201F5B10002F60EC /* CoursePreviewTable.swift in Sources */,
 				320AA3431F29987100AE9428 /* MyCourseTableViewCell.swift in Sources */,
+				3248884F204EBDAF00D4CE70 /* L2DColor.swift in Sources */,
 				32D772F41F24BA3F0093F6A2 /* LoginViewController.swift in Sources */,
 				32847E3C201F5F23002F60EC /* CourseSectionHeaderTableViewCell.swift in Sources */,
 				323D9DB82015917400C95B90 /* RegisterViewController.swift in Sources */,
@@ -875,12 +880,15 @@
 			baseConfigurationReference = 2A0171A47E6FEBBC3A07628A /* Pods-L2D.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 36EAYSD2PA;
 				INFOPLIST_FILE = L2D/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "E-learning.L2D";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -891,12 +899,15 @@
 			baseConfigurationReference = 2941D7FEE5637AF482B757C4 /* Pods-L2D.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 36EAYSD2PA;
 				INFOPLIST_FILE = L2D/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "E-learning.L2D";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

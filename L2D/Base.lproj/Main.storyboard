@@ -182,7 +182,7 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D16-tg-nxw" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D16-tg-nxw" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="80.999999999999986" y="163" width="163.66666666666663" height="20"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="text" value="Rating"/>
@@ -433,30 +433,12 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="241"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleAspectFit" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5J5-gj-WnK">
-                                <rect key="frame" x="0.0" y="64" width="414" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="pFB-Jj-BiN"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem title="Item" image="back_icon" id="UM1-ZO-xZo">
-                                        <color key="tintColor" red="0.99587076902389526" green="0.99626082181930542" blue="0.98733299970626831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <action selector="close_page:" destination="6R4-bl-1qS" id="CZg-Sd-xUZ"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                                <color key="barTintColor" red="0.033716700971126556" green="0.019299440085887909" blue="0.00644292077049613" alpha="0.3046875" colorSpace="custom" customColorSpace="sRGB"/>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="5J5-gj-WnK" firstAttribute="trailing" secondItem="zxN-CS-5wi" secondAttribute="trailing" id="4yL-U3-bEp"/>
                             <constraint firstItem="5s5-Xl-2Vw" firstAttribute="leading" secondItem="zxN-CS-5wi" secondAttribute="leading" id="DTx-I5-loA"/>
                             <constraint firstItem="83F-yF-htm" firstAttribute="trailing" secondItem="zxN-CS-5wi" secondAttribute="trailing" id="FFk-JS-mAV"/>
-                            <constraint firstItem="5J5-gj-WnK" firstAttribute="leading" secondItem="zxN-CS-5wi" secondAttribute="leading" id="Mz1-FQ-nli"/>
                             <constraint firstItem="zxN-CS-5wi" firstAttribute="bottom" secondItem="83F-yF-htm" secondAttribute="bottom" constant="431" id="QMl-SB-FOc"/>
-                            <constraint firstItem="5J5-gj-WnK" firstAttribute="top" secondItem="zxN-CS-5wi" secondAttribute="top" id="QWt-w0-M2b"/>
                             <constraint firstItem="5s5-Xl-2Vw" firstAttribute="bottom" secondItem="zxN-CS-5wi" secondAttribute="bottom" id="Ub3-qy-Yet"/>
                             <constraint firstItem="5s5-Xl-2Vw" firstAttribute="trailing" secondItem="zxN-CS-5wi" secondAttribute="trailing" id="Ype-qo-aVn"/>
                             <constraint firstItem="5s5-Xl-2Vw" firstAttribute="top" secondItem="zxN-CS-5wi" secondAttribute="top" constant="249" id="ecn-27-1on"/>
@@ -524,7 +506,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZrB-lF-ujb" customClass="CosmosView" customModule="Cosmos">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZrB-lF-ujb" customClass="CosmosView" customModule="Cosmos">
                                                             <rect key="frame" x="227" y="67" width="163.66666666666663" height="20"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <userDefinedRuntimeAttributes>
@@ -1578,7 +1560,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UaC-Wx-C32" customClass="CosmosView" customModule="Cosmos">
-                                                    <rect key="frame" x="152" y="130" width="164" height="20"/>
+                                                    <rect key="frame" x="152" y="130" width="163.66666666666663" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="text" value="Rating"/>
@@ -1717,7 +1699,6 @@
         <image name="L2D_LOGO" width="423" height="155"/>
         <image name="Menu-1" width="36" height="36"/>
         <image name="account" width="36" height="36"/>
-        <image name="back_icon" width="36" height="36"/>
         <image name="collapse_arrow" width="36" height="36"/>
         <image name="download" width="112" height="112"/>
         <image name="expand_arrow" width="36" height="36"/>
@@ -1733,6 +1714,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JnU-a7-irk"/>
-        <segue reference="IVk-gA-Azc"/>
+        <segue reference="zpI-Tb-1ZC"/>
     </inferredMetricsTieBreakers>
 </document>

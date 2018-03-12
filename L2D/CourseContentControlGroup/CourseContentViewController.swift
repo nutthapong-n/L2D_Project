@@ -240,8 +240,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     override func viewDidLoad() {
         super.viewDidLoad()
         table.addSubview(self.refreshControl)
-        tableviewTopConst.constant = 1/3*UIScreen.main.bounds.height
-        player_buttom_const.constant = 2/3*UIScreen.main.bounds.height
         
         Course.getCoureWithCheckRegis(id: courseId!) { (result, msg, isRegis) in
             if(msg != nil){
@@ -284,17 +282,20 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.navigationController?.navigationBar.barTintColor = UIColor.white.withAlphaComponent(0.5)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.04, green:0.04, blue:0.03, alpha:0.3)
+        let viewHeight = self.view.frame.height
+        tableviewTopConst.constant = 1/3*viewHeight
+        let navHeight = self.navigationController?.navigationBar.frame.height
+        player_buttom_const.constant = 2/3*viewHeight - (navHeight)!
         NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
 //        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
         player.pausePlayback()
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.28, blue:0.28, alpha:1.0)
 //        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.28, blue:0.28, alpha:1.0)
 //        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.default, animated: false)
     }
@@ -302,10 +303,14 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     @objc func deviceRotated(){
         if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
             player_buttom_const.constant = 0
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
             // Resize other things
         }
         if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
-            player_buttom_const.constant = 2/3*UIScreen.main.bounds.height
+            let viewHeight = self.view.frame.height
+            let navHeight = self.navigationController?.navigationBar.frame.height
+            player_buttom_const.constant = 2/3*viewHeight - (navHeight)!
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
     
