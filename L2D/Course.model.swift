@@ -168,7 +168,7 @@ class Course : NSObject{
         }
     }
     
-    class func getCoureWithCheckRegis( id:Int , completion : @escaping (_ course: Course?, _ errorMessage:String?, _ isRegis:Bool?) -> ()){
+    class func getCoureWithCheckRegis( id:Int , completion : @escaping (_ course: Course?, _ errorMessage:String?, _ isRegis:Bool?, _ rating:Double?) -> ()){
         let urlString = "\(Network.IP_Address_Master)/course/isRegis"
         let user_id = AppDelegate.userData?.idmember
         let user_id_str = user_id != nil ? "\(user_id!)" : "0"
@@ -184,10 +184,11 @@ class Course : NSObject{
                     let result = json["response"]
                     let courseJSON = json["course"]
                     let isRegis = json["isRegis"].boolValue
+                    let rating = json["rating"]
                     
                     if(result["status"] == false){
                         print(result["message"])
-                        completion(nil,result["message"].stringValue,isRegis)
+                        completion(nil,result["message"].stringValue,isRegis,nil)
                         return
                     }
                     
@@ -241,11 +242,11 @@ class Course : NSObject{
                         course.section?.append(thisSection)
                     }
                     
-                    completion(course,nil,isRegis)
+                    completion(course,nil,isRegis,rating != JSON.null ? rating.doubleValue : nil)
                 case .failure(let error):
                     print(error)
                     //                    completion(course)
-                    completion(nil, error.localizedDescription,false)
+                    completion(nil, error.localizedDescription,false,nil)
                 }
         }
     }
@@ -612,7 +613,27 @@ class Course : NSObject{
             }
         }
     }
-        
     
+    class func rateCourse(CourseId : Int, memberId : Int, rating : Double, completion : @escaping ( _ result : Bool)-> Void){
+        
+        let url = "\(Network.IP_Address_Master)/course/addRating?courseId=\(CourseId)&memberId=\(memberId)"
+        
+        let parameters: Parameters = [
+            "rating" : rating
+        ]
+        
+        Alamofire.request(url ,method: .post ,parameters : parameters,encoding: JSONEncoding.default).responseJSON{
+            response in switch response.result{
+            case.success(let value):
+                let json = JSON(value)
+                print(json)
+                completion(true)
+            case.failure(let error):
+                completion(false)
+                print(error)
+            }
+        completion(false)
+        }
+    }
 }
 

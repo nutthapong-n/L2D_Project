@@ -299,7 +299,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l41-Wk-Pcj">
-                                                    <rect key="frame" x="14.999999999999996" y="27" width="41.666666666666657" height="25"/>
+                                                    <rect key="frame" x="15" y="27" width="42" height="25"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -325,17 +325,27 @@
                                                         <action selector="enroll:" destination="6R4-bl-1qS" eventType="touchUpInside" id="jXu-K1-CnR"/>
                                                     </connections>
                                                 </button>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lgq-1v-VS2" customClass="CosmosView" customModule="Cosmos">
+                                                    <rect key="frame" x="15" y="49" width="163.66666666666666" height="20"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="text" value="Rating"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="Lgq-1v-VS2" firstAttribute="top" secondItem="l41-Wk-Pcj" secondAttribute="bottom" constant="-3" id="6yV-pK-7HC"/>
                                                 <constraint firstItem="l41-Wk-Pcj" firstAttribute="top" secondItem="ATt-dY-Pw6" secondAttribute="topMargin" constant="16" id="760-0T-8it"/>
                                                 <constraint firstItem="lxk-lt-8Ho" firstAttribute="trailing" secondItem="ATt-dY-Pw6" secondAttribute="trailingMargin" id="Na9-10-4zN"/>
                                                 <constraint firstItem="lxk-lt-8Ho" firstAttribute="top" secondItem="ATt-dY-Pw6" secondAttribute="topMargin" constant="6" id="RtK-VC-kzV"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="l41-Wk-Pcj" secondAttribute="bottom" constant="17" id="gLX-T7-IeK"/>
                                                 <constraint firstItem="l41-Wk-Pcj" firstAttribute="leading" secondItem="ATt-dY-Pw6" secondAttribute="leadingMargin" id="oFY-xn-IZp"/>
+                                                <constraint firstItem="Lgq-1v-VS2" firstAttribute="leading" secondItem="l41-Wk-Pcj" secondAttribute="leading" id="uaF-MJ-XCn"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="enroll_btn" destination="lxk-lt-8Ho" id="VLP-Zn-pU4"/>
+                                            <outlet property="ratingBar" destination="Lgq-1v-VS2" id="sch-fH-NTh"/>
                                             <outlet property="titleLabel" destination="l41-Wk-Pcj" id="feM-cc-5fw"/>
                                         </connections>
                                     </tableViewCell>

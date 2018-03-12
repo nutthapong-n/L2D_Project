@@ -8,6 +8,7 @@
 
 import UIKit
 import AAPlayer
+import Cosmos
 
 class CourseContentViewController: BaseViewController , UITableViewDelegate , UITableViewDataSource, AAPlayerDelegate {
 
@@ -18,6 +19,8 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     var course : Course?
     var isRegis : Bool = false
     var showCourse : [CourseForShow_Model] = []
+    var rating : Double?
+    
     @IBOutlet weak var tableviewTopConst : NSLayoutConstraint!
     @IBOutlet weak var table : CoursePreviewTable!
     @IBOutlet weak var player: AAPlayer!
@@ -39,7 +42,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         
         let dismissBtn = UIAlertAction(title:"Close",style: .cancel, handler:{
             (alert: UIAlertAction) -> Void in
-            self.navigationController?.popViewController(animated: true)
+//            self.navigationController?.popViewController(animated: true)
         })
         
         alert.addAction(dismissBtn)
@@ -52,13 +55,20 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         let table_header = table.dequeueReusableCell(withIdentifier: "sectionHeader", for: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
         let enroll_btn = table_header.enroll_btn
         
-        Course.getCoureWithCheckRegis(id: courseId!) { (result, msg, isRegis) in
+        Course.getCoureWithCheckRegis(id: courseId!) { (result, msg, isRegis, rating) in
             if(msg != nil){
                 self.myAlert(title: "Error", text: msg!)
             }
             else{
                 self.course = result
                 self.showCourse = []
+                
+                if(rating != nil){
+                    self.rating = rating
+                }else{
+                    self.rating = 0.0
+                }
+                
                 if(isRegis)!{
                     enroll_btn?.setTitle("enrolled", for: .normal)
                     enroll_btn?.isEnabled = false
@@ -123,6 +133,23 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 cell.enroll_btn.setTitle("enrolled", for: .normal)
                 cell.enroll_btn.isEnabled = false
                 cell.enroll_btn.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
+                
+                cell.ratingBar.isHidden = false
+                cell.ratingBar.rating = rating!
+                cell.ratingBar.didFinishTouchingCosmos = { rating in
+                    Course.rateCourse(CourseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, rating: cell.ratingBar.rating){
+                        (result) in
+                        if(result){
+                            self.myAlert(title: "Success", text: "you rated this course with \(cell.ratingBar.rating) points.")
+                        }else{
+                            self.myAlert(title: "Rating error", text: "")
+                        }
+                        
+                    }
+                }
+            }
+            else{
+                cell.ratingBar.isHidden = true
             }
             cell.titleLabel.text = course?.name
             return cell
@@ -241,19 +268,28 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         super.viewDidLoad()
         table.addSubview(self.refreshControl)
         
-        Course.getCoureWithCheckRegis(id: courseId!) { (result, msg, isRegis) in
+        Course.getCoureWithCheckRegis(id: courseId!) { (result, msg, isRegis, rating) in
             if(msg != nil){
                 self.myAlert(title: "Error", text: msg!)
             }
             else{
                 self.course = result
+                
+                if(rating != nil){
+                    self.rating = rating
+                }else{
+                    self.rating = 0.0
+                }
+                
                 if(isRegis)!{
                     self.isRegis = isRegis!
+                    
                 }
                 for section in (result?.section!)!{
                     self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: "" ))
                 }
 //                self.player.displayView.titleLabel.text = self.course?.name
+                
                 self.table.reloadData()
             }
             

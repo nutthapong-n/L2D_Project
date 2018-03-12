@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import Cosmos
 
 class CourseSectionHeaderTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel : UILabel!
     @IBOutlet weak var enroll_btn : UIButton!
-
+    @IBOutlet weak var ratingBar: CosmosView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
