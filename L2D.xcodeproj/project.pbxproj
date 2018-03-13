@@ -207,8 +207,8 @@
 			isa = PBXGroup;
 			children = (
 				32A537071F28480C00E53CAC /* CourseContentViewController.swift */,
-				32847E39201F5B10002F60EC /* CoursePreviewTable.swift */,
 				32847E3B201F5F23002F60EC /* CourseSectionHeaderTableViewCell.swift */,
+				32847E39201F5B10002F60EC /* CoursePreviewTable.swift */,
 				3240809420205C4D00352AD1 /* CourseSubsectionTableViewCell.swift */,
 				3240809620205C7400352AD1 /* CourseSectionTableViewCell.swift */,
 				325D7A29202191B40081F443 /* CourseForShow.Model.swift */,

@@ -160,7 +160,7 @@
                                                                     </view>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l2n-Yy-N7J" customClass="HomeCellButton" customModule="L2D" customModuleProvider="target">
                                                                         <rect key="frame" x="10" y="7" width="244" height="178"/>
-                                                                        <state key="normal" backgroundImage="java">
+                                                                        <state key="normal">
                                                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </state>
                                                                         <connections>
@@ -306,7 +306,7 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lxk-lt-8Ho">
                                                     <rect key="frame" x="286" y="17" width="113" height="45"/>
-                                                    <color key="backgroundColor" red="0.38431372549019605" green="0.82352941176470584" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="backgroundColor" red="0.38903377757352936" green="0.82352941176470584" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="45" id="J9H-Db-7OH"/>
                                                         <constraint firstAttribute="width" constant="113" id="Nz6-kI-F7d"/>
