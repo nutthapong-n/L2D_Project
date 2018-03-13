@@ -211,31 +211,26 @@ class Course : NSObject{
                     
                     for section in sections{
                         let thisSection = Section_model(
-                            id: section["id"].intValue,
-                            name: section["content"].stringValue,
+                            id: section["sectionId"].intValue,
+                            name: section["name"].stringValue,
+                            rank: section["rank"].intValue,
                             subSection: [])
                         
 
                         let subSections = section["sub-section"].arrayValue.sorted()
                         
                         for sub in subSections{
-                            let secResult = thisSection.checkDuplicateSubsection(rank: sub["rank"].intValue)
-                            let duplicate = secResult.result
-                            var index = secResult.index
-                            if(!duplicate){
-                                let thisSub = SubSection(id: sub["id"].intValue ,rank: sub["rank"].intValue)
-                                thisSection.subSection?.append(thisSub)
-                                index = (thisSection.subSection?.count)!-1
-                            }
                             
-                            
-                            if(sub["contentType"].stringValue == "VIDEO"){
-                                thisSection.subSection?[index].videoKEY = sub["content"].stringValue
-                                
+                            var type : fileType = .none
+                            if (sub["contentType"].stringValue == "VIDEO"){
+                                type = .video
                             }else{
-                                thisSection.subSection?[index].name = sub["content"].stringValue
+                                type = .document
                             }
                             
+                            let thisSub = SubSection(id: sub["sectionId"].intValue, name: sub["name"].stringValue, fileKEY: sub["content"].stringValue, rank: section["rank"].intValue , type : type)
+                            
+                            thisSection.subSection?.append(thisSub)
                             
 
                         }
@@ -286,29 +281,26 @@ class Course : NSObject{
                     
                     for section in sections{
                         let thisSection = Section_model(
-                            id: section["id"].intValue,
-                            name: section["content"].stringValue,
+                            id: section["sectionId"].intValue,
+                            name: section["name"].stringValue,
+                            rank: section["rank"].intValue,
                             subSection: [])
                         
                         let subSections = section["sub-section"].arrayValue.sorted()
                         
                         for sub in subSections{
-                            let secResult = thisSection.checkDuplicateSubsection(rank: sub["rank"].intValue)
-                            let duplicate = secResult.result
-                            var index = secResult.index
-                            if(!duplicate){
-                                let thisSub = SubSection(id: sub["id"].intValue ,rank: sub["rank"].intValue)
-                                thisSection.subSection?.append(thisSub)
-                                index = (thisSection.subSection?.count)!-1
-                            }
+
                             
-                            
-                            if(sub["contentType"].stringValue == "VIDEO"){
-                                thisSection.subSection?[index].videoKEY = sub["content"].stringValue
-                                
+                            var type : fileType = .none
+                            if (sub["contentType"].stringValue == "VIDEO"){
+                                type = .video
                             }else{
-                                thisSection.subSection?[index].name = sub["content"].stringValue
+                                type = .document
                             }
+                            
+                            let thisSub = SubSection(id: sub["sectionId"].intValue, name: sub["name"].stringValue, fileKEY: sub["content"].stringValue, rank: section["rank"].intValue , type : type)
+                            
+                            thisSection.subSection?.append(thisSub)
                             
                             
                             

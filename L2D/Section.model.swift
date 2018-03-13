@@ -12,11 +12,13 @@ class Section_model: NSObject {
     
     var id : Int
     var name : String
+    var rank : Int
     var subSection : [SubSection]?
     
-    init(id : Int ,name:String ,subSection : [SubSection]?) {
+    init(id : Int ,name:String , rank : Int,subSection : [SubSection]?) {
         self.id = id
         self.name = name
+        self.rank = rank
         if(subSection != nil){
             self.subSection = subSection
         }

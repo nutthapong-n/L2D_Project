@@ -8,24 +8,34 @@
 
 import UIKit
 
+
+enum fileType{
+    case none
+    case video
+    case document
+}
+
 class SubSection: NSObject {
     var id : Int
     var name : String
-    var videoKEY : String
+    var fileKEY : String
     var rank : Int
+    var type : fileType
     
-    init(id:Int ,name:String, videoKEY : String, rank : Int) {
+    init(id:Int ,name:String, fileKEY : String, rank : Int, type : fileType ) {
         self.id = id
         self.name = name
-        self.videoKEY = videoKEY
+        self.fileKEY = fileKEY
         self.rank = rank
+        self.type = type
     }
     
     init(id:Int ,rank : Int) {
         self.name = ""
         self.id = id
+        self.fileKEY = ""
         self.rank = rank
-        self.videoKEY = ""
+        self.type = .none
     }
     
 

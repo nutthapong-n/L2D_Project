@@ -207,11 +207,12 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     closeAllExpand()
                     for sec in (course?.section)!{
                         if(sec.id == cell.section_id){
-                            let index = course?.section?.index(of: sec)
+                            var index = course?.section?.index(of: sec)
+                            index = index! - 1
                             if var myCounter = index{
                                 for sub in sec.subSection!{
                                     myCounter += 1
-                                    self.showCourse.insert(CourseForShow_Model(name: sub.name , id: sub.id, type: 1, fileKey: sub.videoKEY), at: myCounter)
+                                    self.showCourse.insert(CourseForShow_Model(name: sub.name , id: sub.id, type: 1, fileKey: sub.fileKEY), at: myCounter)
                                     //                    self.showCourse.append(CourseForShow_Model(name: sub.name , id: sub.id, type: 1))
                                     table.beginUpdates()
                                     let myindexPath = IndexPath(row: myCounter, section: 1)
@@ -292,7 +293,10 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     
                 }
                 for section in (result?.section!)!{
-                    self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: "" ))
+                    if(section.rank != 0){
+                        self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: "" ))
+                    }
+                    
                 }
 //                self.player.displayView.titleLabel.text = self.course?.name
                 
