@@ -8,6 +8,7 @@
 
 import UIKit
 import Cosmos
+import Imaginary
 
 class CourseListsCollectionViewCell: UICollectionViewCell{
     
@@ -31,12 +32,27 @@ class CourseListsCollectionViewCell: UICollectionViewCell{
     }
     
     func initCell(img : String , name : String , id : Int) {
-        
-        self.img_btn.setBackgroundImage(UIImage(named: img), for: .normal)
         if(self.c_name != nil){
             self.c_name.text = " \(name)"
             self.img_btn.id = id
         }
+        
+        if(img != "download"){
+            Course.getfile(key: img, completion: { (path, error) in
+                if(error == nil){
+                    let url = "http://158.108.207.7:8080/\(path ?? "")"
+                    self.img_btn.load(url: URL(fileURLWithPath: url))
+                    self.img_btn.setima
+                }else{
+                    print(error!)
+                }
+                
+            })
+        }else{
+            self.img_btn.setBackgroundImage(UIImage(named: img), for: .normal)
+        }
+        
+
         
     }
     

@@ -14,7 +14,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Cache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Cosmos.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Imaginary.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -39,17 +49,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SnapKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>SwiftyJSON.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>VGPlayer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

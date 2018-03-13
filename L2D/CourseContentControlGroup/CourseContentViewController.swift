@@ -71,7 +71,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 
                 if(isRegis)!{
                     enroll_btn?.setTitle("enrolled", for: .normal)
-                    enroll_btn?.isEnabled = false
                     enroll_btn?.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
                 }
                 for section in (result?.section!)!{
@@ -139,10 +138,8 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     
                 }
             }
-            
             if(isRegis){
                 cell.enroll_btn.setTitle("enrolled", for: .normal)
-                cell.enroll_btn.isEnabled = false
                 cell.enroll_btn.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
                 
                 cell.ratingBar.rating = rating!
@@ -242,23 +239,42 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         }
     }
     @IBAction func enroll(_ sender: UIButton) {
-        course?.Register(completion: { (result) in
-            if(result){
-                sender.setTitle("enrolled", for: .normal)
-                sender.isEnabled = false
-                sender.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
-                
-                let table_header = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
-                
-                let ratingBar = table_header.ratingBar
-                ratingBar?.rating = 0.0
-                ratingBar?.isHidden = false
-            }else{
-                let loginController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-                loginController.backRequest = true
-                self.navigationController?.pushViewController(loginController, animated: true)
-            }
-        })
+        if(isRegis){
+            course?.UnRegister(completion: { (result) in
+                if(result){
+                    sender.setTitle("Enroll now!", for: .normal)
+                    sender.backgroundColor = UIColor(red:98, green:210, blue:75, alpha:1.0)
+                    
+                    let table_header = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
+                    
+                    let ratingBar = table_header.ratingBar
+                    ratingBar?.rating = 0.0
+                    ratingBar?.isHidden = true
+                    self.isRegis = false
+                }else{
+                    self.myAlert(title: "", text: "can not unenroll")
+                }
+            })
+        }else{
+            course?.Register(completion: { (result) in
+                if(result){
+                    sender.setTitle("enrolled", for: .normal)
+                    sender.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
+                    
+                    let table_header = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
+                    
+                    let ratingBar = table_header.ratingBar
+                    ratingBar?.rating = 0.0
+                    ratingBar?.isHidden = false
+                    self.isRegis = true
+                }else{
+                    let loginController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                    loginController.backRequest = true
+                    self.navigationController?.pushViewController(loginController, animated: true)
+                }
+            })
+        }
+
     }
     @IBAction func close_page(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -274,6 +290,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     override func viewDidLoad() {
         super.viewDidLoad()
         table.addSubview(self.refreshControl)
+
         
         Course.getCoureWithCheckRegis(id: courseId!) { (result, msg, isRegis, rating) in
             if(msg != nil){

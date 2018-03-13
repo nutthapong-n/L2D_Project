@@ -182,7 +182,7 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D16-tg-nxw" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D16-tg-nxw" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="80.999999999999986" y="163" width="163.66666666666663" height="20"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="text" value="Rating"/>
@@ -306,7 +306,7 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lxk-lt-8Ho">
                                                     <rect key="frame" x="286" y="17" width="113" height="45"/>
-                                                    <color key="backgroundColor" red="0.38237657925366259" green="0.82251348350253806" blue="0.29297991281606495" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="backgroundColor" red="0.38431372549019605" green="0.82352941176470584" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="45" id="J9H-Db-7OH"/>
                                                         <constraint firstAttribute="width" constant="113" id="Nz6-kI-F7d"/>
@@ -325,7 +325,7 @@
                                                         <action selector="enroll:" destination="6R4-bl-1qS" eventType="touchUpInside" id="jXu-K1-CnR"/>
                                                     </connections>
                                                 </button>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgq-1v-VS2" customClass="CosmosView" customModule="Cosmos">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lgq-1v-VS2" customClass="CosmosView" customModule="Cosmos">
                                                     <rect key="frame" x="15" y="49" width="163.66666666666666" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <userDefinedRuntimeAttributes>
@@ -516,7 +516,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZrB-lF-ujb" customClass="CosmosView" customModule="Cosmos">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZrB-lF-ujb" customClass="CosmosView" customModule="Cosmos">
                                                             <rect key="frame" x="227" y="67" width="163.66666666666663" height="20"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <userDefinedRuntimeAttributes>

@@ -23,7 +23,20 @@ class CourseHeaderCollectionViewCell: UICollectionViewCell {
     
     func initCell(img : String ,id : Int) {
         img_header_btn.id = id
-        self.img_header_btn.setBackgroundImage(UIImage(named: img), for: .normal)
+        if(img != "download"){
+            Course.getfile(key: img, completion: { (path, error) in
+                if(error == nil){
+                    let url = "http://158.108.207.7:8080/\(path ?? "")"
+                    self.img_header_btn.load(url: URL(fileURLWithPath: url))
+                }else{
+                    print(error!)
+                }
+                
+            })
+        }else{
+            self.img_header_btn.setBackgroundImage(UIImage(named: img), for: .normal)
+        }
+        
         
     }
     

@@ -74,6 +74,33 @@ class Course : NSObject{
         }
     }
     
+    func UnRegister(completion : @escaping (Bool) -> ()){
+        let user_id = AppDelegate.userData?.idmember
+        let user_id_str = user_id != nil ? "\(user_id!)" : ""
+        if(self.id == 0 || user_id_str == ""){
+            print("L2D Warning : coursr id or user id is null")
+            completion(false)
+            return
+        }
+        let url = "\(Network.IP_Address_Master)/course/unenroll"
+        let parameters: Parameters = ["courseId" : self.id,"memberId" : user_id_str ]
+        Alamofire.request(url,method : .post ,parameters : parameters, encoding: JSONEncoding.default)
+            .responseJSON{
+                
+                response in switch response.result{
+                case .success(let value):
+                    print(value)
+                    completion(true)
+                    
+                    
+                //                        let array = json[0]["name"].rawString()
+                case .failure(let error):
+                    print(error)
+                    completion(false)
+                }
+        }
+    }
+    
     class func generateModelArray() -> [Course]{
         var course = [Course]()
         course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard",rating: 0))
@@ -105,6 +132,17 @@ class Course : NSObject{
                 let objCourses = json["courses"]
                 for obj in objCourses{
                     let this_course = obj.1
+                    
+                    //find course picture key
+                    let sections = this_course["sectionList"].arrayValue
+                    var img = "download"
+                    for section in sections{
+                        if(section["rank"].intValue == 0){
+                            img = section["content"].stringValue
+                        }
+                    }
+                    
+                    //add course in model
                     courses.append(Course(
                         id : this_course["id"].intValue,
                         categoryId: this_course["categoryId"].intValue,
@@ -113,7 +151,7 @@ class Course : NSObject{
                         key: this_course["key"].stringValue,
                         name : this_course["name"].stringValue,
                         owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
-                        img: "download",
+                        img: img,
                         rating: this_course["rating"].doubleValue
                     ))
                 }
@@ -146,6 +184,17 @@ class Course : NSObject{
                 let objCourses = json["courses"]
                 for obj in objCourses{
                     let this_course = obj.1
+                    
+                    //find course picture key
+                    let sections = this_course["sectionList"].arrayValue
+                    var img = "download"
+                    for section in sections{
+                        if(section["rank"].intValue == 0){
+                            img = section["content"].stringValue
+                        }
+                    }
+                    
+                    //add course
                     courses.append(Course(
                         id : this_course["id"].intValue,
                         categoryId: this_course["categoryId"].intValue,
@@ -154,7 +203,7 @@ class Course : NSObject{
                         key: this_course["key"].stringValue,
                         name : this_course["name"].stringValue,
                         owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
-                        img: "download",
+                        img: img,
                         rating: this_course["rating"].doubleValue
                     ))
                 }
