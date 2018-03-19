@@ -42,7 +42,7 @@ class CourseListsCollectionViewCell: UICollectionViewCell{
                 if(error == nil){
                     let url = "http://158.108.207.7:8080/\(path ?? "")"
                     self.img_btn.load(url: URL(fileURLWithPath: url))
-                    self.img_btn.setima
+//                    self.img_btn.setima
                 }else{
                     print(error!)
                 }

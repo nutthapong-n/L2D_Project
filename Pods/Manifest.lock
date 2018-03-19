@@ -1,10 +1,11 @@
 PODS:
   - AAPlayer (1.0.3)
-  - Alamofire (4.6.0)
+  - Alamofire (4.7.0)
   - Cache (4.1.2)
   - Cosmos (15.0.0)
   - Imaginary (3.0.3):
     - Cache (~> 4.0)
+  - PDFReader (2.5.1)
   - SideMenu (3.1.5)
   - SwiftyJSON (4.0.0)
 
@@ -13,18 +14,20 @@ DEPENDENCIES:
   - Alamofire (~> 4.6)
   - Cosmos (~> 15.0)
   - Imaginary (~> 3.0)
+  - PDFReader (~> 2.5)
   - SideMenu (~> 3.1)
   - SwiftyJSON (~> 4.0)
 
 SPEC CHECKSUMS:
   AAPlayer: bd478936fb9c15204b1be3ac17e7125e65bbf2d5
-  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   Cache: bd0233fc688b5e83a27bcd87807db7e6f23adcc5
   Cosmos: a6dbd3d0baa0cc8f51f8598f7508d5a09d0a9ade
   Imaginary: 9b45836a5af881f452a86e0a1215772ae4712d00
+  PDFReader: 2c4a845d0560f33221cf911516e3b700967680f6
   SideMenu: 47dbf9e4d878062d8994aed43f6e4bf6c1fea30b
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 4d83c19292ea4e1aa0a1641960b148f7c511eae0
+PODFILE CHECKSUM: 18774b8a1fe7fb176fc7024e92f6af3dc0b4c2a5
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0

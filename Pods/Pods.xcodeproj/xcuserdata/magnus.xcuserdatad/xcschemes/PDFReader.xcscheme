@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'B88E271286578FAA4070618BF541576C'
-               BlueprintName = 'SwiftyJSON'
+               BlueprintIdentifier = 'F710BBECB76266FF75359E63DE720D2D'
+               BlueprintName = 'PDFReader'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'SwiftyJSON.framework'>
+               BuildableName = 'PDFReader.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
