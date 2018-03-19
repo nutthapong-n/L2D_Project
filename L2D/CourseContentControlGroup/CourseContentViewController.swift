@@ -152,8 +152,10 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     (result) in
                     if(result){
                         self.myAlert(title: "Success", text: "you rated this course with \(cell.ratingBar.rating) points.")
+                        self.rating = cell.ratingBar.rating
                     }else{
                         self.myAlert(title: "Rating error", text: "")
+                        cell.ratingBar.rating = self.rating!
                     }
                     
                 }
@@ -228,7 +230,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     for sec in (course?.section)!{
                         if(sec.id == cell.section_id){
                             var index = course?.section?.index(of: sec)
-                            index = index! - 1
                             if var myCounter = index{
                                 for sub in sec.subSection!{
                                     myCounter += 1
@@ -266,9 +267,9 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             course?.UnRegister(completion: { (result) in
                 if(result){
                     sender.setTitle("Enroll now!", for: .normal)
-                    sender.backgroundColor = UIColor(red:98, green:210, blue:75, alpha:1.0)
+                    sender.backgroundColor = UIColor(red:0.38, green: 0.823, blue:0.294, alpha:1.0)
                     
-                    let table_header = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
+                    let table_header = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
                     
                     let ratingBar = table_header.ratingBar
                     ratingBar?.rating = 0.0
@@ -284,7 +285,9 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     sender.setTitle("enrolled", for: .normal)
                     sender.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
                     
-                    let table_header = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
+//                    let table_header = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
+                    
+                    let table_header = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
                     
                     let ratingBar = table_header.ratingBar
                     ratingBar?.rating = 0.0
@@ -320,6 +323,12 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 self.myAlert(title: "Error", text: msg!)
             }
             else{
+                for sec in (result?.section!)!{
+                    if(sec.rank == 0){
+                        let index = result?.section?.index(of: sec)
+                        result?.section?.remove(at: index!)
+                    }
+                }
                 self.course = result
                 
                 if(rating != nil){
