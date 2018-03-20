@@ -192,11 +192,11 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         return 250
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if(indexPath.row == 1 && helloWorldTimer == nil){
-            helloWorldTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(sayHello), userInfo: nil, repeats: true)
-        }
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if(indexPath.row == 1 && helloWorldTimer == nil){
+//            helloWorldTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(sayHello), userInfo: nil, repeats: true)
+//        }
+//    }
     
 
 
@@ -281,6 +281,13 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if(indexPath.item == 1 && helloWorldTimer == nil){
+            helloWorldTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(sayHello), userInfo: nil, repeats: true)
+        }
+    }
+
+    
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -296,6 +303,7 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
                 courseSaparator = courses["top"]!
             }
         }
+        
         let thisCourse = courseSaparator[indexPath.row]
         if(identifier == "0"){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseHeaderCollectionViewCell

@@ -32,64 +32,6 @@ class CourseListsCollectionViewCell: UICollectionViewCell{
 
     }
     
-    func fetchImage(img : String){
-        if(img != "download"){
-            Course.getfile(key: img, completion: { (path, error) in
-                if(error == nil){
-                    
-                    let url = URL(string: "http://158.108.207.7:8080/\(path ?? "")")
-                    
-                    let session = URLSession(configuration: .default)
-                    
-                    //creating a dataTask
-                    let getImageFromUrl = session.dataTask(with: url!) { (data, response, error) in
-                        
-                        //if there is any error
-                        if let e = error {
-                            //displaying the message
-                            print("Error Occurred: \(e)")
-                            
-                        } else {
-                            //in case of now error, checking wheather the response is nil or not
-                            if (response as? HTTPURLResponse) != nil {
-                                
-                                //checking if the response contains an image
-                                if let imageData = data {
-                                    
-                                    //getting the image
-                                    self.img = UIImage(data: imageData)
-                                    
-                                    //displaying the image
-                                    DispatchQueue.main.async { // Correct
-                                        self.img_btn.setBackgroundImage(self.img, for: .normal)
-                                    }
-                                    
-                                    //                                    self.uiImageView.image = image
-                                    
-                                } else {
-                                    print("Image file is currupted")
-                                }
-                            } else {
-                                print("No response from server")
-                            }
-                        }
-                    }
-                    
-                    //starting the download task
-                    getImageFromUrl.resume()
-                    
-                    
-                }else{
-                    print(error!)
-                }
-                
-            })
-        }else{
-            self.img_btn.setBackgroundImage(UIImage(named: img), for: .normal)
-            self.img = UIImage(named: img)
-        }
-    }
-    
     func initCell(img : String , name : String , id : Int) {
         if(self.c_name != nil){
             self.c_name.text = " \(name)"
@@ -97,7 +39,12 @@ class CourseListsCollectionViewCell: UICollectionViewCell{
         }
         
         if(self.img == nil){
-            fetchImage(img: img)
+            Course.fetchImg(img: img, completion: { (myUIImage) in
+                DispatchQueue.main.async { // Correct
+                    self.img_btn.setBackgroundImage(myUIImage, for: .normal)
+                }
+                self.img = myUIImage
+            })
         }else{
             self.img_btn.setBackgroundImage(self.img, for: .normal)
         }

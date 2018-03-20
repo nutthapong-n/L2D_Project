@@ -113,6 +113,57 @@ class Course : NSObject{
         return course
     }
     
+    class func fetchImg( img : String, completion : @escaping ( _ image : UIImage) -> ()){
+        if(img != "download"){
+            Course.getfile(key: img, completion: { (path, error) in
+                if(error == nil){
+                    
+                    let url = URL(string: "http://158.108.207.7:8080/\(path ?? "")")
+                    
+                    let session = URLSession(configuration: .default)
+                    
+                    //creating a dataTask
+                    let getImageFromUrl = session.dataTask(with: url!) { (data, response, error) in
+                        
+                        //if there is any error
+                        if let e = error {
+                            //displaying the message
+                            print("Error Occurred: \(e)")
+                            
+                        } else {
+                            //in case of now error, checking wheather the response is nil or not
+                            if (response as? HTTPURLResponse) != nil {
+                                
+                                //checking if the response contains an image
+                                if let imageData = data {
+                                    
+                                    //getting the image
+                                    let myImg = UIImage(data: imageData)
+                                    completion(myImg!)
+                                    
+                                } else {
+                                    print("Image file is currupted")
+                                }
+                            } else {
+                                print("No response from server")
+                            }
+                        }
+                    }
+                    
+                    //starting the download task
+                    getImageFromUrl.resume()
+                    
+                    
+                }else{
+                    print(error!)
+                }
+                
+            })
+        }else{
+            completion(UIImage(named: img)!)
+        }
+    }
+    
     class func getTopCourse(amount : Int, completion : @escaping (_ course:[Course]?, _ errorMessage:String?) -> ()){
         let url = "\(Network.IP_Address_Master)/course?top=\(amount)"
         Alamofire.request(url,method: .get,encoding: JSONEncoding.default).responseJSON{
