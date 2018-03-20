@@ -88,7 +88,7 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
         return courses.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 120
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -108,9 +108,16 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
         
         cell.course_img.setImage(url: URL(string: modelData.img)!)
         cell.courseName.text = modelData.name
-        cell.courseDetail.text = modelData.detail
+//        cell.courseDetail.text = modelData.detail
         cell.instructorName.text = "Instructor : \(modelData.owner)"
         cell.selectionStyle = .none
+        cell.ratingBar.settings.updateOnTouch = false
+        cell.ratingBar.settings.fillMode = .precise
+        
+        let rateText = "\(modelData.rating) from \(modelData.rateCount) vote"
+        let rateCount = modelData.rateCount
+        cell.ratingBar.text = rateCount > 1 ? "\(rateText)s" : rateText
+        
         
         return cell
     }
@@ -121,6 +128,7 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
         
         navigationController?.pushViewController(desView, animated: true)
     }
+    
 
     /*
     // MARK: - Navigation

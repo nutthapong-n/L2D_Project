@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Cosmos
 
 class MyCourseTableViewCell: UITableViewCell {
     
@@ -16,9 +17,10 @@ class MyCourseTableViewCell: UITableViewCell {
     
     @IBOutlet weak var content_container: UIView!
     @IBOutlet weak var courseName: UILabel!
-    @IBOutlet weak var courseDetail: UILabel!
+//    @IBOutlet weak var courseDetail: UILabel!
     @IBOutlet weak var instructorName: UILabel!
     @IBOutlet weak var course_img: UIImageView!
+    @IBOutlet weak var ratingBar: CosmosView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
