@@ -19,6 +19,7 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
     let searchBar = UISearchBar(frame: CGRect(x:0,y:0,width:(UIScreen.main.bounds.width),height:70))
     var initialDataAry:[Course] = Course.generateModelArray()
     var dataAry = [Course]()
+    var imgList : [UIImage] = []
     
     @IBOutlet weak var myTableView: UITableView!
     @IBOutlet weak var barContainerTable: UITableView!
@@ -220,7 +221,7 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         
         let model = dataAry[indexPath.row]
         
-        
+        cell.course_img.setImage(url: URL(string: model.img)!)
         cell.id = model.id
         cell.cellLabel.text = model.name
         cell.ownerLabel.text = "Instructor: \(model.owner)"
