@@ -507,22 +507,48 @@ class Course : NSObject{
                 }
                 
                 let courses = json["courses"]
+                let numCourse = courses.count
+                var numRecive = 0
                 for obj in courses{
                     let this_course = obj.1
-                    course.append(Course(
-                        id : Int(this_course["id"].stringValue)!,
-                        categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue,
-                        detail: this_course["detail"].stringValue,
-                        createdDate: this_course["createdDate"] == JSON.null ? 0.0 : this_course["createdDate"].floatValue ,
-                        key: this_course["key"].stringValue,
-                        name : this_course["name"].stringValue,
-                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
-                        img: "java",
-                        rating: this_course["rating"].doubleValue,
-                        rateCount: this_course["voter"].intValue
-                    ))
+                    let sections = this_course["sectionList"].arrayValue
+                    var imgKey = ""
+                    for sec in sections{
+                        if(sec["rank"].intValue == 0 && sec["contentType"].stringValue == "PICTURE" ){
+                            imgKey = sec["content"].stringValue
+                            break
+                        }
+                    }
+                    
+                    getfile(key: imgKey, completion: { (path, error) in
+                        var imgPath : String?
+                        if(path == nil){
+                            imgPath = "java"
+                        }else{
+                            imgPath = "http://158.108.207.7:8080/\(path ?? "")"
+                        }
+                        
+                        let newCourse = Course(
+                            id : Int(this_course["id"].stringValue)!,
+                            categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
+                            detail: this_course["detail"].stringValue,
+                            createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
+                            key: this_course["key"].stringValue,
+                            name : this_course["name"].stringValue,
+                            owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
+                            img: imgPath!,
+                            rating: this_course["rating"].doubleValue,
+                            rateCount: this_course["voter"].intValue
+                        )
+                        
+                        course.append(newCourse)
+                        numRecive = numRecive+1
+                        
+                        if(numRecive == numCourse){
+                            completion(course, nil)
+                        }
+                    })
                 }
-                completion(course,nil)
             case .failure(let error):
                 completion(nil,error.localizedDescription)
                 print(error)

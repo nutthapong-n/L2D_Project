@@ -105,6 +105,8 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
         
         let modelData = courses[indexPath.row]
         
+        
+        cell.course_img.setImage(url: URL(string: modelData.img)!)
         cell.courseName.text = modelData.name
         cell.courseDetail.text = modelData.detail
         cell.instructorName.text = "Instructor : \(modelData.owner)"

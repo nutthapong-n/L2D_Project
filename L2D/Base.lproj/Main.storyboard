@@ -974,6 +974,7 @@
                                                     <outlet property="content_container" destination="WAJ-bK-18b" id="1PQ-eY-DCX"/>
                                                     <outlet property="courseDetail" destination="sRs-Aq-3fg" id="UZC-1l-hsc"/>
                                                     <outlet property="courseName" destination="E09-2Z-P4p" id="7Hy-KA-F4X"/>
+                                                    <outlet property="course_img" destination="UIh-SA-kz9" id="w0X-2i-1DZ"/>
                                                     <outlet property="instructorName" destination="pEq-MW-kau" id="RD5-aN-Hga"/>
                                                 </connections>
                                             </tableViewCell>
