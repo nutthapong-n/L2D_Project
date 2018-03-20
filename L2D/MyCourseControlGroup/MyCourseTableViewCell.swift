@@ -18,6 +18,7 @@ class MyCourseTableViewCell: UITableViewCell {
     @IBOutlet weak var courseName: UILabel!
     @IBOutlet weak var courseDetail: UILabel!
     @IBOutlet weak var instructorName: UILabel!
+    @IBOutlet weak var course_img: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
