@@ -20,7 +20,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     var course : Course?
     var isRegis : Bool = false
     var showCourse : [CourseForShow_Model] = []
-    var rating : Double?
+    var userRating : Double?
     
     @IBOutlet weak var tableviewTopConst : NSLayoutConstraint!
     @IBOutlet weak var table : CoursePreviewTable!
@@ -56,7 +56,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         let table_header = table.dequeueReusableCell(withIdentifier: "sectionHeader", for: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
         let enroll_btn = table_header.enroll_btn
         
-        Course.getCoureWithCheckRegis(id: courseId!) { (result, msg, isRegis, rating) in
+        Course.getCoureWithCheckRegis(id: courseId!) { (result, msg, isRegis, userRating) in
             if(msg != nil){
                 self.myAlert(title: "Error", text: msg!)
             }
@@ -64,10 +64,10 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 self.course = result
                 self.showCourse = []
                 
-                if(rating != nil){
-                    self.rating = rating
+                if(userRating != nil){
+                    self.userRating = userRating
                 }else{
-                    self.rating = 0.0
+                    self.userRating = 0.0
                 }
                 
                 if(isRegis)!{
@@ -147,19 +147,20 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         if(indexPath.section == 0){
             let cell = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: indexPath) as! CourseSectionHeaderTableViewCell
             
-            cell.ratingBar.didFinishTouchingCosmos = { rating in
-                Course.rateCourse(CourseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, rating: cell.ratingBar.rating){
-                    (result) in
-                    if(result){
-                        self.myAlert(title: "Success", text: "you rated this course with \(cell.ratingBar.rating) points.")
-                        self.rating = cell.ratingBar.rating
-                    }else{
-                        self.myAlert(title: "Rating error", text: "")
-                        cell.ratingBar.rating = self.rating!
-                    }
-                    
-                }
-            }
+            // rateCourse
+//            cell.ratingBar.didFinishTouchingCosmos = { rating in
+//                Course.rateCourse(CourseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, rating: cell.ratingBar.rating){
+//                    (result) in
+//                    if(result){
+//                        self.myAlert(title: "Success", text: "you rated this course with \(cell.ratingBar.rating) points.")
+//                        self.rating = cell.ratingBar.rating
+//                    }else{
+//                        self.myAlert(title: "Rating error", text: "")
+//                        cell.ratingBar.rating = self.rating!
+//                    }
+//
+//                }
+//            }
             
 //            cell.showPDF.addTarget(self, action: #selector(showPDF), for: .touchUpInside)
             
@@ -167,13 +168,27 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 cell.enroll_btn.setTitle("enrolled", for: .normal)
                 cell.enroll_btn.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
                 
-                cell.ratingBar.rating = rating!
-                cell.ratingBar.isHidden = false
+//                cell.ratingBar.rating = rating!
+//                cell.ratingBar.isHidden = false
+                cell.rate_btn.isHidden = false
             }
             else{
-                cell.ratingBar.isHidden = true
+//                cell.ratingBar.isHidden = true
+                cell.rate_btn.isHidden = true
             }
-            cell.titleLabel.text = course?.name
+            
+            cell.ratingBar.settings.fillMode = .precise
+            cell.ratingBar.settings.updateOnTouch = false
+            if(self.course != nil){
+                let rateText = "\(self.course?.rating ?? 0.0) from \(self.course?.rateCount ?? 0) vote"
+                if let rateCount = self.course?.rateCount {
+                    cell.ratingBar.text = rateCount > 1 ? "\(rateText)s" : rateText
+                }
+                cell.ratingBar.rating = (self.course?.rating)!
+            }
+
+            cell.titleLabel.text = self.course?.name
+            
             return cell
         }else{//is a section and sub section
             let sectionLocal = self.showCourse
@@ -271,9 +286,14 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     
                     let table_header = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
                     
-                    let ratingBar = table_header.ratingBar
-                    ratingBar?.rating = 0.0
-                    ratingBar?.isHidden = true
+//                    let ratingBar = table_header.ratingBar
+//                    ratingBar?.rating = 0.0
+//                    ratingBar?.isHidden = true
+                    
+                    let rate_btn = table_header.rate_btn
+                    rate_btn?.isHidden = true
+                    
+                    self.userRating = 0.0
                     self.isRegis = false
                 }else{
                     self.myAlert(title: "", text: "can not unenroll")
@@ -289,9 +309,13 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     
                     let table_header = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
                     
-                    let ratingBar = table_header.ratingBar
-                    ratingBar?.rating = 0.0
-                    ratingBar?.isHidden = false
+//                    let ratingBar = table_header.ratingBar
+//                    ratingBar?.rating = 0.0
+//                    ratingBar?.isHidden = false
+                    
+                    let rate_btn = table_header.rate_btn
+                    rate_btn?.isHidden = false
+                    
                     self.isRegis = true
                 }else{
                     let loginController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
@@ -318,7 +342,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         table.addSubview(self.refreshControl)
 
         
-        Course.getCoureWithCheckRegis(id: courseId!) { (result, msg, isRegis, rating) in
+        Course.getCoureWithCheckRegis(id: courseId!) { (result, msg, isRegis, userRating) in
             if(msg != nil){
                 self.myAlert(title: "Error", text: msg!)
             }
@@ -331,10 +355,10 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 }
                 self.course = result
                 
-                if(rating != nil){
-                    self.rating = rating
+                if(userRating != nil){
+                    self.userRating = userRating
                 }else{
-                    self.rating = 0.0
+                    self.userRating = 0.0
                 }
                 
                 if(isRegis)!{
@@ -384,6 +408,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         player_buttom_const.constant = 2/3*viewHeight - (navHeight)!
         NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
 //        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: false)
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -420,15 +445,21 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if( segue.destination.restorationIdentifier == "RateCourseID"){
+            let dest = segue.destination as! RateCourseViewController
+            dest.userRating = self.userRating!
+            dest.courseId = self.courseId!
+        }
     }
-    */
+    
 
 }
 
