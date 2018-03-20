@@ -52,12 +52,13 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
                 if(errMsg != nil){
 //                    self.myAlert(title: "Error", text: errMsg!)
                     self.myAlert(title: "Not found", text: "")
+                    self.dataAry.removeAll()
                     print("Error : \(errMsg ?? "from func actualizarDators")")
                 }else{
                     self.dataAry = result!
-                    self.myTableView.reloadData()
+                    
                 }
-        
+                self.myTableView.reloadData()
                 refreshControl.endRefreshing()
             })
         }else if (searchBar.text != "" && searchBar.selectedScopeButtonIndex == 1) {
@@ -65,12 +66,13 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
                 if errMsg != nil {
 //                    self.myAlert(title: "Error", text: errMsg!)
                     self.myAlert(title: "Not found", text: "")
+                    self.dataAry.removeAll()
                     print("Error : \(errMsg ?? "from func actualizarDators")")
                 }else{
                     self.dataAry = result!
-                    self.myTableView.reloadData()
+                    
                 }
-                
+                self.myTableView.reloadData()
                 refreshControl.endRefreshing()
             })
         }else{
@@ -162,10 +164,12 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
 //                    self.myAlert(title: "Error", text: errMsg!)
                     self.myAlert(title: "Not found", text: "")
                     print("Error : \(errMsg ?? "from func:reload data / get course by search name")")
+                    self.dataAry.removeAll()
                 }else{
                     self.dataAry = result!
-                    self.myTableView.reloadData()
+                    
                 }
+                self.myTableView.reloadData()
             })
         case 1:
             Course.getCourseBySearchInstructor(instructorName: text, completion: {(result, errMsg) in
@@ -173,10 +177,12 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
 //                    self.myAlert(title: "Error", text: errMsg!)
                     self.myAlert(title: "Not found", text: "")
                     print("Error : \(errMsg ?? "from func:reload data / get course by search instuctor")")
+                    self.dataAry.removeAll()
                 }else{
                     self.dataAry = result!
-                    self.myTableView.reloadData()
+                    
                 }
+                self.myTableView.reloadData()
             })
             
         default:
@@ -226,6 +232,10 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         cell.cellLabel.text = model.name
         cell.ownerLabel.text = "Instructor: \(model.owner)"
         cell.course_star.settings.updateOnTouch = false
+        cell.course_star.settings.fillMode = .precise
+        let rateText = "\(model.rating) from \(model.rateCount) vote"
+        let rateCount = model.rateCount
+        cell.course_star.text = rateCount > 1 ? "\(rateText)s" : rateText
         cell.course_star.rating = model.rating
 
         

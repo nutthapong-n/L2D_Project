@@ -182,7 +182,7 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D16-tg-nxw" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D16-tg-nxw" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="12" y="163" width="210" height="20"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="text" value=" 0 from 0 vote"/>
@@ -304,28 +304,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lxk-lt-8Ho">
-                                                    <rect key="frame" x="286" y="3" width="113" height="35"/>
-                                                    <color key="backgroundColor" red="0.38903377757352936" green="0.82352941176470584" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="35" id="J9H-Db-7OH"/>
-                                                        <constraint firstAttribute="width" constant="113" id="Nz6-kI-F7d"/>
-                                                    </constraints>
-                                                    <state key="normal" title="Enroll now!">
-                                                        <color key="titleColor" red="0.058842056689905747" green="0.12781567258883253" blue="0.046123884337488291" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="enroll:" destination="6R4-bl-1qS" eventType="touchUpInside" id="Hya-6X-DL8"/>
-                                                    </connections>
-                                                </button>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgq-1v-VS2" customClass="CosmosView" customModule="Cosmos">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lgq-1v-VS2" customClass="CosmosView" customModule="Cosmos">
                                                     <rect key="frame" x="15" y="49" width="215" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <userDefinedRuntimeAttributes>
@@ -344,14 +323,40 @@
                                                         <action selector="showPDF:" destination="6R4-bl-1qS" eventType="touchUpInside" id="QTc-bJ-FoR"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Dv-Um-Rlm">
-                                                    <rect key="frame" x="286" y="41" width="113" height="36"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Dv-Um-Rlm">
+                                                    <rect key="frame" x="286" y="39" width="113" height="30"/>
                                                     <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                     <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="Rate this!"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <segue destination="WRu-3J-Q9x" kind="show" id="744-Wq-fsx"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lxk-lt-8Ho">
+                                                    <rect key="frame" x="286" y="6" width="113" height="30"/>
+                                                    <color key="backgroundColor" red="0.38903377757352936" green="0.82352941176470584" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="J9H-Db-7OH"/>
+                                                        <constraint firstAttribute="width" constant="113" id="Nz6-kI-F7d"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Enroll now!">
+                                                        <color key="titleColor" red="0.058842056689905747" green="0.12781567258883253" blue="0.046123884337488291" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="enroll:" destination="6R4-bl-1qS" eventType="touchUpInside" id="Hya-6X-DL8"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -361,12 +366,12 @@
                                                 <constraint firstItem="knE-5S-tYm" firstAttribute="leading" secondItem="l41-Wk-Pcj" secondAttribute="leading" id="9Kg-Rl-JlR"/>
                                                 <constraint firstItem="2Dv-Um-Rlm" firstAttribute="leading" secondItem="lxk-lt-8Ho" secondAttribute="leading" id="ESm-5k-oN3"/>
                                                 <constraint firstItem="lxk-lt-8Ho" firstAttribute="trailing" secondItem="ATt-dY-Pw6" secondAttribute="trailingMargin" id="Na9-10-4zN"/>
-                                                <constraint firstItem="lxk-lt-8Ho" firstAttribute="top" secondItem="ATt-dY-Pw6" secondAttribute="topMargin" constant="-8" id="RtK-VC-kzV"/>
+                                                <constraint firstItem="lxk-lt-8Ho" firstAttribute="top" secondItem="ATt-dY-Pw6" secondAttribute="topMargin" constant="-5" id="RtK-VC-kzV"/>
                                                 <constraint firstItem="2Dv-Um-Rlm" firstAttribute="trailing" secondItem="lxk-lt-8Ho" secondAttribute="trailing" id="dR2-VE-lyl"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="l41-Wk-Pcj" secondAttribute="bottom" constant="17" id="gLX-T7-IeK"/>
                                                 <constraint firstItem="l41-Wk-Pcj" firstAttribute="leading" secondItem="ATt-dY-Pw6" secondAttribute="leadingMargin" id="oFY-xn-IZp"/>
                                                 <constraint firstItem="knE-5S-tYm" firstAttribute="top" secondItem="ATt-dY-Pw6" secondAttribute="top" id="s4I-OG-Gpq"/>
-                                                <constraint firstItem="2Dv-Um-Rlm" firstAttribute="centerY" secondItem="Lgq-1v-VS2" secondAttribute="centerY" id="siZ-nz-pBx"/>
+                                                <constraint firstItem="2Dv-Um-Rlm" firstAttribute="centerY" secondItem="Lgq-1v-VS2" secondAttribute="centerY" constant="-5" id="siZ-nz-pBx"/>
                                                 <constraint firstItem="Lgq-1v-VS2" firstAttribute="leading" secondItem="l41-Wk-Pcj" secondAttribute="leading" id="uaF-MJ-XCn"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -631,13 +636,6 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZrB-lF-ujb" customClass="CosmosView" customModule="Cosmos">
-                                                            <rect key="frame" x="227" y="67" width="163.66666666666663" height="20"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="text" value="Rating"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTM-zl-Ia5">
                                                             <rect key="frame" x="88" y="8" width="120" height="21"/>
                                                             <constraints>
@@ -647,6 +645,13 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZrB-lF-ujb" customClass="CosmosView" customModule="Cosmos">
+                                                            <rect key="frame" x="88" y="69" width="303" height="20"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="text" value="0.0 from 1 vote"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -654,7 +659,7 @@
                                                         <constraint firstAttribute="bottom" secondItem="Lf2-od-glf" secondAttribute="bottom" constant="34" id="IZz-jb-qOB"/>
                                                         <constraint firstItem="Lf2-od-glf" firstAttribute="top" secondItem="cTM-zl-Ia5" secondAttribute="bottom" constant="5" id="JMF-aP-OTO"/>
                                                         <constraint firstItem="3V8-LL-29j" firstAttribute="leading" secondItem="wB4-z9-rkA" secondAttribute="leading" id="Ow6-pd-1WF"/>
-                                                        <constraint firstItem="ZrB-lF-ujb" firstAttribute="top" secondItem="wB4-z9-rkA" secondAttribute="top" constant="67" id="R65-CM-R2x"/>
+                                                        <constraint firstItem="ZrB-lF-ujb" firstAttribute="top" secondItem="wB4-z9-rkA" secondAttribute="top" constant="69" id="R65-CM-R2x"/>
                                                         <constraint firstAttribute="trailing" secondItem="ZrB-lF-ujb" secondAttribute="trailing" constant="8.36181640625" id="WY2-eu-7YF"/>
                                                         <constraint firstItem="cTM-zl-Ia5" firstAttribute="top" secondItem="wB4-z9-rkA" secondAttribute="topMargin" id="guY-8S-kpy"/>
                                                         <constraint firstItem="3V8-LL-29j" firstAttribute="top" secondItem="wB4-z9-rkA" secondAttribute="top" id="jXX-Qf-jyw"/>
