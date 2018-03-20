@@ -21,8 +21,9 @@ class Course : NSObject{
     var key : String
     var section : [Section_model]?
     var rating : Double
+    var rateCount : Int
     
-    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String , section : [Section_model], rating: Double) {
+    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String , section : [Section_model], rating: Double, rateCount: Int) {
         self.id = id
         self.categoryId = categoryId
         self.detail = detail
@@ -33,9 +34,10 @@ class Course : NSObject{
         self.img = img
         self.section = section
         self.rating = rating
+        self.rateCount = rateCount
     }
     
-    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String, rating:Double) {
+    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String, rating:Double, rateCount: Int) {
         self.id = id
         self.categoryId = categoryId
         self.detail = detail
@@ -45,6 +47,7 @@ class Course : NSObject{
         self.owner = owner
         self.img = img
         self.rating = rating
+        self.rateCount = rateCount
     }
     
     func Register(completion : @escaping (Bool) -> ()){
@@ -103,12 +106,12 @@ class Course : NSObject{
     
     class func generateModelArray() -> [Course]{
         var course = [Course]()
-        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard",rating: 0))
-        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard",rating: 1))
-        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard",rating: 2))
-        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard",rating: 3))
-        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard",rating: 4))
-        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard",rating: 5))
+        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard",rating: 0,rateCount: 1))
+        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard",rating: 1,rateCount: 1))
+        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard",rating: 2,rateCount: 1))
+        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard",rating: 3,rateCount: 1))
+        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard",rating: 4,rateCount: 1))
+        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"keyboard",rating: 5,rateCount: 1))
 
         return course
     }
@@ -152,7 +155,8 @@ class Course : NSObject{
                         name : this_course["name"].stringValue,
                         owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                         img: img,
-                        rating: this_course["rating"].doubleValue
+                        rating: this_course["rating"].doubleValue,
+                        rateCount: this_course["voter"].intValue
                     ))
                 }
                 
@@ -204,7 +208,8 @@ class Course : NSObject{
                         name : this_course["name"].stringValue,
                         owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                         img: img,
-                        rating: this_course["rating"].doubleValue
+                        rating: this_course["rating"].doubleValue,
+                        rateCount: this_course["voter"].intValue
                     ))
                 }
                 
@@ -217,7 +222,7 @@ class Course : NSObject{
         }
     }
     
-    class func getCoureWithCheckRegis( id:Int , completion : @escaping (_ course: Course?, _ errorMessage:String?, _ isRegis:Bool?, _ rating:Double?) -> ()){
+    class func getCoureWithCheckRegis( id:Int , completion : @escaping (_ course: Course?, _ errorMessage:String?, _ isRegis:Bool?, _ userRating:Double?) -> ()){
         let urlString = "\(Network.IP_Address_Master)/course/isRegis"
         let user_id = AppDelegate.userData?.idmember
         let user_id_str = user_id != nil ? "\(user_id!)" : "0"
@@ -233,7 +238,9 @@ class Course : NSObject{
                     let result = json["response"]
                     let courseJSON = json["course"]
                     let isRegis = json["isRegis"].boolValue
-                    let rating = json["rating"]
+                    let userRating = json["userRating"]
+                    
+                    
                     
                     if(result["status"] == false){
                         print(result["message"])
@@ -253,7 +260,8 @@ class Course : NSObject{
                         owner: courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["name"]) \(courseJSON["teacher"]["surname"])" : "",
                         img: "keyboard",
                         section : [],
-                        rating: courseJSON["rating"].doubleValue
+                        rating: courseJSON["rating"].doubleValue,
+                        rateCount: courseJSON["voter"].intValue
                     )
                     
                     let sections = courseJSON["sectionList"].arrayValue.sorted()
@@ -286,7 +294,7 @@ class Course : NSObject{
                         course.section?.append(thisSection)
                     }
                     
-                    completion(course,nil,isRegis,rating != JSON.null ? rating.doubleValue : nil)
+                    completion(course,nil,isRegis,userRating != JSON.null ? userRating.doubleValue : nil)
                 case .failure(let error):
                     print(error)
                     //                    completion(course)
@@ -323,7 +331,8 @@ class Course : NSObject{
                             owner: courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["name"]) \(courseJSON["teacher"]["surname"])" : "",
                             img: "keyboard",
                             section : [],
-                            rating: courseJSON["rating"].doubleValue
+                            rating: courseJSON["rating"].doubleValue,
+                            rateCount: courseJSON["voter"].intValue
                         )
                     
                     let sections = courseJSON["sectionList"].arrayValue.sorted()
@@ -400,7 +409,8 @@ class Course : NSObject{
                                 name : this_course["name"].stringValue,
                                 owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                                 img: "keyboard",
-                                rating: this_course["rating"].doubleValue
+                                rating: this_course["rating"].doubleValue,
+                                rateCount: this_course["voter"].intValue
                             ))
                         }
                     
@@ -420,7 +430,8 @@ class Course : NSObject{
                         name : "error",
                         owner: "",
                         img: "java",
-                        rating: 0.0
+                        rating: 0.0,
+                        rateCount: 0
                     ))
 //                    completion(course)
                     completion(nil,error.localizedDescription)
@@ -456,7 +467,8 @@ class Course : NSObject{
                         name : this_course["name"].stringValue,
                         owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                         img: "java",
-                        rating: this_course["rating"].doubleValue
+                        rating: this_course["rating"].doubleValue,
+                        rateCount: this_course["voter"].intValue
                     ))
                 }
                 completion(course,nil)
@@ -497,7 +509,8 @@ class Course : NSObject{
                         name : this_course["name"].stringValue,
                         owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                         img: "java",
-                        rating: this_course["rating"].doubleValue
+                        rating: this_course["rating"].doubleValue,
+                        rateCount: this_course["voter"].intValue
                     ),nil)
                 case .failure(let error):
                     completion(nil,error.localizedDescription)
@@ -538,7 +551,8 @@ class Course : NSObject{
                             name : this_course["name"].stringValue,
                             owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                             img: "java",
-                            rating: this_course["rating"].doubleValue
+                            rating: this_course["rating"].doubleValue,
+                            rateCount: this_course["voter"].intValue
                         ))
                     }
                     
@@ -583,7 +597,8 @@ class Course : NSObject{
                         name : this_course["name"].stringValue,
                         owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                         img: "java",
-                        rating: this_course["rating"].doubleValue
+                        rating: this_course["rating"].doubleValue,
+                        rateCount: this_course["voter"].intValue
                     ))
                 }
                 completion(course,nil)
@@ -624,7 +639,8 @@ class Course : NSObject{
                         name : this_course["name"].stringValue,
                         owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                         img: "java",
-                        rating: this_course["rating"].doubleValue
+                        rating: this_course["rating"].doubleValue,
+                        rateCount: this_course["voter"].intValue
                     ))
                 }
                 completion(course,nil)
@@ -673,7 +689,7 @@ class Course : NSObject{
                 completion(false)
                 print(error)
             }
-        completion(false)
+//        completion(false)
         }
     }
 }

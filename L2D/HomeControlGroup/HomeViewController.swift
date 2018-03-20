@@ -305,12 +305,18 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
             cell.initCell(img: thisCourse.img, name: thisCourse.name , id : thisCourse.id)
             cell.course_rating.settings.updateOnTouch = false
+            cell.course_rating.settings.fillMode = .precise
+            let rateText = "\(thisCourse.rating) from \(thisCourse.rateCount) vote"
+            cell.course_rating.text = thisCourse.rateCount > 1 ? "\(rateText)s" : rateText
             cell.course_rating.rating = thisCourse.rating
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
             cell.initCell(img: thisCourse.img, name: thisCourse.name , id : thisCourse.id)
             cell.course_rating.settings.updateOnTouch = false
+            cell.course_rating.settings.fillMode = .precise
+            let rateText = "\(thisCourse.rating) from \(thisCourse.rateCount) vote"
+            cell.course_rating.text = thisCourse.rateCount > 1 ? "\(rateText)s" : rateText
             cell.course_rating.rating = thisCourse.rating
             return cell
         }

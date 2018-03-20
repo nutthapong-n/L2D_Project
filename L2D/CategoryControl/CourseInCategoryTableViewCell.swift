@@ -12,7 +12,7 @@ import Cosmos
 class CourseInCategoryTableViewCell: UITableViewCell {
 
     @IBOutlet weak var CourseNameLabel: UILabel!
-    @IBOutlet weak var CourseDetailLabel: UILabel!
+//    @IBOutlet weak var CourseDetailLabel: UILabel!
     @IBOutlet weak var ItemViewBox: UIView!
     @IBOutlet weak var course_rating: CosmosView!
     @IBOutlet weak var CourseInstructor: UILabel!

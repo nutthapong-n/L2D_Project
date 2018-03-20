@@ -116,11 +116,17 @@ class CourseCategoryTableViewController: UITableViewController {
         let data = courseList[indexPath.row]
         
         cell.CourseNameLabel.text = data.name
-        cell.CourseDetailLabel.text = data.detail
+//        cell.CourseDetailLabel.text = data.detail
         cell.CourseInstructor.text = data.owner
         cell.selectionStyle = .none
         cell.course_rating.settings.updateOnTouch = false
         cell.course_rating.rating = data.rating
+        
+        let rateText = "\(data.rating) from \(data.rateCount) vote"
+        let rateCount = data.rateCount
+        cell.course_rating.text = rateCount > 1 ? "\(rateText)s" : rateText
+        
+//        cell.ratingBar.rating = (self.course?.rating)!
         return cell
     }
     
@@ -132,7 +138,10 @@ class CourseCategoryTableViewController: UITableViewController {
         
         navigationController?.pushViewController(desView, animated: true)
     }
-
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
