@@ -9,6 +9,7 @@
 import UIKit
 import AAPlayer
 import Cosmos
+import PDFReader
 
 class CourseContentViewController: BaseViewController , UITableViewDelegate , UITableViewDataSource, AAPlayerDelegate {
 
@@ -123,6 +124,25 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         }
     }
     
+    @IBAction func showPDF(_ sender: Any) {
+        
+        let document = PDFDocument(url: URL(string: "http://gahp.net/wp-content/uploads/2017/09/sample.pdf")!)!
+        
+        let pdfDocument = document
+        let readerController = PDFViewController.createNew(with: pdfDocument)
+        navigationController?.pushViewController(readerController, animated: true)
+    }
+//    @objc func showPDF(){
+//
+//        let table_header = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
+//
+////        let table_header = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
+//
+//        let pdfDocument = table_header.document
+//        let readerController = PDFViewController.createNew(with: pdfDocument)
+//        navigationController?.pushViewController(readerController, animated: true)
+//    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(indexPath.section == 0){
             let cell = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: indexPath) as! CourseSectionHeaderTableViewCell
@@ -140,6 +160,9 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     
                 }
             }
+            
+//            cell.showPDF.addTarget(self, action: #selector(showPDF), for: .touchUpInside)
+            
             if(isRegis){
                 cell.enroll_btn.setTitle("enrolled", for: .normal)
                 cell.enroll_btn.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
