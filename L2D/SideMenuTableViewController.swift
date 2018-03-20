@@ -81,11 +81,14 @@ class SideMenuTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dest = storyboard?.instantiateViewController(withIdentifier: "CourseCategoryTableViewController") as! CourseCategoryTableViewController
-        dest.categoryName = self.category[indexPath.row].name
-        dest.courseIdList = self.category[indexPath.row].courseIdList!
+        if (self.category[indexPath.row].courseIdList != nil) {
+            let dest = storyboard?.instantiateViewController(withIdentifier: "CourseCategoryTableViewController") as! CourseCategoryTableViewController
+            dest.categoryName = self.category[indexPath.row].name
+            dest.courseIdList = self.category[indexPath.row].courseIdList!
+            
+            navigationController?.pushViewController(dest, animated: true)
+        }
         
-        navigationController?.pushViewController(dest, animated: true)
     }
     
 
