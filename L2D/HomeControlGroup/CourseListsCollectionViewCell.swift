@@ -32,22 +32,14 @@ class CourseListsCollectionViewCell: UICollectionViewCell{
 
     }
     
-    func initCell(img : String , name : String , id : Int) {
+    func initCell(img : UIImage , name : String , id : Int) {
         if(self.c_name != nil){
             self.c_name.text = " \(name)"
             self.img_btn.id = id
         }
+        self.img_btn.setBackgroundImage(img, for: .normal)
         
-        if(self.img == nil){
-            Course.fetchImg(img: img, completion: { (myUIImage) in
-                DispatchQueue.main.async { // Correct
-                    self.img_btn.setBackgroundImage(myUIImage, for: .normal)
-                }
-                self.img = myUIImage
-            })
-        }else{
-            self.img_btn.setBackgroundImage(self.img, for: .normal)
-        }
+
     }
     
 }

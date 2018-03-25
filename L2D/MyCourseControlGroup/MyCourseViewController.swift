@@ -17,6 +17,7 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
 //    var courses:[Course] = Course.generateModelArray()
 //    var allMyCourse:[Course] = Course.getMyCourse()
     var courses:[Course] = []
+    var imgList : [Int:UIImage] = [:]
     
     lazy var refreshControl : UIRefreshControl = {
         let rc = UIRefreshControl()
@@ -105,8 +106,18 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
         
         let modelData = courses[indexPath.row]
         
+        let thisCourseImg = imgList[modelData.id]
         
-        cell.course_img.setImage(url: URL(string: modelData.img)!)
+        if(thisCourseImg == nil){
+            Course.fetchImgByURL(picUrl: modelData.imgPath, completion: { (myImage) in
+                self.imgList[modelData.id] = myImage
+                cell.course_img.image = myImage
+            })
+        }else{
+            cell.course_img.image = thisCourseImg
+        }
+        
+        
         cell.courseName.text = modelData.name
 //        cell.courseDetail.text = modelData.detail
         cell.instructorName.text = "Instructor : \(modelData.owner)"

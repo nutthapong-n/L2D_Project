@@ -18,8 +18,8 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
     
     let searchBar = UISearchBar(frame: CGRect(x:0,y:0,width:(UIScreen.main.bounds.width),height:70))
     var initialDataAry:[Course] = Course.generateModelArray()
-    var dataAry = [Course]()
-    var imgList : [UIImage] = []
+    var dataAry = [CourseWithImgPath]()
+    var imgList : [Int:UIImage] = [:]
     
     @IBOutlet weak var myTableView: UITableView!
     @IBOutlet weak var barContainerTable: UITableView!
@@ -53,6 +53,7 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
 //                    self.myAlert(title: "Error", text: errMsg!)
                     self.myAlert(title: "Not found", text: "")
                     self.dataAry.removeAll()
+                    self.imgList.removeAll()
                     print("Error : \(errMsg ?? "from func actualizarDators")")
                 }else{
                     self.dataAry = result!
@@ -67,6 +68,7 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
 //                    self.myAlert(title: "Error", text: errMsg!)
                     self.myAlert(title: "Not found", text: "")
                     self.dataAry.removeAll()
+                    self.imgList.removeAll()
                     print("Error : \(errMsg ?? "from func actualizarDators")")
                 }else{
                     self.dataAry = result!
@@ -227,7 +229,10 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         
         let model = dataAry[indexPath.row]
         
-        cell.course_img.setImage(url: URL(string: model.img)!)
+
+
+
+
         cell.id = model.id
         cell.cellLabel.text = model.name
         cell.ownerLabel.text = "Instructor: \(model.owner)"
@@ -237,10 +242,24 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         let rateCount = model.rateCount
         cell.course_star.text = rateCount > 1 ? "\(rateText)s" : rateText
         cell.course_star.rating = model.rating
+        
+        if(self.imgList[cell.id!] == nil){
+            Course.fetchImgByURL(picUrl: model.imgPath, completion: { (myImage) in
+                self.imgList[cell.id!] = myImage
+                DispatchQueue.main.async {
+                    cell.course_img.image = self.imgList[cell.id!]
+                }
+            })
+        }else{
+            cell.course_img.image = self.imgList[cell.id!]
+        }
 
         
-        
         return cell
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("sappear")
     }
     
     //add delegate method for pushing to new detail controller

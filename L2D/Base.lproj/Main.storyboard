@@ -624,7 +624,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wB4-z9-rkA">
                                                     <rect key="frame" x="8" y="8" width="399" height="89"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="download" translatesAutoresizingMaskIntoConstraints="NO" id="3V8-LL-29j">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tour" translatesAutoresizingMaskIntoConstraints="NO" id="3V8-LL-29j">
                                                             <rect key="frame" x="0.0" y="0.0" width="80" height="89"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="80" id="kmp-hW-JUT"/>
@@ -1691,6 +1691,7 @@
                                     <outlet property="CourseInstructor" destination="CVr-eY-5bQ" id="koG-19-76J"/>
                                     <outlet property="CourseNameLabel" destination="hzJ-hk-oUA" id="muc-gt-P5O"/>
                                     <outlet property="ItemViewBox" destination="dcd-aG-juh" id="ZBD-RA-DuE"/>
+                                    <outlet property="course_img" destination="IMI-7V-7Jz" id="lFo-OW-hq5"/>
                                     <outlet property="course_rating" destination="UaC-Wx-C32" id="YFJ-Kw-vwH"/>
                                 </connections>
                             </tableViewCell>
@@ -1791,7 +1792,6 @@
         <image name="Menu-1" width="36" height="36"/>
         <image name="account" width="36" height="36"/>
         <image name="collapse_arrow" width="36" height="36"/>
-        <image name="download" width="112" height="112"/>
         <image name="expand_arrow" width="36" height="36"/>
         <image name="home" width="36" height="36"/>
         <image name="java" width="150" height="150"/>
@@ -1801,10 +1801,11 @@
         <image name="mycourse" width="36" height="36"/>
         <image name="play" width="36" height="36"/>
         <image name="search" width="36" height="36"/>
+        <image name="tour" width="300" height="300"/>
         <image name="xcode" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JnU-a7-irk"/>
-        <segue reference="D10-sT-fdj"/>
+        <segue reference="zpI-Tb-1ZC"/>
     </inferredMetricsTieBreakers>
 </document>

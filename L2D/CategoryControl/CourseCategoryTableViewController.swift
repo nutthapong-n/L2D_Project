@@ -15,10 +15,15 @@ class CourseCategoryTableViewController: UITableViewController {
     @IBOutlet weak var CourseInCategoryTable: UITableView!
     @IBOutlet weak var TopBarTitle: UINavigationItem!
     
+    
     var categoryName:String = "Category"
     var courseIdList = [Int]()
     var courseList = [Course]()
     var rowSelected:Int = -1
+    var imgList : [Int:UIImage] = [:]
+    
+
+
     
     func myAlert(title : String,text : String){
         self.resignFirstResponder()
@@ -114,6 +119,15 @@ class CourseCategoryTableViewController: UITableViewController {
         //Configure the cell...
         
         let data = courseList[indexPath.row]
+        var thisCourseImg = self.imgList[data.id]
+        
+        if(thisCourseImg == nil){
+            Course.fetchImgByURL(picUrl: data.imgPath, completion: { (myImage) in
+                self.imgList[data.id] = myImage
+                cell.course_img.image = myImage
+            })
+            thisCourseImg = UIImage(named: "download")
+        }
         
         cell.CourseNameLabel.text = data.name
 //        cell.CourseDetailLabel.text = data.detail

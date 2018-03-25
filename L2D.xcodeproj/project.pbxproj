@@ -24,6 +24,7 @@
 		3240809520205C4D00352AD1 /* CourseSubsectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3240809420205C4D00352AD1 /* CourseSubsectionTableViewCell.swift */; };
 		3240809720205C7400352AD1 /* CourseSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3240809620205C7400352AD1 /* CourseSectionTableViewCell.swift */; };
 		3248884F204EBDAF00D4CE70 /* L2DColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3248884E204EBDAF00D4CE70 /* L2DColor.swift */; };
+		325872DE2067A6270022244E /* CourseWithImgPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325872DD2067A6270022244E /* CourseWithImgPath.swift */; };
 		325D7A2A202191B40081F443 /* CourseForShow.Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325D7A29202191B40081F443 /* CourseForShow.Model.swift */; };
 		3276AB03203DCDB90078C611 /* BaseUICollectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3276AB02203DCDB90078C611 /* BaseUICollectView.swift */; };
 		32847E3A201F5B10002F60EC /* CoursePreviewTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32847E39201F5B10002F60EC /* CoursePreviewTable.swift */; };
@@ -101,6 +102,7 @@
 		3240809420205C4D00352AD1 /* CourseSubsectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSubsectionTableViewCell.swift; sourceTree = "<group>"; };
 		3240809620205C7400352AD1 /* CourseSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSectionTableViewCell.swift; sourceTree = "<group>"; };
 		3248884E204EBDAF00D4CE70 /* L2DColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2DColor.swift; sourceTree = "<group>"; };
+		325872DD2067A6270022244E /* CourseWithImgPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseWithImgPath.swift; sourceTree = "<group>"; };
 		325D7A29202191B40081F443 /* CourseForShow.Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseForShow.Model.swift; sourceTree = "<group>"; };
 		3276AB02203DCDB90078C611 /* BaseUICollectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUICollectView.swift; sourceTree = "<group>"; };
 		32847E39201F5B10002F60EC /* CoursePreviewTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePreviewTable.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				320EE452201C7E4B00511558 /* User.model.swift */,
 				F73B7D63201C8E98007A3C1E /* Network.model.swift */,
 				3248884E204EBDAF00D4CE70 /* L2DColor.swift */,
+				325872DD2067A6270022244E /* CourseWithImgPath.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -696,6 +699,7 @@
 				32EA97381F26FA08006E90C1 /* ProfileCollectionViewCell.swift in Sources */,
 				32EA97361F26F9EC006E90C1 /* ProfileTableViewCell.swift in Sources */,
 				32EA973A1F274B69006E90C1 /* MainTabViewController.swift in Sources */,
+				325872DE2067A6270022244E /* CourseWithImgPath.swift in Sources */,
 				320AA34A1F29C9A100AE9428 /* Course.model.swift in Sources */,
 				32847E3A201F5B10002F60EC /* CoursePreviewTable.swift in Sources */,
 				320AA3431F29987100AE9428 /* MyCourseTableViewCell.swift in Sources */,

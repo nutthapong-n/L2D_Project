@@ -15,6 +15,7 @@ class SideMenuTableViewController: UITableViewController {
     
     var clickedName:String = ""
     var clickedIndex:Int = 0
+    var imgList : [Int:UIImage] = [:]
     
     
     override func viewDidLoad() {
@@ -75,6 +76,8 @@ class SideMenuTableViewController: UITableViewController {
         cell.CategoryMenu.text = dataCategory.name
         cell.CourseInCategoryCount.text = "\(dataCategory.courseIdList?.count ?? 0)"
         cell.selectionStyle = .none
+        
+        
         // Configure the cell...
 
         return cell

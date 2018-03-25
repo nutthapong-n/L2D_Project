@@ -16,6 +16,7 @@ class CourseInCategoryTableViewCell: UITableViewCell {
     @IBOutlet weak var ItemViewBox: UIView!
     @IBOutlet weak var course_rating: CosmosView!
     @IBOutlet weak var CourseInstructor: UILabel!
+    @IBOutlet weak var course_img: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

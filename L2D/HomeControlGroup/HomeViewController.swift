@@ -17,6 +17,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         "new" : [],
         "top" : []
     ]
+    var imgList : [Int:UIImage] = [:]
     var courseSaparator : [Course] = []
     var detail = ["New course" ,"New Courses","Top Courses"]
     var SlideShowcount = 0
@@ -65,8 +66,10 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     @objc func actualizarDators(_ refreshControl : UIRefreshControl){
         var TopSuccess : Bool = false
         var NewSuccess : Bool = false
+        
         Course.getTopCourse(amount: 8) { (result,errMsg) in
             TopSuccess = true
+            self.imgList.removeAll()
             if(errMsg != nil){
                 self.myAlert(title: "Error", text: errMsg!)
             }else{
@@ -82,6 +85,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         
         Course.getNewCourse(amount: 8) { (result,errMsg) in
             NewSuccess = true
+            self.imgList.removeAll()
             if(errMsg != nil){
 //                self.myAlert(title: "Error", text: errMsg!)
                 print("Error : \(errMsg ?? "") in func:actualizarDators")
@@ -305,13 +309,23 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
         }
         
         let thisCourse = courseSaparator[indexPath.row]
+        
+        var thisCourseImg = self.imgList[thisCourse.id]
+        if(thisCourseImg == nil){
+            Course.fetchImgByURL(picUrl: thisCourse.imgPath, completion: { (myImage) in
+                self.imgList[thisCourse.id] = myImage
+                self.imgList[thisCourse.id] = myImage
+            })
+            thisCourseImg = UIImage(named: "download")
+        }
+        
         if(identifier == "0"){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseHeaderCollectionViewCell
-            cell.initCell(img: thisCourse.img, id: thisCourse.id)
+            cell.initCell(img: thisCourseImg!, id: thisCourse.id)
             return cell
         }else if(identifier == "1"){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
-            cell.initCell(img: thisCourse.img, name: thisCourse.name , id : thisCourse.id)
+            cell.initCell(img: thisCourseImg!, name: thisCourse.name , id : thisCourse.id)
             cell.course_rating.settings.updateOnTouch = false
             cell.course_rating.settings.fillMode = .precise
             let rateText = "\(thisCourse.rating) from \(thisCourse.rateCount) vote"
@@ -320,7 +334,7 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
-            cell.initCell(img: thisCourse.img, name: thisCourse.name , id : thisCourse.id)
+            cell.initCell(img: thisCourseImg!, name: thisCourse.name , id : thisCourse.id)
             cell.course_rating.settings.updateOnTouch = false
             cell.course_rating.settings.fillMode = .precise
             let rateText = "\(thisCourse.rating) from \(thisCourse.rateCount) vote"

@@ -22,18 +22,9 @@ class CourseHeaderCollectionViewCell: UICollectionViewCell {
         //        c_name.text = "Label"
     }
     
-    func initCell(img : String , id : Int) {
+    func initCell(img : UIImage , id : Int) {
         self.img_header_btn.id = id
-        if(self.img == nil){
-            Course.fetchImg(img: img, completion: { (myUIImage) in
-                DispatchQueue.main.async {
-                    self.img_header_btn.setBackgroundImage( myUIImage, for: .normal)
-                }
-                self.img = myUIImage
-            })
-        }else{
-            self.img_header_btn.setBackgroundImage(self.img, for: .normal)
-        }
+        self.img_header_btn.setBackgroundImage(img, for: .normal)
     }
     
 }

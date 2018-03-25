@@ -61,6 +61,13 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 self.myAlert(title: "Error", text: msg!)
             }
             else{
+                for sec in (result?.section!)!{
+                    if(sec.rank == 0){
+                        let index = result?.section?.index(of: sec)
+                        result?.section?.remove(at: index!)
+                    }
+                }
+                
                 self.course = result
                 self.showCourse = []
                 
@@ -244,7 +251,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     closeAllExpand()
                     for sec in (course?.section)!{
                         if(sec.id == cell.section_id){
-                            var index = course?.section?.index(of: sec)
+                            let index = course?.section?.index(of: sec)
                             if var myCounter = index{
                                 for sub in sec.subSection!{
                                     myCounter += 1
