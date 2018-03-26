@@ -14,11 +14,13 @@ class CourseForShow_Model: NSObject {
     var id : Int
     var type : Int
     var fileKey : String
+    var filetype : fileType
     
-    init(name:String ,id:Int , type:Int , fileKey : String){
+    init(name:String ,id:Int , type:Int , fileKey : String, fileType : fileType){
         self.name = name
         self.id = id
         self.type = type
         self.fileKey = fileKey
+        self.filetype = fileType
     }
 }

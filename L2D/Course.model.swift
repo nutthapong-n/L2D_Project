@@ -858,7 +858,7 @@ class Course : NSObject{
 
     }
     
-    class func rateCourse(CourseId : Int, memberId : Int, rating : Double, completion : @escaping ( _ result : Bool)-> Void){
+    class func rateCourse(CourseId : Int, memberId : Int, rating : Double, completion : @escaping ( _ result : Bool , _ avgRating : Double?)-> Void){
         
         let url = "\(Network.IP_Address_Master)/course/addRating?courseId=\(CourseId)&memberId=\(memberId)"
         
@@ -871,9 +871,9 @@ class Course : NSObject{
             case.success(let value):
                 let json = JSON(value)
                 print(json)
-                completion(true)
+                completion(true,json["course"]["avgrating"].doubleValue)
             case.failure(let error):
-                completion(false)
+                completion(false,nil)
                 print(error)
             }
 //        completion(false)

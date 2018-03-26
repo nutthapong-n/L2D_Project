@@ -36,13 +36,16 @@ class RateCourseViewController: UIViewController {
     }
     
     @IBAction func comfirmClicked(_ sender: UIButton) {
-        Course.rateCourse(CourseId: courseId, memberId: (AppDelegate.userData?.idmember)!, rating: ratingBar.rating){ (result) in
+        Course.rateCourse(CourseId: courseId, memberId: (AppDelegate.userData?.idmember)!, rating: ratingBar.rating){ (result, avgRating) in
             if(result){
 //                self.navigationController?.popViewController(animated: true)
-                if let allView = self.navigationController?.viewControllers{
-                    let previousView = allView[allView.count - 2] as! CourseContentViewController
-                    previousView.userRating = self.ratingBar.rating
-                }
+                
+//                if let allView = self.navigationController?.viewControllers{
+//                    let previousView = allView[allView.count - 2] as! CourseContentViewController
+//                    previousView.userRating = self.ratingBar.rating
+//                    let tbHeader = previousView.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
+//                    tbHeader.ratingBar.rating = avgRating!
+//                }
                 self.myAlert(title: "Rated!", text: "")
             }else{
               self.myAlert(title: "Failed!", text: "Something went wrong.")

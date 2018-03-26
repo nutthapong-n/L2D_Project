@@ -14,8 +14,10 @@ class CourseSubsectionTableViewCell: UITableViewCell {
     var Subsection_id : Int?
     var name : String?
     var fileKey : String?
+    var fileType : fileType?
     
-
+    @IBOutlet weak var icon: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

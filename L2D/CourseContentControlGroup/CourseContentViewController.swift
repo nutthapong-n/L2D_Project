@@ -82,7 +82,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     enroll_btn?.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
                 }
                 for section in (result?.section!)!{
-                    self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: ""))
+                    self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: "", fileType : .none))
                 }
 //                self.player.displayView.titleLabel.text = self.course?.name
                 self.table.reloadData()
@@ -213,6 +213,10 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 cell.name = sub_section.name
                 cell.name_label.text = sub_section.name
                 cell.fileKey = sub_section.fileKey
+                cell.fileType = sub_section.filetype
+                if(cell.fileType == fileType.document){
+                    cell.icon.image = UIImage(named: "pdf_icon")
+                }
                 
                 return cell
             }
@@ -255,7 +259,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                             if var myCounter = index{
                                 for sub in sec.subSection!{
                                     myCounter += 1
-                                    self.showCourse.insert(CourseForShow_Model(name: sub.name , id: sub.id, type: 1, fileKey: sub.fileKEY), at: myCounter)
+                                    self.showCourse.insert(CourseForShow_Model(name: sub.name , id: sub.id, type: 1, fileKey: sub.fileKEY, fileType : sub.type), at: myCounter)
                                     //                    self.showCourse.append(CourseForShow_Model(name: sub.name , id: sub.id, type: 1))
                                     table.beginUpdates()
                                     let myindexPath = IndexPath(row: myCounter, section: 1)
@@ -274,9 +278,19 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             }else{//is sub section
                 let cell = tableView.cellForRow(at: indexPath) as! CourseSubsectionTableViewCell
                 Course.getfile(key: cell.fileKey!, completion: { (path, error) in
-                    let url = "http://158.108.207.7:8080/\(path ?? "")"
-                    self.player.playVideo(url)
-                    self.player.startPlayback()
+                    if(cell.fileType == .video){
+                        let url = path
+                        self.player.playVideo(url!)
+                        self.player.startPlayback()
+                    }else if(cell.fileType == .document){
+                        let url = path
+                        let pdfDocument = PDFDocument(url: URL(string: url!)!)!
+                        
+                        let readerController = PDFViewController.createNew(with: pdfDocument)
+                    self.navigationController?.pushViewController(readerController, animated: true)
+                        
+                    }
+                    
                 })
                 
                 
@@ -372,9 +386,11 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     self.isRegis = isRegis!
                     
                 }
+                
+                self.showCourse.removeAll()
                 for section in (result?.section!)!{
                     if(section.rank != 0){
-                        self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: "" ))
+                        self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: "", fileType : .none ))
                     }
                     
                 }
@@ -415,6 +431,10 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         player_buttom_const.constant = 2/3*viewHeight - (navHeight)!
         NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
 //        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: false)
+        
+        if(userRating != 0.0){
+            viewDidLoad()
+        }
         
     }
     
