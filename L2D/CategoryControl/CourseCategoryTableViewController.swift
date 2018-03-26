@@ -124,11 +124,14 @@ class CourseCategoryTableViewController: UITableViewController {
         if(thisCourseImg == nil){
             Course.fetchImgByURL(picUrl: data.imgPath, completion: { (myImage) in
                 self.imgList[data.id] = myImage
-                cell.course_img.image = myImage
+                DispatchQueue.main.async {
+                    cell.course_img.image = myImage
+                }
             })
             thisCourseImg = UIImage(named: "download")
         }
         
+        cell.course_img.image = thisCourseImg
         cell.CourseNameLabel.text = data.name
 //        cell.CourseDetailLabel.text = data.detail
         cell.CourseInstructor.text = data.owner

@@ -634,20 +634,31 @@ class Course : NSObject{
                     }
                     
                     let this_course = json["course"]
+                    let sections = this_course["sectionList"].arrayValue
+                    var imgKey = ""
+                    for sec in sections{
+                        if(sec["rank"].intValue == 0 && sec["contentType"].stringValue == "PICTURE" ){
+                            imgKey = sec["content"].stringValue
+                            break
+                        }
+                    }
                     
-                    print(this_course)
-                    completion(Course(
-                        id : Int(this_course["id"].stringValue)!,
-                        categoryId: Int(this_course["categoryId"].stringValue)!,
-                        detail: this_course["detail"].stringValue,
-                        createdDate: Float(this_course["createdDate"].stringValue)!,
-                        key: this_course["key"].stringValue,
-                        name : this_course["name"].stringValue,
-                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
-                        img: "",
-                        rating: this_course["rating"].doubleValue,
-                        rateCount: this_course["voter"].intValue
-                    ),nil)
+                    getfile(key: imgKey, completion: { (path, error) in
+                        completion(Course(
+                            id : Int(this_course["id"].stringValue)!,
+                            categoryId: Int(this_course["categoryId"].stringValue)!,
+                            detail: this_course["detail"].stringValue,
+                            createdDate: Float(this_course["createdDate"].stringValue)!,
+                            key: this_course["key"].stringValue,
+                            name : this_course["name"].stringValue,
+                            owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
+                            img: path!,
+                            rating: this_course["rating"].doubleValue,
+                            rateCount: this_course["voter"].intValue
+                        ),nil)
+                    })
+                    
+                    
                 case .failure(let error):
                     completion(nil,error.localizedDescription)
                     print(error)
@@ -675,24 +686,42 @@ class Course : NSObject{
                     }
                     
                     let courses = json["courses"]
-                    
+                    let numCourse = courses.count
+                    var numRecive = 0
                     for obj in courses{
                         let this_course = obj.1
-                        course.append(Course(
-                            id : Int(this_course["id"].stringValue)!,
-                            categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
-                            detail: this_course["detail"].stringValue,
-                            createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
-                            key: this_course["key"].stringValue,
-                            name : this_course["name"].stringValue,
-                            owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
-                            img: "",
-                            rating: this_course["rating"].doubleValue,
-                            rateCount: this_course["voter"].intValue
-                        ))
+                        let sections = this_course["sectionList"].arrayValue
+                        var imgKey = ""
+                        for sec in sections{
+                            if(sec["rank"].intValue == 0 && sec["contentType"].stringValue == "PICTURE" ){
+                                imgKey = sec["content"].stringValue
+                                break
+                            }
+                        }
+                        
+                        getfile(key: imgKey, completion: { (path, error) in
+                            course.append(Course(
+                                id : Int(this_course["id"].stringValue)!,
+                                categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
+                                detail: this_course["detail"].stringValue,
+                                createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
+                                key: this_course["key"].stringValue,
+                                name : this_course["name"].stringValue,
+                                owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
+                                img: path!,
+                                rating: this_course["rating"].doubleValue,
+                                rateCount: this_course["voter"].intValue
+                            ))
+                            
+                            numRecive = numRecive + 1
+                            if(numCourse == numRecive){
+                                completion(course,nil)
+                            }
+                        })
+
                     }
                     
-                    completion(course,nil)
+                    
                 case .failure(let error):
                     completion(nil,error.localizedDescription)
                     print(error)
