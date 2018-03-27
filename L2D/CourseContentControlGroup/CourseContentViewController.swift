@@ -21,6 +21,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     var isRegis : Bool = false
     var showCourse : [CourseForShow_Model] = []
     var userRating : Double?
+    var currentSection : Int?
     
     @IBOutlet weak var tableviewTopConst : NSLayoutConstraint!
     @IBOutlet weak var table : CoursePreviewTable!
@@ -154,34 +155,15 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         if(indexPath.section == 0){
             let cell = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: indexPath) as! CourseSectionHeaderTableViewCell
             
-            // rateCourse
-//            cell.ratingBar.didFinishTouchingCosmos = { rating in
-//                Course.rateCourse(CourseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, rating: cell.ratingBar.rating){
-//                    (result) in
-//                    if(result){
-//                        self.myAlert(title: "Success", text: "you rated this course with \(cell.ratingBar.rating) points.")
-//                        self.rating = cell.ratingBar.rating
-//                    }else{
-//                        self.myAlert(title: "Rating error", text: "")
-//                        cell.ratingBar.rating = self.rating!
-//                    }
-//
-//                }
-//            }
-            
-//            cell.showPDF.addTarget(self, action: #selector(showPDF), for: .touchUpInside)
             
             if(isRegis){
                 cell.enroll_btn.setTitle("enrolled", for: .normal)
                 cell.enroll_btn.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
-                
-//                cell.ratingBar.rating = rating!
-//                cell.ratingBar.isHidden = false
+                self.table.allowsSelection = true
                 cell.rate_btn.isHidden = false
-            }
-            else{
-//                cell.ratingBar.isHidden = true
+            }else{
                 cell.rate_btn.isHidden = true
+                self.table.allowsSelection = false
             }
             
             cell.ratingBar.settings.fillMode = .precise
@@ -204,6 +186,12 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 let cell = self.table.dequeueReusableCell(withIdentifier: "section", for: indexPath) as! CourseSectionTableViewCell
                 cell.section_id = section.id
                 cell.sec_label.text = section.name
+
+                if(!isRegis){
+                    cell.sec_label.textColor = UIColor.lightGray
+                }else{
+                    cell.sec_label.textColor = UIColor.black
+                }
                 
                 return cell
             }else{ // if is subsection
@@ -214,8 +202,25 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 cell.name_label.text = sub_section.name
                 cell.fileKey = sub_section.fileKey
                 cell.fileType = sub_section.filetype
-                if(cell.fileType == fileType.document){
-                    cell.icon.image = UIImage(named: "pdf_icon")
+
+                
+                if(cell.Subsection_id! <=  self.currentSection!){
+                    cell.name_label.textColor = UIColor.lightGray
+                    if(cell.fileType == fileType.document){
+                        cell.icon.image = UIImage(named: "pdf_disable")
+                    }else if(cell.fileType == fileType.video){
+                        cell.icon.image = UIImage(named: "play_button_disable")
+                    }else{
+                        
+                    }
+                }else if(cell.fileType == fileType.document){
+                    cell.icon.image = UIImage(named: "pdf_enable")
+                }
+                
+                if(!isRegis){
+                    cell.name_label.textColor = UIColor.lightGray
+                }else{
+                    cell.name_label.textColor = UIColor.black
                 }
                 
                 return cell
@@ -277,17 +282,22 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 }
             }else{//is sub section
                 let cell = tableView.cellForRow(at: indexPath) as! CourseSubsectionTableViewCell
+                self.currentSection = cell.Subsection_id
                 Course.getfile(key: cell.fileKey!, completion: { (path, error) in
                     if(cell.fileType == .video){
                         let url = path
                         self.player.playVideo(url!)
                         self.player.startPlayback()
+                        cell.name_label.textColor = UIColor.lightGray
+                        cell.icon.image = UIImage(named: "play_button_disable")
                     }else if(cell.fileType == .document){
+                        cell.name_label.textColor = UIColor.lightGray
+                        cell.icon.image = UIImage(named: "pdf_disable")
                         let url = path
                         let pdfDocument = PDFDocument(url: URL(string: url!)!)!
-                        
                         let readerController = PDFViewController.createNew(with: pdfDocument)
                     self.navigationController?.pushViewController(readerController, animated: true)
+                        
                         
                     }
                     
@@ -311,8 +321,11 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
 //                    ratingBar?.rating = 0.0
 //                    ratingBar?.isHidden = true
                     
+                    self.disableTable()
                     let rate_btn = table_header.rate_btn
                     rate_btn?.isHidden = true
+                    self.currentSection = 0
+                    
                     
                     self.userRating = 0.0
                     self.isRegis = false
@@ -325,15 +338,12 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 if(result){
                     sender.setTitle("enrolled", for: .normal)
                     sender.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
-                    
-//                    let table_header = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
+
                     
                     let table_header = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
-                    
-//                    let ratingBar = table_header.ratingBar
-//                    ratingBar?.rating = 0.0
-//                    ratingBar?.isHidden = false
-                    
+
+                    self.currentSection = 0
+                    self.enableTable()
                     let rate_btn = table_header.rate_btn
                     rate_btn?.isHidden = false
                     
@@ -353,6 +363,30 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("was touch")
+    }
+    
+    func enableTable(){
+        self.table.allowsSelection = true
+        let sectionCellList = self.table.visibleCells
+        for cell in sectionCellList{
+            if(cell.classForCoder == CourseSectionTableViewCell.self ){
+                let myCell = cell as! CourseSectionTableViewCell
+                myCell.sec_label.textColor = UIColor.black
+            }
+        }
+    }
+    
+    func disableTable(){
+        closeAllExpand()
+        self.table.allowsSelection = false
+        let sectionCellList = self.table.visibleCells
+        
+        for cell in sectionCellList{
+            if(cell.classForCoder == CourseSectionTableViewCell.self ){
+                let myCell = cell as! CourseSectionTableViewCell
+                myCell.sec_label.textColor = UIColor.lightGray
+            }
+        }
     }
     
 
@@ -375,6 +409,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     }
                 }
                 self.course = result
+                self.currentSection = result?.currentSection
                 
                 if(userRating != nil){
                     self.userRating = userRating
@@ -443,8 +478,9 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         player.pausePlayback()
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.28, blue:0.28, alpha:1.0)
-//        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.28, blue:0.28, alpha:1.0)
-//        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.default, animated: false)
+        
+        
+//        update progress when view disappear
     }
     
     @objc func deviceRotated(){

@@ -22,8 +22,9 @@ class Course : NSObject{
     var section : [Section_model]?
     var rating : Double
     var rateCount : Int
+    var currentSection : Int
     
-    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String , section : [Section_model], rating: Double, rateCount: Int) {
+    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String , section : [Section_model], rating: Double, rateCount: Int, currentSection : Int) {
         self.id = id
         self.categoryId = categoryId
         self.detail = detail
@@ -35,9 +36,10 @@ class Course : NSObject{
         self.section = section
         self.rating = rating
         self.rateCount = rateCount
+        self.currentSection = currentSection
     }
     
-    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String, rating:Double, rateCount: Int) {
+    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String, rating:Double, rateCount: Int, currentSection : Int) {
         self.id = id
         self.categoryId = categoryId
         self.detail = detail
@@ -48,6 +50,7 @@ class Course : NSObject{
         self.imgPath = img
         self.rating = rating
         self.rateCount = rateCount
+        self.currentSection = currentSection
     }
     
     func Register(completion : @escaping (Bool) -> ()){
@@ -106,12 +109,12 @@ class Course : NSObject{
     
     class func generateModelArray() -> [Course]{
         var course = [Course]()
-        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 0,rateCount: 1))
-        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 1,rateCount: 1))
-        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 2,rateCount: 1))
-        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 3,rateCount: 1))
-        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 4,rateCount: 1))
-        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 5,rateCount: 1))
+//        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 0,rateCount: 1))
+//        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 1,rateCount: 1))
+//        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 2,rateCount: 1))
+//        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 3,rateCount: 1))
+//        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 4,rateCount: 1))
+//        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 5,rateCount: 1))
 
         return course
     }
@@ -229,6 +232,7 @@ class Course : NSObject{
                 
                 
                 let objCourses = json["courses"]
+                
                 let numCourse = objCourses.count
                 var numRecive = 0
                 for obj in objCourses{
@@ -236,6 +240,10 @@ class Course : NSObject{
                     
                     //find course picture key
                     let sections = this_course["sectionList"].arrayValue
+                    var currentSection = 0
+                    if(this_course["progress"] != JSON.null){
+                        currentSection = this_course["progress"]["sectionId"].intValue
+                    }
 
                     var imgKey = ""
                     for sec in sections{
@@ -256,7 +264,8 @@ class Course : NSObject{
                             owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                             img: path!,
                             rating: this_course["rating"].doubleValue,
-                            rateCount: this_course["voter"].intValue
+                            rateCount: this_course["voter"].intValue,
+                            currentSection : currentSection
                         ))
                         
                         numRecive = numRecive + 1
@@ -299,6 +308,10 @@ class Course : NSObject{
                     
                     //find course picture key
                     let sections = this_course["sectionList"].arrayValue
+                    var currentSection = 0
+                    if(this_course["progress"] != JSON.null){
+                        currentSection = this_course["progress"]["sectionId"].intValue
+                    }
 
                     var imgKey = ""
                     for sec in sections{
@@ -319,7 +332,8 @@ class Course : NSObject{
                             owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                             img: path!,
                             rating: this_course["rating"].doubleValue,
-                            rateCount: this_course["voter"].intValue
+                            rateCount: this_course["voter"].intValue,
+                            currentSection : currentSection
                         ))
                         
                         numRecive = numRecive + 1
@@ -365,6 +379,11 @@ class Course : NSObject{
                         return
                     }
                     
+                    var currentSection = 0
+                    if(courseJSON["progress"] != JSON.null){
+                        currentSection = courseJSON["progress"]["sectionId"].intValue
+                    }
+                    
                     
                     
                     let course = Course(
@@ -378,7 +397,8 @@ class Course : NSObject{
                         img: "",
                         section : [],
                         rating: courseJSON["rating"].doubleValue,
-                        rateCount: courseJSON["voter"].intValue
+                        rateCount: courseJSON["voter"].intValue,
+                        currentSection : currentSection
                     )
                     
                     let sections = courseJSON["sectionList"].arrayValue.sorted()
@@ -438,6 +458,11 @@ class Course : NSObject{
                     
                     let courseJSON = json["course"]
                     
+                    var currentSection = 0
+                    if(courseJSON["progress"] != JSON.null){
+                        currentSection = courseJSON["progress"]["sectionId"].intValue
+                    }
+                    
                     let course = Course(
                             id : Int(courseJSON["id"].stringValue)!,
                             categoryId: courseJSON["categoryId"].stringValue == "" ? -1 : Int(courseJSON["categoryId"].stringValue)!,
@@ -449,7 +474,8 @@ class Course : NSObject{
                             img: "",
                             section : [],
                             rating: courseJSON["rating"].doubleValue,
-                            rateCount: courseJSON["voter"].intValue
+                            rateCount: courseJSON["voter"].intValue,
+                            currentSection : currentSection
                         )
                     
                     let sections = courseJSON["sectionList"].arrayValue.sorted()
@@ -517,6 +543,11 @@ class Course : NSObject{
                             
                             let this_course = obj.1
                             
+                            var currentSection = 0
+                            if(this_course["progress"] != JSON.null){
+                                currentSection = this_course["progress"]["sectionId"].intValue
+                            }
+                            
                             course.append(Course(
                                 id : Int(this_course["id"].stringValue)!,
                                 categoryId: this_course["categoryId"].stringValue == "" ? -1 : Int(this_course["categoryId"].stringValue)!,
@@ -527,7 +558,8 @@ class Course : NSObject{
                                 owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                                 img: "",
                                 rating: this_course["rating"].doubleValue,
-                                rateCount: this_course["voter"].intValue
+                                rateCount: this_course["voter"].intValue,
+                                currentSection : currentSection
                             ))
                         }
                     
@@ -537,23 +569,7 @@ class Course : NSObject{
 //                        let array = json[0]["name"].rawString()
                 case .failure(let error):
                     print(error)
-                    var course = [Course]()
-                    course.append(Course(
-                        id : 0,
-                        categoryId: 0,
-                        detail: "",
-                        createdDate: 0,
-                        key: "",
-                        name : "error",
-                        owner: "",
-                        img: "",
-                        rating: 0.0,
-                        rateCount: 0
-                    ))
-//                    completion(course)
                     completion(nil,error.localizedDescription)
-                    
-//                        self.alert(text : "ERROR CODE : 500 (sever error) : \(error)")
                 }
             }
     }
@@ -586,6 +602,11 @@ class Course : NSObject{
                         }
                     }
                     
+                    var currentSection = 0
+                    if(this_course["progress"] != JSON.null){
+                        currentSection = this_course["progress"]["sectionId"].intValue
+                    }
+                    
                     getfile(key: imgKey, completion: { (path, error) in
                         let newCourse = Course(
                             id : Int(this_course["id"].stringValue)!,
@@ -597,7 +618,8 @@ class Course : NSObject{
                             owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                             img: path!,
                             rating: this_course["rating"].doubleValue,
-                            rateCount: this_course["voter"].intValue
+                            rateCount: this_course["voter"].intValue,
+                            currentSection : currentSection
                         )
                         
                         course.append(newCourse)
@@ -643,6 +665,11 @@ class Course : NSObject{
                         }
                     }
                     
+                    var currentSection = 0
+                    if(this_course["progress"] != JSON.null){
+                        currentSection = this_course["progress"]["sectionId"].intValue
+                    }
+                    
                     getfile(key: imgKey, completion: { (path, error) in
                         completion(Course(
                             id : Int(this_course["id"].stringValue)!,
@@ -654,7 +681,8 @@ class Course : NSObject{
                             owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                             img: path!,
                             rating: this_course["rating"].doubleValue,
-                            rateCount: this_course["voter"].intValue
+                            rateCount: this_course["voter"].intValue,
+                            currentSection : currentSection
                         ),nil)
                     })
                     
@@ -698,6 +726,10 @@ class Course : NSObject{
                                 break
                             }
                         }
+                        var currentSection = 0
+                        if(this_course["progress"] != JSON.null){
+                            currentSection = this_course["progress"]["sectionId"].intValue
+                        }
                         
                         getfile(key: imgKey, completion: { (path, error) in
                             course.append(Course(
@@ -710,7 +742,8 @@ class Course : NSObject{
                                 owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                                 img: path!,
                                 rating: this_course["rating"].doubleValue,
-                                rateCount: this_course["voter"].intValue
+                                rateCount: this_course["voter"].intValue,
+                                currentSection : currentSection
                             ))
                             
                             numRecive = numRecive + 1
@@ -906,6 +939,30 @@ class Course : NSObject{
                 print(error)
             }
 //        completion(false)
+        }
+    }
+    
+    class func updateProgress(CourseId : Int, memberId : Int, sectionId : Int){
+        
+        let url = "\(Network.IP_Address_Master)/course/progress/update"
+        
+        let parameters: Parameters = [
+            "memberId" : memberId,
+            "courseId" : CourseId,
+            "sectionId" : sectionId
+        ]
+        
+        Alamofire.request(url ,method: .put ,parameters : parameters,encoding: JSONEncoding.default).responseJSON{
+            response in switch response.result{
+            case.success( _):
+//                let json = JSON(value)
+//                print(json)
+                print("update progress success")
+            case.failure(let error):
+//                completion(false)
+                print(error)
+            }
+            //        completion(false)
         }
     }
 }
