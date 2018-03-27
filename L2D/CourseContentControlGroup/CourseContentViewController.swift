@@ -213,8 +213,15 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     }else{
                         
                     }
-                }else if(cell.fileType == fileType.document){
-                    cell.icon.image = UIImage(named: "pdf_enable")
+                }else{
+                    if(cell.fileType == fileType.document){
+                         cell.icon.image = UIImage(named: "pdf_enable")
+                    }else if(cell.fileType == fileType.video){
+                        cell.icon.image = UIImage(named: "play_button")
+                    }else{
+                        
+                    }
+                   
                 }
                 
                 if(!isRegis){
