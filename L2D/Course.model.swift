@@ -74,8 +74,13 @@ class Course : NSObject{
                     
                 //                        let array = json[0]["name"].rawString()
                 case .failure(let error):
-                    print(error)
-                    completion(false)
+                    print("MY ERROR IS :\(error.localizedDescription)")
+                    if(error.localizedDescription.contains("serialized")){
+                        completion(true)
+                    }else{
+                        completion(false)
+                    }
+                    
                 }
         }
     }
@@ -108,7 +113,7 @@ class Course : NSObject{
     }
     
     class func generateModelArray() -> [Course]{
-        var course = [Course]()
+        let course = [Course]()
 //        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 0,rateCount: 1))
 //        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 1,rateCount: 1))
 //        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 2,rateCount: 1))
@@ -401,7 +406,7 @@ class Course : NSObject{
                         currentSection : currentSection
                     )
                     
-                    let sections = courseJSON["sectionList"].arrayValue.sorted()
+                    let sections = courseJSON["sectionList"].arrayValue
                     
                     for section in sections{
                         let thisSection = Section_model(
@@ -411,7 +416,7 @@ class Course : NSObject{
                             subSection: [])
                         
 
-                        let subSections = section["sub-section"].arrayValue.sorted()
+                        let subSections = section["sub-section"].arrayValue
                         
                         for sub in subSections{
                             
@@ -478,7 +483,7 @@ class Course : NSObject{
                             currentSection : currentSection
                         )
                     
-                    let sections = courseJSON["sectionList"].arrayValue.sorted()
+                    let sections = courseJSON["sectionList"].arrayValue
                     
                     for section in sections{
                         let thisSection = Section_model(
@@ -487,7 +492,7 @@ class Course : NSObject{
                             rank: section["rank"].intValue,
                             subSection: [])
                         
-                        let subSections = section["sub-section"].arrayValue.sorted()
+                        let subSections = section["sub-section"].arrayValue
                         
                         for sub in subSections{
 

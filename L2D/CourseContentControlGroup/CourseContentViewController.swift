@@ -22,6 +22,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     var showCourse : [CourseForShow_Model] = []
     var userRating : Double?
     var currentSection : Int?
+    var BackFromLogin : Bool = false
     
     @IBOutlet weak var tableviewTopConst : NSLayoutConstraint!
     @IBOutlet weak var table : CoursePreviewTable!
@@ -79,7 +80,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 }
                 
                 if(isRegis)!{
-                    enroll_btn?.setTitle("enrolled", for: .normal)
+                    enroll_btn?.setTitle("Unenrolled", for: .normal)
                     enroll_btn?.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
                 }
                 for section in (result?.section!)!{
@@ -157,7 +158,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             
             
             if(isRegis){
-                cell.enroll_btn.setTitle("enrolled", for: .normal)
+                cell.enroll_btn.setTitle("Unenrolled", for: .normal)
                 cell.enroll_btn.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
                 self.table.allowsSelection = true
                 cell.rate_btn.isHidden = false
@@ -290,15 +291,16 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             }else{//is sub section
                 let cell = tableView.cellForRow(at: indexPath) as! CourseSubsectionTableViewCell
                 self.currentSection = cell.Subsection_id
+                
+                
                 Course.getfile(key: cell.fileKey!, completion: { (path, error) in
+                    cell.name_label.textColor = UIColor.lightGray
                     if(cell.fileType == .video){
                         let url = path
                         self.player.playVideo(url!)
                         self.player.startPlayback()
-                        cell.name_label.textColor = UIColor.lightGray
                         cell.icon.image = UIImage(named: "play_button_disable")
                     }else if(cell.fileType == .document){
-                        cell.name_label.textColor = UIColor.lightGray
                         cell.icon.image = UIImage(named: "pdf_disable")
                         let url = path
                         let pdfDocument = PDFDocument(url: URL(string: url!)!)!
@@ -308,6 +310,22 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                         
                     }
                     
+                    let cells = tableView.visibleCells
+                    for preCell in cells{
+                        if(preCell.classForCoder == CourseSubsectionTableViewCell.self){
+                            let mypreCell = preCell as! CourseSubsectionTableViewCell
+                            if(cell.Subsection_id! > mypreCell.Subsection_id!){
+                                mypreCell.name_label.textColor = UIColor.lightGray
+                                if(mypreCell.fileType == .video){
+                                    mypreCell.icon.image = UIImage(named: "play_button_disable")
+                                }else if(mypreCell.fileType == .document){
+                                    mypreCell.icon.image = UIImage(named: "pdf_disable")
+                                }
+                            }
+                        }
+                    }
+                    
+                    Course.updateProgress(CourseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, sectionId: cell.Subsection_id!)
                 })
                 
                 
@@ -320,7 +338,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             course?.UnRegister(completion: { (result) in
                 if(result){
                     sender.setTitle("Enroll now!", for: .normal)
-                    sender.backgroundColor = UIColor(red:0.38, green: 0.823, blue:0.294, alpha:1.0)
+                    sender.backgroundColor = UIColor(red:0.45, green: 0.988, blue:0.839, alpha:1.0)
                     
                     let table_header = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
                     
@@ -343,7 +361,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         }else{
             course?.Register(completion: { (result) in
                 if(result){
-                    sender.setTitle("enrolled", for: .normal)
+                    sender.setTitle("Unenrolled", for: .normal)
                     sender.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
 
                     
@@ -508,6 +526,14 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         super.viewDidDisappear(animated)
         AppDelegate.restrictRotation = true;
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if(self.BackFromLogin){
+            self.BackFromLogin = false
+            let cell = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
+            self.enroll(cell.enroll_btn)
+        }
     }
     
     @objc func DismissPage(){

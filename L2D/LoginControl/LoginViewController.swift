@@ -74,8 +74,13 @@ class LoginViewController: BaseViewController {
                     if(status){
                         AppDelegate.hasLogin = true
                         if(self.backRequest != nil){
-                            self.navigationController?.popViewController(animated: true)
                             AppDelegate.reLoadRequest = true
+                            let viewColtrollers = self.navigationController?.viewControllers
+                            let lenght = viewColtrollers?.count
+                            let preView = viewColtrollers![lenght! - 2] as! CourseContentViewController
+                            preView.BackFromLogin = true
+                            
+                            self.navigationController?.popViewController(animated: true)
                         }else{
                             mySqe.login_success = true
                             mySqe.perform()

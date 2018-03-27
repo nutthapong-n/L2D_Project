@@ -320,9 +320,9 @@
                                                         <segue destination="WRu-3J-Q9x" kind="show" id="744-Wq-fsx"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lxk-lt-8Ho">
+                                                <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="enrollBtn" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lxk-lt-8Ho">
                                                     <rect key="frame" x="286" y="6" width="113" height="30"/>
-                                                    <color key="backgroundColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.45098039215686275" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="J9H-Db-7OH"/>
                                                         <constraint firstAttribute="width" constant="113" id="Nz6-kI-F7d"/>
