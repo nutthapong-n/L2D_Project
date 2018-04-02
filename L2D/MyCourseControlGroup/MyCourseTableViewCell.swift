@@ -8,6 +8,7 @@
 
 import UIKit
 import Cosmos
+import GradientProgressBar
 
 class MyCourseTableViewCell: UITableViewCell {
     
@@ -21,6 +22,7 @@ class MyCourseTableViewCell: UITableViewCell {
     @IBOutlet weak var instructorName: UILabel!
     @IBOutlet weak var course_img: UIImageView!
     @IBOutlet weak var ratingBar: CosmosView!
+    @IBOutlet weak var progressBar: GradientProgressBar!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,6 +31,15 @@ class MyCourseTableViewCell: UITableViewCell {
         content_container.layer.shadowOffset = CGSize(width:0, height:0)
         content_container.layer.shadowOpacity = 0.8
         content_container.layer.shadowRadius = 4
+        
+        progressBar.gradientColorList = [
+            UIColor(hex: "#F86B00"),
+            UIColor(hex: "#F86B00")
+        ]
+        progressBar.setProgress(0, animated: true)
+        
+
+//        progressBar.setProgress(0.75, animated: true)
         
     }
 

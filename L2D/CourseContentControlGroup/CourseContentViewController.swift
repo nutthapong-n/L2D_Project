@@ -10,6 +10,7 @@ import UIKit
 import AAPlayer
 import Cosmos
 import PDFReader
+import GradientProgressBar
 
 class CourseContentViewController: BaseViewController , UITableViewDelegate , UITableViewDataSource, AAPlayerDelegate {
 
@@ -27,6 +28,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     @IBOutlet weak var tableviewTopConst : NSLayoutConstraint!
     @IBOutlet weak var table : CoursePreviewTable!
     @IBOutlet weak var player: AAPlayer!
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -82,6 +84,9 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 if(isRegis)!{
                     enroll_btn?.setTitle("Unenrolled", for: .normal)
                     enroll_btn?.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
+//                    table_header.progressBar.isHidden = false
+                }else{
+//                    table_header.progressBar.isHidden = true
                 }
                 for section in (result?.section!)!{
                     self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: "", fileType : .none))
@@ -129,7 +134,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         }else if(indexPath.section == 2){
             return 40
         }else{
-            return 80
+            return 100
         }
     }
     
@@ -162,9 +167,11 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 cell.enroll_btn.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
                 self.table.allowsSelection = true
                 cell.rate_btn.isHidden = false
+                cell.progressBar.isHidden = false
             }else{
                 cell.rate_btn.isHidden = true
                 self.table.allowsSelection = false
+                cell.progressBar.isHidden = true
             }
             
             cell.ratingBar.settings.fillMode = .precise
@@ -175,9 +182,11 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     cell.ratingBar.text = rateCount > 1 ? "\(rateText)s" : rateText
                 }
                 cell.ratingBar.rating = (self.course?.rating)!
+                cell.progressBar.setProgress((self.course?.percentProgress)!/100, animated: true)
             }
 
             cell.titleLabel.text = self.course?.name
+
             
             return cell
         }else{//is a section and sub section
@@ -303,11 +312,11 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     }else if(cell.fileType == .document){
                         cell.icon.image = UIImage(named: "pdf_disable")
                         let url = path
-                        let pdfDocument = PDFDocument(url: URL(string: url!)!)!
-                        let readerController = PDFViewController.createNew(with: pdfDocument)
-                    self.navigationController?.pushViewController(readerController, animated: true)
-                        
-                        
+                        if(url != nil && url != ""){
+                            let pdfDocument = PDFDocument(url: URL(string: url!)!)!
+                            let readerController = PDFViewController.createNew(with: pdfDocument)
+                            self.navigationController?.pushViewController(readerController, animated: true)
+                        }
                     }
                     
                     let cells = tableView.visibleCells
@@ -325,7 +334,13 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                         }
                     }
                     
-                    Course.updateProgress(CourseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, sectionId: cell.Subsection_id!)
+                    Course.updateProgress(CourseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, sectionId: cell.Subsection_id!, completion: {
+                        (progressPercent) in
+                        let tableHeader = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
+                        
+                        tableHeader.progressBar.setProgress(progressPercent!/100, animated: true)
+                    
+                    })
                 })
                 
                 
@@ -354,6 +369,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     
                     self.userRating = 0.0
                     self.isRegis = false
+                    table_header.progressBar.isHidden = true
                     
                     self.viewDidLoad()
                 }else{
@@ -375,6 +391,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     rate_btn?.isHidden = false
                     
                     self.isRegis = true
+                    table_header.progressBar.isHidden = false
                 }else{
                     let loginController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
                     loginController.backRequest = true

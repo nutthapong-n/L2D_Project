@@ -56,24 +56,24 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.homeTable.addSubview(self.refreshControl)
-        Course.getMyCourse{ (result,errMsg) in
-            if(errMsg != nil){
-//                self.myAlert(title: "Error", text: errMsg!)
-                print("Error : \(errMsg ?? "") in func:viewDidLoad")
-            }else{
-                self.courses = result!
-                self.homeTable.reloadData()
-            }
-//            print(result)
-        }
+
         // Do any additional setup after loading the view.
     }
 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-
+        self.homeTable.addSubview(self.refreshControl)
+        Course.getMyCourse{ (result,errMsg) in
+            if(errMsg != nil){
+                //                self.myAlert(title: "Error", text: errMsg!)
+                print("Error : \(errMsg ?? "") in func:viewDidLoad")
+            }else{
+                self.courses = result!
+                self.homeTable.reloadData()
+            }
+            //            print(result)
+        }
     }
     
 
@@ -127,10 +127,12 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
         cell.ratingBar.settings.updateOnTouch = false
         cell.ratingBar.settings.fillMode = .precise
         
+        cell.progressBar.setProgress(modelData.percentProgress / 100, animated: true)
+        
         let rateText = "\(modelData.rating) from \(modelData.rateCount) vote"
         let rateCount = modelData.rateCount
         cell.ratingBar.text = rateCount > 1 ? "\(rateText)s" : rateText
-        
+        cell.ratingBar.rating = modelData.rating
         
         return cell
     }

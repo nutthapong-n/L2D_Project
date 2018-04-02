@@ -23,8 +23,9 @@ class Course : NSObject{
     var rating : Double
     var rateCount : Int
     var currentSection : Int
+    var percentProgress : Float
     
-    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String , section : [Section_model], rating: Double, rateCount: Int, currentSection : Int) {
+    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String , section : [Section_model], rating: Double, rateCount: Int, currentSection : Int, percentProgress : Float) {
         self.id = id
         self.categoryId = categoryId
         self.detail = detail
@@ -37,9 +38,10 @@ class Course : NSObject{
         self.rating = rating
         self.rateCount = rateCount
         self.currentSection = currentSection
+        self.percentProgress = percentProgress
     }
     
-    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String, rating:Double, rateCount: Int, currentSection : Int) {
+    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String, rating:Double, rateCount: Int, currentSection : Int,percentProgress : Float) {
         self.id = id
         self.categoryId = categoryId
         self.detail = detail
@@ -51,6 +53,7 @@ class Course : NSObject{
         self.rating = rating
         self.rateCount = rateCount
         self.currentSection = currentSection
+        self.percentProgress = percentProgress
     }
     
     func Register(completion : @escaping (Bool) -> ()){
@@ -246,8 +249,10 @@ class Course : NSObject{
                     //find course picture key
                     let sections = this_course["sectionList"].arrayValue
                     var currentSection = 0
+                    var percentProgress : Float = 0
                     if(this_course["progress"] != JSON.null){
                         currentSection = this_course["progress"]["sectionId"].intValue
+                        percentProgress = this_course["progrss"]["percent"].floatValue
                     }
 
                     var imgKey = ""
@@ -270,7 +275,8 @@ class Course : NSObject{
                             img: path!,
                             rating: this_course["rating"].doubleValue,
                             rateCount: this_course["voter"].intValue,
-                            currentSection : currentSection
+                            currentSection : currentSection,
+                            percentProgress : percentProgress
                         ))
                         
                         numRecive = numRecive + 1
@@ -314,8 +320,10 @@ class Course : NSObject{
                     //find course picture key
                     let sections = this_course["sectionList"].arrayValue
                     var currentSection = 0
+                    var percentProgress : Float = 0
                     if(this_course["progress"] != JSON.null){
                         currentSection = this_course["progress"]["sectionId"].intValue
+                        percentProgress = this_course["progress"]["percent"].floatValue
                     }
 
                     var imgKey = ""
@@ -338,7 +346,8 @@ class Course : NSObject{
                             img: path!,
                             rating: this_course["rating"].doubleValue,
                             rateCount: this_course["voter"].intValue,
-                            currentSection : currentSection
+                            currentSection : currentSection,
+                            percentProgress : percentProgress
                         ))
                         
                         numRecive = numRecive + 1
@@ -385,8 +394,10 @@ class Course : NSObject{
                     }
                     
                     var currentSection = 0
+                    var percentProgress : Float = 0
                     if(courseJSON["progress"] != JSON.null){
                         currentSection = courseJSON["progress"]["sectionId"].intValue
+                        percentProgress = courseJSON["progress"]["percent"].floatValue
                     }
                     
                     
@@ -403,7 +414,8 @@ class Course : NSObject{
                         section : [],
                         rating: courseJSON["rating"].doubleValue,
                         rateCount: courseJSON["voter"].intValue,
-                        currentSection : currentSection
+                        currentSection : currentSection,
+                        percentProgress : percentProgress
                     )
                     
                     let sections = courseJSON["sectionList"].arrayValue
@@ -464,8 +476,10 @@ class Course : NSObject{
                     let courseJSON = json["course"]
                     
                     var currentSection = 0
+                    var percentProgress : Float = 0
                     if(courseJSON["progress"] != JSON.null){
                         currentSection = courseJSON["progress"]["sectionId"].intValue
+                        percentProgress = courseJSON["progress"]["percent"].floatValue
                     }
                     
                     let course = Course(
@@ -480,7 +494,8 @@ class Course : NSObject{
                             section : [],
                             rating: courseJSON["rating"].doubleValue,
                             rateCount: courseJSON["voter"].intValue,
-                            currentSection : currentSection
+                            currentSection : currentSection,
+                            percentProgress : percentProgress
                         )
                     
                     let sections = courseJSON["sectionList"].arrayValue
@@ -549,8 +564,10 @@ class Course : NSObject{
                             let this_course = obj.1
                             
                             var currentSection = 0
+                            var percentProgress : Float = 0
                             if(this_course["progress"] != JSON.null){
                                 currentSection = this_course["progress"]["sectionId"].intValue
+                                percentProgress = this_course["progress"]["percent"].floatValue
                             }
                             
                             course.append(Course(
@@ -564,7 +581,8 @@ class Course : NSObject{
                                 img: "",
                                 rating: this_course["rating"].doubleValue,
                                 rateCount: this_course["voter"].intValue,
-                                currentSection : currentSection
+                                currentSection : currentSection,
+                                percentProgress : percentProgress
                             ))
                         }
                     
@@ -608,8 +626,10 @@ class Course : NSObject{
                     }
                     
                     var currentSection = 0
+                    var percentProgress : Float = 0
                     if(this_course["progress"] != JSON.null){
                         currentSection = this_course["progress"]["sectionId"].intValue
+                        percentProgress = this_course["progress"]["percent"].floatValue
                     }
                     
                     getfile(key: imgKey, completion: { (path, error) in
@@ -624,7 +644,8 @@ class Course : NSObject{
                             img: path!,
                             rating: this_course["rating"].doubleValue,
                             rateCount: this_course["voter"].intValue,
-                            currentSection : currentSection
+                            currentSection : currentSection,
+                            percentProgress : percentProgress
                         )
                         
                         course.append(newCourse)
@@ -671,8 +692,10 @@ class Course : NSObject{
                     }
                     
                     var currentSection = 0
+                    var percentProgress : Float = 0
                     if(this_course["progress"] != JSON.null){
                         currentSection = this_course["progress"]["sectionId"].intValue
+                        percentProgress = this_course["progress"]["percent"].floatValue
                     }
                     
                     getfile(key: imgKey, completion: { (path, error) in
@@ -687,7 +710,8 @@ class Course : NSObject{
                             img: path!,
                             rating: this_course["rating"].doubleValue,
                             rateCount: this_course["voter"].intValue,
-                            currentSection : currentSection
+                            currentSection : currentSection,
+                            percentProgress : percentProgress
                         ),nil)
                     })
                     
@@ -732,8 +756,10 @@ class Course : NSObject{
                             }
                         }
                         var currentSection = 0
+                        var percentProgress : Float = 0
                         if(this_course["progress"] != JSON.null){
                             currentSection = this_course["progress"]["sectionId"].intValue
+                            percentProgress = this_course["progress"]["sectionId"].floatValue
                         }
                         
                         getfile(key: imgKey, completion: { (path, error) in
@@ -748,7 +774,8 @@ class Course : NSObject{
                                 img: path!,
                                 rating: this_course["rating"].doubleValue,
                                 rateCount: this_course["voter"].intValue,
-                                currentSection : currentSection
+                                currentSection : currentSection,
+                                percentProgress : percentProgress
                             ))
                             
                             numRecive = numRecive + 1
@@ -947,7 +974,7 @@ class Course : NSObject{
         }
     }
     
-    class func updateProgress(CourseId : Int, memberId : Int, sectionId : Int){
+    class func updateProgress(CourseId : Int, memberId : Int, sectionId : Int, completion : @escaping (_ progressPercent : Float?)-> Void){
         
         let url = "\(Network.IP_Address_Master)/course/progress/update"
         
@@ -959,13 +986,24 @@ class Course : NSObject{
         
         Alamofire.request(url ,method: .put ,parameters : parameters,encoding: JSONEncoding.default).responseJSON{
             response in switch response.result{
-            case.success( _):
-//                let json = JSON(value)
+            case.success(let value):
+                let json = JSON(value)
 //                print(json)
+                let result = json["response"]
+                if(result["status"] == false){
+                    print(result["message"])
+//                    completion(nil,result["message"].stringValue)
+//                    return
+                }else{
+                    completion(json["progress"]["percent"].floatValue)
+                }
+                
                 print("update progress success")
+                
             case.failure(let error):
 //                completion(false)
                 print(error)
+                completion(nil)
             }
             //        completion(false)
         }
