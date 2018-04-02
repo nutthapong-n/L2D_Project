@@ -354,6 +354,8 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     
                     self.userRating = 0.0
                     self.isRegis = false
+                    
+                    self.viewDidLoad()
                 }else{
                     self.myAlert(title: "", text: "can not unenroll")
                 }
@@ -492,9 +494,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
 //        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: false)
         
-        if(userRating != 0.0){
-            viewDidLoad()
-        }
         
     }
     

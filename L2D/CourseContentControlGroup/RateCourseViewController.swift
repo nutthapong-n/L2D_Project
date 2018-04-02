@@ -40,12 +40,13 @@ class RateCourseViewController: UIViewController {
             if(result){
 //                self.navigationController?.popViewController(animated: true)
                 
-//                if let allView = self.navigationController?.viewControllers{
-//                    let previousView = allView[allView.count - 2] as! CourseContentViewController
+                if let allView = self.navigationController?.viewControllers{
+                    let previousView = allView[allView.count - 2] as! CourseContentViewController
 //                    previousView.userRating = self.ratingBar.rating
 //                    let tbHeader = previousView.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
 //                    tbHeader.ratingBar.rating = avgRating!
-//                }
+                    previousView.viewDidLoad()
+                }
                 self.myAlert(title: "Rated!", text: "")
             }else{
               self.myAlert(title: "Failed!", text: "Something went wrong.")
