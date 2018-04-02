@@ -78,9 +78,12 @@ class RegisterViewController: BaseViewController {
                                     AppDelegate.hasLogin = true
                                     AppDelegate.userData = user
                                     if(self.backRequest != nil){
-                                        let viewControllers: [UIViewController] =
-                                            self.navigationController!.viewControllers as [UIViewController]; self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3 ], animated: true)
                                         AppDelegate.reLoadRequest = true
+                                        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
+                                        let preView = viewControllers[viewControllers.count - 3 ] as! CourseContentViewController
+                                        preView.BackFromLogin = true
+                                        self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3 ], animated: true)
+                                        
                                     }else{
                                         let regisSeque = segue as! RegisterSeque
                                         regisSeque.regis_success = true
