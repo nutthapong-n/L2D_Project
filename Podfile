@@ -10,8 +10,6 @@ target 'L2D' do
   pod 'Alamofire', '~> 4.6'
   pod 'SideMenu', '~> 3.1'
   pod 'Cosmos', '~> 15.0'
-  pod 'AAPlayer', '~> 1.0'
-  pod 'Imaginary', '~> 3.0'
   pod 'PDFReader', '~> 2.5'
   pod 'GradientProgressBar', '~> 1.0'
 

@@ -311,20 +311,36 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
         let thisCourse = courseSaparator[indexPath.row]
         
         var thisCourseImg = self.imgList[thisCourse.id]
-        if(thisCourseImg == nil){
-            Course.fetchImgByURL(picUrl: thisCourse.imgPath, completion: { (myImage) in
-                self.imgList[thisCourse.id] = myImage
-                self.imgList[thisCourse.id] = myImage
-            })
-            thisCourseImg = UIImage(named: "download")
-        }
         
         if(identifier == "0"){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseHeaderCollectionViewCell
+            
+            if(thisCourseImg == nil){
+                Course.fetchImgByURL(picUrl: thisCourse.imgPath, completion: { (myImage) in
+                    self.imgList[thisCourse.id] = myImage
+                    DispatchQueue.main.async {
+                        cell.img_header_btn.setBackgroundImage(myImage, for: .normal)
+                    }
+                })
+                thisCourseImg = UIImage(named: "download")
+            }
+            
             cell.initCell(img: thisCourseImg!, id: thisCourse.id)
             return cell
+            
         }else if(identifier == "1"){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
+            
+            if(thisCourseImg == nil){
+                Course.fetchImgByURL(picUrl: thisCourse.imgPath, completion: { (myImage) in
+                    self.imgList[thisCourse.id] = myImage
+                    DispatchQueue.main.async {
+                        cell.img_btn.setBackgroundImage(myImage, for: .normal)
+                    }
+                })
+                thisCourseImg = UIImage(named: "download")
+            }
+            
             cell.initCell(img: thisCourseImg!, name: thisCourse.name , id : thisCourse.id)
             cell.course_rating.settings.updateOnTouch = false
             cell.course_rating.settings.fillMode = .precise
@@ -334,6 +350,17 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
+            
+            if(thisCourseImg == nil){
+                Course.fetchImgByURL(picUrl: thisCourse.imgPath, completion: { (myImage) in
+                    self.imgList[thisCourse.id] = myImage
+                    DispatchQueue.main.async {
+                        cell.img_btn.setBackgroundImage(myImage, for: .normal)
+                    }
+                })
+                thisCourseImg = UIImage(named: "download")
+            }
+            
             cell.initCell(img: thisCourseImg!, name: thisCourse.name , id : thisCourse.id)
             cell.course_rating.settings.updateOnTouch = false
             cell.course_rating.settings.fillMode = .precise
