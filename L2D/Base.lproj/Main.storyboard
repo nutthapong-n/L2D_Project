@@ -544,14 +544,19 @@
                                         <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="8PT-eW-cec">
+                                        <rect key="frame" x="197" y="110" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="i3Q-PF-Lg1" firstAttribute="leading" secondItem="tQp-dd-r8a" secondAttribute="trailing" constant="8" id="7Pt-EM-Ifq"/>
                                     <constraint firstItem="5sS-tm-OnU" firstAttribute="centerX" secondItem="83F-yF-htm" secondAttribute="centerX" id="AWJ-0b-VuC"/>
+                                    <constraint firstItem="8PT-eW-cec" firstAttribute="centerY" secondItem="83F-yF-htm" secondAttribute="centerY" id="FB0-nz-3Zw"/>
                                     <constraint firstItem="tHN-mh-BaU" firstAttribute="leading" secondItem="83F-yF-htm" secondAttribute="leading" id="Lvp-Ed-PxK"/>
                                     <constraint firstAttribute="trailing" secondItem="tHN-mh-BaU" secondAttribute="trailing" id="MNT-So-tFg"/>
                                     <constraint firstItem="i3Q-PF-Lg1" firstAttribute="top" secondItem="83F-yF-htm" secondAttribute="top" constant="8" id="OzE-vp-Y6D"/>
+                                    <constraint firstItem="8PT-eW-cec" firstAttribute="centerX" secondItem="83F-yF-htm" secondAttribute="centerX" id="Xh4-QS-BnR"/>
                                     <constraint firstItem="tQp-dd-r8a" firstAttribute="leading" secondItem="83F-yF-htm" secondAttribute="leading" constant="8" id="dGw-Mu-6tz"/>
                                     <constraint firstItem="5sS-tm-OnU" firstAttribute="centerY" secondItem="83F-yF-htm" secondAttribute="centerY" id="gF0-3A-1pa"/>
                                     <constraint firstAttribute="trailing" secondItem="i3Q-PF-Lg1" secondAttribute="trailing" constant="8" id="hoW-AL-D9P"/>
@@ -586,6 +591,7 @@
                         <outlet property="toggleStageBtn" destination="5sS-tm-OnU" id="yop-8q-Tka"/>
                         <outlet property="videoFuncView" destination="tHN-mh-BaU" id="yKF-7x-LjE"/>
                         <outlet property="videoTitle" destination="i3Q-PF-Lg1" id="4xT-On-yYI"/>
+                        <outlet property="videoWaiter" destination="8PT-eW-cec" id="qNG-fO-NV4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MVq-bs-q6d" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -41,6 +41,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var videoTitle: UILabel!
     @IBOutlet weak var toggleScreenBtn: UIButton!
+    @IBOutlet weak var videoWaiter: UIActivityIndicatorView!
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -89,10 +90,12 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             let curMinute = String(format: "%02d", Int((second) / 60))
             self.currentTime.text = "\(curMinute):\(curSecond)"
             self.slider.value = Float(second)
+            self.isPlaying = true
+            self.stopWaiter()
             
-            if(self.isPlaying && self.timeCounter <= 15){
+            if(self.isPlaying && self.timeCounter <= 10){
                 self.timeCounter = self.timeCounter + 1
-                if(self.timeCounter == 15 && self.onShow){
+                if(self.timeCounter == 10 && self.onShow){
                     self.toggleGUI()
                 }
             }
@@ -120,13 +123,29 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         let seekTime = slider.value
         let toTime = CMTime(value: CMTimeValue(seekTime), timescale: 1)
         player?.seek(to: toTime)
+        play()
     }
         
     
     func play(){
         self.player?.play()
         self.toggleStageBtn.setImage(UIImage(named: "pause_gray"), for: .normal)
-        isPlaying = true
+        startWaiter()
+        
+    }
+    
+    func startWaiter(){
+        self.toggleStageBtn.isHidden = true
+        self.videoWaiter.isHidden = false
+        self.videoWaiter.startAnimating()
+        self.timeCounter = 0
+    }
+    
+    func stopWaiter(){
+        self.toggleStageBtn.isHidden = false
+        self.videoWaiter.stopAnimating()
+        self.videoWaiter.isHidden = true
+        
     }
     
     func pause(){
@@ -366,6 +385,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     cell.name_label.textColor = UIColor.black
                 }
                 
+                
                 if let index = self.sectionIndexing.index(of: cell.Subsection_id!), let curIndex = self.sectionIndexing.index(of: self.currentSection!){
                     if( index  <=  curIndex){
                         cell.name_label.textColor = UIColor.lightGray
@@ -384,6 +404,14 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                         }else{
                             
                         }
+                        
+                    }
+                }else{
+                    if(cell.fileType == fileType.document){
+                        cell.icon.image = UIImage(named: "pdf_enable")
+                    }else if(cell.fileType == fileType.video){
+                        cell.icon.image = UIImage(named: "play_button")
+                    }else{
                         
                     }
                 }
@@ -464,12 +492,15 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                         cell.icon.image = UIImage(named: "play_button_disable")
                     }else if(cell.fileType == .document){
                         cell.icon.image = UIImage(named: "pdf_disable")
-                        let url = path
-                        if(url != nil && url != ""){
-                            let pdfDocument = PDFDocument(url: URL(string: url!)!)!
-                            let readerController = PDFViewController.createNew(with: pdfDocument)
-                            self.navigationController?.pushViewController(readerController, animated: true)
+                        if let url = URL(string: path!) {
+                            UIApplication.shared.open(url, options: [:])
                         }
+//                        let url = path
+//                        if(url != nil && url != ""){
+//                            let pdfDocument = PDFDocument(url: URL(string: url!)!)!
+//                            let readerController = PDFViewController.createNew(with: pdfDocument)
+//                            self.navigationController?.pushViewController(readerController, animated: true)
+//                        }
                     }
                     
                     let cells = tableView.visibleCells
@@ -529,7 +560,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     self.disableTable()
                     let rate_btn = table_header.rate_btn
                     rate_btn?.isHidden = true
-                    self.currentSection = 0
                     
                     
                     self.userRating = 0.0
@@ -557,6 +587,8 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     
                     self.isRegis = true
                     table_header.progressBar.isHidden = false
+                    
+                    self.viewDidLoad()
                 }else{
                     let loginController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
                     loginController.backRequest = true
@@ -617,9 +649,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                         result?.section?.remove(at: index!)
                     }
                 }
-                self.course = result
-                self.currentSection = result?.currentSection
-                
                 
                 if(userRating != nil){
                     self.userRating = userRating
@@ -645,6 +674,8 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     }
                     
                 }
+                self.course = result
+                self.currentSection = result?.currentSection
 //                self.player.displayView.titleLabel.text = self.course?.name
                 
                 self.table.reloadData()
