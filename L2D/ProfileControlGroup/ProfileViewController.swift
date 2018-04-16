@@ -125,27 +125,4 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
     */
     }
 }
-extension ProfileViewController : UICollectionViewDataSource , UICollectionViewDelegate{
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! ProfileCollectionViewCell
-        
-        cell.course_img.setBackgroundImage(UIImage(named: "java"), for: .normal)
-        
-        cell.shadowBox.layer.shadowColor = UIColor.black.cgColor
-        cell.shadowBox.layer.shadowOffset = CGSize(width:0, height:0)
-        cell.shadowBox.layer.shadowOpacity = 0.8
-        cell.shadowBox.layer.shadowRadius = 4
-        
-        return cell
-    }
-    
-}
 

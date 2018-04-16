@@ -503,7 +503,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.30027290239726029" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.30027290239726029" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="XV1-jk-iVX" firstAttribute="bottom" secondItem="1Tz-eL-ZrP" secondAttribute="bottom" id="5My-d8-MBC"/>
                                             <constraint firstAttribute="bottom" secondItem="7oO-dF-CKt" secondAttribute="bottom" constant="15" id="65u-4N-zmj"/>
@@ -564,6 +564,12 @@
                                     <constraint firstItem="tQp-dd-r8a" firstAttribute="top" secondItem="83F-yF-htm" secondAttribute="top" constant="8" id="xVo-2c-zVd"/>
                                 </constraints>
                             </view>
+                            <webView contentMode="scaleAspectFit" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GuB-ms-eUo">
+                                <rect key="frame" x="0.0" y="304" width="414" height="432"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -592,6 +598,7 @@
                         <outlet property="videoFuncView" destination="tHN-mh-BaU" id="yKF-7x-LjE"/>
                         <outlet property="videoTitle" destination="i3Q-PF-Lg1" id="4xT-On-yYI"/>
                         <outlet property="videoWaiter" destination="8PT-eW-cec" id="qNG-fO-NV4"/>
+                        <outlet property="webView" destination="GuB-ms-eUo" id="eKM-DE-GLu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MVq-bs-q6d" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -946,9 +953,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" red="0.015686274509803921" green="0.2627450980392157" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.015686274509803921" green="0.3411764705882353" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="0.015686274509803921" green="0.2627450980392157" blue="0.2627450980392157" alpha="0.4962007705479452" colorSpace="calibratedRGB"/>
                         <color key="selectedImageTintColor" red="0.2592226863" green="0.58094292879999998" blue="0.53339499239999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBar>
                     <connections>
@@ -1270,7 +1275,6 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.22279271480000001" green="0.4155341387" blue="0.41961187119999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="610" id="BZC-SP-aXI"/>
                                             <constraint firstItem="wyc-pG-qlg" firstAttribute="top" secondItem="IiN-nG-CBM" secondAttribute="top" constant="15" id="Fur-Nx-53Q"/>
@@ -1341,7 +1345,6 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="0.22279271480000001" green="0.4155341387" blue="0.41961187119999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="HMo-eZ-CXf" firstAttribute="bottom" secondItem="oRX-10-Jf8" secondAttribute="bottom" id="CXu-Wc-4Gd"/>
                             <constraint firstItem="HMo-eZ-CXf" firstAttribute="leading" secondItem="5L9-iW-Iuy" secondAttribute="leading" id="PU6-tZ-ZeP"/>
@@ -1403,7 +1406,6 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.22279271480000001" green="0.4155341387" blue="0.41961187119999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="uQv-rY-lTr" firstAttribute="leading" secondItem="xps-GS-NUz" secondAttribute="leading" id="0qy-Iw-Ogm"/>
                             <constraint firstItem="kxo-cP-Wc7" firstAttribute="trailing" secondItem="uQv-rY-lTr" secondAttribute="trailing" id="JDX-5t-HAi"/>
@@ -1913,7 +1915,7 @@
         <image name="xcode" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JnU-a7-irk"/>
+        <segue reference="AuJ-w7-qds"/>
         <segue reference="D10-sT-fdj"/>
     </inferredMetricsTieBreakers>
 </document>

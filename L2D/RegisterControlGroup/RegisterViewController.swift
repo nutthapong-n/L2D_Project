@@ -81,7 +81,7 @@ class RegisterViewController: BaseViewController {
                                         AppDelegate.reLoadRequest = true
                                         let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
                                         let preView = viewControllers[viewControllers.count - 3 ] as! CourseContentViewController
-                                        preView.BackFromLogin = true
+                                        preView.videoRestrict = true
                                         self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3 ], animated: true)
                                         
                                     }else{

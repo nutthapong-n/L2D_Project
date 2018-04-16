@@ -1,8 +1,7 @@
 PODS:
-  - Alamofire (4.7.1)
+  - Alamofire (4.7.2)
   - Cosmos (15.0.0)
-  - GradientProgressBar (1.2.1)
-  - PDFReader (2.5.1)
+  - GradientProgressBar (1.2.2)
   - SideMenu (3.1.5)
   - SwiftyJSON (4.0.0)
 
@@ -10,18 +9,16 @@ DEPENDENCIES:
   - Alamofire (~> 4.6)
   - Cosmos (~> 15.0)
   - GradientProgressBar (~> 1.0)
-  - PDFReader (~> 2.5)
   - SideMenu (~> 3.1)
   - SwiftyJSON (~> 4.0)
 
 SPEC CHECKSUMS:
-  Alamofire: 68d7d521118d49c615a8d2214d87cdf525599d30
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   Cosmos: a6dbd3d0baa0cc8f51f8598f7508d5a09d0a9ade
-  GradientProgressBar: 00c7066ee3a1a7a3eb0419ff953f28c8ddf6bd91
-  PDFReader: 2c4a845d0560f33221cf911516e3b700967680f6
+  GradientProgressBar: 4c3394b31771270aa5ca29dc02d95127fe99664e
   SideMenu: 47dbf9e4d878062d8994aed43f6e4bf6c1fea30b
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 615ee921ac1c67c605c68f14c8573868069082cc
+PODFILE CHECKSUM: 372c266939320906df409e7ec858d8db70adb146
 
 COCOAPODS: 1.3.1

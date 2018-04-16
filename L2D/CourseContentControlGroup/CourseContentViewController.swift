@@ -8,7 +8,7 @@
 
 import UIKit
 import Cosmos
-import PDFReader
+import SafariServices
 import GradientProgressBar
 import AVKit
 
@@ -24,7 +24,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     var sectionIndexing : [Int] = []
     var userRating : Double?
     var currentSection : Int?
-    var BackFromLogin : Bool = false
+    var videoRestrict : Bool = false
     var player : AVPlayer?
     var onShow : Bool = true
     var timeCounter = 0
@@ -42,10 +42,13 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     @IBOutlet weak var videoTitle: UILabel!
     @IBOutlet weak var toggleScreenBtn: UIButton!
     @IBOutlet weak var videoWaiter: UIActivityIndicatorView!
+    @IBOutlet weak var webViewTonConst: NSLayoutConstraint!
+    @IBOutlet weak var webView: UIWebView!
     
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
     @IBOutlet weak var player_buttom_const: NSLayoutConstraint!
     
     lazy var refreshControl : UIRefreshControl = {
@@ -277,7 +280,45 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
 
     
     override func loadView() {
-        super.loadView()        
+        super.loadView()
+        setWebView()
+
+    }
+    
+    func setWebView(){
+        let frame = self.view.frame
+        let bar = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: 50))
+        bar.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        
+        
+        let closebutton = UIButton(frame: CGRect(x: bar.frame.width - 50, y: 10, width: 30, height: 30))
+        closebutton.setImage(UIImage(named: "expand_arrow"), for: .normal)
+        closebutton.addTarget(self, action: #selector(hideWebView), for: UIControlEvents.touchUpInside)
+        
+        let expandbutton = UIButton(frame: CGRect(x: bar.frame.width - 90, y: 10, width: 30, height: 30))
+        expandbutton.setImage(UIImage(named: "collapse_arrow"), for: .normal)
+        expandbutton.addTarget(self, action: #selector(exPandWebView), for: UIControlEvents.touchUpInside)
+        
+        
+        bar.addSubview(closebutton)
+        bar.addSubview(expandbutton)
+        self.webView.addSubview(bar)
+    }
+    
+    @objc func exPandWebView(){
+        UIView.animate(withDuration: 0.5, animations: {
+            //            self.webView.isHidden = true
+            let viewFrame = self.view.frame
+            self.webView.frame = CGRect(x: 0, y: 0, width: viewFrame.width, height: viewFrame.height)
+        })
+    }
+    
+    @objc func hideWebView(){
+        UIView.animate(withDuration: 0.5, animations: {
+//            self.webView.isHidden = true
+            let viewFrame = self.view.frame
+            self.webView.frame = CGRect(x: 0, y: viewFrame.height, width: viewFrame.width, height: 0)
+        })
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -312,14 +353,14 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         }
     }
     
-    @IBAction func showPDF(_ sender: Any) {
-        
-        let document = PDFDocument(url: URL(string: "http://gahp.net/wp-content/uploads/2017/09/sample.pdf")!)!
-        
-        let pdfDocument = document
-        let readerController = PDFViewController.createNew(with: pdfDocument)
-        navigationController?.pushViewController(readerController, animated: true)
-    }
+//    @IBAction func showPDF(_ sender: Any) {
+//
+//        let document = PDFDocument(url: URL(string: "http://gahp.net/wp-content/uploads/2017/09/sample.pdf")!)!
+//
+//        let pdfDocument = document
+//        let readerController = PDFViewController.createNew(with: pdfDocument)
+//        navigationController?.pushViewController(readerController, animated: true)
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(indexPath.section == 0){
@@ -415,10 +456,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                         
                     }
                 }
-
-                
-
-                
                 return cell
             }
 
@@ -427,14 +464,29 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     }
     
     func closeAllExpand(){
+        //for visible cell
+        let cells = self.table.visibleCells
+        for cell in cells{
+            let subPath = self.table.indexPath(for: cell)
+            if(cell.classForCoder == CourseSubsectionTableViewCell.self){
+                self.showCourse.remove(at: (subPath?.row)!)
+                table.beginUpdates()
+                table.deleteRows(at: [subPath!], with: .top)
+                table.endUpdates()
+            }else if(cell.classForCoder == CourseSectionTableViewCell.self){
+                let cell = table.cellForRow(at: subPath!) as! CourseSectionTableViewCell
+                cell.expandsion = false
+                cell.expand_img.isHighlighted = false
+            }
+        }
+        
+        //for invisible cell
         for sec in self.showCourse{
             let elemIndex = self.showCourse.index(of: sec)
+            let myIndexPath = IndexPath(row: elemIndex!, section: 1)
             if(sec.type == 1){
                 self.showCourse.remove(at: elemIndex!)
-                table.beginUpdates()
-                let myindexPath = IndexPath(row: elemIndex!, section: 1)
-                table.deleteRows(at: [myindexPath], with: .top)
-                table.endUpdates()
+                table.deleteRows(at: [myIndexPath], with: .none)
             }else{
                 let myIndexPath = IndexPath(row: elemIndex!, section: 1)
                 let cell = table.cellForRow(at: myIndexPath) as! CourseSectionTableViewCell
@@ -493,7 +545,16 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     }else if(cell.fileType == .document){
                         cell.icon.image = UIImage(named: "pdf_disable")
                         if let url = URL(string: path!) {
-                            UIApplication.shared.open(url, options: [:])
+                            self.pause()
+                            UIView.animate(withDuration: 0.5, animations: {
+//                                self.webView.isHidden = false
+                                let viewFrame = self.view.frame
+                                self.webView.frame = CGRect(x: 0, y: viewFrame.height*1/3, width: viewFrame.width, height: viewFrame.height*2/3)
+                                self.webView.loadRequest(URLRequest(url: url))
+                            })
+                            
+                            
+
                         }
 //                        let url = path
 //                        if(url != nil && url != ""){
@@ -565,7 +626,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     self.userRating = 0.0
                     self.isRegis = false
                     table_header.progressBar.isHidden = true
-                    
+                    self.videoRestrict = true
                     self.viewDidLoad()
                 }else{
                     self.myAlert(title: "", text: "can not unenroll")
@@ -587,7 +648,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     
                     self.isRegis = true
                     table_header.progressBar.isHidden = false
-                    
+                    self.videoRestrict = true
                     self.viewDidLoad()
                 }else{
                     let loginController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
@@ -685,10 +746,12 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         
         
         AppDelegate.restrictRotation = false;
-        if(!BackFromLogin){
-            self.BackFromLogin = false
+        
+        if(!self.videoRestrict){
             self.setupPlayer( url : URL(string : "http://158.108.207.7:8080/api/ts/key999/25/30/index.m3u8")!)
             self.slider.addTarget(self, action: #selector(sliderChange), for: UIControlEvents.valueChanged)
+        }else if(self.videoRestrict){
+            self.videoRestrict = false
         }
         
     }
@@ -705,6 +768,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.04, green:0.04, blue:0.03, alpha:0.3)
         let viewHeight = self.view.frame.height
         tableviewTopConst.constant = 1/3*viewHeight
+        self.webView.frame = CGRect(x: 0, y: viewHeight, width: self.view.frame.width, height: 0)
         player_buttom_const.constant = 2/3*viewHeight
         
         NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
@@ -717,7 +781,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         self.pause()
         self.navigationController?.setNavigationBarHidden(false , animated: false)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.28, blue:0.28, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
         
         if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
             UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
@@ -756,10 +820,10 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if(self.BackFromLogin){
+//        self.navigationController?.setNavigationBarHidden(true , animated: false)
+        if(self.videoRestrict){
             let cell = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
             self.enroll(cell.enroll_btn)
-            viewDidLoad()
         }
     }
     
