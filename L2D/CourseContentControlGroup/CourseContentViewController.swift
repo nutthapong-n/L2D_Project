@@ -578,7 +578,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     }else if(cell.fileType == .document){
                         cell.icon.image = UIImage(named: "pdf_disable")
                         if let url = URL(string: path!) {
-                            self.pause()
+//                            self.pause()
                             let viewFrame = self.view.frame
                             self.webViewTonConst?.constant = viewFrame.height*1/3
                             UIView.animate(withDuration: 0.5, animations: {
