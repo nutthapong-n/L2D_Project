@@ -29,6 +29,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     var onShow : Bool = true
     var timeCounter = 0
     var isPlaying = true
+    var webViewTonConst: NSLayoutConstraint?
     @IBOutlet weak var maxTime: UILabel!
     
     @IBOutlet weak var toggleStageBtn: UIButton!
@@ -42,7 +43,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     @IBOutlet weak var videoTitle: UILabel!
     @IBOutlet weak var toggleScreenBtn: UIButton!
     @IBOutlet weak var videoWaiter: UIActivityIndicatorView!
-    @IBOutlet weak var webViewTonConst: NSLayoutConstraint!
     @IBOutlet weak var webView: UIWebView!
     
     override var prefersStatusBarHidden: Bool {
@@ -287,37 +287,79 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     func setWebView(){
         let frame = self.view.frame
-        let bar = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: 50))
+        
+        let web_lead = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.leading, multiplier: 1.0, constant: 0.0)
+        let web_tail = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.trailing, multiplier: 1.0, constant: 0.0)
+        let web_bottom = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 0.0)
+        let web_top = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: frame.height)
+        
+        self.webView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.webViewTonConst = web_top
+        view.addConstraints([web_top,web_lead,web_tail,web_bottom])
+        
+        
+//        let bar = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: 50))
+        let bar = UIView()
         bar.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        
-        
-        let closebutton = UIButton(frame: CGRect(x: bar.frame.width - 50, y: 10, width: 30, height: 30))
+
+        //create close btn
+        let closebutton = UIButton()
         closebutton.setImage(UIImage(named: "expand_arrow"), for: .normal)
         closebutton.addTarget(self, action: #selector(hideWebView), for: UIControlEvents.touchUpInside)
         
-        let expandbutton = UIButton(frame: CGRect(x: bar.frame.width - 90, y: 10, width: 30, height: 30))
+        
+        let cb_tail = NSLayoutConstraint(item: bar, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: closebutton, attribute: NSLayoutAttribute.trailing, multiplier: 1.0, constant: 10)
+        let cb_top = NSLayoutConstraint(item: closebutton, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: bar, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 10)
+        let cb_width = NSLayoutConstraint(item: closebutton, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.width, multiplier: 1.0, constant: 30)
+        let cb_height = NSLayoutConstraint(item: closebutton, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.height, multiplier: 1.0, constant: 30)
+        
+        closebutton.translatesAutoresizingMaskIntoConstraints = false
+        bar.addSubview(closebutton)
+        bar.addConstraints([cb_top,cb_tail,cb_width,cb_height])
+        
+        
+//        create expandBtn
+        let expandbutton = UIButton()
         expandbutton.setImage(UIImage(named: "collapse_arrow"), for: .normal)
         expandbutton.addTarget(self, action: #selector(exPandWebView), for: UIControlEvents.touchUpInside)
-        
-        
-        bar.addSubview(closebutton)
+        expandbutton.translatesAutoresizingMaskIntoConstraints = false
+
+        let eb_tail = NSLayoutConstraint(item: closebutton, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: expandbutton, attribute: NSLayoutAttribute.trailing, multiplier: 1.0, constant: 10)
+        let eb_top = NSLayoutConstraint(item: expandbutton, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: bar, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 10)
+        let eb_width = NSLayoutConstraint(item: expandbutton, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.width, multiplier: 1.0, constant: 30)
+        let eb_height = NSLayoutConstraint(item: expandbutton, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.height, multiplier: 1.0, constant: 30)
+
+
         bar.addSubview(expandbutton)
+        bar.addConstraints([eb_top,eb_tail,eb_width,eb_height])
+        
         self.webView.addSubview(bar)
+
+
+        let bar_top = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: bar, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 0.0)
+        let bar_height = NSLayoutConstraint(item: bar, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.height, multiplier: 1.0, constant: 50)
+        let bar_leading = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: bar, attribute: NSLayoutAttribute.leading, multiplier: 1.0, constant: 0.0)
+        let bar_tailing = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: bar, attribute: NSLayoutAttribute.trailing, multiplier: 1.0, constant: 0.0)
+        
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        
+        webView.addConstraints([bar_top,bar_height,bar_leading,bar_tailing])
     }
     
     @objc func exPandWebView(){
+        self.webViewTonConst?.constant = 0
         UIView.animate(withDuration: 0.5, animations: {
-            //            self.webView.isHidden = true
-            let viewFrame = self.view.frame
-            self.webView.frame = CGRect(x: 0, y: 0, width: viewFrame.width, height: viewFrame.height)
+            self.view.layoutIfNeeded()
         })
     }
     
     @objc func hideWebView(){
+        let viewFrame = self.view.frame
+        self.webViewTonConst?.constant = viewFrame.height
         UIView.animate(withDuration: 0.5, animations: {
 //            self.webView.isHidden = true
-            let viewFrame = self.view.frame
-            self.webView.frame = CGRect(x: 0, y: viewFrame.height, width: viewFrame.width, height: 0)
+            self.view.layoutIfNeeded()
         })
     }
     
@@ -352,15 +394,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             return 100
         }
     }
-    
-//    @IBAction func showPDF(_ sender: Any) {
-//
-//        let document = PDFDocument(url: URL(string: "http://gahp.net/wp-content/uploads/2017/09/sample.pdf")!)!
-//
-//        let pdfDocument = document
-//        let readerController = PDFViewController.createNew(with: pdfDocument)
-//        navigationController?.pushViewController(readerController, animated: true)
-//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(indexPath.section == 0){
@@ -546,22 +579,16 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                         cell.icon.image = UIImage(named: "pdf_disable")
                         if let url = URL(string: path!) {
                             self.pause()
+                            let viewFrame = self.view.frame
+                            self.webViewTonConst?.constant = viewFrame.height*1/3
                             UIView.animate(withDuration: 0.5, animations: {
-//                                self.webView.isHidden = false
-                                let viewFrame = self.view.frame
-                                self.webView.frame = CGRect(x: 0, y: viewFrame.height*1/3, width: viewFrame.width, height: viewFrame.height*2/3)
+                                self.view.layoutIfNeeded()
                                 self.webView.loadRequest(URLRequest(url: url))
                             })
                             
                             
 
                         }
-//                        let url = path
-//                        if(url != nil && url != ""){
-//                            let pdfDocument = PDFDocument(url: URL(string: url!)!)!
-//                            let readerController = PDFViewController.createNew(with: pdfDocument)
-//                            self.navigationController?.pushViewController(readerController, animated: true)
-//                        }
                     }
                     
                     let cells = tableView.visibleCells
@@ -768,7 +795,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.04, green:0.04, blue:0.03, alpha:0.3)
         let viewHeight = self.view.frame.height
         tableviewTopConst.constant = 1/3*viewHeight
-        self.webView.frame = CGRect(x: 0, y: viewHeight, width: self.view.frame.width, height: 0)
+//        self.webViewTonConst.constant = 0
         player_buttom_const.constant = 2/3*viewHeight
         
         NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
@@ -795,28 +822,41 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
             let viewHeight = self.view.frame.height
             let viewWidth = self.view.frame.width
+            
+            //set player layout
             self.playerView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
             let playerLayer = self.playerView.layer.sublayers![0]
             playerLayer.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
             player_buttom_const.constant = 0
             self.toggleScreenBtn.setImage(UIImage(named: "normal_screen"), for: .normal)
-            // Resize other things
+            
+            //set webview layout
+//            self.webView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
+            self.webViewTonConst?.constant = 0
         }
         if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
             let viewHeight = self.view.frame.height
             let viewWidth = self.view.frame.width
+            
+            //set player layout
             self.playerView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: 1/3*viewHeight)
             let playerLayer = self.playerView.layer.sublayers![0]
             playerLayer.frame = CGRect(x: 0, y: 0, width: viewWidth, height: 1/3*viewHeight)
             player_buttom_const.constant = 2/3*viewHeight
             self.toggleScreenBtn.setImage(UIImage(named: "full_screen"), for: .normal)
+            
+            //set webview layout
+//            self.webView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
+            self.webViewTonConst?.constant = viewHeight*1/3
         }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+        if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        }
         AppDelegate.restrictRotation = true;
-        
+        super.viewDidDisappear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {

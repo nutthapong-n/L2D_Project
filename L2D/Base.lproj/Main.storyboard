@@ -182,7 +182,7 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D16-tg-nxw" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D16-tg-nxw" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="12" y="163" width="210" height="20"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="text" value=" 0 from 0 vote"/>
@@ -265,7 +265,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="VhW-8P-yGj">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="Ohp-no-JZX">
-                            <color key="tintColor" red="0.99291210069017966" green="1" blue="0.95518620694418477" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <segue destination="Qfg-pN-xG1" kind="presentation" identifier="sideBar" id="nRJ-8a-p5w"/>
                             </connections>
@@ -298,17 +298,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x4a-ke-9Fw" customClass="GradientProgressBar" customModule="GradientProgressBar">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4a-ke-9Fw" customClass="GradientProgressBar" customModule="GradientProgressBar">
                                                     <rect key="frame" x="15" y="82" width="384" height="13"/>
                                                 </view>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgq-1v-VS2" customClass="CosmosView" customModule="Cosmos">
-                                                    <rect key="frame" x="14.999999999999996" y="62" width="41.666666666666657" height="20"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lgq-1v-VS2" customClass="CosmosView" customModule="Cosmos">
+                                                    <rect key="frame" x="15" y="62" width="215" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="text" value="0.0 from 1 vote"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Dv-Um-Rlm">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Dv-Um-Rlm">
                                                     <rect key="frame" x="286" y="49" width="113" height="30"/>
                                                     <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
@@ -345,7 +345,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l41-Wk-Pcj">
-                                                    <rect key="frame" x="14.999999999999996" y="9" width="41.666666666666657" height="45"/>
+                                                    <rect key="frame" x="15" y="9" width="215" height="45"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -524,11 +524,11 @@
                                             <action selector="toggleStage:" destination="6R4-bl-1qS" eventType="touchUpInside" id="Mkr-9P-qF5"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tQp-dd-r8a">
-                                        <rect key="frame" x="8" y="8" width="30" height="30"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tQp-dd-r8a">
+                                        <rect key="frame" x="8" y="8" width="50" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="gkg-qs-6hm"/>
-                                            <constraint firstAttribute="width" constant="30" id="xdy-iA-KPm"/>
+                                            <constraint firstAttribute="width" constant="50" id="Oxw-Fe-zlU"/>
+                                            <constraint firstAttribute="height" constant="30" id="XAr-4G-b7h"/>
                                         </constraints>
                                         <state key="normal" image="back"/>
                                         <connections>
@@ -536,9 +536,9 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="video title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3Q-PF-Lg1">
-                                        <rect key="frame" x="46" y="8" width="360" height="30"/>
+                                        <rect key="frame" x="66" y="8" width="340" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="pf2-ic-S0O"/>
+                                            <constraint firstAttribute="height" constant="30" id="5lz-BV-5tR"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -550,22 +550,22 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="i3Q-PF-Lg1" firstAttribute="leading" secondItem="tQp-dd-r8a" secondAttribute="trailing" constant="8" id="7Pt-EM-Ifq"/>
+                                    <constraint firstItem="tQp-dd-r8a" firstAttribute="top" secondItem="83F-yF-htm" secondAttribute="top" constant="8" id="664-Kj-t08"/>
                                     <constraint firstItem="5sS-tm-OnU" firstAttribute="centerX" secondItem="83F-yF-htm" secondAttribute="centerX" id="AWJ-0b-VuC"/>
                                     <constraint firstItem="8PT-eW-cec" firstAttribute="centerY" secondItem="83F-yF-htm" secondAttribute="centerY" id="FB0-nz-3Zw"/>
                                     <constraint firstItem="tHN-mh-BaU" firstAttribute="leading" secondItem="83F-yF-htm" secondAttribute="leading" id="Lvp-Ed-PxK"/>
                                     <constraint firstAttribute="trailing" secondItem="tHN-mh-BaU" secondAttribute="trailing" id="MNT-So-tFg"/>
-                                    <constraint firstItem="i3Q-PF-Lg1" firstAttribute="top" secondItem="83F-yF-htm" secondAttribute="top" constant="8" id="OzE-vp-Y6D"/>
+                                    <constraint firstItem="i3Q-PF-Lg1" firstAttribute="leading" secondItem="tQp-dd-r8a" secondAttribute="trailing" constant="8" id="PAk-lY-d4o"/>
+                                    <constraint firstItem="tQp-dd-r8a" firstAttribute="leading" secondItem="83F-yF-htm" secondAttribute="leading" constant="8" id="R3h-AU-wOG"/>
                                     <constraint firstItem="8PT-eW-cec" firstAttribute="centerX" secondItem="83F-yF-htm" secondAttribute="centerX" id="Xh4-QS-BnR"/>
-                                    <constraint firstItem="tQp-dd-r8a" firstAttribute="leading" secondItem="83F-yF-htm" secondAttribute="leading" constant="8" id="dGw-Mu-6tz"/>
+                                    <constraint firstAttribute="trailing" secondItem="i3Q-PF-Lg1" secondAttribute="trailing" constant="8" id="f5t-ee-nnd"/>
                                     <constraint firstItem="5sS-tm-OnU" firstAttribute="centerY" secondItem="83F-yF-htm" secondAttribute="centerY" id="gF0-3A-1pa"/>
-                                    <constraint firstAttribute="trailing" secondItem="i3Q-PF-Lg1" secondAttribute="trailing" constant="8" id="hoW-AL-D9P"/>
                                     <constraint firstAttribute="bottom" secondItem="tHN-mh-BaU" secondAttribute="bottom" id="tBw-hu-j3h"/>
-                                    <constraint firstItem="tQp-dd-r8a" firstAttribute="top" secondItem="83F-yF-htm" secondAttribute="top" constant="8" id="xVo-2c-zVd"/>
+                                    <constraint firstItem="i3Q-PF-Lg1" firstAttribute="top" secondItem="83F-yF-htm" secondAttribute="top" constant="8" id="uer-iy-5MW"/>
                                 </constraints>
                             </view>
                             <webView contentMode="scaleAspectFit" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GuB-ms-eUo">
-                                <rect key="frame" x="0.0" y="304" width="414" height="432"/>
+                                <rect key="frame" x="0.0" y="304" width="414" height="297"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
@@ -616,8 +616,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dc1-Vd-j2R">
                                 <rect key="frame" x="0.0" y="64" width="414" height="608"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VTH-vC-o6p" customClass="CosmosView" customModule="Cosmos">
-                                        <rect key="frame" x="34.666666666666657" y="268" width="345" height="137"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VTH-vC-o6p" customClass="CosmosView" customModule="Cosmos">
+                                        <rect key="frame" x="34.666666666666657" y="304" width="345" height="65"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="starSize">
@@ -626,7 +626,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bottom Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mvf-Sn-Js0">
-                                        <rect key="frame" x="46" y="412" width="322" height="50"/>
+                                        <rect key="frame" x="46" y="376" width="322" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="N5b-Aa-VCS"/>
                                         </constraints>
@@ -644,7 +644,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jAy-Gm-Sbx">
-                                        <rect key="frame" x="111" y="537" width="193" height="36"/>
+                                        <rect key="frame" x="111" y="501" width="193" height="72"/>
                                         <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="193" id="Q6g-LZ-k29"/>
@@ -749,7 +749,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZrB-lF-ujb" customClass="CosmosView" customModule="Cosmos">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZrB-lF-ujb" customClass="CosmosView" customModule="Cosmos">
                                                             <rect key="frame" x="88" y="63" width="215" height="20"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <userDefinedRuntimeAttributes>
@@ -1025,14 +1025,14 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u2t-dk-FkL" customClass="CosmosView" customModule="Cosmos">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u2t-dk-FkL" customClass="CosmosView" customModule="Cosmos">
                                                                     <rect key="frame" x="124" y="93" width="215" height="20"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="string" keyPath="text" value="0.0 from 1 vote"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ioQ-eh-ned" customClass="GradientProgressBar" customModule="GradientProgressBar">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ioQ-eh-ned" customClass="GradientProgressBar" customModule="GradientProgressBar">
                                                                     <rect key="frame" x="8" y="110" width="393" height="13"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </view>
@@ -1743,14 +1743,14 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcd-aG-juh" userLabel="Item View">
                                             <rect key="frame" x="10" y="5" width="394" height="106"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UaC-Wx-C32" customClass="CosmosView" customModule="Cosmos">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UaC-Wx-C32" customClass="CosmosView" customModule="Cosmos">
                                                     <rect key="frame" x="131" y="77" width="215" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="text" value="0.0 from 1 vote"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Instructor Name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVr-eY-5bQ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instructor Name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVr-eY-5bQ">
                                                     <rect key="frame" x="135" y="48" width="242" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="Dbg-G3-l9W"/>
@@ -1765,7 +1765,7 @@
                                                         <constraint firstAttribute="width" constant="99" id="zkc-Sg-7Xk"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="CourseName" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzJ-hk-oUA">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CourseName" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzJ-hk-oUA">
                                                     <rect key="frame" x="135" y="8" width="242" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
@@ -1916,6 +1916,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="AuJ-w7-qds"/>
-        <segue reference="D10-sT-fdj"/>
+        <segue reference="IVk-gA-Azc"/>
     </inferredMetricsTieBreakers>
 </document>
