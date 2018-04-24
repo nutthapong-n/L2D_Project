@@ -933,7 +933,7 @@ class Course : NSObject{
             return
         }
         
-        let url = "\(Network.IP_Address_Course)/api/app?id=\(key)"
+        let url = "\(Network.IP_Address_Course)/api/stream?content=\(key)"
         let headers: HTTPHeaders = [
             "token": "key999",
         ]

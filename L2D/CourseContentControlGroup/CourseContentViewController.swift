@@ -29,6 +29,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     var onShow : Bool = true
     var timeCounter = 0
     var isPlaying = true
+    var isShowDoc = false
     var webViewTonConst: NSLayoutConstraint?
     @IBOutlet weak var maxTime: UILabel!
     
@@ -355,6 +356,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     }
     
     @objc func hideWebView(){
+        isShowDoc = false
         let viewFrame = self.view.frame
         self.webViewTonConst?.constant = viewFrame.height
         UIView.animate(withDuration: 0.5, animations: {
@@ -580,6 +582,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                         if let url = URL(string: path!) {
 //                            self.pause()
                             let viewFrame = self.view.frame
+                            self.isShowDoc = true
                             self.webViewTonConst?.constant = viewFrame.height*1/3
                             UIView.animate(withDuration: 0.5, animations: {
                                 self.view.layoutIfNeeded()
@@ -847,7 +850,10 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             
             //set webview layout
 //            self.webView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
-            self.webViewTonConst?.constant = viewHeight*1/3
+            if(isShowDoc){
+                self.webViewTonConst?.constant = viewHeight*1/3
+            }
+            
         }
     }
     
