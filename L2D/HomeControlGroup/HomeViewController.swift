@@ -32,7 +32,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         
         let collecttion = headerCell?.MyCollecttionView
         
-        if  SlideShowcount  == 8
+        if  SlideShowcount  == courses["slide"]?.count
         {
             SlideShowcount = 0
         }
@@ -118,6 +118,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
             }else{
                 self.courses["slide"] = result
                 self.courses["top"] = result
+                
             }
             if(NewSuccess && TopSuccess){
                self.homeTable.reloadData()
