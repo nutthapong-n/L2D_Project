@@ -8,37 +8,36 @@
 
 import UIKit
 
-class CommentTableViewController: UITableViewController {
+class CommentTableViewController: UITableViewController, UITextFieldDelegate {
 
     
+    
     @IBOutlet var CommentTable: UITableView!
-    // This constraint ties an element at zero points from the bottom layout guide
-    @IBOutlet var keyboardHeightLayoutConstraint: NSLayoutConstraint?
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
+    @IBOutlet weak var textField: UITextField!
     
-    @objc func keyboardNotification(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
-            let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-            let endFrameY = endFrame?.origin.y ?? 0
-            let duration:TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
-            let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
-            let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
-            let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
-            if endFrameY >= UIScreen.main.bounds.size.height {
-                self.keyboardHeightLayoutConstraint?.constant = 0.0
-            } else {
-                self.keyboardHeightLayoutConstraint?.constant = endFrame?.size.height ?? 0.0
-            }
-            UIView.animate(withDuration: duration,
-                           delay: TimeInterval(0),
-                           options: animationCurve,
-                           animations: { self.view.layoutIfNeeded() },
-                           completion: nil)
-        }
-    }
+//    var offsetY:CGFloat = 0
+//    @objc func keyboardFrameChangeNotification(notification: Notification) {
+//        if let userInfo = notification.userInfo {
+//            let endFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
+//            let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? Double ?? 0
+//            let animationCurveRawValue = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? Int) ?? Int(UIViewAnimationOptions.curveEaseInOut.rawValue)
+//            let animationCurve = UIViewAnimationOptions(rawValue: UInt(animationCurveRawValue))
+//            if let _ = endFrame, endFrame!.intersects(self.textField.frame) {
+//                self.offsetY = self.textField.frame.maxY - endFrame!.minY
+//                UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
+//                    self.textField.frame.origin.y = self.textField.frame.origin.y - self.offsetY
+//                }, completion: nil)
+//            } else {
+//                if self.offsetY != 0 {
+//                    UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
+//                        self.textField.frame.origin.y = self.textField.frame.origin.y + self.offsetY
+//                        self.offsetY = 0
+//                    }, completion: nil)
+//                }
+//            }
+//        }
+//    }
     
     var courseName : String = "Comment" {
         didSet{
@@ -49,12 +48,16 @@ class CommentTableViewController: UITableViewController {
     
     var courseId : Int = 0 {
         didSet{
-            Course.getComment(courseId: courseId, completion: {
+            Comment.getComment(courseId: courseId, completion: {
                 (result) in
                 
                 self.commentData = result!
                 
                 self.CommentTable.reloadData()
+                DispatchQueue.main.async(execute: {
+                    let indexPath = NSIndexPath(row: (self.commentData?.count)! - 1, section: 0)
+                    self.CommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
+                })
             })
         }
     }
@@ -70,10 +73,54 @@ class CommentTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardNotification(notification:)),
-                                               name: NSNotification.Name.UIKeyboardWillChangeFrame,
-                                               object: nil)
+        textField.delegate = self
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardFrameChangeNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+
+        
+        //Looks for single or multiple taps.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        
+        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+        //tap.cancelsTouchesInView = false
+        
+        view.addGestureRecognizer(tap)
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        if(AppDelegate.hasLogin){
+            textField.isHidden = false
+        }else{
+            textField.isHidden = true
+        }
+    }
+    
+    //Calls this function when the tap is recognized.
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        if(textField.text != nil){
+            textField.allowsEditingTextAttributes = false
+            Comment.sendComment(courseId: self.courseId, memberId: (AppDelegate.userData?.idmember)!, message: textField.text!) { (result) in
+                self.commentData?.append(result!)
+                self.CommentTable.reloadData()
+                DispatchQueue.main.async(execute: {
+                    let indexPath = NSIndexPath(row: (self.commentData?.count)! - 1, section: 0)
+                    self.CommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
+                })
+                
+                textField.text?.removeAll()
+                textField.allowsEditingTextAttributes = true
+            }
+        }
+        return true
     }
 
     override func didReceiveMemoryWarning() {
@@ -119,6 +166,13 @@ class CommentTableViewController: UITableViewController {
 //        cell.backgroundColor = UIColor.init(hex: "#99d8ff")
 
 //        cell.layer.cornerRadius = 30
+        
+        if(AppDelegate.hasLogin && AppDelegate.userData?.idmember == a_comment.idMember){
+            cell.itemView.backgroundColor = UIColor.init(hex: "#ffd3e4")
+        }else{
+            cell.itemView.backgroundColor = UIColor.init(hex: "#99D8FF")
+        }
+        
         return cell
     }
     

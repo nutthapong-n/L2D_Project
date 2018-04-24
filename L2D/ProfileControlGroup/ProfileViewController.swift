@@ -33,12 +33,52 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
     
     var imagePicker = UIImagePickerController()
     
+//    var offsetY:CGFloat = 0
+//    @objc func keyboardFrameChangeNotification(notification: Notification) {
+//        if let userInfo = notification.userInfo {
+//            let endFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
+//            let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? Double ?? 0
+//            let animationCurveRawValue = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? Int) ?? Int(UIViewAnimationOptions.curveEaseInOut.rawValue)
+//            let animationCurve = UIViewAnimationOptions(rawValue: UInt(animationCurveRawValue))
+//            if let _ = endFrame, endFrame!.intersects(self.textField.frame) {
+//                self.offsetY = self.textField.frame.maxY - endFrame!.minY
+//                UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
+//                    self.textField.frame.origin.y = self.textField.frame.origin.y - self.offsetY
+//                }, completion: nil)
+//            } else {
+//                if self.offsetY != 0 {
+//                    UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
+//                        self.textField.frame.origin.y = self.textField.frame.origin.y + self.offsetY
+//                        self.offsetY = 0
+//                    }, completion: nil)
+//                }
+//            }
+//        }
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        //Looks for single or multiple taps.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        
+        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+        //tap.cancelsTouchesInView = false
+        
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardFrameChangeNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        
+        view.addGestureRecognizer(tap)
         setProfileInformation()
 
     }
+    
+    //Calls this function when the tap is recognized.
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

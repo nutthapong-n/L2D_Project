@@ -579,7 +579,7 @@
                                     <constraint firstItem="i3Q-PF-Lg1" firstAttribute="top" secondItem="83F-yF-htm" secondAttribute="top" constant="8" id="uer-iy-5MW"/>
                                 </constraints>
                             </view>
-                            <webView alpha="0.0" contentMode="scaleAspectFit" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GuB-ms-eUo">
+                            <webView contentMode="scaleAspectFit" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GuB-ms-eUo">
                                 <rect key="frame" x="0.0" y="304" width="414" height="297"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
@@ -626,17 +626,19 @@
         <!--Comment-->
         <scene sceneID="Nni-hk-0w2">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mVT-Yq-LFP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Comment" id="Spg-QW-WZb" customClass="CommentTableViewController" customModule="L2D" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="LOR-Qg-E7W">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <textField key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment me..." textAlignment="natural" minimumFontSize="17" id="60R-FD-pdE">
+                        <textField key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment me..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" id="60R-FD-pdE">
                             <rect key="frame" x="0.0" y="129" width="414" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="send"/>
                         </textField>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="101" id="Pph-8G-7V6" customClass="CommentTableViewCell" customModule="L2D" customModuleProvider="target">
@@ -689,7 +691,7 @@
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="15"/>
+                                                    <integer key="value" value="10"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
@@ -703,6 +705,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="dateTimeLabel" destination="9TB-xt-ibZ" id="PGU-lc-1IF"/>
+                                    <outlet property="itemView" destination="840-ym-tgA" id="wR9-x6-ybP"/>
                                     <outlet property="messageLabel" destination="F0m-dI-Heb" id="MFH-TP-hMJ"/>
                                     <outlet property="nameLabel" destination="wuh-l9-J3N" id="d2n-0J-LMh"/>
                                 </connections>
@@ -716,9 +719,9 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="CommentTable" destination="LOR-Qg-E7W" id="4qS-fy-JoG"/>
+                        <outlet property="textField" destination="60R-FD-pdE" id="Vs8-tx-dxM"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mVT-Yq-LFP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3453.6231884057975" y="585.32608695652175"/>
         </scene>
@@ -866,7 +869,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZrB-lF-ujb" customClass="CosmosView" customModule="Cosmos">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZrB-lF-ujb" customClass="CosmosView" customModule="Cosmos">
                                                             <rect key="frame" x="88" y="63" width="215" height="20"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <userDefinedRuntimeAttributes>
@@ -2011,33 +2014,6 @@
             </objects>
             <point key="canvasLocation" x="3997" y="1268"/>
         </scene>
-        <!--Table View Controller-->
-        <scene sceneID="UVd-7U-WDh">
-            <objects>
-                <tableViewController id="z6Z-qU-xpK" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bcb-73-7PO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="1Rz-6j-60E">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Rz-6j-60E" id="XoI-nM-LRF">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="z6Z-qU-xpK" id="nvq-tx-gTq"/>
-                            <outlet property="delegate" destination="z6Z-qU-xpK" id="XEL-0D-8Lt"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="foA-7v-5Pi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
     <resources>
         <image name="L2D_LOGO" width="423" height="155"/>
@@ -2060,6 +2036,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="AuJ-w7-qds"/>
-        <segue reference="IVk-gA-Azc"/>
+        <segue reference="D10-sT-fdj"/>
     </inferredMetricsTieBreakers>
 </document>
