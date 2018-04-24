@@ -57,6 +57,9 @@
 		F7243198201A26F800C0D0A3 /* ProfileSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7243197201A26F800C0D0A3 /* ProfileSegue.swift */; };
 		F73B7D64201C8E98007A3C1E /* Network.model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73B7D63201C8E98007A3C1E /* Network.model.swift */; };
 		F7817AA42027103D000EBAB9 /* CourseInCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7817AA32027103D000EBAB9 /* CourseInCategoryTableViewCell.swift */; };
+		F7A4AF02208E2513003088D7 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4AF01208E2513003088D7 /* CommentTableViewCell.swift */; };
+		F7A4AF04208E2617003088D7 /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4AF03208E2617003088D7 /* CommentTableViewController.swift */; };
+		F7A4AF06208E2989003088D7 /* Comment.model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4AF05208E2989003088D7 /* Comment.model.swift */; };
 		F7B313282026F736000AB6CD /* CourseCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B313272026F736000AB6CD /* CourseCategoryTableViewController.swift */; };
 		F7C1337820300CCF00B747EA /* ProfileUpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C1337720300CCF00B747EA /* ProfileUpdatePasswordViewController.swift */; };
 		F7EAC85320602E4A0043B37D /* RateCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EAC85220602E4A0043B37D /* RateCourseViewController.swift */; };
@@ -143,6 +146,9 @@
 		F7243197201A26F800C0D0A3 /* ProfileSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSegue.swift; sourceTree = "<group>"; };
 		F73B7D63201C8E98007A3C1E /* Network.model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.model.swift; sourceTree = "<group>"; };
 		F7817AA32027103D000EBAB9 /* CourseInCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInCategoryTableViewCell.swift; sourceTree = "<group>"; };
+		F7A4AF01208E2513003088D7 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		F7A4AF03208E2617003088D7 /* CommentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewController.swift; sourceTree = "<group>"; };
+		F7A4AF05208E2989003088D7 /* Comment.model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.model.swift; sourceTree = "<group>"; };
 		F7B313272026F736000AB6CD /* CourseCategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCategoryTableViewController.swift; sourceTree = "<group>"; };
 		F7C1337720300CCF00B747EA /* ProfileUpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdatePasswordViewController.swift; sourceTree = "<group>"; };
 		F7EAC85220602E4A0043B37D /* RateCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateCourseViewController.swift; sourceTree = "<group>"; };
@@ -258,6 +264,7 @@
 				F73B7D63201C8E98007A3C1E /* Network.model.swift */,
 				3248884E204EBDAF00D4CE70 /* L2DColor.swift */,
 				325872DD2067A6270022244E /* CourseWithImgPath.swift */,
+				F7A4AF05208E2989003088D7 /* Comment.model.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -293,6 +300,7 @@
 				32D772C91F24B4300093F6A2 /* Main.storyboard */,
 				32D772CE1F24B4300093F6A2 /* LaunchScreen.storyboard */,
 				32D772D11F24B4300093F6A2 /* Info.plist */,
+				F7A4AF00208E24C7003088D7 /* CommentControlGroup */,
 				32DFBE2C1F2B5414008AA3DA /* LoginControl */,
 				327CBB6A1F2605C8000A274A /* HomeControlGroup */,
 				320AA3461F299C0800AE9428 /* MyCourseControlGroup */,
@@ -370,6 +378,15 @@
 				7F855F0705F2A24B4F2B08C6 /* Pods-L2DUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F7A4AF00208E24C7003088D7 /* CommentControlGroup */ = {
+			isa = PBXGroup;
+			children = (
+				F7A4AF01208E2513003088D7 /* CommentTableViewCell.swift */,
+				F7A4AF03208E2617003088D7 /* CommentTableViewController.swift */,
+			);
+			path = CommentControlGroup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -685,7 +702,9 @@
 				F7EAC85320602E4A0043B37D /* RateCourseViewController.swift in Sources */,
 				F7817AA42027103D000EBAB9 /* CourseInCategoryTableViewCell.swift in Sources */,
 				32A5370A1F28538F00E53CAC /* LoginSeque.swift in Sources */,
+				F7A4AF06208E2989003088D7 /* Comment.model.swift in Sources */,
 				32D440C9202947D50060F7C1 /* CourseHeaderCollectionViewCell.swift in Sources */,
+				F7A4AF04208E2617003088D7 /* CommentTableViewController.swift in Sources */,
 				32DFBE271F2B4DCE008AA3DA /* HomeViewController.swift in Sources */,
 				32D440C72028C3A50060F7C1 /* HomeCellButton.swift in Sources */,
 				32D772FA1F24BD5A0093F6A2 /* SearchViewController.swift in Sources */,
@@ -714,6 +733,7 @@
 				F73B7D64201C8E98007A3C1E /* Network.model.swift in Sources */,
 				F7EC3C042020846A00FE9058 /* SideMenuTableViewCell.swift in Sources */,
 				32F749491F2F18A0004A33DD /* CategoryCollectionViewCell.swift in Sources */,
+				F7A4AF02208E2513003088D7 /* CommentTableViewCell.swift in Sources */,
 				32F749501F2F1AE5004A33DD /* Category.model.swift in Sources */,
 				32F7494B1F2F18B6004A33DD /* CategoryViewController.swift in Sources */,
 				320A262C1F25D1A400DF92BD /* CourseListsCollectionViewCell.swift in Sources */,

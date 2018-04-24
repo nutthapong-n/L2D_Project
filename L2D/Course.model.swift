@@ -1008,5 +1008,33 @@ class Course : NSObject{
             //        completion(false)
         }
     }
+    
+    class func getComment(courseId : Int, completion : @escaping (_ commentList:[Comment]?)-> Void){
+        
+        let url = "\(Network.IP_Address_Master)/dialogue?courseId=\(courseId)"
+        
+        var commentList = [Comment]()
+        
+        Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON{
+            response in switch response.result{
+            case.success(let value):
+                let json = JSON(value)
+                
+                for (index,obj) in json {
+                    var jsonComment = obj
+                    
+                    let a_comment = Comment(name: "\(jsonComment["member"]["name"]) \(jsonComment["member"]["surname"])", message: jsonComment["msg"].stringValue, dateTime: Date(timeIntervalSince1970: jsonComment["editTime"].doubleValue))
+                    
+                    commentList.append(a_comment)
+                }
+                
+                completion(commentList)
+                
+            case.failure(let error):
+                print(error)
+                completion(nil)
+            }
+        }
+    }
 }
 
