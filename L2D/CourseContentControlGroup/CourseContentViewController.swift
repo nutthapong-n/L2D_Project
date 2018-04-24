@@ -835,7 +835,9 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             
             //set webview layout
 //            self.webView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
-            self.webViewTonConst?.constant = 0
+            if(isShowDoc){
+                self.webViewTonConst?.constant = 0
+            }
         }
         if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
             let viewHeight = self.view.frame.height
