@@ -1,19 +1,19 @@
 //
-//  CommentTableViewCell.swift
+//  CommentLeftTableViewCell.swift
 //  L2D
 //
-//  Created by Magnus on 4/23/18.
+//  Created by Magnus on 4/29/18.
 //  Copyright © 2018 Watcharagorn mayomthong. All rights reserved.
 //
 
 import UIKit
 
-class CommentTableViewCell: UITableViewCell {
+class CommentLeftTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var msgLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var dateTimeLabel: UILabel!
-    @IBOutlet weak var itemView: UIView!
+    @IBOutlet weak var moreCommentLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,5 +25,5 @@ class CommentTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
 }

@@ -893,7 +893,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             dest.userRating = self.userRating!
             dest.courseId = self.courseId!
         } else if( segue.identifier == "comment"){
-            let dest = segue.destination as! CommentTableViewController
+            let dest = segue.destination as! CommentViewController
             dest.courseId = self.courseId!
             dest.courseName = (self.course?.name)!
         }

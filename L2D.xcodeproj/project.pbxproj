@@ -56,9 +56,10 @@
 		A4C36E472D5D7A5ED8095AB4 /* Pods_L2DUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89280523A7ADD259A797660E /* Pods_L2DUITests.framework */; };
 		F7243198201A26F800C0D0A3 /* ProfileSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7243197201A26F800C0D0A3 /* ProfileSegue.swift */; };
 		F73B7D64201C8E98007A3C1E /* Network.model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73B7D63201C8E98007A3C1E /* Network.model.swift */; };
+		F7764F052095FFD50099B9F5 /* CommentLeftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7764F032095FFD50099B9F5 /* CommentLeftTableViewCell.swift */; };
+		F7764F092096030C0099B9F5 /* CommentRightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7764F072096030C0099B9F5 /* CommentRightTableViewCell.swift */; };
+		F7764F0C20960B4C0099B9F5 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7764F0B20960B4C0099B9F5 /* CommentViewController.swift */; };
 		F7817AA42027103D000EBAB9 /* CourseInCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7817AA32027103D000EBAB9 /* CourseInCategoryTableViewCell.swift */; };
-		F7A4AF02208E2513003088D7 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4AF01208E2513003088D7 /* CommentTableViewCell.swift */; };
-		F7A4AF04208E2617003088D7 /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4AF03208E2617003088D7 /* CommentTableViewController.swift */; };
 		F7A4AF06208E2989003088D7 /* Comment.model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4AF05208E2989003088D7 /* Comment.model.swift */; };
 		F7B313282026F736000AB6CD /* CourseCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B313272026F736000AB6CD /* CourseCategoryTableViewController.swift */; };
 		F7C1337820300CCF00B747EA /* ProfileUpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C1337720300CCF00B747EA /* ProfileUpdatePasswordViewController.swift */; };
@@ -145,9 +146,10 @@
 		89280523A7ADD259A797660E /* Pods_L2DUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_L2DUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7243197201A26F800C0D0A3 /* ProfileSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSegue.swift; sourceTree = "<group>"; };
 		F73B7D63201C8E98007A3C1E /* Network.model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.model.swift; sourceTree = "<group>"; };
+		F7764F032095FFD50099B9F5 /* CommentLeftTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentLeftTableViewCell.swift; sourceTree = "<group>"; };
+		F7764F072096030C0099B9F5 /* CommentRightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRightTableViewCell.swift; sourceTree = "<group>"; };
+		F7764F0B20960B4C0099B9F5 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		F7817AA32027103D000EBAB9 /* CourseInCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInCategoryTableViewCell.swift; sourceTree = "<group>"; };
-		F7A4AF01208E2513003088D7 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
-		F7A4AF03208E2617003088D7 /* CommentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewController.swift; sourceTree = "<group>"; };
 		F7A4AF05208E2989003088D7 /* Comment.model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.model.swift; sourceTree = "<group>"; };
 		F7B313272026F736000AB6CD /* CourseCategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCategoryTableViewController.swift; sourceTree = "<group>"; };
 		F7C1337720300CCF00B747EA /* ProfileUpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdatePasswordViewController.swift; sourceTree = "<group>"; };
@@ -383,8 +385,9 @@
 		F7A4AF00208E24C7003088D7 /* CommentControlGroup */ = {
 			isa = PBXGroup;
 			children = (
-				F7A4AF01208E2513003088D7 /* CommentTableViewCell.swift */,
-				F7A4AF03208E2617003088D7 /* CommentTableViewController.swift */,
+				F7764F032095FFD50099B9F5 /* CommentLeftTableViewCell.swift */,
+				F7764F072096030C0099B9F5 /* CommentRightTableViewCell.swift */,
+				F7764F0B20960B4C0099B9F5 /* CommentViewController.swift */,
 			);
 			path = CommentControlGroup;
 			sourceTree = "<group>";
@@ -698,21 +701,23 @@
 				32D772FC1F24BD660093F6A2 /* ProfileViewController.swift in Sources */,
 				F7C1337820300CCF00B747EA /* ProfileUpdatePasswordViewController.swift in Sources */,
 				32DFBE2B1F2B52BF008AA3DA /* BaseViewController.swift in Sources */,
+				F7764F092096030C0099B9F5 /* CommentRightTableViewCell.swift in Sources */,
 				3240809720205C7400352AD1 /* CourseSectionTableViewCell.swift in Sources */,
 				F7EAC85320602E4A0043B37D /* RateCourseViewController.swift in Sources */,
 				F7817AA42027103D000EBAB9 /* CourseInCategoryTableViewCell.swift in Sources */,
 				32A5370A1F28538F00E53CAC /* LoginSeque.swift in Sources */,
 				F7A4AF06208E2989003088D7 /* Comment.model.swift in Sources */,
 				32D440C9202947D50060F7C1 /* CourseHeaderCollectionViewCell.swift in Sources */,
-				F7A4AF04208E2617003088D7 /* CommentTableViewController.swift in Sources */,
 				32DFBE271F2B4DCE008AA3DA /* HomeViewController.swift in Sources */,
 				32D440C72028C3A50060F7C1 /* HomeCellButton.swift in Sources */,
 				32D772FA1F24BD5A0093F6A2 /* SearchViewController.swift in Sources */,
 				323D9DBA2015B22600C95B90 /* RegisterSeque.swift in Sources */,
 				32EA97381F26FA08006E90C1 /* ProfileCollectionViewCell.swift in Sources */,
 				32EA97361F26F9EC006E90C1 /* ProfileTableViewCell.swift in Sources */,
+				F7764F052095FFD50099B9F5 /* CommentLeftTableViewCell.swift in Sources */,
 				32EA973A1F274B69006E90C1 /* MainTabViewController.swift in Sources */,
 				325872DE2067A6270022244E /* CourseWithImgPath.swift in Sources */,
+				F7764F0C20960B4C0099B9F5 /* CommentViewController.swift in Sources */,
 				320AA34A1F29C9A100AE9428 /* Course.model.swift in Sources */,
 				32847E3A201F5B10002F60EC /* CoursePreviewTable.swift in Sources */,
 				320AA3431F29987100AE9428 /* MyCourseTableViewCell.swift in Sources */,
@@ -733,7 +738,6 @@
 				F73B7D64201C8E98007A3C1E /* Network.model.swift in Sources */,
 				F7EC3C042020846A00FE9058 /* SideMenuTableViewCell.swift in Sources */,
 				32F749491F2F18A0004A33DD /* CategoryCollectionViewCell.swift in Sources */,
-				F7A4AF02208E2513003088D7 /* CommentTableViewCell.swift in Sources */,
 				32F749501F2F1AE5004A33DD /* Category.model.swift in Sources */,
 				32F7494B1F2F18B6004A33DD /* CategoryViewController.swift in Sources */,
 				320A262C1F25D1A400DF92BD /* CourseListsCollectionViewCell.swift in Sources */,

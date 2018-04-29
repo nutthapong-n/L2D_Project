@@ -15,6 +15,7 @@ class Comment : NSObject {
     var message : String
     var dateTime : Date
     var idMember : Int
+    var subComment = [Comment]()
     
     init(name: String, message: String, dateTime: Date, idMember: Int){
         self.name = name
@@ -38,6 +39,15 @@ class Comment : NSObject {
                     var jsonComment = obj
                     
                     let a_comment = Comment(name: "\(jsonComment["member"]["name"]) \(jsonComment["member"]["surname"])", message: jsonComment["msg"].stringValue, dateTime: Date(timeIntervalSince1970: jsonComment["editTime"].doubleValue), idMember: jsonComment["member"]["idmember"].intValue)
+                    
+                    if(jsonComment["sub-dialogues"] != JSON.null){
+                        for(inner_index,inner_obj) in jsonComment["sub-dialogues"] {
+                            var jsonCommentInner = inner_obj
+                            let inner_comment = Comment(name: "\(jsonCommentInner["member"]["name"]) \(jsonCommentInner["member"]["surname"])", message: jsonCommentInner["msg"].stringValue, dateTime: Date(timeIntervalSince1970: jsonCommentInner["editTime"].doubleValue), idMember: jsonCommentInner["member"]["idmember"].intValue)
+                            
+                            a_comment.subComment.append(inner_comment)
+                        }
+                    }
                     
                     commentList.append(a_comment)
                 }
