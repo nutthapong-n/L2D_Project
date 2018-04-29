@@ -938,15 +938,16 @@ class Course : NSObject{
             "token": "key999",
         ]
         
-        Alamofire.request(url ,method: .get ,encoding: JSONEncoding.default, headers : headers).responseString{
+        Alamofire.request(url ,method: .get ,encoding: JSONEncoding.default, headers : headers).validate().responseString{
             response in switch response.result{
             case.success(let value):
                 let path = "http://158.108.207.7:8080/\(value)"
                 completion(path,nil)
             case.failure(let error):
                 
-                completion(nil,error.localizedDescription)
+                completion("",error.localizedDescription)
                 print(error)
+                print("Error getfile function")
             }
         }
 
