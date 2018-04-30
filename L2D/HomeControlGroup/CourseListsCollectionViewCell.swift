@@ -15,6 +15,8 @@ class CourseListsCollectionViewCell: UICollectionViewCell{
     @IBOutlet weak var shadowBox: UIView!
     @IBOutlet weak var c_name: UILabel!
     @IBOutlet weak var course_rating: CosmosView!
+    @IBOutlet weak var intstructor_img: UIImageView!
+    @IBOutlet weak var instructor_name: UILabel!
     var img : UIImage?
     
     
