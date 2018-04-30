@@ -24,52 +24,52 @@ class ReplyCommentViewController: BaseViewController, UITableViewDelegate, UITab
     
     @IBOutlet weak var BottomView: UIView!
     
-    var offsetY:CGFloat = 0
-    @objc func keyboardFrameChangeNotification(notification: Notification) {
-        if let userInfo = notification.userInfo {
-            let endFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
-            let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? Double ?? 0
-            let animationCurveRawValue = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? Int) ?? Int(UIViewAnimationOptions.curveEaseInOut.rawValue)
-            let animationCurve = UIViewAnimationOptions(rawValue: UInt(animationCurveRawValue))
-            if let _ = endFrame, endFrame!.intersects(self.BottomView.frame) {
-                self.offsetY = self.BottomView.frame.maxY - endFrame!.minY
-                UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
-                    self.BottomView.frame.origin.y = self.BottomView.frame.origin.y - self.offsetY
-                    
-                    //                    self.offsetY = self.BottomView.frame.maxY - endFrame!.minY
-                    self.ReplyCommentTable.frame.origin.y = self.ReplyCommentTable.frame.origin.y - self.offsetY
-                    
-                    if(self.subCommentData.count > 0){
-                        // -1 from max count to get index
-                        // +1 from main comment
-                        let indexPath = NSIndexPath(row: self.subCommentData.count - 1 + 1, section: 0)
-                        self.ReplyCommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
-                    }
-                    
-                }, completion: nil)
-                //                self.view.layoutIfNeeded()
-            } else {
-                if self.offsetY != 0 {
-                    UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
-                        self.BottomView.frame.origin.y = self.BottomView.frame.origin.y + self.offsetY
-                        
-                        self.ReplyCommentTable.frame.origin.y = self.ReplyCommentTable.frame.origin.y + self.offsetY
-                        
-                        if(self.subCommentData.count > 0){
-                            // -1 from max count to get index
-                            // +1 from main comment
-                            let indexPath = NSIndexPath(row: self.subCommentData.count - 1 + 1, section: 0)
-                            self.ReplyCommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
-                        }
-                        
-                        self.offsetY = 0
-                    }, completion: nil)
-                    //                    self.view.layoutIfNeeded()
-                }
-                
-            }
-        }
-    }
+//    var offsetY:CGFloat = 0
+//    @objc func keyboardFrameChangeNotification(notification: Notification) {
+//        if let userInfo = notification.userInfo {
+//            let endFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
+//            let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? Double ?? 0
+//            let animationCurveRawValue = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? Int) ?? Int(UIViewAnimationOptions.curveEaseInOut.rawValue)
+//            let animationCurve = UIViewAnimationOptions(rawValue: UInt(animationCurveRawValue))
+//            if let _ = endFrame, endFrame!.intersects(self.BottomView.frame) {
+//                self.offsetY = self.BottomView.frame.maxY - endFrame!.minY
+//                UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
+//                    self.BottomView.frame.origin.y = self.BottomView.frame.origin.y - self.offsetY
+//
+//                    //                    self.offsetY = self.BottomView.frame.maxY - endFrame!.minY
+//                    self.ReplyCommentTable.frame.origin.y = self.ReplyCommentTable.frame.origin.y - self.offsetY
+//
+//                    if(self.subCommentData.count > 0){
+//                        // -1 from max count to get index
+//                        // +1 from main comment
+//                        let indexPath = NSIndexPath(row: self.subCommentData.count - 1 + 1, section: 0)
+//                        self.ReplyCommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
+//                    }
+//
+//                }, completion: nil)
+//                //                self.view.layoutIfNeeded()
+//            } else {
+//                if self.offsetY != 0 {
+//                    UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
+//                        self.BottomView.frame.origin.y = self.BottomView.frame.origin.y + self.offsetY
+//
+//                        self.ReplyCommentTable.frame.origin.y = self.ReplyCommentTable.frame.origin.y + self.offsetY
+//
+//                        if(self.subCommentData.count > 0){
+//                            // -1 from max count to get index
+//                            // +1 from main comment
+//                            let indexPath = NSIndexPath(row: self.subCommentData.count - 1 + 1, section: 0)
+//                            self.ReplyCommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
+//                        }
+//
+//                        self.offsetY = 0
+//                    }, completion: nil)
+//                    //                    self.view.layoutIfNeeded()
+//                }
+//
+//            }
+//        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,9 +97,9 @@ class ReplyCommentViewController: BaseViewController, UITableViewDelegate, UITab
         //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
         //tap.cancelsTouchesInView = false
         
-        view.addGestureRecognizer(tap)
+//        view.addGestureRecognizer(tap)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardFrameChangeNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardFrameChangeNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {

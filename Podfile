@@ -11,6 +11,7 @@ target 'L2D' do
   pod 'SideMenu', '~> 3.1'
   pod 'Cosmos', '~> 15.0'
   pod 'GradientProgressBar', '~> 1.0'
+  pod 'IQKeyboardManagerSwift'
 
   target 'L2DTests' do
     inherit! :search_paths

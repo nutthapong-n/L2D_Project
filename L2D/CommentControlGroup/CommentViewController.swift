@@ -16,48 +16,48 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var BottomView: UIView!
     
-    var offsetY:CGFloat = 0
-    @objc func keyboardFrameChangeNotification(notification: Notification) {
-        if let userInfo = notification.userInfo {
-            let endFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
-            let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? Double ?? 0
-            let animationCurveRawValue = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? Int) ?? Int(UIViewAnimationOptions.curveEaseInOut.rawValue)
-            let animationCurve = UIViewAnimationOptions(rawValue: UInt(animationCurveRawValue))
-            if let _ = endFrame, endFrame!.intersects(self.BottomView.frame) {
-                self.offsetY = self.BottomView.frame.maxY - endFrame!.minY
-                UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
-                    self.BottomView.frame.origin.y = self.BottomView.frame.origin.y - self.offsetY
-                    
-//                    self.offsetY = self.BottomView.frame.maxY - endFrame!.minY
-                    self.CommentTable.frame.origin.y = self.CommentTable.frame.origin.y - self.offsetY
-                    if let count = self.commentData?.count {
-                        if(count > 0){
-                            let indexPath = NSIndexPath(row: (self.commentData?.count)! - 1, section: 0)
-                            self.CommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
-                        }
-                    }
-                }, completion: nil)
-//                self.view.layoutIfNeeded()
-            } else {
-                if self.offsetY != 0 {
-                    UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
-                        self.BottomView.frame.origin.y = self.BottomView.frame.origin.y + self.offsetY
-                        
-                        self.CommentTable.frame.origin.y = self.CommentTable.frame.origin.y + self.offsetY
-                        if let count = self.commentData?.count {
-                            if(count > 0){
-                                let indexPath = NSIndexPath(row: (self.commentData?.count)! - 1, section: 0)
-                                self.CommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
-                            }
-                        }
-                        self.offsetY = 0
-                    }, completion: nil)
-//                    self.view.layoutIfNeeded()
-                }
-                
-            }
-        }
-    }
+//    var offsetY:CGFloat = 0
+//    @objc func keyboardFrameChangeNotification(notification: Notification) {
+//        if let userInfo = notification.userInfo {
+//            let endFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
+//            let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? Double ?? 0
+//            let animationCurveRawValue = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? Int) ?? Int(UIViewAnimationOptions.curveEaseInOut.rawValue)
+//            let animationCurve = UIViewAnimationOptions(rawValue: UInt(animationCurveRawValue))
+//            if let _ = endFrame, endFrame!.intersects(self.BottomView.frame) {
+//                self.offsetY = self.BottomView.frame.maxY - endFrame!.minY
+//                UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
+//                    self.BottomView.frame.origin.y = self.BottomView.frame.origin.y - self.offsetY
+//
+////                    self.offsetY = self.BottomView.frame.maxY - endFrame!.minY
+//                    self.CommentTable.frame.origin.y = self.CommentTable.frame.origin.y - self.offsetY
+//                    if let count = self.commentData?.count {
+//                        if(count > 0){
+//                            let indexPath = NSIndexPath(row: (self.commentData?.count)! - 1, section: 0)
+//                            self.CommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
+//                        }
+//                    }
+//                }, completion: nil)
+////                self.view.layoutIfNeeded()
+//            } else {
+//                if self.offsetY != 0 {
+//                    UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
+//                        self.BottomView.frame.origin.y = self.BottomView.frame.origin.y + self.offsetY
+//
+//                        self.CommentTable.frame.origin.y = self.CommentTable.frame.origin.y + self.offsetY
+//                        if let count = self.commentData?.count {
+//                            if(count > 0){
+//                                let indexPath = NSIndexPath(row: (self.commentData?.count)! - 1, section: 0)
+//                                self.CommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
+//                            }
+//                        }
+//                        self.offsetY = 0
+//                    }, completion: nil)
+////                    self.view.layoutIfNeeded()
+//                }
+//
+//            }
+//        }
+//    }
     
     var courseName : String = "Comment" {
         didSet{
@@ -81,7 +81,7 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         textField.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardFrameChangeNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardFrameChangeNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         
         
         //Looks for single or multiple taps.
@@ -90,7 +90,7 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
         //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
         //tap.cancelsTouchesInView = false
         
-        view.addGestureRecognizer(tap)
+//        view.addGestureRecognizer(tap)
         
 //        let leftCommentNib = UINib(nibName: "CommentLeftTableViewCell", bundle: nil)
 //        self.CommentTable.register(leftCommentNib, forCellReuseIdentifier: "CommentLeft")
