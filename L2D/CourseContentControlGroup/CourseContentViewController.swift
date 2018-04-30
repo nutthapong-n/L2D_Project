@@ -33,6 +33,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     var timeCounter = 0
     var isPlaying = true
     var isShowDoc = false
+    var isInitPage = false
     var webViewTonConst: NSLayoutConstraint?
     var headerCell : CourseSectionHeaderTableViewCell?
     @IBOutlet weak var maxTime: UILabel!
@@ -49,6 +50,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     @IBOutlet weak var toggleScreenBtn: UIButton!
     @IBOutlet weak var videoWaiter: UIActivityIndicatorView!
     @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var comment_btn: UIButton!
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -211,6 +213,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 self.toggleStageBtn.alpha = 0
                 self.backBtn.alpha = 0
                 self.videoTitle.alpha = 0
+                self.comment_btn.alpha = 0
                 
             })
 
@@ -221,6 +224,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 self.toggleStageBtn.alpha = 1
                 self.backBtn.alpha = 1
                 self.videoTitle.alpha = 1
+                self.comment_btn.alpha = 1
             })
             timeCounter = 0
             onShow = true
@@ -377,8 +381,38 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         }else{
             return "Contents"
         }
-        
     }
+    
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        
+//        let view = UIView()
+//        view.backgroundColor = L2DColor.header_background
+//        
+//        let label = UILabel()
+//        
+//        label.textColor = UIColor.black
+//        
+//        
+//        if(section == 0){
+//            return nil
+//        }else if section == 1{
+//            label.text =  "Description"
+//        }else{
+//            label.text =  "Contents"
+//        }
+//        
+//        view.addSubview(label)
+//        return view
+//    }
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        if(section == 0){
+//            return 0
+//        }else{
+//            return 30
+//        }
+//        
+//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -401,6 +435,29 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         }else{
             return 100
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cellClass = cell.classForCoder
+        var cur_index : Int?
+        var this_index : Int?
+        if(cellClass == CourseSectionTableViewCell.self){
+            let myCell = cell as! CourseSectionTableViewCell
+            cur_index = self.sectionIndexing.index(of: self.currentSection!)
+            this_index = self.sectionIndexing.index(of: myCell.section_id!)
+
+        }else if(cellClass == CourseSubsectionTableViewCell.self ){
+            let myCell = cell as! CourseSubsectionTableViewCell
+            cur_index = self.sectionIndexing.index(of: self.currentSection!)
+            this_index = self.sectionIndexing.index(of: myCell.Subsection_id!)
+        }
+        if(!isInitPage && this_index != nil && cur_index != nil){
+            isInitPage = true
+            if(this_index! <= cur_index!){
+                self.table.scrollToRow(at: indexPath, at: UITableViewScrollPosition.middle, animated: true)
+            }
+        }
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -594,18 +651,14 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        var rowData = self.showCourse[indexPath.row]
+        let rowData = self.showCourse[indexPath.row]
         //isHeader
         if(indexPath.section == 0 || indexPath.section == 1){
         
         }else{
             if(rowData.type == 0){
                 let cell = self.table.cellForRow(at: indexPath) as! CourseSectionTableViewCell
-                var path = self.table.indexPath(for: cell)
-                print("path 1 : { section : \(path?.section)},{ row : \(path?.row)}")
-//                if path == nil {
-//                    cell = self.table.dequeueReusableCell(withIdentifier: "section", for: indexPath) as! CourseSectionTableViewCell
-//                }
+
                 if(rowData.isExpand == Expandsion.collapse){
                     table.beginUpdates()
                     closeAllExpand()
@@ -614,9 +667,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     cell.expandsion = true
                     rowData.isExpand = Expandsion.expand
                     
-                    path = self.table.indexPath(for: cell)
-                    
-                    print("path 2 : { section : \(path?.section)},{ row : \(path?.row)}")
                     for sec in (course?.section)!{
                         if(sec.id == cell.section_id){
                             let index = course?.section?.index(of: sec)
@@ -706,7 +756,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     
                     Course.updateProgress(CourseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, sectionId: cell.Subsection_id!, completion: {
                         (progressPercent) in
-//                        let tableHeader = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
 
                         self.headerCell?.progressBar.setProgress(progressPercent!/100, animated: true)
                     
@@ -724,13 +773,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 if(result){
                     sender.setTitle("Enroll now!", for: .normal)
                     sender.backgroundColor = UIColor(red:0.45, green: 0.988, blue:0.839, alpha:1.0)
-                    
-//                    let table_header = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
-                    
-//                    let ratingBar = table_header.ratingBar
-//                    ratingBar?.rating = 0.0
-//                    ratingBar?.isHidden = true
-                    
+
                     self.disableTable()
                     let rate_btn = self.headerCell?.rate_btn
                     rate_btn?.isHidden = true
@@ -837,19 +880,28 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 
                 self.showCourse.removeAll()
                 self.sectionIndexing.removeAll()
+                self.course = result
+                self.currentSection = result?.currentSection
                 for section in (result?.section!)!{
                     if(section.rank != 0){
                         self.sectionIndexing.append(section.id)
                         self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: "", fileType : .none ))
                     }
                     
+
                     for sub in section.subSection!{
                         self.sectionIndexing.append(sub.id)
+                        if(sub.id == self.currentSection){
+                            self.showCourse.last?.isExpand = Expandsion.expand
+                            for sub_2 in section.subSection!{
+                                self.showCourse.append(CourseForShow_Model(name: sub_2.name, id: sub_2.id, type: 1, fileKey: "", fileType : sub_2.type ))
+                            }
+                        }
+                        
                     }
                     
                 }
-                self.course = result
-                self.currentSection = result?.currentSection
+                
 //                self.player.displayView.titleLabel.text = self.course?.name
                 
                 self.table.reloadData()

@@ -75,7 +75,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
             }else{
 //                self.courses["slide"] = result
                 self.courses["top"] = result
-                self.homeTable.reloadRows(at: [IndexPath(row: 0, section: 0),IndexPath(row: 1, section: 0)], with: .fade)
+                self.homeTable.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
             }
             if(NewSuccess && TopSuccess){
                 refreshControl.endRefreshing()
@@ -91,7 +91,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
                 print("Error : \(errMsg ?? "") in func:actualizarDators")
             }else{
                 self.courses["new"] = result
-                self.homeTable.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .fade)
+                self.homeTable.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .fade)
             }
             if(NewSuccess && TopSuccess){
                 refreshControl.endRefreshing()
@@ -116,7 +116,6 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
             if(errMsg != nil){
                 self.myAlert(title: "Error", text: errMsg!)
             }else{
-                self.courses["slide"] = result
                 self.courses["top"] = result
                 
             }
@@ -194,7 +193,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         return detail.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 330
+        return 300
     }
     
 //    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
