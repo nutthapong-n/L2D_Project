@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder , UIApplicationDelegate {
@@ -23,6 +24,19 @@ class AppDelegate: UIResponder , UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor(red:0.015, green:0.341, blue:0.341, alpha:1.0)
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue) : UIColor.black]
         // Override point for customization after application launch.
+        
+        // IQKeyboard
+        IQKeyboardManager.shared.enable = true
+        
+        IQKeyboardManager.shared.enableDebugging = true
+        
+        IQKeyboardManager.shared.enableAutoToolbar = true
+        IQKeyboardManager.shared.overrideKeyboardAppearance = true
+        IQKeyboardManager.shared.keyboardAppearance = .dark
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared.shouldShowToolbarPlaceholder = false
+        IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "Dismiss"
+        
         return true
     }
     

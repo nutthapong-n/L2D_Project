@@ -78,8 +78,9 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
                 refreshControl.endRefreshing()
             })
         }else{
-            self.dataAry.removeAll()
-            self.myTableView.reloadData()
+//            self.dataAry.removeAll()
+//            self.myTableView.reloadData()
+            reloadData(type: 2, text: "")
             refreshControl.endRefreshing()
         }
         
@@ -149,8 +150,10 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
             reloadData(type: 1, text: searchBar.text!)
             print("search by instructor name")
         }else{
-            self.dataAry.removeAll()
-            self.myTableView.reloadData()
+//            self.dataAry.removeAll()
+//            self.myTableView.reloadData()
+            reloadData(type: 2, text: "")
+            print("Get All")
         }
     }
     
@@ -170,6 +173,7 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
     ///
     /// - Parameter type: 0 is course name
     ///                   1 is instructor name
+    ///                   2 is get all courses
     func reloadData(type : Int , text : String){
         switch type {
         case 0:
@@ -195,6 +199,16 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
                 }else{
                     self.dataAry = result!
                     
+                }
+                self.myTableView.reloadData()
+            })
+        case 2:
+            Course.getAllCourse(completion: { (result, errMsg) in
+                if(errMsg != nil){
+                    print(errMsg!)
+//                    self.dataAry.removeAll()
+                }else{
+                    self.dataAry = result!
                 }
                 self.myTableView.reloadData()
             })
@@ -272,6 +286,9 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
     
     override func viewDidAppear(_ animated: Bool) {
         print("sappear")
+        
+        // Get all
+        reloadData(type: 2, text: "")
     }
     
     //add delegate method for pushing to new detail controller

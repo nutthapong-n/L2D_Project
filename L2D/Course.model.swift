@@ -541,14 +541,14 @@ class Course : NSObject{
     
     
     
-    class func getAllCourse(completion : @escaping ( _ courseList:[Course]? , _ errorMessage:String?) -> Void){
+    class func getAllCourse(completion : @escaping ( _ courseList:[CourseWithImgPath]? , _ errorMessage:String?) -> Void){
         Alamofire.request(Network.IP_Address_Master+"/course",method : .get , encoding: JSONEncoding.default)
         .responseJSON{
     
                 response in switch response.result{
                     case .success(let value):
                         let json = JSON(value)
-                        var course = [Course]()
+                        var course = [CourseWithImgPath]()
                         
                         let result = json["response"]
                         if(result["status"] == false){
@@ -556,34 +556,44 @@ class Course : NSObject{
                             completion(nil,result["message"].stringValue)
                             return
                         }
-                        
-                        let courses = json["courses"]
     
+                        let courses = json["courses"]
+                        let numCourse = courses.count
+                        var numRecive = 0
                         for obj in courses{
-                            
                             let this_course = obj.1
-                            
-                            var currentSection = 0
-                            var percentProgress : Float = 0
-                            if(this_course["progress"] != JSON.null){
-                                currentSection = this_course["progress"]["sectionId"].intValue
-                                percentProgress = this_course["progress"]["percent"].floatValue
+                            let sections = this_course["sectionList"].arrayValue
+                            var imgKey = ""
+                            for sec in sections{
+                                if(sec["rank"].intValue == 0 && sec["contentType"].stringValue == "PICTURE" ){
+                                    imgKey = sec["content"].stringValue
+                                    break
+                                }
                             }
                             
-                            course.append(Course(
-                                id : Int(this_course["id"].stringValue)!,
-                                categoryId: this_course["categoryId"].stringValue == "" ? -1 : Int(this_course["categoryId"].stringValue)!,
-                                detail: this_course["detail"].stringValue,
-                                createdDate: this_course["createdDate"].stringValue == "" ? -1 : Float(this_course["createdDate"].stringValue)!,
-                                key: this_course["key"].stringValue,
-                                name : this_course["name"].stringValue,
-                                owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
-                                img: "",
-                                rating: this_course["rating"].doubleValue,
-                                rateCount: this_course["voter"].intValue,
-                                currentSection : currentSection,
-                                percentProgress : percentProgress
-                            ))
+                            getfile(key: imgKey, completion: { (path, error) in
+                                
+                                let newCourse = CourseWithImgPath(
+                                    id : Int(this_course["id"].stringValue)!,
+                                    categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
+                                    detail: this_course["detail"].stringValue,
+                                    createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
+                                    key: this_course["key"].stringValue,
+                                    name : this_course["name"].stringValue,
+                                    owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
+                                    path: path!,
+                                    rating: this_course["rating"].doubleValue,
+                                    rateCount: this_course["voter"].intValue)
+                                
+                                course.append(newCourse)
+                                numRecive = numRecive+1
+                                
+                                if(numRecive == numCourse){
+                                    completion(course, nil)
+                                }
+                                
+                            })
+                            
                         }
                     
                     completion(course,nil)
