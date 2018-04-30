@@ -60,6 +60,9 @@
 		F7764F092096030C0099B9F5 /* CommentRightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7764F072096030C0099B9F5 /* CommentRightTableViewCell.swift */; };
 		F7764F0C20960B4C0099B9F5 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7764F0B20960B4C0099B9F5 /* CommentViewController.swift */; };
 		F7817AA42027103D000EBAB9 /* CourseInCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7817AA32027103D000EBAB9 /* CourseInCategoryTableViewCell.swift */; };
+		F784BDB0209655BD004494EE /* ReplyCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F784BDAF209655BD004494EE /* ReplyCommentViewController.swift */; };
+		F784BDB220965701004494EE /* ReplyMainCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F784BDB120965701004494EE /* ReplyMainCommentTableViewCell.swift */; };
+		F784BDB420965714004494EE /* ReplySubCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F784BDB320965714004494EE /* ReplySubCommentTableViewCell.swift */; };
 		F7A4AF06208E2989003088D7 /* Comment.model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4AF05208E2989003088D7 /* Comment.model.swift */; };
 		F7B313282026F736000AB6CD /* CourseCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B313272026F736000AB6CD /* CourseCategoryTableViewController.swift */; };
 		F7C1337820300CCF00B747EA /* ProfileUpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C1337720300CCF00B747EA /* ProfileUpdatePasswordViewController.swift */; };
@@ -150,6 +153,9 @@
 		F7764F072096030C0099B9F5 /* CommentRightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRightTableViewCell.swift; sourceTree = "<group>"; };
 		F7764F0B20960B4C0099B9F5 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		F7817AA32027103D000EBAB9 /* CourseInCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInCategoryTableViewCell.swift; sourceTree = "<group>"; };
+		F784BDAF209655BD004494EE /* ReplyCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyCommentViewController.swift; sourceTree = "<group>"; };
+		F784BDB120965701004494EE /* ReplyMainCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyMainCommentTableViewCell.swift; sourceTree = "<group>"; };
+		F784BDB320965714004494EE /* ReplySubCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplySubCommentTableViewCell.swift; sourceTree = "<group>"; };
 		F7A4AF05208E2989003088D7 /* Comment.model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.model.swift; sourceTree = "<group>"; };
 		F7B313272026F736000AB6CD /* CourseCategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCategoryTableViewController.swift; sourceTree = "<group>"; };
 		F7C1337720300CCF00B747EA /* ProfileUpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdatePasswordViewController.swift; sourceTree = "<group>"; };
@@ -388,6 +394,9 @@
 				F7764F032095FFD50099B9F5 /* CommentLeftTableViewCell.swift */,
 				F7764F072096030C0099B9F5 /* CommentRightTableViewCell.swift */,
 				F7764F0B20960B4C0099B9F5 /* CommentViewController.swift */,
+				F784BDAF209655BD004494EE /* ReplyCommentViewController.swift */,
+				F784BDB120965701004494EE /* ReplyMainCommentTableViewCell.swift */,
+				F784BDB320965714004494EE /* ReplySubCommentTableViewCell.swift */,
 			);
 			path = CommentControlGroup;
 			sourceTree = "<group>";
@@ -714,9 +723,11 @@
 				323D9DBA2015B22600C95B90 /* RegisterSeque.swift in Sources */,
 				32EA97381F26FA08006E90C1 /* ProfileCollectionViewCell.swift in Sources */,
 				32EA97361F26F9EC006E90C1 /* ProfileTableViewCell.swift in Sources */,
+				F784BDB420965714004494EE /* ReplySubCommentTableViewCell.swift in Sources */,
 				F7764F052095FFD50099B9F5 /* CommentLeftTableViewCell.swift in Sources */,
 				32EA973A1F274B69006E90C1 /* MainTabViewController.swift in Sources */,
 				325872DE2067A6270022244E /* CourseWithImgPath.swift in Sources */,
+				F784BDB220965701004494EE /* ReplyMainCommentTableViewCell.swift in Sources */,
 				F7764F0C20960B4C0099B9F5 /* CommentViewController.swift in Sources */,
 				320AA34A1F29C9A100AE9428 /* Course.model.swift in Sources */,
 				32847E3A201F5B10002F60EC /* CoursePreviewTable.swift in Sources */,
@@ -733,6 +744,7 @@
 				320A262A1F25CCE400DF92BD /* CourseListsTableViewCell.swift in Sources */,
 				32165330201849940001000D /* Section.model.swift in Sources */,
 				320EE453201C7E4B00511558 /* User.model.swift in Sources */,
+				F784BDB0209655BD004494EE /* ReplyCommentViewController.swift in Sources */,
 				32D772F81F24BD4D0093F6A2 /* MyCourseViewController.swift in Sources */,
 				3276AB03203DCDB90078C611 /* BaseUICollectView.swift in Sources */,
 				F73B7D64201C8E98007A3C1E /* Network.model.swift in Sources */,

@@ -67,25 +67,7 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    var courseId : Int = 0 {
-        didSet{
-            Comment.getComment(courseId: courseId, completion: {
-                (result) in
-                
-                self.commentData = result!
-                
-                self.CommentTable.reloadData()
-                DispatchQueue.main.async(execute: {
-                    if let count = self.commentData?.count {
-                        if(count > 0){
-                            let indexPath = NSIndexPath(row: (self.commentData?.count)! - 1, section: 0)
-                            self.CommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
-                        }
-                    }
-                })
-            })
-        }
-    }
+    var courseId : Int? = nil
     
     var commentData : [Comment]?
     
@@ -128,6 +110,24 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
 //            textField.isHidden = true
             BottomView.isHidden = true
         }
+        
+        if(courseId != nil){
+            Comment.getComment(courseId: courseId!, completion: {
+                (result) in
+                
+                self.commentData = result!
+                
+                self.CommentTable.reloadData()
+                DispatchQueue.main.async(execute: {
+                    if let count = self.commentData?.count {
+                        if(count > 0){
+                            let indexPath = NSIndexPath(row: (self.commentData?.count)! - 1, section: 0)
+                            self.CommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
+                        }
+                    }
+                })
+            })
+        }
     }
     
     //Calls this function when the tap is recognized.
@@ -141,7 +141,7 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
         textField.resignFirstResponder()
         if(textField.text != nil){
             textField.allowsEditingTextAttributes = false
-            Comment.sendComment(courseId: self.courseId, memberId: (AppDelegate.userData?.idmember)!, message: textField.text!) { (result) in
+            Comment.sendComment(courseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, message: textField.text!, parentId: nil) { (result) in
                 self.commentData?.append(result!)
                 self.CommentTable.reloadData()
                 DispatchQueue.main.async(execute: {
@@ -233,6 +233,9 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
             //        dateFormatter.timeZone = NSTimeZone() as TimeZone!
             cell.dateTimeLabel.text = dateFormatter.string(from: a_comment.dateTime)
             
+//            print(a_comment.dateTime)
+            
+            
             if a_comment.subComment.count > 0 {
                 cell.moreCommentLabel.text = "More \(a_comment.subComment.count)."
                 cell.moreCommentLabel.isHidden = false
@@ -289,22 +292,39 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
     
      // MARK: - Navigation
      
-//     // In a storyboard-based application, you will often want to do a little preparation before navigation
-//     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//     // Get the new view controller using segue.destinationViewController.
-//     // Pass the selected object to the new view controller.
-//        if(segue.identifier == "CommentRight"){
-//            let cell = sender as! CommentRightTableViewCell
-//            let selectedIndex = self.CommentTable.indexPath(for: cell)
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+        if(segue.identifier == "RightComment"){
+            let cell = sender as! CommentRightTableViewCell
+            let selectedIndex = self.CommentTable.indexPath(for: cell)
 //            print(selectedIndex?.row ?? "0")
-//
-//        }else if(segue.identifier == "CommentLeft"){
-//            let cell = sender as! CommentLeftTableViewCell
-//            let selectedIndex = self.CommentTable.indexPath(for: cell)
+            
+            let dest = segue.destination as! ReplyCommentViewController
+            dest.commentMsg = cell.msgLabel.text!
+            dest.commentName = cell.nameLabel.text!
+            dest.commentDateTimeString = cell.dateTimeLabel.text!
+            dest.subCommentData = self.commentData![(selectedIndex?.row)!].subComment
+            dest.parentId = self.commentData![(selectedIndex?.row)!].idComment
+            dest.courseId = self.courseId!
+            
+
+        }else if(segue.identifier == "LeftComment"){
+            let cell = sender as! CommentLeftTableViewCell
+            let selectedIndex = self.CommentTable.indexPath(for: cell)
 //            print(selectedIndex?.row ?? "0")
-//        }
-//
-//     }
+            
+            let dest = segue.destination as! ReplyCommentViewController
+            dest.commentMsg = cell.msgLabel.text!
+            dest.commentName = cell.nameLabel.text!
+            dest.commentDateTimeString = cell.dateTimeLabel.text!
+            dest.subCommentData = self.commentData![(selectedIndex?.row)!].subComment
+            dest.parentId = self.commentData![(selectedIndex?.row)!].idComment
+            dest.courseId = self.courseId!
+        }
+
+     }
  
     
 
