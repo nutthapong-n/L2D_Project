@@ -47,6 +47,7 @@ class Comment : NSObject {
                     let a_comment = Comment(name: "\(jsonComment["member"]["name"]) \(jsonComment["member"]["surname"])", message: jsonComment["msg"].stringValue, dateTime: Date(timeIntervalSince1970: jsonComment["editTime"].doubleValue / 1000), idMember: jsonComment["member"]["idmember"].intValue, idComment: jsonComment["iddialogue"].intValue)
                     
                     if(jsonComment["sub-dialogues"] != JSON.null){
+                        
                         for(inner_index,inner_obj) in jsonComment["sub-dialogues"] {
                             var jsonCommentInner = inner_obj
                             let inner_comment = Comment(name: "\(jsonCommentInner["member"]["name"]) \(jsonCommentInner["member"]["surname"])", message: jsonCommentInner["msg"].stringValue, dateTime: Date(timeIntervalSince1970: jsonCommentInner["editTime"].doubleValue / 1000), idMember: jsonCommentInner["member"]["idmember"].intValue, idComment: jsonCommentInner["iddialogue"].intValue)

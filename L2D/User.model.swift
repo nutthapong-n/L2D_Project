@@ -59,6 +59,7 @@ class User_model: NSObject {
                 response in switch response.result{
                 case .success(let value):
                     let json = JSON(value)
+                    print(json)
                     let status = json["status"].rawString()
                     if( status != "false" || (username == "admin" && password == "admin")){
                         
@@ -81,6 +82,95 @@ class User_model: NSObject {
                     completion(false,1)
                 }
         }
+    }
+    
+    class func uploadPicture(image : UIImage, completion: @escaping (Bool) -> Void){
+        let url = "\(Network.IP_Address_Master)/files-up/member/picture"
+        
+//        let imageData = UIImagePNGRepresentation(image)!
+//
+//        let imageBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
+//
+//        let parameters: Parameters = [
+//            "file" : imageBase64,
+//            "memberId" : AppDelegate.userData?.idmember ?? 0
+//        ]
+        
+        let parameters: Parameters = [
+//            "file" : image,
+            "memberId" : AppDelegate.userData?.idmember ?? 0
+        ]
+        
+//        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).validate().responseJSON { (response) in
+//            switch response.result{
+//            case .success(let value):
+//                debugPrint(value)
+//                completion(true)
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//                completion(false)
+//            }
+//        }
+        
+        
+        
+        Alamofire.upload(multipartFormData: { (multipartFromData) in
+            multipartFromData.append(UIImagePNGRepresentation(image)!, withName: "file", fileName: "profile.png", mimeType: "image/png")
+//            for (key, value) in parameters {
+//                multipartFromData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
+//            }
+            if let myMemberId = AppDelegate.userData?.idmember{
+                var myId : Int = myMemberId
+                let memberIdData = Data(bytes: &myId, count: MemoryLayout.size(ofValue: myId))
+                
+                multipartFromData.append(memberIdData, withName: "memberId")
+            }
+        }, to: url) { (result) in
+            switch result {
+
+            case .success(let request, let streamingFromDisk, let streamFileURL):
+                request.uploadProgress(closure: { (progress) in
+                    print("Upload Progress : \(progress.fractionCompleted)")
+                })
+
+                request.responseJSON(completionHandler: { (response) in
+                    print(response.result.value!)
+                    completion(true)
+                })
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(false)
+            }
+        }
+        
+//        Alamofire.upload(multipartFormData: { (multipartFromData) in
+//            multipartFromData.append(UIImageJPEGRepresentation(image, 1)!, withName: "file", fileName: "profile.jpeg", mimeType: "image/jpeg")
+////            for (key, value) in parameters {
+////            multipartFromData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
+////            }
+//            if let myMemberId = AppDelegate.userData?.idmember{
+//                var myId : Int = myMemberId
+//                let memberIdData = Data(bytes: &myId, count: MemoryLayout.size(ofValue: myId))
+//
+//                multipartFromData.append(memberIdData, withName: "memberId")
+//            }
+//
+//
+//
+//        }
+//        , to: url, method: HTTPMethod.post, headers: nil) { (encodingResult) in
+//            switch encodingResult{
+//
+//            case .success(let request, let streamingFromDisk, let streamFileURL):
+//                request.responseJSON(completionHandler: { (response) in
+//                    debugPrint(response)
+//                    completion(true)
+//                })
+//            case .failure(let error):
+//                completion(false)
+//                debugPrint(error)
+//            }
+//        }
     }
 
 }
