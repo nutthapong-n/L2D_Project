@@ -12,6 +12,9 @@ import SafariServices
 import GradientProgressBar
 import AVKit
 
+
+
+
 class CourseContentViewController: BaseViewController , UITableViewDelegate , UITableViewDataSource{
 
     
@@ -30,7 +33,9 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     var timeCounter = 0
     var isPlaying = true
     var isShowDoc = false
+    var isInitPage = false
     var webViewTonConst: NSLayoutConstraint?
+    var headerCell : CourseSectionHeaderTableViewCell?
     @IBOutlet weak var maxTime: UILabel!
     
     @IBOutlet weak var toggleStageBtn: UIButton!
@@ -45,6 +50,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     @IBOutlet weak var toggleScreenBtn: UIButton!
     @IBOutlet weak var videoWaiter: UIActivityIndicatorView!
     @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var comment_btn: UIButton!
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -207,6 +213,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 self.toggleStageBtn.alpha = 0
                 self.backBtn.alpha = 0
                 self.videoTitle.alpha = 0
+                self.comment_btn.alpha = 0
                 
             })
 
@@ -217,6 +224,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 self.toggleStageBtn.alpha = 1
                 self.backBtn.alpha = 1
                 self.videoTitle.alpha = 1
+                self.comment_btn.alpha = 1
             })
             timeCounter = 0
             onShow = true
@@ -366,20 +374,52 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if(section == 0 || section == 2){
+        if(section == 0){
             return nil
+        }else if section == 1{
+            return "Description"
         }else{
             return "Contents"
         }
-        
     }
     
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        
+//        let view = UIView()
+//        view.backgroundColor = L2DColor.header_background
+//        
+//        let label = UILabel()
+//        
+//        label.textColor = UIColor.black
+//        
+//        
+//        if(section == 0){
+//            return nil
+//        }else if section == 1{
+//            label.text =  "Description"
+//        }else{
+//            label.text =  "Contents"
+//        }
+//        
+//        view.addSubview(label)
+//        return view
+//    }
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        if(section == 0){
+//            return 0
+//        }else{
+//            return 30
+//        }
+//        
+//    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(section == 0){
+        if(section == 0 || section == 1){
             return 1
         }else{
             return self.showCourse.count
@@ -389,12 +429,35 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if(indexPath.section == 1){
-            return 50
+            return 200
         }else if(indexPath.section == 2){
-            return 40
+            return 50
         }else{
             return 100
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cellClass = cell.classForCoder
+        var cur_index : Int?
+        var this_index : Int?
+        if(cellClass == CourseSectionTableViewCell.self){
+            let myCell = cell as! CourseSectionTableViewCell
+            cur_index = self.sectionIndexing.index(of: self.currentSection!)
+            this_index = self.sectionIndexing.index(of: myCell.section_id!)
+
+        }else if(cellClass == CourseSubsectionTableViewCell.self ){
+            let myCell = cell as! CourseSubsectionTableViewCell
+            cur_index = self.sectionIndexing.index(of: self.currentSection!)
+            this_index = self.sectionIndexing.index(of: myCell.Subsection_id!)
+        }
+        if(!isInitPage && this_index != nil && cur_index != nil){
+            isInitPage = true
+            if(this_index! <= cur_index!){
+                self.table.scrollToRow(at: indexPath, at: UITableViewScrollPosition.middle, animated: true)
+            }
+        }
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -427,6 +490,11 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             cell.titleLabel.text = self.course?.name
             self.videoTitle.text = self.course?.name
 
+            self.headerCell = cell
+            
+            return cell
+        }else if(indexPath.section == 1){//if is des
+            let cell = self.table.dequeueReusableCell(withIdentifier: "description", for: indexPath) as! CourseDesTableViewCell
             
             return cell
         }else{//is a section and sub section
@@ -436,6 +504,12 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 let cell = self.table.dequeueReusableCell(withIdentifier: "section", for: indexPath) as! CourseSectionTableViewCell
                 cell.section_id = section.id
                 cell.sec_label.text = section.name
+                
+                if(section.isExpand == Expandsion.expand){
+                    cell.expandsion = true
+                    cell.expand_img.isHighlighted = true
+                }
+                
                 
 
                 if(!isRegis){
@@ -500,66 +574,125 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     func closeAllExpand(){
         //for visible cell
-        let cells = self.table.visibleCells
-        for cell in cells{
-            let subPath = self.table.indexPath(for: cell)
-            if(cell.classForCoder == CourseSubsectionTableViewCell.self){
-                self.showCourse.remove(at: (subPath?.row)!)
-                table.beginUpdates()
-                table.deleteRows(at: [subPath!], with: .top)
-                table.endUpdates()
-            }else if(cell.classForCoder == CourseSectionTableViewCell.self){
-                let cell = table.cellForRow(at: subPath!) as! CourseSectionTableViewCell
-                cell.expandsion = false
-                cell.expand_img.isHighlighted = false
-            }
-        }
+//        let cells = self.table.visibleCells
         
-        //for invisible cell
+        
+        
+//        for acell in cells{
+//            var subPath = self.table.indexPath(for: acell)
+//            if(acell.classForCoder == CourseSubsectionTableViewCell.self){
+//                self.showCourse.remove(at: ((subPath?.row)! - removeCounter))
+//
+//                table.deleteRows(at: [subPath!], with: .none)
+//
+//                removeCounter += 1
+//            }else if(acell.classForCoder == CourseSectionTableViewCell.self){
+//                let cell = table.cellForRow(at: subPath!) as! CourseSectionTableViewCell
+//                if(cell.expandsion){
+//                    cell.expandsion = false
+//                    cell.expand_img.isHighlighted = false
+//                }
+//            }else{
+//
+//            }
+//        }
+        
+        var removeCounter = 0
+        table.beginUpdates()
+        //for all cell
         for sec in self.showCourse{
             let elemIndex = self.showCourse.index(of: sec)
-            let myIndexPath = IndexPath(row: elemIndex!, section: 1)
+            var myIndexPath = IndexPath(row: elemIndex!, section: 2)
+            myIndexPath.row += removeCounter
+            var isVibleCell = false
+            for indexPath in self.table.indexPathsForVisibleRows!{
+                if(indexPath.row == myIndexPath.row && indexPath.section == myIndexPath.section){
+                    isVibleCell = true
+                    break
+                }
+            }
+
+            
+            
             if(sec.type == 1){
                 self.showCourse.remove(at: elemIndex!)
                 table.deleteRows(at: [myIndexPath], with: .none)
+//                for cell in self.table.visibleCells{
+//                    let path = self.table.indexPath(for: cell)
+////                    print("{ row : \(path?.row)},{ section : \(path?.section)}")
+//                }
+                removeCounter += 1
             }else{
-                let myIndexPath = IndexPath(row: elemIndex!, section: 1)
-                let cell = table.cellForRow(at: myIndexPath) as! CourseSectionTableViewCell
-                cell.expandsion = false
-                cell.expand_img.isHighlighted = false
+
+                var aCell : CourseSectionTableViewCell
+                if(!isVibleCell){
+                    aCell =  table.dequeueReusableCell(withIdentifier: "section", for: myIndexPath) as! CourseSectionTableViewCell
+                }else{
+                    aCell = table.cellForRow(at: myIndexPath) as! CourseSectionTableViewCell
+                }
+                
+                if(sec.isExpand == Expandsion.expand){
+                    aCell.expandsion = false
+                    aCell.expand_img.isHighlighted = false
+                    sec.isExpand = Expandsion.collapse
+                }
+
+
             }
         }
+        table.endUpdates()
+//        for cell in self.table.visibleCells{
+//            let path = self.table.indexPath(for: cell)
+//            print("{ row : \(path?.row)},{ section : \(path?.section)}")
+//        }
+//        print("--------------------------")
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let rowData = self.showCourse[indexPath.row]
         //isHeader
-        if(indexPath.section == 0){
+        if(indexPath.section == 0 || indexPath.section == 1){
         
         }else{
-            if(self.showCourse[indexPath.row].type == 0){
-                let cell = tableView.cellForRow(at: indexPath) as! CourseSectionTableViewCell
-                if(!cell.expandsion){
+            if(rowData.type == 0){
+                let cell = self.table.cellForRow(at: indexPath) as! CourseSectionTableViewCell
+
+                if(rowData.isExpand == Expandsion.collapse){
+                    table.beginUpdates()
                     closeAllExpand()
+                    
+                    cell.expand_img.isHighlighted = true
+                    cell.expandsion = true
+                    rowData.isExpand = Expandsion.expand
+                    
                     for sec in (course?.section)!{
                         if(sec.id == cell.section_id){
                             let index = course?.section?.index(of: sec)
+                            
                             if var myCounter = index{
+                                
+                                
                                 for sub in sec.subSection!{
                                     myCounter += 1
+                                    
                                     self.showCourse.insert(CourseForShow_Model(name: sub.name , id: sub.id, type: 1, fileKey: sub.fileKEY, fileType : sub.type), at: myCounter)
                                     //                    self.showCourse.append(CourseForShow_Model(name: sub.name , id: sub.id, type: 1))
-                                    table.beginUpdates()
-                                    let myindexPath = IndexPath(row: myCounter, section: 1)
-                                    table.insertRows(at: [myindexPath] ,with: .top)
-                                    table.endUpdates()
+                                    
+                                    let myindexPath = IndexPath(row: myCounter, section: 2)
+                                    
+                                    table.insertRows(at: [myindexPath] ,with: .none)
+                                    
+                                    
+                                    
                                 }
-                                cell.expand_img.isHighlighted = true
-                                cell.expandsion = true
-                                break
+                                break;
                             }
                         }
                     }
+                    
+                    table.endUpdates()
                 }else{
                     closeAllExpand()
                 }
@@ -623,9 +756,8 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     
                     Course.updateProgress(CourseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, sectionId: cell.Subsection_id!, completion: {
                         (progressPercent) in
-                        let tableHeader = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
-                        
-                        tableHeader.progressBar.setProgress(progressPercent!/100, animated: true)
+
+                        self.headerCell?.progressBar.setProgress(progressPercent!/100, animated: true)
                     
                     })
                 })
@@ -641,21 +773,15 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 if(result){
                     sender.setTitle("Enroll now!", for: .normal)
                     sender.backgroundColor = UIColor(red:0.45, green: 0.988, blue:0.839, alpha:1.0)
-                    
-                    let table_header = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
-                    
-//                    let ratingBar = table_header.ratingBar
-//                    ratingBar?.rating = 0.0
-//                    ratingBar?.isHidden = true
-                    
+
                     self.disableTable()
-                    let rate_btn = table_header.rate_btn
+                    let rate_btn = self.headerCell?.rate_btn
                     rate_btn?.isHidden = true
                     
                     
                     self.userRating = 0.0
                     self.isRegis = false
-                    table_header.progressBar.isHidden = true
+                    self.headerCell?.progressBar.isHidden = true
                     self.videoRestrict = true
                     self.viewDidLoad()
                 }else{
@@ -754,19 +880,28 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 
                 self.showCourse.removeAll()
                 self.sectionIndexing.removeAll()
+                self.course = result
+                self.currentSection = result?.currentSection
                 for section in (result?.section!)!{
                     if(section.rank != 0){
                         self.sectionIndexing.append(section.id)
                         self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: "", fileType : .none ))
                     }
                     
+
                     for sub in section.subSection!{
                         self.sectionIndexing.append(sub.id)
+                        if(sub.id == self.currentSection){
+                            self.showCourse.last?.isExpand = Expandsion.expand
+                            for sub_2 in section.subSection!{
+                                self.showCourse.append(CourseForShow_Model(name: sub_2.name, id: sub_2.id, type: 1, fileKey: "", fileType : sub_2.type ))
+                            }
+                        }
+                        
                     }
                     
                 }
-                self.course = result
-                self.currentSection = result?.currentSection
+                
 //                self.player.displayView.titleLabel.text = self.course?.name
                 
                 self.table.reloadData()

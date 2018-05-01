@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum Expandsion{
+    case expand
+    case collapse
+}
+
 class CourseForShow_Model: NSObject {
 
     var name : String
@@ -15,6 +20,7 @@ class CourseForShow_Model: NSObject {
     var type : Int
     var fileKey : String
     var filetype : fileType
+    var isExpand : Expandsion
     
     init(name:String ,id:Int , type:Int , fileKey : String, fileType : fileType){
         self.name = name
@@ -22,5 +28,6 @@ class CourseForShow_Model: NSObject {
         self.type = type
         self.fileKey = fileKey
         self.filetype = fileType
+        self.isExpand = Expandsion.collapse
     }
 }

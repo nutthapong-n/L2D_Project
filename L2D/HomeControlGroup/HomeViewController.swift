@@ -13,33 +13,33 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
 
 //    var course:[Course]?
     var courses : [String : [Course]] = [
-        "slide" : [],
+//        "slide" : [],
         "new" : [],
         "top" : []
     ]
     var imgList : [Int:UIImage] = [:]
     var courseSaparator : [Course] = []
-    var detail = ["New course" ,"New Courses","Top Courses"]
+    var detail = ["New Courses","Top Courses"]
     var SlideShowcount = 0
     var currentRow = 0
-    var headerCell : HomeHeaderTableViewCell?
+//    var headerCell : HomeHeaderTableViewCell?
     var helloWorldTimer : Timer?
     
-    @objc func sayHello()
-    {
-        currentRow = 0
-        SlideShowcount += 1
-        
-        let collecttion = headerCell?.MyCollecttionView
-        
-        if  SlideShowcount  == courses["slide"]?.count
-        {
-            SlideShowcount = 0
-        }
-        
-        collecttion?.scrollToItem(at: IndexPath(item: SlideShowcount, section: 0), at: UICollectionViewScrollPosition.right, animated: true)
-        
-    }
+//    @objc func sayHello()
+//    {
+//        currentRow = 0
+//        SlideShowcount += 1
+//
+//        let collecttion = headerCell?.MyCollecttionView
+//
+//        if  SlideShowcount  == courses["slide"]?.count
+//        {
+//            SlideShowcount = 0
+//        }
+//
+//        collecttion?.scrollToItem(at: IndexPath(item: SlideShowcount, section: 0), at: UICollectionViewScrollPosition.right, animated: true)
+//
+//    }
     
     lazy var refreshControl : UIRefreshControl = {
         let rc = UIRefreshControl()
@@ -73,9 +73,9 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
             if(errMsg != nil){
                 self.myAlert(title: "Error", text: errMsg!)
             }else{
-                self.courses["slide"] = result
+//                self.courses["slide"] = result
                 self.courses["top"] = result
-                self.homeTable.reloadRows(at: [IndexPath(row: 0, section: 0),IndexPath(row: 1, section: 0)], with: .fade)
+                self.homeTable.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
             }
             if(NewSuccess && TopSuccess){
                 refreshControl.endRefreshing()
@@ -91,7 +91,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
                 print("Error : \(errMsg ?? "") in func:actualizarDators")
             }else{
                 self.courses["new"] = result
-                self.homeTable.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .fade)
+                self.homeTable.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .fade)
             }
             if(NewSuccess && TopSuccess){
                 refreshControl.endRefreshing()
@@ -116,7 +116,6 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
             if(errMsg != nil){
                 self.myAlert(title: "Error", text: errMsg!)
             }else{
-                self.courses["slide"] = result
                 self.courses["top"] = result
                 
             }
@@ -194,7 +193,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         return detail.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 250
+        return 300
     }
     
 //    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -210,27 +209,27 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         currentRow = indexPath.row
-        if indexPath.row == 0{
-           let cell = self.homeTable.dequeueReusableCell(withIdentifier: "table_head_list" , for: indexPath) as! HomeHeaderTableViewCell
-            
-            cell.MyCollecttionView.reloadData()
-            
-            cell.textLabel?.numberOfLines = 0
-            
-            
-            let itemWidth =  view.frame.width
-            let itemHeight = cell.MyCollecttionView.frame.height
-            let layout = UICollectionViewFlowLayout()
-            
-            layout.itemSize = CGSize(width:itemWidth, height:itemHeight)
-            layout.scrollDirection = UICollectionViewScrollDirection.horizontal
-            layout.minimumInteritemSpacing = 0
-            layout.minimumLineSpacing = 0
-            cell.MyCollecttionView.collectionViewLayout = layout
-            headerCell = cell
-            
-            return cell
-        }else{
+//        if indexPath.row == 0{
+//           let cell = self.homeTable.dequeueReusableCell(withIdentifier: "table_head_list" , for: indexPath) as! HomeHeaderTableViewCell
+//            
+//            cell.MyCollecttionView.reloadData()
+//            
+//            cell.textLabel?.numberOfLines = 0
+//            
+//            
+//            let itemWidth =  view.frame.width
+//            let itemHeight = cell.MyCollecttionView.frame.height
+//            let layout = UICollectionViewFlowLayout()
+//            
+//            layout.itemSize = CGSize(width:itemWidth, height:itemHeight)
+//            layout.scrollDirection = UICollectionViewScrollDirection.horizontal
+//            layout.minimumInteritemSpacing = 0
+//            layout.minimumLineSpacing = 0
+//            cell.MyCollecttionView.collectionViewLayout = layout
+//            headerCell = cell
+//            
+//            return cell
+//        }else{
 
            let cell = self.homeTable.dequeueReusableCell(withIdentifier: "table_list" , for: indexPath) as! CourseListsTableViewCell
             cell.MyCollecttionView.reloadData()
@@ -241,7 +240,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
             cell.header_btn.setTitle(label, for: .normal)
             cell.textLabel?.numberOfLines = 0
             return cell
-        }
+//        }
         
         
         
@@ -274,8 +273,6 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
         
         
         if(currentRow == 0){
-            courseSaparator =  courses["slide"]!
-        }else if(currentRow == 1){
             courseSaparator = courses["new"]!
         }else{
             courseSaparator = courses["top"]!
@@ -287,9 +284,9 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if(indexPath.item == 1 && helloWorldTimer == nil){
-            helloWorldTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(sayHello), userInfo: nil, repeats: true)
-        }
+//        if(indexPath.item == 1 && helloWorldTimer == nil){
+//            helloWorldTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(sayHello), userInfo: nil, repeats: true)
+//        }
     }
 
     
@@ -301,8 +298,6 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
         if(identifier != "\(currentRow)"){
             currentRow = Int(identifier!)!
             if(currentRow == 0){
-                courseSaparator =  courses["slide"]!
-            }else if(currentRow == 1){
                 courseSaparator = courses["new"]!
             }else{
                 courseSaparator = courses["top"]!
@@ -314,22 +309,6 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
         var thisCourseImg = self.imgList[thisCourse.id]
         
         if(identifier == "0"){
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseHeaderCollectionViewCell
-            
-            if(thisCourseImg == nil){
-                Course.fetchImgByURL(picUrl: thisCourse.imgPath, completion: { (myImage) in
-                    self.imgList[thisCourse.id] = myImage
-                    DispatchQueue.main.async {
-                        cell.img_header_btn.setBackgroundImage(myImage, for: .normal)
-                    }
-                })
-                thisCourseImg = UIImage(named: "download")
-            }
-            
-            cell.initCell(img: thisCourseImg!, id: thisCourse.id)
-            return cell
-            
-        }else if(identifier == "1"){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
             
             if(thisCourseImg == nil){
