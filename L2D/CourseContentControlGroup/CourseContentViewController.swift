@@ -438,25 +438,36 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cellClass = cell.classForCoder
-        var cur_index : Int?
-        var this_index : Int?
-        if(cellClass == CourseSectionTableViewCell.self){
-            let myCell = cell as! CourseSectionTableViewCell
-            cur_index = self.sectionIndexing.index(of: self.currentSection!)
-            this_index = self.sectionIndexing.index(of: myCell.section_id!)
-
-        }else if(cellClass == CourseSubsectionTableViewCell.self ){
-            let myCell = cell as! CourseSubsectionTableViewCell
-            cur_index = self.sectionIndexing.index(of: self.currentSection!)
-            this_index = self.sectionIndexing.index(of: myCell.Subsection_id!)
-        }
-        if(!isInitPage && this_index != nil && cur_index != nil){
-            isInitPage = true
-            if(this_index! <= cur_index!){
-                self.table.scrollToRow(at: indexPath, at: UITableViewScrollPosition.middle, animated: true)
+        if(!isInitPage){
+            
+            let cellClass = cell.classForCoder
+            var cur_index : Int?
+            var this_index : Int?
+            if(cellClass == CourseSectionTableViewCell.self){
+                let myCell = cell as! CourseSectionTableViewCell
+                cur_index = self.sectionIndexing.index(of: self.currentSection!)
+                this_index = self.sectionIndexing.index(of: myCell.section_id!)
+                
+            }else if(cellClass == CourseSubsectionTableViewCell.self ){
+                let myCell = cell as! CourseSubsectionTableViewCell
+                cur_index = self.sectionIndexing.index(of: self.currentSection!)
+                this_index = self.sectionIndexing.index(of: myCell.Subsection_id!)
+            }
+            
+            if(this_index != nil && cur_index != nil){
+                if(this_index! < cur_index!){
+//                    self.table.scrollToRow(at: indexPath, at: UITableViewScrollPosition.middle, animated: true)
+                    
+                }else if(this_index! == cur_index!){
+                    self.table.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.middle)
+//                    self.table.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.middle)
+                   
+                    
+                    isInitPage = true
+                }
             }
         }
+
 
     }
     
@@ -886,6 +897,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     if(section.rank != 0){
                         self.sectionIndexing.append(section.id)
                         self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: "", fileType : .none ))
+                        
                     }
                     
 
@@ -894,7 +906,8 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                         if(sub.id == self.currentSection){
                             self.showCourse.last?.isExpand = Expandsion.expand
                             for sub_2 in section.subSection!{
-                                self.showCourse.append(CourseForShow_Model(name: sub_2.name, id: sub_2.id, type: 1, fileKey: "", fileType : sub_2.type ))
+                                self.showCourse.append(CourseForShow_Model(name: sub_2.name, id: sub_2.id, type: 1, fileKey: sub_2.fileKEY, fileType : sub_2.type ))
+                                
                             }
                         }
                         

@@ -91,6 +91,7 @@ class LoginViewController: BaseViewController {
                             let viewColtrollers = self.navigationController?.viewControllers
                             let lenght = viewColtrollers?.count
                             let preView = viewColtrollers![lenght! - 2] as! CourseContentViewController
+                            preView.isInitPage = false
                             preView.videoRestrict = true
                             
                             self.navigationController?.popViewController(animated: true)
