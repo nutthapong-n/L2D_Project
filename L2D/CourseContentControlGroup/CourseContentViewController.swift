@@ -548,7 +548,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 
                 
                 if let index = self.sectionIndexing.index(of: cell.Subsection_id!), let curIndex = self.sectionIndexing.index(of: self.currentSection!){
-                    if( index  <=  curIndex){
+                    if( index  <  curIndex){
                         cell.name_label.textColor = UIColor.lightGray
                         if(cell.fileType == fileType.document){
                             cell.icon.image = UIImage(named: "pdf_disable")
@@ -744,7 +744,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                             if(preCell.classForCoder == CourseSubsectionTableViewCell.self){
                                 let mypreCell = preCell as! CourseSubsectionTableViewCell
                                 if let index = self.sectionIndexing.index(of: mypreCell.Subsection_id!){
-                                    if(curIndex >= index){
+                                    if(curIndex > index){
                                         mypreCell.name_label.textColor = UIColor.lightGray
                                         if(mypreCell.fileType == .video){
                                             mypreCell.icon.image = UIImage(named: "play_button_disable")
