@@ -116,15 +116,18 @@ class User_model: NSObject {
         
         Alamofire.upload(multipartFormData: { (multipartFromData) in
             multipartFromData.append(UIImagePNGRepresentation(image)!, withName: "file", fileName: "profile.png", mimeType: "image/png")
-//            for (key, value) in parameters {
+            for (key, value) in parameters {
 //                multipartFromData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
-//            }
-            if let myMemberId = AppDelegate.userData?.idmember{
-                var myId : Int = myMemberId
-                let memberIdData = Data(bytes: &myId, count: MemoryLayout.size(ofValue: myId))
-                
-                multipartFromData.append(memberIdData, withName: "memberId")
+              
             }
+//            if let myMemberId = AppDelegate.userData?.idmember{
+//                var myId : Int = myMemberId
+//                let memberIdData = Data(bytes: &myId, count: MemoryLayout.size(ofValue: myId))
+//
+//                multipartFromData.append(memberIdData, withName: "memberId")
+//            }
+            let myMemberId = "\(AppDelegate.userData?.idmember ?? 0)"
+            multipartFromData.append(myMemberId.data(using: String.Encoding.utf8)!, withName: "memberId")
         }, to: url) { (result) in
             switch result {
 
@@ -134,7 +137,8 @@ class User_model: NSObject {
                 })
 
                 request.responseJSON(completionHandler: { (response) in
-                    print(response.result.value!)
+//                    print(response.result.value!)
+                    print(response.result)
                     completion(true)
                 })
             case .failure(let error):

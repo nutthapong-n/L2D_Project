@@ -114,13 +114,13 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
     
     @IBAction func changeUserProfileClicked(_ sender: Any) {
         let imagePicker = UIImagePickerController()
-//        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-            imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary
-            imagePicker.allowsEditing = false
-            
-            self.present(imagePicker, animated: true)
-//        }
+        //        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = false
+        
+        self.present(imagePicker, animated: true)
+        //        }
     }
     
 //    func imagePickerController(_ picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!){
