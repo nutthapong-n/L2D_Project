@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate , UINavigationControllerDelegate {
     
-    var detail = ["New course" ,"Reccommend","In Trend"]
+    var detail = ["New course" ,"Recommended","In Trend"]
     
 //    @IBOutlet weak var homeTable: UITableView!
     @IBOutlet weak var imageView: UIImageView!
@@ -31,7 +31,7 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
         self.resignFirstResponder()
     }
     
-    var imagePicker = UIImagePickerController()
+ 
     
 //    var offsetY:CGFloat = 0
 //    @objc func keyboardFrameChangeNotification(notification: Notification) {
@@ -61,14 +61,14 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
         // Do any additional setup after loading the view.
         
         //Looks for single or multiple taps.
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         
         //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
         //tap.cancelsTouchesInView = false
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardFrameChangeNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         
-        view.addGestureRecognizer(tap)
+//        view.addGestureRecognizer(tap)
         setProfileInformation()
 
     }
@@ -113,19 +113,40 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
 //    }
     
     @IBAction func changeUserProfileClicked(_ sender: Any) {
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+        let imagePicker = UIImagePickerController()
+//        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
             imagePicker.delegate = self
             imagePicker.sourceType = .photoLibrary
             imagePicker.allowsEditing = false
             
-            self.present(imagePicker, animated: true, completion: nil)
-        }
+            self.present(imagePicker, animated: true)
+//        }
     }
     
-    func imagePickerController(_ picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!){
+//    func imagePickerController(_ picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!){
+//        self.dismiss(animated: true, completion: nil)
+//        print("select image done!")
+//        imageView.image = image
+//    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        {
+            User_model.uploadPicture(image: image, completion: { (result) in
+                if (result) {
+                    self.imageView.image = image
+                }else{
+                    print("upload error")
+                }
+            })
+//            self.imageView.image = image
+            
+        }else{
+            print("Error from image picker.")
+        }
+        
         self.dismiss(animated: true, completion: nil)
-        print("select image done!")
-        imageView.image = image
     }
     
     func setProfileInformation(){
@@ -138,8 +159,8 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
             "idmember" : AppDelegate.userData?.idmember ?? "",
             "name" : nameTextField.text ?? "",
             "surname" : surnameTextField.text ?? "",
-            "email" : emailTextField.text ?? "",
-            "profile" : ""
+            "email" : emailTextField.text ?? ""
+//            "profile" : ""
         ]
         
         Alamofire.request(Network.IP_Address_Master+"/member/update",method : .put, parameters : parameters , encoding: JSONEncoding.default)
