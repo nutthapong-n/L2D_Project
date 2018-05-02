@@ -18,13 +18,15 @@ class User_model: NSObject {
     var surname : String
     var email : String
     var type : String
+    var photoUrl : String
     
-    init(name:String ,idmember:Int ,surname:String ,email:String ,type:String){
+    init(name:String ,idmember:Int ,surname:String ,email:String ,type:String, photoUrl:String){
         self.name = name
         self.idmember = idmember
         self.surname = surname
         self.email = email
         self.type = type
+        self.photoUrl = photoUrl
     }
     
     class func getAllCat() -> [Category]{
@@ -68,7 +70,8 @@ class User_model: NSObject {
                             idmember : Int(json["idmember"].stringValue)!,
                             surname : json["surname"].stringValue,
                             email : json["email"].stringValue,
-                            type : json["type"].stringValue
+                            type : json["type"].stringValue,
+                            photoUrl: "http://158.108.207.7:8090/elearning/\(json["photoUrl"].stringValue)"
                             
                         )
                         
@@ -78,7 +81,7 @@ class User_model: NSObject {
                     }else{
                        completion(false,0)
                     }
-                case .failure(let _):
+                case .failure( _):
                     completion(false,1)
                 }
         }

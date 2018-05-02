@@ -84,7 +84,8 @@ class RegisterViewController: BaseViewController {
                                         idmember : Int(json["idmember"].stringValue)!,
                                         surname : json["surname"].stringValue,
                                         email : json["email"].stringValue,
-                                        type : json["type"].stringValue
+                                        type : json["type"].stringValue,
+                                        photoUrl: "http://158.108.207.7:8090/elearning/\(json["photoUrl"].stringValue)"
                                         
                                     )
                                     AppDelegate.hasLogin = true

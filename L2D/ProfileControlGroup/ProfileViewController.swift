@@ -153,6 +153,16 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
         nameTextField.text = AppDelegate.userData?.name
         surnameTextField.text = AppDelegate.userData?.surname
         emailTextField.text = AppDelegate.userData?.email
+        
+        var imgPath = AppDelegate.userData?.photoUrl
+        print("img Path : \(imgPath)")
+        Course.fetchImgByURL(picUrl: imgPath!, completion: { (myImage) in
+            
+            DispatchQueue.main.async {
+                self.imageView.image = myImage
+            }
+        })
+        imageView.image = UIImage()
     }
     @IBAction func updateProfileClicked(_ sender: Any) {
         let parameters: Parameters = [

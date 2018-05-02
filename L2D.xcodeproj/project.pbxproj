@@ -722,7 +722,6 @@
 				32A5370A1F28538F00E53CAC /* LoginSeque.swift in Sources */,
 				F7A4AF06208E2989003088D7 /* Comment.model.swift in Sources */,
 				32D440C9202947D50060F7C1 /* CourseHeaderCollectionViewCell.swift in Sources */,
-				F7A4AF04208E2617003088D7 /* CommentTableViewController.swift in Sources */,
 				3229F0962095D11A006A685B /* CourseDesTableViewCell.swift in Sources */,
 				32DFBE271F2B4DCE008AA3DA /* HomeViewController.swift in Sources */,
 				32D440C72028C3A50060F7C1 /* HomeCellButton.swift in Sources */,
