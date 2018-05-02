@@ -150,7 +150,7 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
                 }else{
                     print("upload error")
                     let errAlert = UIAlertController(title: "Error", message: "Uploading failed", preferredStyle: UIAlertControllerStyle.alert)
-                    let cancelBtn = UIAlertAction(title: "Calcel", style: UIAlertActionStyle.cancel, handler: nil)
+                    let cancelBtn = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
                     errAlert.addAction(cancelBtn)
                     self.present(errAlert, animated: true, completion: nil)
                 }
