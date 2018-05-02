@@ -141,7 +141,7 @@ class User_model: NSObject {
                     percentLebel?.text = String.init(format: "%.0f", progress.fractionCompleted * 100) + " %"
                 })
                 
-                request.responseJSON(completionHandler: { (response) in
+                request.validate().responseString(completionHandler: { (response) in
                     //                    print(response.result.value!)
                     print(response.result)
                     switch response.result {
