@@ -13,6 +13,7 @@ class CourseWithImgPath: NSObject {
     var name:String
     var owner:String
     var imgPath: String
+    var ownerImgPath : String
     var categoryId : Int
     var detail : String
     var createdDate : Float
@@ -21,7 +22,7 @@ class CourseWithImgPath: NSObject {
     var rating : Double
     var rateCount : Int
     
-    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, path:String, rating:Double, rateCount: Int) {
+    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, path:String, ownerImg:String, rating:Double, rateCount: Int) {
         self.id = id
         self.categoryId = categoryId
         self.detail = detail
@@ -30,6 +31,7 @@ class CourseWithImgPath: NSObject {
         self.name = name
         self.owner = owner
         self.imgPath = path
+        self.ownerImgPath = ownerImg
         self.rating = rating
         self.rateCount = rateCount
     }

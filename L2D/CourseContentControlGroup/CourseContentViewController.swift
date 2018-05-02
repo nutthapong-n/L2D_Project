@@ -36,6 +36,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     var isInitPage = false
     var webViewTonConst: NSLayoutConstraint?
     var headerCell : CourseSectionHeaderTableViewCell?
+    var thisOwnerImg : UIImage?
     @IBOutlet weak var maxTime: UILabel!
     
     @IBOutlet weak var toggleStageBtn: UIButton!
@@ -433,7 +434,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         }else if(indexPath.section == 2){
             return 50
         }else{
-            return 100
+            return 120
         }
     }
     
@@ -487,6 +488,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 cell.progressBar.isHidden = true
             }
             
+            
             cell.ratingBar.settings.fillMode = .precise
             cell.ratingBar.settings.updateOnTouch = false
             if(self.course != nil){
@@ -496,10 +498,22 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 }
                 cell.ratingBar.rating = (self.course?.rating)!
                 cell.progressBar.setProgress((self.course?.percentProgress)!/100, animated: true)
+                
+                if(thisOwnerImg == nil){
+                    Course.fetchImgByURL(picUrl: (self.course?.ownerImgPath)!, completion: { (myImage) in
+                        self.thisOwnerImg = myImage
+                        DispatchQueue.main.async {
+                            cell.insImage.image = myImage
+                        }
+                    })
+                    thisOwnerImg = UIImage(named: "user")
+                }
             }
+
 
             cell.titleLabel.text = self.course?.name
             self.videoTitle.text = self.course?.name
+            cell.insName.text = self.course?.owner
 
             self.headerCell = cell
             

@@ -18,6 +18,7 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         "top" : []
     ]
     var imgList : [Int:UIImage] = [:]
+    var ownerImgList : [Int:UIImage] = [:]
     var courseSaparator : [Course] = []
     var detail = ["New Courses","Top Courses"]
     var SlideShowcount = 0
@@ -307,6 +308,7 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
         let thisCourse = courseSaparator[indexPath.row]
         
         var thisCourseImg = self.imgList[thisCourse.id]
+        var thisOwnerImg = self.ownerImgList[thisCourse.id]
         
         if(identifier == "0"){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
@@ -321,12 +323,24 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
                 thisCourseImg = UIImage(named: "download")
             }
             
+            if(thisOwnerImg == nil){
+                Course.fetchImgByURL(picUrl: thisCourse.ownerImgPath, completion: { (myImage) in
+                    self.ownerImgList[thisCourse.id] = myImage
+                    DispatchQueue.main.async {
+                        cell.intstructor_img.image = myImage
+                    }
+                })
+                thisOwnerImg = UIImage(named: "user")
+            }
+            
             cell.initCell(img: thisCourseImg!, name: thisCourse.name , id : thisCourse.id)
             cell.course_rating.settings.updateOnTouch = false
             cell.course_rating.settings.fillMode = .precise
             let rateText = "\(thisCourse.rating) from \(thisCourse.rateCount) vote"
             cell.course_rating.text = thisCourse.rateCount > 1 ? "\(rateText)s" : rateText
             cell.course_rating.rating = thisCourse.rating
+            cell.instructor_name.text = thisCourse.owner
+//            cell.intstructor_img
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
@@ -341,12 +355,24 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
                 thisCourseImg = UIImage(named: "download")
             }
             
+            if(thisOwnerImg == nil){
+                Course.fetchImgByURL(picUrl: thisCourse.ownerImgPath, completion: { (myImage) in
+                    self.ownerImgList[thisCourse.id] = myImage
+                    DispatchQueue.main.async {
+                        cell.intstructor_img.image = myImage
+                    }
+                })
+                thisOwnerImg = UIImage(named: "user")
+            }
+            
             cell.initCell(img: thisCourseImg!, name: thisCourse.name , id : thisCourse.id)
             cell.course_rating.settings.updateOnTouch = false
             cell.course_rating.settings.fillMode = .precise
             let rateText = "\(thisCourse.rating) from \(thisCourse.rateCount) vote"
             cell.course_rating.text = thisCourse.rateCount > 1 ? "\(rateText)s" : rateText
             cell.course_rating.rating = thisCourse.rating
+            cell.instructor_name.text = thisCourse.owner
+
             return cell
         }
 

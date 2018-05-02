@@ -17,6 +17,8 @@ class CourseSectionHeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var ratingBar: CosmosView!
     @IBOutlet weak var rate_btn: UIButton!
     @IBOutlet weak var progressBar: GradientProgressBar!
+    @IBOutlet weak var insName: UILabel!
+    @IBOutlet weak var insImage: UIImageView!
     
     // set path PDF
 //    let remotePDFDocumentURLPath = "http://myweb.sabanciuniv.edu/rdehkharghani/files/2016/02/The-Morgan-Kaufmann-Series-in-Data-Management-Systems-Jiawei-Han-Micheline-Kamber-Jian-Pei-Data-Mining.-Concepts-and-Techniques-3rd-Edition-Morgan-Kaufmann-2011.pdf"
