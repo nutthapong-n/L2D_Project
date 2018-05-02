@@ -1,7 +1,6 @@
 PODS:
   - Alamofire (4.7.2)
   - Cosmos (15.0.0)
-  - GradientProgressBar (1.2.2)
   - IQKeyboardManagerSwift (6.0.2)
   - SideMenu (3.1.5)
   - SwiftyJSON (4.1.0)
@@ -9,19 +8,25 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.6)
   - Cosmos (~> 15.0)
-  - GradientProgressBar (~> 1.0)
   - IQKeyboardManagerSwift
   - SideMenu (~> 3.1)
   - SwiftyJSON (~> 4.0)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - Cosmos
+    - IQKeyboardManagerSwift
+    - SideMenu
+    - SwiftyJSON
+
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   Cosmos: a6dbd3d0baa0cc8f51f8598f7508d5a09d0a9ade
-  GradientProgressBar: 4c3394b31771270aa5ca29dc02d95127fe99664e
   IQKeyboardManagerSwift: 59d4b0e140bc546c3c76ae5bb35b3dafd10b8172
   SideMenu: 47dbf9e4d878062d8994aed43f6e4bf6c1fea30b
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: d351721c77b5d46b3213eeaf27560086a5099589
+PODFILE CHECKSUM: cb42efef67f84890a8993c2ef4b5ba6a5508ac6b
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0

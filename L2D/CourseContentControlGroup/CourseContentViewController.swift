@@ -9,7 +9,6 @@
 import UIKit
 import Cosmos
 import SafariServices
-import GradientProgressBar
 import AVKit
 
 

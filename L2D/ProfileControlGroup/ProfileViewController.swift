@@ -180,7 +180,7 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
                 self.imageView.image = myImage
             }
         })
-        imageView.image = UIImage()
+//        imageView.image = UIImage()
     }
     @IBAction func updateProfileClicked(_ sender: Any) {
         let parameters: Parameters = [
