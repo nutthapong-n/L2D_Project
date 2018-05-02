@@ -20,6 +20,9 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
     @IBOutlet weak var surnameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var profileTextField: UITextView!
+    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var changeUserProfilePicBtn: UIButton!
+    @IBOutlet weak var percentageLabel: UILabel!
     
     @IBAction func DismissKeyboardName(_ sender: Any) {
         self.resignFirstResponder()
@@ -70,6 +73,9 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
         
 //        view.addGestureRecognizer(tap)
         setProfileInformation()
+//        self.view.layoutIfNeeded()
+//        self.imageView.layer.cornerRadius = self.imageView.frame.size.width / 2
+//        self.imageView.clipsToBounds = true
 
     }
     
@@ -133,12 +139,22 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
         {
-            User_model.uploadPicture(image: image, completion: { (result) in
+            self.progressBar.setProgress(0.0, animated: false)
+            self.progressBar.isHidden = false
+            self.percentageLabel.text = "0%"
+            self.percentageLabel.isHidden = false
+            self.changeUserProfilePicBtn.isHidden = true
+            User_model.uploadPicture(image: image,progressBar: self.progressBar,percentLebel: self.percentageLabel, completion: { (result) in
                 if (result) {
                     self.imageView.image = image
                 }else{
                     print("upload error")
+                    let errAlert = UIAlertController(title: "Error", message: "Uploading failed", preferredStyle: UIAlertControllerStyle.alert)
+                    self.present(errAlert, animated: true, completion: nil)
                 }
+                self.progressBar.isHidden = true
+                self.changeUserProfilePicBtn.isHidden = false
+                self.percentageLabel.isHidden = true
             })
 //            self.imageView.image = image
             
@@ -154,8 +170,8 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
         surnameTextField.text = AppDelegate.userData?.surname
         emailTextField.text = AppDelegate.userData?.email
         
-        var imgPath = AppDelegate.userData?.photoUrl
-        print("img Path : \(imgPath)")
+        let imgPath = AppDelegate.userData?.photoUrl
+        print("img Path : \(imgPath ?? "")")
         Course.fetchImgByURL(picUrl: imgPath!, completion: { (myImage) in
             
             DispatchQueue.main.async {

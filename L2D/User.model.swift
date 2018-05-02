@@ -11,8 +11,8 @@ import Alamofire
 import SwiftyJSON
 
 class User_model: NSObject {
-
-
+    
+    
     var name: String
     var idmember: Int
     var surname : String
@@ -71,7 +71,7 @@ class User_model: NSObject {
                             surname : json["surname"].stringValue,
                             email : json["email"].stringValue,
                             type : json["type"].stringValue,
-                            photoUrl: "http://158.108.207.7:8090/elearning/\(json["photoUrl"].stringValue)"
+                            photoUrl: "\(Network.IP_Address_Master)/\(json["photoUrl"].stringValue)"
                             
                         )
                         
@@ -79,7 +79,7 @@ class User_model: NSObject {
                         
                         completion(true, -1)
                     }else{
-                       completion(false,0)
+                        completion(false,0)
                     }
                 case .failure( _):
                     completion(false,1)
@@ -87,62 +87,75 @@ class User_model: NSObject {
         }
     }
     
-    class func uploadPicture(image : UIImage, completion: @escaping (Bool) -> Void){
+    class func uploadPicture(image : UIImage,progressBar : UIProgressView?,percentLebel : UILabel?, completion: @escaping (Bool) -> Void){
         let url = "\(Network.IP_Address_Master)/files-up/member/picture"
         
-//        let imageData = UIImagePNGRepresentation(image)!
-//
-//        let imageBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
-//
-//        let parameters: Parameters = [
-//            "file" : imageBase64,
-//            "memberId" : AppDelegate.userData?.idmember ?? 0
-//        ]
+        //        let imageData = UIImagePNGRepresentation(image)!
+        //
+        //        let imageBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
+        //
+        //        let parameters: Parameters = [
+        //            "file" : imageBase64,
+        //            "memberId" : AppDelegate.userData?.idmember ?? 0
+        //        ]
         
         let parameters: Parameters = [
-//            "file" : image,
+            //            "file" : image,
             "memberId" : AppDelegate.userData?.idmember ?? 0
         ]
         
-//        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).validate().responseJSON { (response) in
-//            switch response.result{
-//            case .success(let value):
-//                debugPrint(value)
-//                completion(true)
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//                completion(false)
-//            }
-//        }
+        //        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).validate().responseJSON { (response) in
+        //            switch response.result{
+        //            case .success(let value):
+        //                debugPrint(value)
+        //                completion(true)
+        //            case .failure(let error):
+        //                print(error.localizedDescription)
+        //                completion(false)
+        //            }
+        //        }
         
         
         
         Alamofire.upload(multipartFormData: { (multipartFromData) in
             multipartFromData.append(UIImagePNGRepresentation(image)!, withName: "file", fileName: "profile.png", mimeType: "image/png")
             for (key, value) in parameters {
-//                multipartFromData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
-              
+                //                multipartFromData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
+                
             }
-//            if let myMemberId = AppDelegate.userData?.idmember{
-//                var myId : Int = myMemberId
-//                let memberIdData = Data(bytes: &myId, count: MemoryLayout.size(ofValue: myId))
-//
-//                multipartFromData.append(memberIdData, withName: "memberId")
-//            }
+            //            if let myMemberId = AppDelegate.userData?.idmember{
+            //                var myId : Int = myMemberId
+            //                let memberIdData = Data(bytes: &myId, count: MemoryLayout.size(ofValue: myId))
+            //
+            //                multipartFromData.append(memberIdData, withName: "memberId")
+            //            }
             let myMemberId = "\(AppDelegate.userData?.idmember ?? 0)"
             multipartFromData.append(myMemberId.data(using: String.Encoding.utf8)!, withName: "memberId")
         }, to: url) { (result) in
             switch result {
-
+                
             case .success(let request, let streamingFromDisk, let streamFileURL):
                 request.uploadProgress(closure: { (progress) in
                     print("Upload Progress : \(progress.fractionCompleted)")
+                    progressBar?.setProgress(Float(progress.fractionCompleted), animated: true)
+                    percentLebel?.text = String.init(format: "%.0f", progress.fractionCompleted * 100) + " %"
                 })
-
+                
                 request.responseJSON(completionHandler: { (response) in
-//                    print(response.result.value!)
+                    //                    print(response.result.value!)
                     print(response.result)
-                    completion(true)
+                    switch response.result {
+                        
+                    case .success(let value):
+                        print("response from API")
+                        print(value)
+                        completion(true)
+                    case .failure(let error):
+                        print("error")
+                        print(error.localizedDescription)
+                        completion(false)
+                    }
+                    
                 })
             case .failure(let error):
                 print(error.localizedDescription)
@@ -150,34 +163,34 @@ class User_model: NSObject {
             }
         }
         
-//        Alamofire.upload(multipartFormData: { (multipartFromData) in
-//            multipartFromData.append(UIImageJPEGRepresentation(image, 1)!, withName: "file", fileName: "profile.jpeg", mimeType: "image/jpeg")
-////            for (key, value) in parameters {
-////            multipartFromData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
-////            }
-//            if let myMemberId = AppDelegate.userData?.idmember{
-//                var myId : Int = myMemberId
-//                let memberIdData = Data(bytes: &myId, count: MemoryLayout.size(ofValue: myId))
-//
-//                multipartFromData.append(memberIdData, withName: "memberId")
-//            }
-//
-//
-//
-//        }
-//        , to: url, method: HTTPMethod.post, headers: nil) { (encodingResult) in
-//            switch encodingResult{
-//
-//            case .success(let request, let streamingFromDisk, let streamFileURL):
-//                request.responseJSON(completionHandler: { (response) in
-//                    debugPrint(response)
-//                    completion(true)
-//                })
-//            case .failure(let error):
-//                completion(false)
-//                debugPrint(error)
-//            }
-//        }
+        //        Alamofire.upload(multipartFormData: { (multipartFromData) in
+        //            multipartFromData.append(UIImageJPEGRepresentation(image, 1)!, withName: "file", fileName: "profile.jpeg", mimeType: "image/jpeg")
+        ////            for (key, value) in parameters {
+        ////            multipartFromData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
+        ////            }
+        //            if let myMemberId = AppDelegate.userData?.idmember{
+        //                var myId : Int = myMemberId
+        //                let memberIdData = Data(bytes: &myId, count: MemoryLayout.size(ofValue: myId))
+        //
+        //                multipartFromData.append(memberIdData, withName: "memberId")
+        //            }
+        //
+        //
+        //
+        //        }
+        //        , to: url, method: HTTPMethod.post, headers: nil) { (encodingResult) in
+        //            switch encodingResult{
+        //
+        //            case .success(let request, let streamingFromDisk, let streamFileURL):
+        //                request.responseJSON(completionHandler: { (response) in
+        //                    debugPrint(response)
+        //                    completion(true)
+        //                })
+        //            case .failure(let error):
+        //                completion(false)
+        //                debugPrint(error)
+        //            }
+        //        }
     }
-
+    
 }
