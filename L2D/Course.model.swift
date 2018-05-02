@@ -15,6 +15,7 @@ class Course : NSObject{
     var name:String
     var owner:String
     var imgPath: String
+    var ownerImgPath : String
     var categoryId : Int
     var detail : String
     var createdDate : Float
@@ -25,7 +26,7 @@ class Course : NSObject{
     var currentSection : Int
     var percentProgress : Float
     
-    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String , section : [Section_model], rating: Double, rateCount: Int, currentSection : Int, percentProgress : Float) {
+    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String, ownerImg:String , section : [Section_model], rating: Double, rateCount: Int, currentSection : Int, percentProgress : Float) {
         self.id = id
         self.categoryId = categoryId
         self.detail = detail
@@ -33,6 +34,7 @@ class Course : NSObject{
         self.key = key
         self.name = name
         self.owner = owner
+        self.ownerImgPath = ownerImg
         self.imgPath = img
         self.section = section
         self.rating = rating
@@ -41,7 +43,7 @@ class Course : NSObject{
         self.percentProgress = percentProgress
     }
     
-    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String, rating:Double, rateCount: Int, currentSection : Int,percentProgress : Float) {
+    init(id:Int ,categoryId:Int ,detail:String ,createdDate:Float ,key:String ,name:String ,owner:String, img:String, ownerImg:String, rating:Double, rateCount: Int, currentSection : Int,percentProgress : Float) {
         self.id = id
         self.categoryId = categoryId
         self.detail = detail
@@ -50,6 +52,7 @@ class Course : NSObject{
         self.name = name
         self.owner = owner
         self.imgPath = img
+        self.ownerImgPath = ownerImg
         self.rating = rating
         self.rateCount = rateCount
         self.currentSection = currentSection
@@ -273,6 +276,7 @@ class Course : NSObject{
                             name : this_course["name"].stringValue,
                             owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                             img: path!,
+                            ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
                             rating: this_course["rating"].doubleValue,
                             rateCount: this_course["voter"].intValue,
                             currentSection : currentSection,
@@ -344,6 +348,7 @@ class Course : NSObject{
                             name : this_course["name"].stringValue,
                             owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                             img: path!,
+                            ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
                             rating: this_course["rating"].doubleValue,
                             rateCount: this_course["voter"].intValue,
                             currentSection : currentSection,
@@ -411,6 +416,7 @@ class Course : NSObject{
                         name : courseJSON["name"].stringValue,
                         owner: courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["name"]) \(courseJSON["teacher"]["surname"])" : "",
                         img: "",
+                        ownerImg : courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["photoUrl"])" : "",
                         section : [],
                         rating: courseJSON["rating"].doubleValue,
                         rateCount: courseJSON["voter"].intValue,
@@ -491,6 +497,7 @@ class Course : NSObject{
                             name : courseJSON["name"].stringValue,
                             owner: courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["name"]) \(courseJSON["teacher"]["surname"])" : "",
                             img: "",
+                            ownerImg : courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["photoUrl"])" : "",
                             section : [],
                             rating: courseJSON["rating"].doubleValue,
                             rateCount: courseJSON["voter"].intValue,
@@ -582,6 +589,7 @@ class Course : NSObject{
                                     name : this_course["name"].stringValue,
                                     owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                                     path: path!,
+                                    ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
                                     rating: this_course["rating"].doubleValue,
                                     rateCount: this_course["voter"].intValue)
                                 
@@ -652,6 +660,7 @@ class Course : NSObject{
                             name : this_course["name"].stringValue,
                             owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                             img: path!,
+                            ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
                             rating: this_course["rating"].doubleValue,
                             rateCount: this_course["voter"].intValue,
                             currentSection : currentSection,
@@ -718,6 +727,7 @@ class Course : NSObject{
                             name : this_course["name"].stringValue,
                             owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                             img: path!,
+                            ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
                             rating: this_course["rating"].doubleValue,
                             rateCount: this_course["voter"].intValue,
                             currentSection : currentSection,
@@ -782,6 +792,7 @@ class Course : NSObject{
                                 name : this_course["name"].stringValue,
                                 owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                                 img: path!,
+                                ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
                                 rating: this_course["rating"].doubleValue,
                                 rateCount: this_course["voter"].intValue,
                                 currentSection : currentSection,
@@ -851,6 +862,7 @@ class Course : NSObject{
                             name : this_course["name"].stringValue,
                             owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                             path: path!,
+                            ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
                             rating: this_course["rating"].doubleValue,
                             rateCount: this_course["voter"].intValue)
                         
@@ -914,6 +926,7 @@ class Course : NSObject{
                             name : this_course["name"].stringValue,
                             owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
                             path: path!,
+                            ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
                             rating: this_course["rating"].doubleValue,
                             rateCount: this_course["voter"].intValue)
                         
