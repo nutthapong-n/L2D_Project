@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CourseDesTableViewCell: UITableViewCell {
+class CourseDesTableViewCell: UITableViewCell, UITextViewDelegate, UITextFieldDelegate {
     
     
     @IBOutlet weak var des_text: UITextView!
@@ -22,6 +22,11 @@ class CourseDesTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("end")
     }
 
 }

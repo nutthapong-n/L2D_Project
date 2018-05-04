@@ -130,8 +130,8 @@ class Course : NSObject{
         return course
     }
     
-    class func fetchImgByURL( picUrl : String, completion : @escaping ( _ image : UIImage) -> ()){
-                if(picUrl != ""){
+    class func fetchImgByURL( picUrl : String, completion : @escaping ( _ image : UIImage?) -> ()){
+                if(picUrl != "" && picUrl != "null"){
                     
                     let url = URL(string: picUrl)
                     
@@ -170,59 +170,8 @@ class Course : NSObject{
                     
                     
                 }else{
-                    completion(UIImage(named: "download")!)
+                    completion(nil)
                 }
-    }
-    
-    class func fetchImgByKey( img : String, completion : @escaping ( _ image : UIImage) -> ()){
-        if(img != ""){
-            Course.getfile(key: img, completion: { (path, error) in
-                if(error == nil){
-                    
-                    let url = URL(string: path!)
-                    
-                    let session = URLSession(configuration: .default)
-                    
-                    //creating a dataTask
-                    let getImageFromUrl = session.dataTask(with: url!) { (data, response, error) in
-                        
-                        //if there is any error
-                        if let e = error {
-                            //displaying the message
-                            print("Error Occurred: \(e)")
-                            
-                        } else {
-                            //in case of now error, checking wheather the response is nil or not
-                            if (response as? HTTPURLResponse) != nil {
-                                
-                                //checking if the response contains an image
-                                if let imageData = data {
-                                    
-                                    //getting the image
-                                    let myImg = UIImage(data: imageData)
-                                    completion(myImg!)
-                                    
-                                } else {
-                                    print("Image file is currupted")
-                                }
-                            } else {
-                                print("No response from server")
-                            }
-                        }
-                    }
-                    
-                    //starting the download task
-                    getImageFromUrl.resume()
-                    
-                    
-                }else{
-                    print(error!)
-                }
-                
-            })
-        }else{
-            completion(UIImage(named: "download")!)
-        }
     }
     
     class func getTopCourse(amount : Int, completion : @escaping (_ course:[Course]?, _ errorMessage:String?) -> ()){
@@ -266,28 +215,35 @@ class Course : NSObject{
                         }
                     }
                     
-                    Course.getfile(key: imgKey, completion: { (path, error) in
-                        courses.append(Course(
-                            id : this_course["id"].intValue,
-                            categoryId: this_course["categoryId"].intValue,
-                            detail: this_course["detail"].stringValue,
-                            createdDate: this_course["createdDate"].floatValue,
-                            key: this_course["key"].stringValue,
-                            name : this_course["name"].stringValue,
-                            owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
-                            img: path!,
-                            ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
-                            rating: this_course["rating"].doubleValue,
-                            rateCount: this_course["voter"].intValue,
-                            currentSection : currentSection,
-                            percentProgress : percentProgress
-                        ))
+                    courses.append(Course(
+                        id : this_course["id"].intValue,
+                        categoryId: this_course["categoryId"].intValue,
+                        detail: this_course["detail"].stringValue,
+                        createdDate: this_course["createdDate"].floatValue,
+                        key: this_course["key"].stringValue,
+                        name : this_course["name"].stringValue,
+                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
+                        img: "",
+                        ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
+                        rating: this_course["rating"].doubleValue,
+                        rateCount: this_course["voter"].intValue,
+                        currentSection : currentSection,
+                        percentProgress : percentProgress
+                    ))
+                    
+                    Course.getfile(key: imgKey, cid: this_course["id"].intValue, completion: { (path, cid, error) in
+                        for course in courses{
+                            if(cid == course.id){
+                                course.imgPath = path!
+                            }
+                        }
                         
                         numRecive = numRecive + 1
                         if(numRecive == numCourse){
                             completion(courses,nil)
                         }
                     })
+                    
                 }
                 
                 completion(courses,nil)
@@ -338,22 +294,28 @@ class Course : NSObject{
                         }
                     }
                     
-                    getfile(key: imgKey, completion: { (path, error) in
-                        courses.append(Course(
-                            id : this_course["id"].intValue,
-                            categoryId: this_course["categoryId"].intValue,
-                            detail: this_course["detail"].stringValue,
-                            createdDate: this_course["createdDate"].floatValue,
-                            key: this_course["key"].stringValue,
-                            name : this_course["name"].stringValue,
-                            owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
-                            img: path!,
-                            ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
-                            rating: this_course["rating"].doubleValue,
-                            rateCount: this_course["voter"].intValue,
-                            currentSection : currentSection,
-                            percentProgress : percentProgress
-                        ))
+                    courses.append(Course(
+                        id : this_course["id"].intValue,
+                        categoryId: this_course["categoryId"].intValue,
+                        detail: this_course["detail"].stringValue,
+                        createdDate: this_course["createdDate"].floatValue,
+                        key: this_course["key"].stringValue,
+                        name : this_course["name"].stringValue,
+                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
+                        img: "",
+                        ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
+                        rating: this_course["rating"].doubleValue,
+                        rateCount: this_course["voter"].intValue,
+                        currentSection : currentSection,
+                        percentProgress : percentProgress
+                    ))
+                    
+                    Course.getfile(key: imgKey, cid: this_course["id"].intValue, completion: { (path, cid, error) in
+                        for course in courses{
+                            if(cid == course.id){
+                                course.imgPath = path!
+                            }
+                        }
                         
                         numRecive = numRecive + 1
                         if(numRecive == numCourse){
@@ -578,22 +540,29 @@ class Course : NSObject{
                                 }
                             }
                             
-                            getfile(key: imgKey, completion: { (path, error) in
+                            let newCourse = CourseWithImgPath(
+                                id : Int(this_course["id"].stringValue)!,
+                                categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
+                                detail: this_course["detail"].stringValue,
+                                createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
+                                key: this_course["key"].stringValue,
+                                name : this_course["name"].stringValue,
+                                owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
+                                path: "",
+                                ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
+                                rating: this_course["rating"].doubleValue,
+                                rateCount: this_course["voter"].intValue)
+                            
+                            course.append(newCourse)
+                            
+                            getfile(key: imgKey, cid: this_course["id"].intValue, completion: { (path, cid,error)  in
                                 
-                                let newCourse = CourseWithImgPath(
-                                    id : Int(this_course["id"].stringValue)!,
-                                    categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
-                                    detail: this_course["detail"].stringValue,
-                                    createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
-                                    key: this_course["key"].stringValue,
-                                    name : this_course["name"].stringValue,
-                                    owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
-                                    path: path!,
-                                    ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
-                                    rating: this_course["rating"].doubleValue,
-                                    rateCount: this_course["voter"].intValue)
-                                
-                                course.append(newCourse)
+                                for c in course{
+                                    if(cid == c.id){
+                                        c.imgPath = path!
+                                    }
+                                }
+
                                 numRecive = numRecive+1
                                 
                                 if(numRecive == numCourse){
@@ -650,24 +619,32 @@ class Course : NSObject{
                         percentProgress = this_course["progress"]["percent"].floatValue
                     }
                     
-                    getfile(key: imgKey, completion: { (path, error) in
-                        let newCourse = Course(
-                            id : Int(this_course["id"].stringValue)!,
-                            categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
-                            detail: this_course["detail"].stringValue,
-                            createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
-                            key: this_course["key"].stringValue,
-                            name : this_course["name"].stringValue,
-                            owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
-                            img: path!,
-                            ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
-                            rating: this_course["rating"].doubleValue,
-                            rateCount: this_course["voter"].intValue,
-                            currentSection : currentSection,
-                            percentProgress : percentProgress
-                        )
+                    let newCourse = Course(
+                        id : Int(this_course["id"].stringValue)!,
+                        categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
+                        detail: this_course["detail"].stringValue,
+                        createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
+                        key: this_course["key"].stringValue,
+                        name : this_course["name"].stringValue,
+                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
+                        img: "",
+                        ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
+                        rating: this_course["rating"].doubleValue,
+                        rateCount: this_course["voter"].intValue,
+                        currentSection : currentSection,
+                        percentProgress : percentProgress
+                    )
+                    
+                    course.append(newCourse)
+                    
+                    getfile(key: imgKey, cid: this_course["id"].intValue, completion: { (path, cid, error) in
                         
-                        course.append(newCourse)
+                        for c in course{
+                            if(cid == c.id){
+                                c.imgPath = path!
+                            }
+                        }
+
                         numRecive = numRecive+1
                         
                         if(numRecive == numCourse){
@@ -717,7 +694,7 @@ class Course : NSObject{
                         percentProgress = this_course["progress"]["percent"].floatValue
                     }
                     
-                    getfile(key: imgKey, completion: { (path, error) in
+                    getfile(key: imgKey, cid: this_course["id"].intValue, completion: { (path, cid, error) in
                         completion(Course(
                             id : Int(this_course["id"].stringValue)!,
                             categoryId: Int(this_course["categoryId"].stringValue)!,
@@ -782,22 +759,30 @@ class Course : NSObject{
                             percentProgress = this_course["progress"]["sectionId"].floatValue
                         }
                         
-                        getfile(key: imgKey, completion: { (path, error) in
-                            course.append(Course(
-                                id : Int(this_course["id"].stringValue)!,
-                                categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
-                                detail: this_course["detail"].stringValue,
-                                createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
-                                key: this_course["key"].stringValue,
-                                name : this_course["name"].stringValue,
-                                owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
-                                img: path!,
-                                ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
-                                rating: this_course["rating"].doubleValue,
-                                rateCount: this_course["voter"].intValue,
-                                currentSection : currentSection,
-                                percentProgress : percentProgress
-                            ))
+                        course.append(Course(
+                            id : Int(this_course["id"].stringValue)!,
+                            categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
+                            detail: this_course["detail"].stringValue,
+                            createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
+                            key: this_course["key"].stringValue,
+                            name : this_course["name"].stringValue,
+                            owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
+                            img: "",
+                            ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
+                            rating: this_course["rating"].doubleValue,
+                            rateCount: this_course["voter"].intValue,
+                            currentSection : currentSection,
+                            percentProgress : percentProgress
+                        ))
+                        
+                        getfile(key: imgKey, cid: this_course["id"].intValue, completion: { (path, cid, error) in
+
+                            
+                            for c in course{
+                                if(cid == c.id){
+                                    c.imgPath = path!
+                                }
+                            }
                             
                             numRecive = numRecive + 1
                             if(numCourse == numRecive){
@@ -851,22 +836,30 @@ class Course : NSObject{
                         }
                     }
                     
-                    getfile(key: imgKey, completion: { (path, error) in
+                    let newCourse = CourseWithImgPath(
+                        id : Int(this_course["id"].stringValue)!,
+                        categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
+                        detail: this_course["detail"].stringValue,
+                        createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
+                        key: this_course["key"].stringValue,
+                        name : this_course["name"].stringValue,
+                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
+                        path: "",
+                        ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
+                        rating: this_course["rating"].doubleValue,
+                        rateCount: this_course["voter"].intValue)
+                    
+                    course.append(newCourse)
+                    
+                    getfile(key: imgKey, cid: this_course["id"].intValue, completion: { (path, cid, error) in
                         
-                        let newCourse = CourseWithImgPath(
-                            id : Int(this_course["id"].stringValue)!,
-                            categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
-                            detail: this_course["detail"].stringValue,
-                            createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
-                            key: this_course["key"].stringValue,
-                            name : this_course["name"].stringValue,
-                            owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
-                            path: path!,
-                            ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
-                            rating: this_course["rating"].doubleValue,
-                            rateCount: this_course["voter"].intValue)
                         
-                        course.append(newCourse)
+                        for c in course{
+                            if(c.id == cid){
+                                c.imgPath = path!
+                            }
+                        }
+
                         numRecive = numRecive+1
                         
                         if(numRecive == numCourse){
@@ -915,22 +908,30 @@ class Course : NSObject{
                         }
                     }
                     
-                    getfile(key: imgKey, completion: { (path, error) in
+                    let newCourse = CourseWithImgPath(
+                        id : Int(this_course["id"].stringValue)!,
+                        categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
+                        detail: this_course["detail"].stringValue,
+                        createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
+                        key: this_course["key"].stringValue,
+                        name : this_course["name"].stringValue,
+                        owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
+                        path: "",
+                        ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
+                        rating: this_course["rating"].doubleValue,
+                        rateCount: this_course["voter"].intValue)
+                    
+                    course.append(newCourse)
+                    
+                    getfile(key: imgKey, cid: this_course["id"].intValue, completion: { (path, cid, error) in
                         
-                        let newCourse = CourseWithImgPath(
-                            id : Int(this_course["id"].stringValue)!,
-                            categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
-                            detail: this_course["detail"].stringValue,
-                            createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
-                            key: this_course["key"].stringValue,
-                            name : this_course["name"].stringValue,
-                            owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
-                            path: path!,
-                            ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
-                            rating: this_course["rating"].doubleValue,
-                            rateCount: this_course["voter"].intValue)
                         
-                        course.append(newCourse)
+                        for c in course{
+                            if(c.id == cid){
+                                c.imgPath = path!
+                            }
+                        }
+                        
                         numRecive = numRecive+1
                         
                         if(numRecive == numCourse){
@@ -949,10 +950,10 @@ class Course : NSObject{
         
     }
     
-    class func getfile(key : String, completion : @escaping (_ filePath : String? , _ errorMessage:String?) -> Void){
+    class func getfile(key : String, cid : Int, completion : @escaping (_ filePath : String?, _ cid : Int? , _ errorMessage:String?) -> Void){
         
         if(key == ""){
-            completion("","found nil in key parameter")
+            completion("",cid,"found nil in key parameter")
             return
         }
         
@@ -965,10 +966,10 @@ class Course : NSObject{
             response in switch response.result{
             case.success(let value):
                 let path = "http://158.108.207.7:8080/\(value)"
-                completion(path,nil)
+                completion(path,cid,nil)
             case.failure(let error):
                 
-                completion("",error.localizedDescription)
+                completion("",cid,error.localizedDescription)
                 print(error)
                 print("Error getfile function")
             }

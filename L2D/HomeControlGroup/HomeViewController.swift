@@ -315,12 +315,18 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
             
             if(thisCourseImg == nil){
                 Course.fetchImgByURL(picUrl: thisCourse.imgPath, completion: { (myImage) in
-                    self.imgList[thisCourse.id] = myImage
-                    DispatchQueue.main.async {
-                        cell.img_btn.setBackgroundImage(myImage, for: .normal)
+                    if(myImage == nil){
+                        self.imgList[thisCourse.id] = UIImage(named: "download")
+                    }else{
+                        self.imgList[thisCourse.id] = myImage
+                        DispatchQueue.main.async {
+                            cell.img_btn.setBackgroundImage(myImage, for: .normal)
+                        }
                     }
+
                 })
-                thisCourseImg = UIImage(named: "download")
+                thisCourseImg = UIImage(named: "loading")
+                self.imgList[thisCourse.id] = thisCourseImg
             }
             
             if(thisOwnerImg == nil){
@@ -331,6 +337,7 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
                     }
                 })
                 thisOwnerImg = UIImage(named: "user")
+                self.ownerImgList[thisCourse.id] = thisOwnerImg
             }
             
             cell.initCell(img: thisCourseImg!, name: thisCourse.name , id : thisCourse.id)
@@ -340,6 +347,7 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
             cell.course_rating.text = thisCourse.rateCount > 1 ? "\(rateText)s" : rateText
             cell.course_rating.rating = thisCourse.rating
             cell.instructor_name.text = thisCourse.owner
+            cell.intstructor_img.image = thisOwnerImg
 //            cell.intstructor_img
             return cell
         }else{
@@ -347,12 +355,17 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
             
             if(thisCourseImg == nil){
                 Course.fetchImgByURL(picUrl: thisCourse.imgPath, completion: { (myImage) in
-                    self.imgList[thisCourse.id] = myImage
-                    DispatchQueue.main.async {
-                        cell.img_btn.setBackgroundImage(myImage, for: .normal)
+                    if(myImage == nil){
+                        self.imgList[thisCourse.id] = UIImage(named: "download")
+                    }else{
+                        self.imgList[thisCourse.id] = myImage
+                        DispatchQueue.main.async {
+                            cell.img_btn.setBackgroundImage(myImage, for: .normal)
+                        }
                     }
                 })
-                thisCourseImg = UIImage(named: "download")
+                thisCourseImg = UIImage(named: "loading")
+                self.imgList[thisCourse.id] = thisCourseImg
             }
             
             if(thisOwnerImg == nil){
@@ -363,6 +376,7 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
                     }
                 })
                 thisOwnerImg = UIImage(named: "user")
+                 self.ownerImgList[thisCourse.id] = thisOwnerImg
             }
             
             cell.initCell(img: thisCourseImg!, name: thisCourse.name , id : thisCourse.id)
@@ -372,6 +386,7 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
             cell.course_rating.text = thisCourse.rateCount > 1 ? "\(rateText)s" : rateText
             cell.course_rating.rating = thisCourse.rating
             cell.instructor_name.text = thisCourse.owner
+            cell.intstructor_img.image = thisOwnerImg
 
             return cell
         }

@@ -78,6 +78,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         
         self.present(alert, animated: true, completion: nil)
     }
+
     
     func setupPlayer( url : URL){
 
@@ -520,6 +521,9 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         }else if(indexPath.section == 1){//if is des
             let cell = self.table.dequeueReusableCell(withIdentifier: "description", for: indexPath) as! CourseDesTableViewCell
             
+            cell.des_text.text = self.course?.detail
+//            cell.des_text.layoutIfNeeded()
+            
             return cell
         }else{//is a section and sub section
             let sectionLocal = self.showCourse
@@ -725,7 +729,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 self.currentSection = cell.Subsection_id
                 
                 
-                Course.getfile(key: cell.fileKey!, completion: { (path, error) in
+                Course.getfile(key: cell.fileKey!, cid: (course?.id)!, completion: { (path,cid, error) in
                     cell.name_label.textColor = UIColor.lightGray
                     if(cell.fileType == .video){
                         let url = path
