@@ -15,8 +15,10 @@ class CourseDesTableViewCell: UITableViewCell, UITextViewDelegate, UITextFieldDe
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        des_text.delegate = self
         // Initialization code
     }
+    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

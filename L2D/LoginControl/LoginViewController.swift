@@ -19,9 +19,13 @@ class LoginViewController: BaseViewController {
     var backRequest : Bool?
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         login_button.layer.cornerRadius = 5
+
+//        UINavigationBar.appearance().barTintColor = UIColor.white
+        
         
         
         //Looks for single or multiple taps.

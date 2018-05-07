@@ -255,10 +255,6 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         
         let model = dataAry[indexPath.row]
         
-
-
-
-
         cell.id = model.id
         cell.cellLabel.text = model.name
         cell.ownerLabel.text = "Instructor: \(model.owner)"
@@ -276,9 +272,10 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
                     cell.course_img.image = self.imgList[cell.id!]
                 }
             })
-        }else{
-            cell.course_img.image = self.imgList[cell.id!]
+            self.imgList[cell.id!] = UIImage(named: "loading")
         }
+        
+        cell.course_img.image = self.imgList[cell.id!]
 
         
         return cell

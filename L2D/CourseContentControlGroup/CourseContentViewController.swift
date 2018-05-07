@@ -14,7 +14,7 @@ import AVKit
 
 
 
-class CourseContentViewController: BaseViewController , UITableViewDelegate , UITableViewDataSource{
+class CourseContentViewController: BaseViewController , UITableViewDelegate , UITableViewDataSource, UITextViewDelegate{
 
     
     
@@ -471,6 +471,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
 
 
     }
+
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(indexPath.section == 0){
@@ -520,6 +521,11 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             return cell
         }else if(indexPath.section == 1){//if is des
             let cell = self.table.dequeueReusableCell(withIdentifier: "description", for: indexPath) as! CourseDesTableViewCell
+            
+//            tableView.rowHeight = 50
+            
+            cell.des_text.delegate = self
+            
             
             cell.des_text.text = self.course?.detail
 //            cell.des_text.layoutIfNeeded()
@@ -882,6 +888,8 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         super.viewDidLoad()
         table.addSubview(self.refreshControl)
 
+//        table.estimatedRowHeight = 50
+        table.rowHeight = UITableViewAutomaticDimension
         
         Course.getCoureWithCheckRegis(id: courseId!) { (result, msg, isRegis, userRating) in
             if(msg != nil){
