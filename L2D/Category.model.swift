@@ -32,6 +32,15 @@ class Category : NSObject{
         cate.append(Category(name:"Helth",courseIdList:[Int]()))
         cate.append(Category(name:"Fitness",courseIdList:[Int]()))
         cate.append(Category(name:"Productivity",courseIdList:[Int]()))
+        
+        cate.sort { (c1, c2) -> Bool in
+            if(c2.name > c1.name){
+                return true
+            }else{
+                return false
+            }
+        }
+        
         return cate
     }
     
@@ -46,6 +55,15 @@ class Category : NSObject{
                     let this_category = obj.1
                     category.append(Category(name:"\(this_category["categoryName"])",courseIdList:this_category["courseList"].object as? [Int]))
                 }
+                
+                category.sort { (c1, c2) -> Bool in
+                    if(c2.name.uppercased() > c1.name.uppercased()){
+                        return true
+                    }else{
+                        return false
+                    }
+                }
+                
                 completion(category)
             case .failure(let error):
                 print(error)

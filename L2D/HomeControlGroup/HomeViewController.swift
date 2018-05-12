@@ -331,10 +331,13 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
             
             if(thisOwnerImg == nil){
                 Course.fetchImgByURL(picUrl: thisCourse.ownerImgPath, completion: { (myImage) in
-                    self.ownerImgList[thisCourse.id] = myImage
-                    DispatchQueue.main.async {
-                        cell.intstructor_img.image = myImage
+                    if(myImage != nil){
+                        self.ownerImgList[thisCourse.id] = myImage
+                        DispatchQueue.main.async {
+                            cell.intstructor_img.image = myImage
+                        }
                     }
+
                 })
                 thisOwnerImg = UIImage(named: "user")
                 self.ownerImgList[thisCourse.id] = thisOwnerImg

@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class User_model: NSObject {
     
-    
+    var username : String
     var name: String
     var idmember: Int
     var surname : String
@@ -20,13 +20,14 @@ class User_model: NSObject {
     var type : String
     var photoUrl : String
     
-    init(name:String ,idmember:Int ,surname:String ,email:String ,type:String, photoUrl:String){
+    init(username:String, name:String ,idmember:Int ,surname:String ,email:String ,type:String, photoUrl:String){
         self.name = name
         self.idmember = idmember
         self.surname = surname
         self.email = email
         self.type = type
         self.photoUrl = photoUrl
+        self.username = username
     }
     
     class func getAllCat() -> [Category]{
@@ -66,6 +67,7 @@ class User_model: NSObject {
                     if( status != "false" || (username == "admin" && password == "admin")){
                         
                         let user  = User_model(
+                            username: json["username"].stringValue,
                             name : json["name"].stringValue,
                             idmember : Int(json["idmember"].stringValue)!,
                             surname : json["surname"].stringValue,

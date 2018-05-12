@@ -430,7 +430,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if(indexPath.section == 1){
-            return 200
+            return 100
         }else if(indexPath.section == 2){
             return 50
         }else{
@@ -502,9 +502,11 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 
                 if(thisOwnerImg == nil){
                     Course.fetchImgByURL(picUrl: (self.course?.ownerImgPath)!, completion: { (myImage) in
-                        self.thisOwnerImg = myImage
-                        DispatchQueue.main.async {
-                            cell.insImage.image = myImage
+                        if(myImage  != nil){
+                            self.thisOwnerImg = myImage
+                            DispatchQueue.main.async {
+                                cell.insImage.image = myImage
+                            }
                         }
                     })
                     thisOwnerImg = UIImage(named: "user")
@@ -515,6 +517,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             cell.titleLabel.text = self.course?.name
             self.videoTitle.text = self.course?.name
             cell.insName.text = self.course?.owner
+            cell.insImage.image = thisOwnerImg
 
             self.headerCell = cell
             

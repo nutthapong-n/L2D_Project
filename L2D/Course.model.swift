@@ -572,11 +572,6 @@ class Course : NSObject{
                             })
                             
                         }
-                    
-                    completion(course,nil)
-                    
-                    
-//                        let array = json[0]["name"].rawString()
                 case .failure(let error):
                     print(error)
                     completion(nil,error.localizedDescription)
@@ -941,7 +936,6 @@ class Course : NSObject{
                     })
                     
                 }
-                completion(course,nil)
             case.failure(let error):
                 completion(nil,error.localizedDescription)
                 print(error)

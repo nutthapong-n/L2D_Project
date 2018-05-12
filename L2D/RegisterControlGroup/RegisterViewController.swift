@@ -80,6 +80,7 @@ class RegisterViewController: BaseViewController {
                                 let message  = json["message"]
                                 if(message != ""){
                                     let user  = User_model(
+                                        username: json["username"].stringValue,
                                         name : json["name"].stringValue,
                                         idmember : Int(json["idmember"].stringValue)!,
                                         surname : json["surname"].stringValue,
