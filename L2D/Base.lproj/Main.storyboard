@@ -2114,6 +2114,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="MY4-IM-5Wb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
+                            </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0OI-61-c06">
                                 <rect key="frame" x="82" y="108" width="250" height="30"/>
                                 <constraints>
@@ -2207,9 +2210,6 @@
                                     <action selector="DisMissKeyboardForUserName:" destination="gSP-vc-DkY" eventType="editingDidEndOnExit" id="Qb2-4j-Hkg"/>
                                 </connections>
                             </textField>
-                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="MY4-IM-5Wb">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -2548,7 +2548,7 @@
         <image name="user" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AuJ-w7-qds"/>
+        <segue reference="3i2-e4-53u"/>
         <segue reference="WwO-8L-XjA"/>
         <segue reference="zpI-Tb-1ZC"/>
     </inferredMetricsTieBreakers>

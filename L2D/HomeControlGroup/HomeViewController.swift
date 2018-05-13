@@ -108,6 +108,13 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
 
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let vc = self.navigationController?.viewControllers
+        
+        print("num of view in stack is \(vc?.count)")
+    }
+    
     override func loadView() {
         super.loadView()
         var TopSuccess : Bool = false

@@ -91,7 +91,7 @@ class RegisterViewController: BaseViewController {
                                     )
                                     AppDelegate.hasLogin = true
                                     AppDelegate.userData = user
-                                    if(self.backRequest != nil){
+                                    if(self.backRequest != nil && self.backRequest!){
                                         AppDelegate.reLoadRequest = true
                                         let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
                                         let preView = viewControllers[viewControllers.count - 3 ] as! CourseContentViewController
