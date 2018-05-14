@@ -120,64 +120,64 @@ class Course : NSObject{
     
     class func generateModelArray() -> [Course]{
         let course = [Course]()
-//        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 0,rateCount: 1))
-//        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 1,rateCount: 1))
-//        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 2,rateCount: 1))
-//        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 3,rateCount: 1))
-//        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 4,rateCount: 1))
-//        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 5,rateCount: 1))
-
+        //        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 0,rateCount: 1))
+        //        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 1,rateCount: 1))
+        //        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 2,rateCount: 1))
+        //        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 3,rateCount: 1))
+        //        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 4,rateCount: 1))
+        //        course.append(Course(id:1, categoryId:1, detail:"detail", createdDate:12221.13, key:"key", name: "Basic Prograamming",owner: "mit",img:"",rating: 5,rateCount: 1))
+        
         return course
     }
     
     class func fetchImgByURL( picUrl : String, completion : @escaping ( _ image : UIImage?) -> ()){
-                if(picUrl != "" && picUrl != "null"){
+        if(picUrl != "" && picUrl != "null"){
+            
+            let url = URL(string: picUrl)
+            
+            let session = URLSession(configuration: .default)
+            
+            //creating a dataTask
+            let getImageFromUrl = session.dataTask(with: url!) { (data, response, error) in
+                
+                //if there is any error
+                if let e = error {
+                    //displaying the message
+                    print("Error Occurred: \(e)")
                     
-                    let url = URL(string: picUrl)
-                    
-                    let session = URLSession(configuration: .default)
-                    
-                    //creating a dataTask
-                    let getImageFromUrl = session.dataTask(with: url!) { (data, response, error) in
+                } else {
+                    //in case of now error, checking wheather the response is nil or not
+                    if (response as? HTTPURLResponse) != nil {
                         
-                        //if there is any error
-                        if let e = error {
-                            //displaying the message
-                            print("Error Occurred: \(e)")
+                        //checking if the response contains an image
+                        if let imageData = data {
+                            
+                            //getting the image
+                            let myImg = UIImage(data: imageData)
+                            
+                            if(myImg == nil){
+                                return completion(UIImage(named: "account"))
+                            }else{
+                                completion(myImg!)
+                            }
+                            
                             
                         } else {
-                            //in case of now error, checking wheather the response is nil or not
-                            if (response as? HTTPURLResponse) != nil {
-                                
-                                //checking if the response contains an image
-                                if let imageData = data {
-                                    
-                                    //getting the image
-                                    let myImg = UIImage(data: imageData)
-                                    
-                                    if(myImg == nil){
-                                        return completion(UIImage(named: "account"))
-                                    }else{
-                                        completion(myImg!)
-                                    }
-                                    
-                                    
-                                } else {
-                                    print("Image file is currupted")
-                                }
-                            } else {
-                                print("No response from server")
-                            }
+                            print("Image file is currupted")
                         }
+                    } else {
+                        print("No response from server")
                     }
-                    
-                    //starting the download task
-                    getImageFromUrl.resume()
-                    
-                    
-                }else{
-                    completion(nil)
                 }
+            }
+            
+            //starting the download task
+            getImageFromUrl.resume()
+            
+            
+        }else{
+            completion(nil)
+        }
     }
     
     class func getTopCourse(amount : Int, completion : @escaping (_ course:[Course]?, _ errorMessage:String?) -> ()){
@@ -212,7 +212,7 @@ class Course : NSObject{
                         currentSection = this_course["progress"]["sectionId"].intValue
                         percentProgress = this_course["progrss"]["percent"].floatValue
                     }
-
+                    
                     var imgKey = ""
                     for sec in sections{
                         if(sec["rank"].intValue == 0 && sec["contentType"].stringValue == "PICTURE" ){
@@ -291,7 +291,7 @@ class Course : NSObject{
                         currentSection = this_course["progress"]["sectionId"].intValue
                         percentProgress = this_course["progress"]["percent"].floatValue
                     }
-
+                    
                     var imgKey = ""
                     for sec in sections{
                         if(sec["rank"].intValue == 0 && sec["contentType"].stringValue == "PICTURE" ){
@@ -328,7 +328,7 @@ class Course : NSObject{
                             completion(courses,nil)
                         }
                     })
-
+                    
                 }
                 
                 
@@ -401,7 +401,7 @@ class Course : NSObject{
                             rank: section["rank"].intValue,
                             subSection: [])
                         
-
+                        
                         let subSections = section["sub-section"].arrayValue
                         
                         for sub in subSections{
@@ -417,7 +417,7 @@ class Course : NSObject{
                             
                             thisSection.subSection?.append(thisSub)
                             
-
+                            
                         }
                         course.section?.append(thisSection)
                     }
@@ -435,7 +435,7 @@ class Course : NSObject{
         let urlString = "\(Network.IP_Address_Master)/course?courseId=\(id)"
         Alamofire.request(urlString,method : .get , encoding: JSONEncoding.default)
             .responseJSON{
-
+                
                 response in switch response.result{
                 case .success(let value):
                     let json = JSON(value)
@@ -457,21 +457,21 @@ class Course : NSObject{
                     }
                     
                     let course = Course(
-                            id : Int(courseJSON["id"].stringValue)!,
-                            categoryId: courseJSON["categoryId"].stringValue == "" ? -1 : Int(courseJSON["categoryId"].stringValue)!,
-                            detail: courseJSON["detail"].stringValue,
-                            createdDate: courseJSON["createdDate"].stringValue == "" ? -1 : Float(courseJSON["createdDate"].stringValue)!,
-                            key: courseJSON["key"].stringValue,
-                            name : courseJSON["name"].stringValue,
-                            owner: courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["name"]) \(courseJSON["teacher"]["surname"])" : "",
-                            img: "",
-                            ownerImg : courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["photoUrl"])" : "",
-                            section : [],
-                            rating: courseJSON["rating"].doubleValue,
-                            rateCount: courseJSON["voter"].intValue,
-                            currentSection : currentSection,
-                            percentProgress : percentProgress
-                        )
+                        id : Int(courseJSON["id"].stringValue)!,
+                        categoryId: courseJSON["categoryId"].stringValue == "" ? -1 : Int(courseJSON["categoryId"].stringValue)!,
+                        detail: courseJSON["detail"].stringValue,
+                        createdDate: courseJSON["createdDate"].stringValue == "" ? -1 : Float(courseJSON["createdDate"].stringValue)!,
+                        key: courseJSON["key"].stringValue,
+                        name : courseJSON["name"].stringValue,
+                        owner: courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["name"]) \(courseJSON["teacher"]["surname"])" : "",
+                        img: "",
+                        ownerImg : courseJSON["teacher"] != JSON.null ? "\(courseJSON["teacher"]["photoUrl"])" : "",
+                        section : [],
+                        rating: courseJSON["rating"].doubleValue,
+                        rateCount: courseJSON["voter"].intValue,
+                        currentSection : currentSection,
+                        percentProgress : percentProgress
+                    )
                     
                     let sections = courseJSON["sectionList"].arrayValue
                     
@@ -485,7 +485,7 @@ class Course : NSObject{
                         let subSections = section["sub-section"].arrayValue
                         
                         for sub in subSections{
-
+                            
                             
                             var type : fileType = .none
                             if (sub["contentType"].stringValue == "VIDEO"){
@@ -507,82 +507,82 @@ class Course : NSObject{
                     completion(course,nil)
                 case .failure(let error):
                     print(error)
-//                    completion(course)
+                    //                    completion(course)
                     completion(nil,error.localizedDescription)
-                    }
                 }
         }
+    }
     
     
     
     
     class func getAllCourse(completion : @escaping ( _ courseList:[CourseWithImgPath]? , _ errorMessage:String?) -> Void){
         Alamofire.request(Network.IP_Address_Master+"/course",method : .get , encoding: JSONEncoding.default)
-        .responseJSON{
-    
+            .responseJSON{
+                
                 response in switch response.result{
-                    case .success(let value):
-                        let json = JSON(value)
-                        var course = [CourseWithImgPath]()
-                        
-                        let result = json["response"]
-                        if(result["status"] == false){
-                            print(result["message"])
-                            completion(nil,result["message"].stringValue)
-                            return
+                case .success(let value):
+                    let json = JSON(value)
+                    var course = [CourseWithImgPath]()
+                    
+                    let result = json["response"]
+                    if(result["status"] == false){
+                        print(result["message"])
+                        completion(nil,result["message"].stringValue)
+                        return
+                    }
+                    
+                    let courses = json["courses"]
+                    let numCourse = courses.count
+                    var numRecive = 0
+                    for obj in courses{
+                        let this_course = obj.1
+                        let sections = this_course["sectionList"].arrayValue
+                        var imgKey = ""
+                        for sec in sections{
+                            if(sec["rank"].intValue == 0 && sec["contentType"].stringValue == "PICTURE" ){
+                                imgKey = sec["content"].stringValue
+                                break
+                            }
                         }
-    
-                        let courses = json["courses"]
-                        let numCourse = courses.count
-                        var numRecive = 0
-                        for obj in courses{
-                            let this_course = obj.1
-                            let sections = this_course["sectionList"].arrayValue
-                            var imgKey = ""
-                            for sec in sections{
-                                if(sec["rank"].intValue == 0 && sec["contentType"].stringValue == "PICTURE" ){
-                                    imgKey = sec["content"].stringValue
-                                    break
+                        
+                        let newCourse = CourseWithImgPath(
+                            id : Int(this_course["id"].stringValue)!,
+                            categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
+                            detail: this_course["detail"].stringValue,
+                            createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
+                            key: this_course["key"].stringValue,
+                            name : this_course["name"].stringValue,
+                            owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
+                            path: "",
+                            ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
+                            rating: this_course["rating"].doubleValue,
+                            rateCount: this_course["voter"].intValue)
+                        
+                        course.append(newCourse)
+                        
+                        getfile(key: imgKey, cid: this_course["id"].intValue, completion: { (path, cid,error)  in
+                            
+                            for c in course{
+                                if(cid == c.id){
+                                    c.imgPath = path!
                                 }
                             }
                             
-                            let newCourse = CourseWithImgPath(
-                                id : Int(this_course["id"].stringValue)!,
-                                categoryId: this_course["categoryId"] == JSON.null ? -1 : this_course["categoryId"].intValue ,
-                                detail: this_course["detail"].stringValue,
-                                createdDate: Float(this_course["createdDate"] != JSON.null ? this_course["createdDate"].stringValue : "0")!,
-                                key: this_course["key"].stringValue,
-                                name : this_course["name"].stringValue,
-                                owner: this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["name"]) \(this_course["teacher"]["surname"])" : "",
-                                path: "",
-                                ownerImg : this_course["teacher"] != JSON.null ? "\(this_course["teacher"]["photoUrl"])" : "",
-                                rating: this_course["rating"].doubleValue,
-                                rateCount: this_course["voter"].intValue)
+                            numRecive = numRecive+1
                             
-                            course.append(newCourse)
+                            if(numRecive == numCourse){
+                                completion(course, nil)
+                            }
                             
-                            getfile(key: imgKey, cid: this_course["id"].intValue, completion: { (path, cid,error)  in
-                                
-                                for c in course{
-                                    if(cid == c.id){
-                                        c.imgPath = path!
-                                    }
-                                }
-
-                                numRecive = numRecive+1
-                                
-                                if(numRecive == numCourse){
-                                    completion(course, nil)
-                                }
-                                
-                            })
-                            
-                        }
+                        })
+                        
+                    }
                 case .failure(let error):
                     print(error)
                     completion(nil,error.localizedDescription)
                 }
-            }
+        }
     }
     
     class func getMyCourse(completion : @escaping ( _ courseList : [Course]? , _ errorMessage:String?) -> Void){
@@ -645,7 +645,7 @@ class Course : NSObject{
                                 c.imgPath = path!
                             }
                         }
-
+                        
                         numRecive = numRecive+1
                         
                         if(numRecive == numCourse){
@@ -720,13 +720,13 @@ class Course : NSObject{
                     
                 }
         }
-            
+        
     }
     
     class func getCourseByCourseIdList(courseID : [Int], completion : @escaping (_ courseList:[Course]?,_ errorMessage:String?) -> Void){
         var course = [Course]()
         let coursesParameters = courseID.map{String($0)}.joined(separator: ",")
-        Alamofire.request(Network.IP_Address_Master+"/course?courseId=\(coursesParameters)",method : .get, encoding: JSONEncoding.default)
+        Alamofire.request(Network.IP_Address_Master+"/course?courseId=\(coursesParameters)&type=list",method : .get, encoding: JSONEncoding.default)
             .responseJSON{
                 
                 response in switch response.result{
@@ -777,7 +777,7 @@ class Course : NSObject{
                         ))
                         
                         getfile(key: imgKey, cid: this_course["id"].intValue, completion: { (path, cid, error) in
-
+                            
                             
                             for c in course{
                                 if(cid == c.id){
@@ -790,7 +790,7 @@ class Course : NSObject{
                                 completion(course,nil)
                             }
                         })
-
+                        
                     }
                     
                     
@@ -860,7 +860,7 @@ class Course : NSObject{
                                 c.imgPath = path!
                             }
                         }
-
+                        
                         numRecive = numRecive+1
                         
                         if(numRecive == numCourse){
@@ -960,7 +960,7 @@ class Course : NSObject{
         let url = "\(Network.IP_Address_Course)/api/stream?content=\(key)"
         let headers: HTTPHeaders = [
             "token": "key999",
-        ]
+            ]
         
         Alamofire.request(url ,method: .get ,encoding: JSONEncoding.default, headers : headers).validate().responseString{
             response in switch response.result{
@@ -974,7 +974,7 @@ class Course : NSObject{
                 print("Error getfile function")
             }
         }
-
+        
     }
     
     class func rateCourse(CourseId : Int, memberId : Int, rating : Double, completion : @escaping ( _ result : Bool , _ avgRating : Double?)-> Void){
@@ -995,7 +995,7 @@ class Course : NSObject{
                 completion(false,nil)
                 print(error)
             }
-//        completion(false)
+            //        completion(false)
         }
     }
     
@@ -1013,12 +1013,12 @@ class Course : NSObject{
             response in switch response.result{
             case.success(let value):
                 let json = JSON(value)
-//                print(json)
+                //                print(json)
                 let result = json["response"]
                 if(result["status"] == false){
                     print(result["message"])
-//                    completion(nil,result["message"].stringValue)
-//                    return
+                    //                    completion(nil,result["message"].stringValue)
+                    //                    return
                 }else{
                     completion(json["progress"]["percent"].floatValue)
                 }
@@ -1026,7 +1026,7 @@ class Course : NSObject{
                 print("update progress success")
                 
             case.failure(let error):
-//                completion(false)
+                //                completion(false)
                 print(error)
                 completion(nil)
             }

@@ -1165,15 +1165,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dc1-Vd-j2R">
                                 <rect key="frame" x="0.0" y="64" width="414" height="608"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VTH-vC-o6p" customClass="CosmosView" customModule="Cosmos">
-                                        <rect key="frame" x="34.666666666666657" y="268" width="345" height="137"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="starSize">
-                                                <real key="value" value="65"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bottom Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mvf-Sn-Js0">
                                         <rect key="frame" x="46" y="412" width="322" height="50"/>
                                         <constraints>
@@ -1209,11 +1200,8 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="6AG-xM-oC8" firstAttribute="trailing" secondItem="Mvf-Sn-Js0" secondAttribute="trailing" id="0Mm-Sd-O7K"/>
-                                    <constraint firstItem="Mvf-Sn-Js0" firstAttribute="top" secondItem="VTH-vC-o6p" secondAttribute="bottom" constant="7" id="24o-YM-6dt"/>
                                     <constraint firstItem="Mvf-Sn-Js0" firstAttribute="centerX" secondItem="jAy-Gm-Sbx" secondAttribute="centerX" id="4Lv-zQ-W7m"/>
                                     <constraint firstItem="6AG-xM-oC8" firstAttribute="top" secondItem="Dc1-Vd-j2R" secondAttribute="top" constant="131" id="BGU-jk-CXs"/>
-                                    <constraint firstItem="VTH-vC-o6p" firstAttribute="centerY" secondItem="Dc1-Vd-j2R" secondAttribute="centerY" constant="32.5" id="ERC-dm-UmJ"/>
-                                    <constraint firstItem="VTH-vC-o6p" firstAttribute="centerX" secondItem="Mvf-Sn-Js0" secondAttribute="centerX" id="Gs7-mU-CMy"/>
                                     <constraint firstItem="6AG-xM-oC8" firstAttribute="centerX" secondItem="Dc1-Vd-j2R" secondAttribute="centerX" id="Y40-gY-Dhr"/>
                                     <constraint firstItem="jAy-Gm-Sbx" firstAttribute="top" secondItem="Mvf-Sn-Js0" secondAttribute="bottom" constant="75" id="Z7l-CQ-T7E"/>
                                     <constraint firstItem="6AG-xM-oC8" firstAttribute="leading" secondItem="Dc1-Vd-j2R" secondAttribute="leading" constant="46" id="eXk-i5-AUk"/>
@@ -1221,13 +1209,25 @@
                                     <constraint firstItem="6AG-xM-oC8" firstAttribute="leading" secondItem="Mvf-Sn-Js0" secondAttribute="leading" id="wy8-2y-t69"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VTH-vC-o6p" customClass="CosmosView" customModule="Cosmos">
+                                <rect key="frame" x="35" y="332" width="345" height="137"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                        <real key="value" value="65"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Dc1-Vd-j2R" firstAttribute="centerX" secondItem="I1o-Ed-kaU" secondAttribute="centerX" id="9o8-Qc-XXJ"/>
+                            <constraint firstItem="VTH-vC-o6p" firstAttribute="centerX" secondItem="Mvf-Sn-Js0" secondAttribute="centerX" id="CgW-Rx-4Vp"/>
                             <constraint firstItem="Dc1-Vd-j2R" firstAttribute="leading" secondItem="I1o-Ed-kaU" secondAttribute="leading" id="I1K-xL-APj"/>
                             <constraint firstItem="Dc1-Vd-j2R" firstAttribute="top" secondItem="7At-2F-q0W" secondAttribute="top" id="OXE-TS-ZX6"/>
+                            <constraint firstItem="Mvf-Sn-Js0" firstAttribute="top" secondItem="VTH-vC-o6p" secondAttribute="bottom" constant="7" id="Qsq-Gs-0Tc"/>
                             <constraint firstItem="Dc1-Vd-j2R" firstAttribute="centerY" secondItem="I1o-Ed-kaU" secondAttribute="centerY" id="RDZ-Ia-bXd"/>
+                            <constraint firstItem="VTH-vC-o6p" firstAttribute="centerY" secondItem="I1o-Ed-kaU" secondAttribute="centerY" constant="32.5" id="veF-LI-Fkl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7At-2F-q0W"/>
                     </view>
@@ -1998,8 +1998,10 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BaD-Qr-13E">
                                 <rect key="frame" x="94" y="301" width="227" height="30"/>
-                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Confirm Update Password"/>
+                                <color key="backgroundColor" red="0.015686274509803921" green="0.3411764705882353" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Confirm Update Password">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="10"/>
@@ -2543,7 +2545,7 @@
         <image name="user" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3i2-e4-53u"/>
+        <segue reference="AuJ-w7-qds"/>
         <segue reference="WwO-8L-XjA"/>
         <segue reference="zpI-Tb-1ZC"/>
     </inferredMetricsTieBreakers>
