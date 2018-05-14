@@ -341,7 +341,7 @@ class Course : NSObject{
     }
     
     class func getCoureWithCheckRegis( id:Int , completion : @escaping (_ course: Course?, _ errorMessage:String?, _ isRegis:Bool?, _ userRating:Double?) -> ()){
-        let urlString = "\(Network.IP_Address_Master)/course/isRegis"
+        let urlString = "\(Network.IP_Address_Master)/course/isRegis?support=mobile"
         let user_id = AppDelegate.userData?.idmember
         let user_id_str = user_id != nil ? "\(user_id!)" : "0"
         let parameters: Parameters = ["memberId" : user_id_str,"courseId" : id ]

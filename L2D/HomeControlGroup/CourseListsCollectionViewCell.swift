@@ -29,9 +29,6 @@ class CourseListsCollectionViewCell: UICollectionViewCell{
 //        c_name.text = "Label"
     }
     
-    @IBAction func open_cause(_ sender: UIButton) {
-
-    }
     
     func initCell(img : UIImage , name : String , id : Int) {
         if(self.c_name != nil){

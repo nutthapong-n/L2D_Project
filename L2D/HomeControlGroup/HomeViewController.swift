@@ -173,7 +173,6 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         }
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -181,6 +180,8 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        let course_segue = segue as! CoursePreviewSegue
+        
+        self.storyboard
         
         if(segue.identifier == "sideBar"){
             
