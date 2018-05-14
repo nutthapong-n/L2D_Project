@@ -118,7 +118,7 @@ class User_model: NSObject {
         
         
         Alamofire.upload(multipartFormData: { (multipartFromData) in
-            multipartFromData.append(UIImageJPEGRepresentation(image, 0.2)!, withName: "file", fileName: "profile.jpg", mimeType: "image/jpg")
+            multipartFromData.append(UIImageJPEGRepresentation(image, 0.1)!, withName: "file", fileName: "profile.jpg", mimeType: "image/jpg")
             for (key, value) in parameters {
                 //                multipartFromData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
                 

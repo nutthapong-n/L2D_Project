@@ -266,16 +266,18 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         cell.course_star.rating = model.rating
         
         if(self.imgList[cell.id!] == nil){
+            print("send \(model.imgPath)")
             Course.fetchImgByURL(picUrl: model.imgPath, completion: { (myImage) in
                 self.imgList[cell.id!] = myImage
                 DispatchQueue.main.async {
+                    print("\(cell.id) path : \(indexPath.row) image : \(myImage)")
                     cell.course_img.image = self.imgList[cell.id!]
                 }
             })
             self.imgList[cell.id!] = UIImage(named: "loading")
         }
         
-        cell.course_img.image = self.imgList[cell.id!]
+//        cell.course_img.image = self.imgList[cell.id!]
 
         
         return cell

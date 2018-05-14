@@ -509,9 +509,11 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     })
                     thisOwnerImg = UIImage(named: "user")
                 }
+            }else{
+                thisOwnerImg = UIImage(named: "user")
             }
 
-
+            cell.insImage.image = thisOwnerImg
             cell.titleLabel.text = self.course?.name
             self.videoTitle.text = self.course?.name
             cell.insName.text = self.course?.owner
