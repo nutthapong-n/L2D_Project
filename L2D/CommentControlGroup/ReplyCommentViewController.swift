@@ -125,7 +125,7 @@ class ReplyCommentViewController: BaseViewController, UITableViewDelegate, UITab
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        if(textField.text != nil){
+        if(textField.text != nil && textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) != ""){
             textField.allowsEditingTextAttributes = false
             Comment.sendComment(courseId: self.courseId, memberId: (AppDelegate.userData?.idmember)!, message: textField.text!, parentId: self.parentId) { (result) in
                 self.subCommentData.append(result!)

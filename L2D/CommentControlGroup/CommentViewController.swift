@@ -16,48 +16,48 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var BottomView: UIView!
     
-//    var offsetY:CGFloat = 0
-//    @objc func keyboardFrameChangeNotification(notification: Notification) {
-//        if let userInfo = notification.userInfo {
-//            let endFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
-//            let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? Double ?? 0
-//            let animationCurveRawValue = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? Int) ?? Int(UIViewAnimationOptions.curveEaseInOut.rawValue)
-//            let animationCurve = UIViewAnimationOptions(rawValue: UInt(animationCurveRawValue))
-//            if let _ = endFrame, endFrame!.intersects(self.BottomView.frame) {
-//                self.offsetY = self.BottomView.frame.maxY - endFrame!.minY
-//                UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
-//                    self.BottomView.frame.origin.y = self.BottomView.frame.origin.y - self.offsetY
-//
-////                    self.offsetY = self.BottomView.frame.maxY - endFrame!.minY
-//                    self.CommentTable.frame.origin.y = self.CommentTable.frame.origin.y - self.offsetY
-//                    if let count = self.commentData?.count {
-//                        if(count > 0){
-//                            let indexPath = NSIndexPath(row: (self.commentData?.count)! - 1, section: 0)
-//                            self.CommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
-//                        }
-//                    }
-//                }, completion: nil)
-////                self.view.layoutIfNeeded()
-//            } else {
-//                if self.offsetY != 0 {
-//                    UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
-//                        self.BottomView.frame.origin.y = self.BottomView.frame.origin.y + self.offsetY
-//
-//                        self.CommentTable.frame.origin.y = self.CommentTable.frame.origin.y + self.offsetY
-//                        if let count = self.commentData?.count {
-//                            if(count > 0){
-//                                let indexPath = NSIndexPath(row: (self.commentData?.count)! - 1, section: 0)
-//                                self.CommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
-//                            }
-//                        }
-//                        self.offsetY = 0
-//                    }, completion: nil)
-////                    self.view.layoutIfNeeded()
-//                }
-//
-//            }
-//        }
-//    }
+    //    var offsetY:CGFloat = 0
+    //    @objc func keyboardFrameChangeNotification(notification: Notification) {
+    //        if let userInfo = notification.userInfo {
+    //            let endFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
+    //            let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? Double ?? 0
+    //            let animationCurveRawValue = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? Int) ?? Int(UIViewAnimationOptions.curveEaseInOut.rawValue)
+    //            let animationCurve = UIViewAnimationOptions(rawValue: UInt(animationCurveRawValue))
+    //            if let _ = endFrame, endFrame!.intersects(self.BottomView.frame) {
+    //                self.offsetY = self.BottomView.frame.maxY - endFrame!.minY
+    //                UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
+    //                    self.BottomView.frame.origin.y = self.BottomView.frame.origin.y - self.offsetY
+    //
+    ////                    self.offsetY = self.BottomView.frame.maxY - endFrame!.minY
+    //                    self.CommentTable.frame.origin.y = self.CommentTable.frame.origin.y - self.offsetY
+    //                    if let count = self.commentData?.count {
+    //                        if(count > 0){
+    //                            let indexPath = NSIndexPath(row: (self.commentData?.count)! - 1, section: 0)
+    //                            self.CommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
+    //                        }
+    //                    }
+    //                }, completion: nil)
+    ////                self.view.layoutIfNeeded()
+    //            } else {
+    //                if self.offsetY != 0 {
+    //                    UIView.animate(withDuration: animationDuration, delay: TimeInterval(0), options: animationCurve, animations: {
+    //                        self.BottomView.frame.origin.y = self.BottomView.frame.origin.y + self.offsetY
+    //
+    //                        self.CommentTable.frame.origin.y = self.CommentTable.frame.origin.y + self.offsetY
+    //                        if let count = self.commentData?.count {
+    //                            if(count > 0){
+    //                                let indexPath = NSIndexPath(row: (self.commentData?.count)! - 1, section: 0)
+    //                                self.CommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
+    //                            }
+    //                        }
+    //                        self.offsetY = 0
+    //                    }, completion: nil)
+    ////                    self.view.layoutIfNeeded()
+    //                }
+    //
+    //            }
+    //        }
+    //    }
     
     var courseName : String = "Comment" {
         didSet{
@@ -81,7 +81,7 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         textField.delegate = self
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardFrameChangeNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        //        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardFrameChangeNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         
         
         //Looks for single or multiple taps.
@@ -90,13 +90,13 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
         //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
         //tap.cancelsTouchesInView = false
         
-//        view.addGestureRecognizer(tap)
+        //        view.addGestureRecognizer(tap)
         
-//        let leftCommentNib = UINib(nibName: "CommentLeftTableViewCell", bundle: nil)
-//        self.CommentTable.register(leftCommentNib, forCellReuseIdentifier: "CommentLeft")
-//
-//        let rightCommentNib = UINib(nibName: "CommentRightTableViewCell", bundle: nil)
-//        self.CommentTable.register(rightCommentNib, forCellReuseIdentifier: "CommentRight")
+        //        let leftCommentNib = UINib(nibName: "CommentLeftTableViewCell", bundle: nil)
+        //        self.CommentTable.register(leftCommentNib, forCellReuseIdentifier: "CommentLeft")
+        //
+        //        let rightCommentNib = UINib(nibName: "CommentRightTableViewCell", bundle: nil)
+        //        self.CommentTable.register(rightCommentNib, forCellReuseIdentifier: "CommentRight")
         
     }
     
@@ -104,10 +104,10 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
         super.viewWillAppear(true)
         
         if(AppDelegate.hasLogin){
-//            textField.isHidden = false
+            //            textField.isHidden = false
             BottomView.isHidden = false
         }else{
-//            textField.isHidden = true
+            //            textField.isHidden = true
             BottomView.isHidden = true
         }
         
@@ -139,7 +139,7 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        if(textField.text != nil){
+        if(textField.text != nil && textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) != ""){
             textField.allowsEditingTextAttributes = false
             Comment.sendComment(courseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, message: textField.text!, parentId: nil) { (result) in
                 self.commentData?.append(result!)
@@ -205,7 +205,15 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
             cell.dateTimeLabel.text = dateFormatter.string(from: a_comment.dateTime)
             
             if a_comment.subComment.count > 0 {
-                cell.moreCommentLabel.text = "More \(a_comment.subComment.count)."
+                if(a_comment.subComment.count>1){
+                    cell.moreCommentLabel.text = "View \(a_comment.subComment.count) replies"
+                }
+                else
+                {
+                    cell.moreCommentLabel.text = "View \(a_comment.subComment.count) reply"
+                }
+                
+                
                 cell.moreCommentLabel.isHidden = false
             }
             else{
@@ -233,11 +241,16 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
             //        dateFormatter.timeZone = NSTimeZone() as TimeZone!
             cell.dateTimeLabel.text = dateFormatter.string(from: a_comment.dateTime)
             
-//            print(a_comment.dateTime)
+            //            print(a_comment.dateTime)
             
             
             if a_comment.subComment.count > 0 {
-                cell.moreCommentLabel.text = "More \(a_comment.subComment.count)."
+                if(a_comment.subComment.count>1){
+                    cell.moreCommentLabel.text = "View \(a_comment.subComment.count) replies"
+                }
+                else{
+                    cell.moreCommentLabel.text = "View \(a_comment.subComment.count) reply"
+                }
                 cell.moreCommentLabel.isHidden = false
             }
             else{
@@ -290,16 +303,16 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
      */
     
     
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
         if(segue.identifier == "RightComment"){
             let cell = sender as! CommentRightTableViewCell
             let selectedIndex = self.CommentTable.indexPath(for: cell)
-//            print(selectedIndex?.row ?? "0")
+            //            print(selectedIndex?.row ?? "0")
             
             let dest = segue.destination as! ReplyCommentViewController
             dest.commentMsg = cell.msgLabel.text!
@@ -309,11 +322,11 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
             dest.parentId = self.commentData![(selectedIndex?.row)!].idComment
             dest.courseId = self.courseId!
             
-
+            
         }else if(segue.identifier == "LeftComment"){
             let cell = sender as! CommentLeftTableViewCell
             let selectedIndex = self.CommentTable.indexPath(for: cell)
-//            print(selectedIndex?.row ?? "0")
+            //            print(selectedIndex?.row ?? "0")
             
             let dest = segue.destination as! ReplyCommentViewController
             dest.commentMsg = cell.msgLabel.text!
@@ -323,9 +336,9 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
             dest.parentId = self.commentData![(selectedIndex?.row)!].idComment
             dest.courseId = self.courseId!
         }
-
-     }
- 
+        
+    }
     
-
+    
+    
 }
