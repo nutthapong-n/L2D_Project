@@ -23,6 +23,7 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var changeUserProfilePicBtn: UIButton!
     @IBOutlet weak var percentageLabel: UILabel!
+    @IBOutlet weak var userNameTextField: UITextField!
     
     @IBAction func DismissKeyboardName(_ sender: Any) {
         self.resignFirstResponder()
@@ -168,6 +169,7 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
     }
     
     func setProfileInformation(){
+        userNameTextField.text = AppDelegate.userData?.username
         nameTextField.text = AppDelegate.userData?.name
         surnameTextField.text = AppDelegate.userData?.surname
         emailTextField.text = AppDelegate.userData?.email

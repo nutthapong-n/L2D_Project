@@ -108,6 +108,13 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
 
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let vc = self.navigationController?.viewControllers
+        
+        print("num of view in stack is \(vc?.count)")
+    }
+    
     override func loadView() {
         super.loadView()
         var TopSuccess : Bool = false
@@ -331,10 +338,13 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
             
             if(thisOwnerImg == nil){
                 Course.fetchImgByURL(picUrl: thisCourse.ownerImgPath, completion: { (myImage) in
-                    self.ownerImgList[thisCourse.id] = myImage
-                    DispatchQueue.main.async {
-                        cell.intstructor_img.image = myImage
+                    if(myImage != nil){
+                        self.ownerImgList[thisCourse.id] = myImage
+                        DispatchQueue.main.async {
+                            cell.intstructor_img.image = myImage
+                        }
                     }
+
                 })
                 thisOwnerImg = UIImage(named: "user")
                 self.ownerImgList[thisCourse.id] = thisOwnerImg

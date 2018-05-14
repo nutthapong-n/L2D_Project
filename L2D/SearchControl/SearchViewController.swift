@@ -268,10 +268,13 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         if(self.imgList[cell.id!] == nil){
             print("send \(model.imgPath)")
             Course.fetchImgByURL(picUrl: model.imgPath, completion: { (myImage) in
-                self.imgList[cell.id!] = myImage
-                DispatchQueue.main.async {
-                    print("\(cell.id) path : \(indexPath.row) image : \(myImage)")
-                    cell.course_img.image = self.imgList[cell.id!]
+                if(myImage != nil){
+                    self.imgList[cell.id!] = myImage
+                    DispatchQueue.main.async {
+                        cell.course_img.image = self.imgList[cell.id!]
+                    }
+                }else{
+                    self.imgList[cell.id!] = UIImage(named: "download")
                 }
             })
             self.imgList[cell.id!] = UIImage(named: "loading")
@@ -284,7 +287,6 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("sappear")
         
         // Get all
         reloadData(type: 2, text: "")

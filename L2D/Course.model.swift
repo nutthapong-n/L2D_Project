@@ -154,7 +154,13 @@ class Course : NSObject{
                                     
                                     //getting the image
                                     let myImg = UIImage(data: imageData)
-                                    completion(myImg!)
+                                    
+                                    if(myImg == nil){
+                                        return completion(UIImage(named: "account"))
+                                    }else{
+                                        completion(myImg!)
+                                    }
+                                    
                                     
                                 } else {
                                     print("Image file is currupted")
@@ -572,11 +578,6 @@ class Course : NSObject{
                             })
                             
                         }
-                    
-                    completion(course,nil)
-                    
-                    
-//                        let array = json[0]["name"].rawString()
                 case .failure(let error):
                     print(error)
                     completion(nil,error.localizedDescription)
@@ -941,7 +942,6 @@ class Course : NSObject{
                     })
                     
                 }
-                completion(course,nil)
             case.failure(let error):
                 completion(nil,error.localizedDescription)
                 print(error)

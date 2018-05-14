@@ -80,6 +80,7 @@ class RegisterViewController: BaseViewController {
                                 let message  = json["message"]
                                 if(message != ""){
                                     let user  = User_model(
+                                        username: json["username"].stringValue,
                                         name : json["name"].stringValue,
                                         idmember : Int(json["idmember"].stringValue)!,
                                         surname : json["surname"].stringValue,
@@ -90,7 +91,7 @@ class RegisterViewController: BaseViewController {
                                     )
                                     AppDelegate.hasLogin = true
                                     AppDelegate.userData = user
-                                    if(self.backRequest != nil){
+                                    if(self.backRequest != nil && self.backRequest!){
                                         AppDelegate.reLoadRequest = true
                                         let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
                                         let preView = viewControllers[viewControllers.count - 3 ] as! CourseContentViewController
