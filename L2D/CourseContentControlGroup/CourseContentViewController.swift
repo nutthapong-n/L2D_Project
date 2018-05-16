@@ -89,7 +89,28 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         let viewWidth = self.view.frame.width
         let playerLayer = AVPlayerLayer(player: self.player)
         playerLayer.frame = CGRect(x: 0, y: 0, width: viewWidth, height: 1/3*viewHeight)
+        
+//        let gradient = CAGradientLayer()
+//        gradient.frame = CGRect(x: 0, y: 0, width: viewWidth, height: 1/3*viewHeight)
+//        gradient.colors = [ UIColor.black.withAlphaComponent(0.05).cgColor,
+//                            UIColor.black.withAlphaComponent(0.05).cgColor,
+//                            UIColor.clear.cgColor,
+//                            UIColor.black.withAlphaComponent(0.05).cgColor,
+//                            UIColor.black.withAlphaComponent(0.05).cgColor,
+//                            UIColor.clear.cgColor,
+//                            UIColor.black.withAlphaComponent(0.05).cgColor,
+//                            UIColor.black.withAlphaComponent(0.05).cgColor]
+        
+        
         self.playerView.layer.insertSublayer(playerLayer, at: 0)
+//        self.videoFuncView.layer.insertSublayer(gradient, at: 0)
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: viewWidth, height: 1/3*viewHeight)
+        gradientLayer.colors = [UIColor.black,UIColor.clear, UIColor.black]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        self.playerView.layer.insertSublayer(gradientLayer, at: 1)
         
         self.player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
         
@@ -116,7 +137,9 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        if keyPath == "currentItem.loadedTimeRanges" {
+        let second = self.player?.currentItem?.duration.seconds
+        
+        if keyPath == "currentItem.loadedTimeRanges" && second != nil && !(second?.isNaN)! {
             if let duration = self.player?.currentItem?.duration {
                 slider.maximumValue = Float(duration.seconds)
                 let maxSecond = String(format: "%02d", Int((duration.seconds)) % 60)
@@ -140,7 +163,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     func play(){
         self.player?.play()
-        self.toggleStageBtn.setImage(UIImage(named: "pause_gray"), for: .normal)
+        self.toggleStageBtn.setImage(UIImage(named: "pause_white"), for: .normal)
         startWaiter()
         
     }
@@ -161,17 +184,17 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     func pause(){
         self.player?.pause()
-        self.toggleStageBtn.setImage(UIImage(named: "play_gray"), for: .normal)
+        self.toggleStageBtn.setImage(UIImage(named: "play_white"), for: .normal)
         isPlaying = false
     }
     
     @IBAction func toggleStage(_ sender: Any) {
         let button = sender as! UIButton
-        if(button.currentImage == UIImage(named: "play_gray")){
-            button.setImage(UIImage(named: "pause_gray"), for: .normal)
+        if(button.currentImage == UIImage(named: "play_white")){
+            button.setImage(UIImage(named: "pause_white"), for: .normal)
             self.play()
         }else{
-            button.setImage(UIImage(named: "play_gray"), for: .normal)
+            button.setImage(UIImage(named: "play_white"), for: .normal)
             self.pause()
         }
     }
@@ -196,7 +219,8 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
-        if(touch?.view == self.playerView){
+//        print(touch?.view)
+        if(touch?.view == self.playerView || touch?.view == self.videoFuncView){
             toggleGUI()
         }
     }
@@ -211,10 +235,10 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             
             UIView.animate(withDuration: 0.5, animations: {
                 self.videoFuncView.alpha = 0
-                self.toggleStageBtn.alpha = 0
-                self.backBtn.alpha = 0
-                self.videoTitle.alpha = 0
-                self.comment_btn.alpha = 0
+//                self.toggleStageBtn.alpha = 0
+//                self.backBtn.alpha = 0
+//                self.videoTitle.alpha = 0
+//                self.comment_btn.alpha = 0
                 
             })
 
@@ -222,10 +246,10 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         }else{
             UIView.animate(withDuration: 0.5, animations: {
                 self.videoFuncView.alpha = 1
-                self.toggleStageBtn.alpha = 1
-                self.backBtn.alpha = 1
-                self.videoTitle.alpha = 1
-                self.comment_btn.alpha = 1
+//                self.toggleStageBtn.alpha = 1
+//                self.backBtn.alpha = 1
+//                self.videoTitle.alpha = 1
+//                self.comment_btn.alpha = 1
             })
             timeCounter = 0
             onShow = true
@@ -267,6 +291,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
 //                    table_header.progressBar.isHidden = true
                 }
 
+                var isInitSample = false
                 for section in (result?.section!)!{
                     if(section.rank != 0){
                         self.sectionIndexing.append(section.id)
@@ -275,6 +300,21 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     
                     for sub in section.subSection!{
                         self.sectionIndexing.append(sub.id)
+                        
+                        //expand current section
+                        if(sub.id == self.currentSection){
+                            self.showCourse.last?.isExpand = Expandsion.expand
+                            for sub_2 in section.subSection!{
+                                self.showCourse.append(CourseForShow_Model(name: sub_2.name, id: sub_2.id, type: 1, fileKey: sub_2.fileKEY, fileType : sub_2.type ))
+                            }
+                        }else if(self.currentSection == 0 && !isInitSample){
+                            isInitSample = !isInitSample
+                            self.showCourse.last?.isExpand = Expandsion.expand
+                            for sub_2 in section.subSection!{
+                                self.showCourse.append(CourseForShow_Model(name: sub_2.name, id: sub_2.id, type: 1, fileKey: sub_2.fileKEY, fileType : sub_2.type ))
+                            }
+                        }
+                        
                     }
                     
                 }
@@ -385,36 +425,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     }
     
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        
-//        let view = UIView()
-//        view.backgroundColor = L2DColor.header_background
-//        
-//        let label = UILabel()
-//        
-//        label.textColor = UIColor.black
-//        
-//        
-//        if(section == 0){
-//            return nil
-//        }else if section == 1{
-//            label.text =  "Description"
-//        }else{
-//            label.text =  "Contents"
-//        }
-//        
-//        view.addSubview(label)
-//        return view
-//    }
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        if(section == 0){
-//            return 0
-//        }else{
-//            return 30
-//        }
-//        
-//    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
@@ -441,15 +451,14 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(!isInitPage){
             
-            let cellClass = cell.classForCoder
             var cur_index : Int?
             var this_index : Int?
-            if(cellClass == CourseSectionTableViewCell.self){
+            if(cell.classForCoder == CourseSectionTableViewCell.self){
                 let myCell = cell as! CourseSectionTableViewCell
                 cur_index = self.sectionIndexing.index(of: self.currentSection!)
                 this_index = self.sectionIndexing.index(of: myCell.section_id!)
                 
-            }else if(cellClass == CourseSubsectionTableViewCell.self ){
+            }else if(cell.classForCoder == CourseSubsectionTableViewCell.self ){
                 let myCell = cell as! CourseSubsectionTableViewCell
                 cur_index = self.sectionIndexing.index(of: self.currentSection!)
                 this_index = self.sectionIndexing.index(of: myCell.Subsection_id!)
@@ -468,8 +477,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 }
             }
         }
-
-
     }
 
     
@@ -480,12 +487,12 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             if(isRegis){
                 cell.enroll_btn.setTitle("Unenrolled", for: .normal)
                 cell.enroll_btn.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
-                self.table.allowsSelection = true
+//                self.table.allowsSelection = true
                 cell.rate_btn.isHidden = false
                 cell.progressBar.isHidden = false
             }else{
                 cell.rate_btn.isHidden = true
-                self.table.allowsSelection = false
+//                self.table.allowsSelection = false
                 cell.progressBar.isHidden = true
             }
             
@@ -549,9 +556,12 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     cell.expand_img.isHighlighted = true
                 }
                 
-                
+                if(indexPath.row == 0){
+                    cell.isUserInteractionEnabled = true
 
-                if(!isRegis){
+                }
+
+                if(!isRegis && indexPath.row != 0){
                     cell.sec_label.textColor = UIColor.lightGray
                 }else{
                     cell.sec_label.textColor = UIColor.black
@@ -568,7 +578,11 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 cell.fileKey = sub_section.fileKey
                 cell.fileType = sub_section.filetype
                 
-                if(!isRegis){
+                if(indexPath.row == 1){
+                    cell.isUserInteractionEnabled = true
+                }
+                
+                if(!isRegis && indexPath.row != 1 ){
                     cell.name_label.textColor = UIColor.lightGray
                 }else{
                     cell.name_label.textColor = UIColor.black
@@ -606,8 +620,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 }
                 return cell
             }
-
-            
         }
     }
     
@@ -690,12 +702,20 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+
+        
         let rowData = self.showCourse[indexPath.row]
         //isHeader
         if(indexPath.section == 0 || indexPath.section == 1){
         
         }else{
             if(rowData.type == 0){
+                
+                //void all selection except sample section
+                if(!self.isRegis && indexPath.row > 0){
+                    return
+                }
+                
                 let cell = self.table.cellForRow(at: indexPath) as! CourseSectionTableViewCell
 
                 if(rowData.isExpand == Expandsion.collapse){
@@ -736,6 +756,12 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     closeAllExpand()
                 }
             }else{//is sub section
+                
+                //void all selection except sample section
+                if(!self.isRegis && indexPath.row > 1){
+                    return
+                }
+                
                 let cell = tableView.cellForRow(at: indexPath) as! CourseSubsectionTableViewCell
                 self.currentSection = cell.Subsection_id
                 
@@ -760,9 +786,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                                 self.view.layoutIfNeeded()
                                 self.webView.loadRequest(URLRequest(url: url))
                             })
-                            
-                            
-
                         }
                     }
                     
@@ -792,13 +815,15 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                         }
                     }
 
-                    
-                    Course.updateProgress(CourseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, sectionId: cell.Subsection_id!, completion: {
-                        (progressPercent) in
+                    if(self.isRegis){
+                        Course.updateProgress(CourseId: self.courseId!, memberId: (AppDelegate.userData?.idmember)!, sectionId: cell.Subsection_id!, completion: {
+                            (progressPercent) in
+                            
+                            self.headerCell?.progressBar.setProgress(progressPercent!/100, animated: true)
+                            
+                        })
+                    }
 
-                        self.headerCell?.progressBar.setProgress(progressPercent!/100, animated: true)
-                    
-                    })
                 })
                 
                 
@@ -858,12 +883,9 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         self.navigationController?.popViewController(animated: true)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("was touch")
-    }
     
     func enableTable(){
-        self.table.allowsSelection = true
+//        self.table.allowsSelection = true
         let sectionCellList = self.table.visibleCells
         for cell in sectionCellList{
             if(cell.classForCoder == CourseSectionTableViewCell.self ){
@@ -875,7 +897,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     func disableTable(){
         closeAllExpand()
-        self.table.allowsSelection = false
+//        self.table.allowsSelection = false
         let sectionCellList = self.table.visibleCells
         
         for cell in sectionCellList{
@@ -923,20 +945,82 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 self.sectionIndexing.removeAll()
                 self.course = result
                 self.currentSection = result?.currentSection
+                var isStartAtFirst = true
+                var hasInitFile = false
                 for section in (result?.section!)!{
                     if(section.rank != 0){
                         self.sectionIndexing.append(section.id)
                         self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: "", fileType : .none ))
                         
                     }
-                    
 
                     for sub in section.subSection!{
                         self.sectionIndexing.append(sub.id)
+                        
+                        //expand current section
                         if(sub.id == self.currentSection){
                             self.showCourse.last?.isExpand = Expandsion.expand
                             for sub_2 in section.subSection!{
                                 self.showCourse.append(CourseForShow_Model(name: sub_2.name, id: sub_2.id, type: 1, fileKey: sub_2.fileKEY, fileType : sub_2.type ))
+                                
+                                if(!hasInitFile && sub_2.id == self.currentSection){
+                                    //open preview video or doc
+                                    hasInitFile = !hasInitFile
+                                    Course.getfile(key: sub_2.fileKEY, cid: (self.course?.id)!, completion: { (path,cid, error) in
+                                        if(sub_2.type == .video){
+                                            let url = path
+                                            if(url != ""){
+                                                self.clearVideo()
+                                                self.setupPlayer(url: URL(string: url!)!)
+                                            }
+                                        }else if(sub_2.type == .document){
+                                            if let url = URL(string: path!) {
+                                                //                            self.pause()
+                                                let viewFrame = self.view.frame
+                                                self.isShowDoc = true
+                                                self.webViewTonConst?.constant = viewFrame.height*1/3
+                                                UIView.animate(withDuration: 0.5, animations: {
+                                                    self.view.layoutIfNeeded()
+                                                    self.webView.loadRequest(URLRequest(url: url))
+                                                })
+                                            }
+                                        }
+                                    })
+                                    
+                                }
+                                
+                            }
+                        }else if(self.currentSection == 0 && isStartAtFirst){
+                            isStartAtFirst = false
+                            self.showCourse.last?.isExpand = Expandsion.expand
+                            for sub_2 in section.subSection!{
+                                self.showCourse.append(CourseForShow_Model(name: sub_2.name, id: sub_2.id, type: 1, fileKey: sub_2.fileKEY, fileType : sub_2.type ))
+                                
+                                if(!hasInitFile){
+                                    //open preview video or doc
+                                    hasInitFile = !hasInitFile
+                                    Course.getfile(key: sub_2.fileKEY, cid: (self.course?.id)!, completion: { (path,cid, error) in
+                                        if(sub_2.type == .video){
+                                            let url = path
+                                            if(url != ""){
+                                                self.clearVideo()
+                                                self.setupPlayer(url: URL(string: url!)!)
+                                            }
+                                        }else if(sub_2.type == .document){
+                                            if let url = URL(string: path!) {
+                                                //                            self.pause()
+                                                let viewFrame = self.view.frame
+                                                self.isShowDoc = true
+                                                self.webViewTonConst?.constant = viewFrame.height*1/3
+                                                UIView.animate(withDuration: 0.5, animations: {
+                                                    self.view.layoutIfNeeded()
+                                                    self.webView.loadRequest(URLRequest(url: url))
+                                                })
+                                            }
+                                        }
+                                    })
+
+                                }
                                 
                             }
                         }
@@ -944,8 +1028,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     }
                     
                 }
-                
-//                self.player.displayView.titleLabel.text = self.course?.name
                 
                 self.table.reloadData()
             }
@@ -957,6 +1039,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         
         if(!self.videoRestrict){
             self.setupPlayer( url : URL(string : "http://158.108.207.7:8080/api/ts/key999/25/30/index.m3u8")!)
+//            self.table.selectRow(at: IndexPath(row: 0, section: 2), animated: true, scrollPosition: UITableViewScrollPosition.middle)
             self.slider.addTarget(self, action: #selector(sliderChange), for: UIControlEvents.valueChanged)
         }else if(self.videoRestrict){
             self.videoRestrict = false
@@ -975,9 +1058,11 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         self.navigationController?.setNavigationBarHidden(true , animated: false)
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.04, green:0.04, blue:0.03, alpha:0.3)
         let viewHeight = self.view.frame.height
+        let viewWidth = self.view.frame.width
         tableviewTopConst.constant = 1/3*viewHeight
-//        self.webViewTonConst.constant = 0
         player_buttom_const.constant = 2/3*viewHeight
+        let playerLayer = self.playerView.layer.sublayers![0]
+        playerLayer.frame = CGRect(x: 0, y: 0, width: viewWidth, height: 1/3*viewHeight)
         
         NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         
@@ -1047,6 +1132,8 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
     
     override func viewDidAppear(_ animated: Bool) {
 //        self.navigationController?.setNavigationBarHidden(true , animated: false)
+
+        
         if(self.videoRestrict){
             let cell = self.table.cellForRow(at: IndexPath(row: 0, section: 0)) as! CourseSectionHeaderTableViewCell
             self.enroll(cell.enroll_btn)

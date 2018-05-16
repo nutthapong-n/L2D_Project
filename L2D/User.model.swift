@@ -91,46 +91,9 @@ class User_model: NSObject {
     
     class func uploadPicture(image : UIImage,progressBar : UIProgressView?,percentLebel : UILabel?, completion: @escaping (Bool) -> Void){
         let url = "\(Network.IP_Address_Master)/files-up/member/picture"
-        
-        //        let imageData = UIImagePNGRepresentation(image)!
-        //
-        //        let imageBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
-        //
-        //        let parameters: Parameters = [
-        //            "file" : imageBase64,
-        //            "memberId" : AppDelegate.userData?.idmember ?? 0
-        //        ]
-        
-        let parameters: Parameters = [
-            //            "file" : image,
-            "memberId" : AppDelegate.userData?.idmember ?? 0
-        ]
-        
-        //        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).validate().responseJSON { (response) in
-        //            switch response.result{
-        //            case .success(let value):
-        //                debugPrint(value)
-        //                completion(true)
-        //            case .failure(let error):
-        //                print(error.localizedDescription)
-        //                completion(false)
-        //            }
-        //        }
-        
-        
-        
+
         Alamofire.upload(multipartFormData: { (multipartFromData) in
             multipartFromData.append(UIImageJPEGRepresentation(image, 0.1)!, withName: "file", fileName: "profile.jpg", mimeType: "image/jpg")
-            for (key, value) in parameters {
-                //                multipartFromData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
-                
-            }
-            //            if let myMemberId = AppDelegate.userData?.idmember{
-            //                var myId : Int = myMemberId
-            //                let memberIdData = Data(bytes: &myId, count: MemoryLayout.size(ofValue: myId))
-            //
-            //                multipartFromData.append(memberIdData, withName: "memberId")
-            //            }
             let myMemberId = "\(AppDelegate.userData?.idmember ?? 0)"
             multipartFromData.append(myMemberId.data(using: String.Encoding.utf8)!, withName: "memberId")
         }, to: url) { (result) in

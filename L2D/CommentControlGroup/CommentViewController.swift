@@ -83,21 +83,6 @@ class CommentViewController: BaseViewController, UITableViewDelegate, UITableVie
         textField.delegate = self
         //        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardFrameChangeNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         
-        
-        //Looks for single or multiple taps.
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-        
-        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
-        //tap.cancelsTouchesInView = false
-        
-        //        view.addGestureRecognizer(tap)
-        
-        //        let leftCommentNib = UINib(nibName: "CommentLeftTableViewCell", bundle: nil)
-        //        self.CommentTable.register(leftCommentNib, forCellReuseIdentifier: "CommentLeft")
-        //
-        //        let rightCommentNib = UINib(nibName: "CommentRightTableViewCell", bundle: nil)
-        //        self.CommentTable.register(rightCommentNib, forCellReuseIdentifier: "CommentRight")
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

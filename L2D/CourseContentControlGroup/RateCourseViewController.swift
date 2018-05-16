@@ -17,6 +17,7 @@ class RateCourseViewController: UIViewController {
     @IBOutlet weak var ratingBar: CosmosView!
     @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var bottomLabel: UILabel!
+    @IBOutlet weak var BGView: UIView!
     
     func myAlert(title : String,text : String){
         self.resignFirstResponder()
@@ -56,6 +57,12 @@ class RateCourseViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let gradient = CAGradientLayer()
+        gradient.frame = view.bounds
+        gradient.colors = [UIColor.white.cgColor, UIColor.black.cgColor]
+        
+        BGView.layer.insertSublayer(gradient, at: 0)
 
         // Do any additional setup after loading the view.
         ratingBar.settings.fillMode = .half

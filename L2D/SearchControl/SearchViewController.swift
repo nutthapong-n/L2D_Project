@@ -280,7 +280,7 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
             self.imgList[cell.id!] = UIImage(named: "loading")
         }
         
-//        cell.course_img.image = self.imgList[cell.id!]
+        cell.course_img.image = self.imgList[cell.id!]
 
         
         return cell
