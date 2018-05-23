@@ -110,11 +110,16 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
         
         if(thisCourseImg == nil){
             Course.fetchImgByURL(picUrl: modelData.imgPath, completion: { (myImage) in
-                self.imgList[modelData.id] = myImage
-                DispatchQueue.main.async {
-                    cell.course_img.image = myImage
+                if(myImage != nil){
+                    self.imgList[modelData.id] = myImage
+                    DispatchQueue.main.async {
+                        cell.course_img.image = myImage
+                    }
+                }else{
+                    self.imgList[modelData.id] = UIImage(named: "download")
                 }
             })
+            self.imgList[modelData.id] = cell.course_img.image
         }else{
             cell.course_img.image = thisCourseImg
         }

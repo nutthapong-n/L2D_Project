@@ -113,30 +113,36 @@ class HomeViewController: BaseViewController ,UITableViewDelegate , UITableViewD
         var TopSuccess : Bool = false
         var NewSuccess : Bool = false
         Course.getTopCourse(amount: 8) { (result,errMsg) in
-            TopSuccess = true
+            
             if(errMsg != nil){
                 self.myAlert(title: "Error", text: errMsg!)
             }else{
                 self.courses["top"] = result
+//                self.homeTable.reloadData()
                 
             }
+            TopSuccess = true
             if(NewSuccess && TopSuccess){
                self.homeTable.reloadData()
             }
+            
             //            print(result)
         }
         
         Course.getNewCourse(amount: 8) { (result,errMsg) in
-            NewSuccess = true
+            
             if(errMsg != nil){
 //                self.myAlert(title: "Error", text: errMsg!)
                 print("Error : \(errMsg ?? "") in func:loadView")
             }else{
                 self.courses["new"] = result
+//                self.homeTable.reloadData()
             }
+            NewSuccess = true
             if(NewSuccess && TopSuccess){
                 self.homeTable.reloadData()
             }
+            
             //            print(result)
         }
     }
@@ -309,10 +315,13 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
         var thisCourseImg = self.imgList[thisCourse.id]
         var thisOwnerImg = self.ownerImgList[thisCourse.id]
         
-        if(identifier == "0"){
+        if(true){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course_list", for: indexPath) as! CourseListsCollectionViewCell
             
             if(thisCourseImg == nil){
+                
+
+                
                 Course.fetchImgByURL(picUrl: thisCourse.imgPath, completion: { (myImage) in
                     if(myImage == nil){
                         self.imgList[thisCourse.id] = UIImage(named: "download")
@@ -329,6 +338,11 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
             }
             
             if(thisOwnerImg == nil){
+                
+                if(!thisCourse.ownerImgPath.contains("http")){
+                    thisCourse.ownerImgPath = "http://158.108.207.7:8090/elearning/"+thisCourse.ownerImgPath
+                }
+                
                 Course.fetchImgByURL(picUrl: thisCourse.ownerImgPath, completion: { (myImage) in
                     if(myImage != nil){
                         self.ownerImgList[thisCourse.id] = myImage

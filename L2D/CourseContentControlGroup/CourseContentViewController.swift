@@ -284,7 +284,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 }
                 
                 if(isRegis)!{
-                    enroll_btn?.setTitle("Unenrolled", for: .normal)
+                    enroll_btn?.setTitle("Unenroll", for: .normal)
                     enroll_btn?.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
 //                    table_header.progressBar.isHidden = false
                 }else{
@@ -485,7 +485,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
             let cell = self.table.dequeueReusableCell(withIdentifier: "sectionHeader", for: indexPath) as! CourseSectionHeaderTableViewCell
             
             if(isRegis){
-                cell.enroll_btn.setTitle("Unenrolled", for: .normal)
+                cell.enroll_btn.setTitle("Unenroll", for: .normal)
                 cell.enroll_btn.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
 //                self.table.allowsSelection = true
                 cell.rate_btn.isHidden = false
@@ -508,6 +508,11 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 cell.progressBar.setProgress((self.course?.percentProgress)!/100, animated: true)
                 
                 if(thisOwnerImg == nil){
+                    
+                    if(!(self.course?.ownerImgPath.contains("http"))!){
+                        self.course?.ownerImgPath = "http://158.108.207.7:8090/elearning/"+(self.course?.ownerImgPath)!
+                    }
+                    
                     Course.fetchImgByURL(picUrl: (self.course?.ownerImgPath)!, completion: { (myImage) in
                         if(myImage  != nil){
                             self.thisOwnerImg = myImage
@@ -855,7 +860,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
         }else{
             course?.Register(completion: { (result) in
                 if(result){
-                    sender.setTitle("Unenrolled", for: .normal)
+                    sender.setTitle("Unenroll", for: .normal)
                     sender.backgroundColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:1.0)
 
                     
@@ -951,7 +956,6 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     if(section.rank != 0){
                         self.sectionIndexing.append(section.id)
                         self.showCourse.append(CourseForShow_Model(name: section.name, id: section.id, type: 0, fileKey: "", fileType : .none ))
-                        
                     }
 
                     for sub in section.subSection!{

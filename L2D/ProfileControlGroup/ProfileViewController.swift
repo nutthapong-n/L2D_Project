@@ -177,10 +177,17 @@ class ProfileViewController: BaseViewController,UIImagePickerControllerDelegate 
         let imgPath = AppDelegate.userData?.photoUrl
         print("img Path : \(imgPath ?? "")")
         Course.fetchImgByURL(picUrl: imgPath!, completion: { (myImage) in
-            
-            DispatchQueue.main.async {
-                self.imageView.image = myImage
+            if(myImage != nil){
+                DispatchQueue.main.async {
+                    self.imageView.image = myImage
+                }
+            }else{
+                DispatchQueue.main.async {
+                    self.imageView.image = UIImage(named: "user")
+                }
+                
             }
+
         })
 //        imageView.image = UIImage()
     }

@@ -100,6 +100,7 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
         
 //        view.addGestureRecognizer(tap)
         
+        reloadData(type: 2, text: "")
     }
     
     //Calls this function when the tap is recognized.
@@ -289,7 +290,7 @@ class SearchViewController: BaseViewController , UITableViewDelegate , UITableVi
     override func viewDidAppear(_ animated: Bool) {
         
         // Get all
-        reloadData(type: 2, text: "")
+//        reloadData(type: 2, text: "")
     }
     
     //add delegate method for pushing to new detail controller

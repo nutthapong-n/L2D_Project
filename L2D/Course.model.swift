@@ -156,7 +156,7 @@ class Course : NSObject{
                             let myImg = UIImage(data: imageData)
                             
                             if(myImg == nil){
-                                return completion(UIImage(named: "account"))
+                                return completion(nil)
                             }else{
                                 completion(myImg!)
                             }
@@ -252,7 +252,7 @@ class Course : NSObject{
                     
                 }
                 
-                completion(courses,nil)
+//                completion(courses,nil)
             case .failure(let error):
                 completion(nil,error.localizedDescription)
                 print(error)
@@ -395,12 +395,18 @@ class Course : NSObject{
                     let sections = courseJSON["sectionList"].arrayValue
                     
                     for section in sections{
+                        let rank = section["rank"].intValue
+                        let type = section["contentType"].stringValue
                         let thisSection = Section_model(
                             id: section["id"].intValue,
                             name: section["name"].stringValue,
-                            rank: section["rank"].intValue,
+                            rank: rank == 0 && type == "PICTURE" ? rank : rank+1,
                             subSection: [])
                         
+                        if(type == "VIDEO"){
+
+                            thisSection.subSection?.append(SubSection(id: section["id"].intValue, name: section["name"].stringValue, fileKEY: section["content"].stringValue, rank: section["rank"].intValue, type: section["contentType"].stringValue == "VIDEO" ? fileType.video : fileType.document))
+                        }
                         
                         let subSections = section["sub-section"].arrayValue
                         

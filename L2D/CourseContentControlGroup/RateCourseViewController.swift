@@ -57,12 +57,6 @@ class RateCourseViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let gradient = CAGradientLayer()
-        gradient.frame = view.bounds
-        gradient.colors = [UIColor.white.cgColor, UIColor.black.cgColor]
-        
-        BGView.layer.insertSublayer(gradient, at: 0)
 
         // Do any additional setup after loading the view.
         ratingBar.settings.fillMode = .half
