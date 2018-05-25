@@ -24,9 +24,39 @@ class ReplyCommentViewController: BaseViewController, UITableViewDelegate, UITab
     
     @IBOutlet weak var BottomView: UIView!
     
+    lazy var refreshControl : UIRefreshControl = {
+        let rc = UIRefreshControl()
+        rc.addTarget(self, action: #selector(actualizarDators) , for: .valueChanged)
+        rc.tintColor = UIColor.black
+        return rc
+    }()
+    
+    @objc func actualizarDators(_ refreshControl : UIRefreshControl){
+        if(courseId != nil){
+            Comment.getSubComment(parentId: parentId, completion: {
+                (result) in
+                
+                self.subCommentData = result!
+                self.ReplyCommentTable.reloadData()
+                refreshControl.endRefreshing()
+                
+                DispatchQueue.main.async(execute: {
+                    let count = self.subCommentData.count
+                    if(count > 0){
+                        let indexPath = NSIndexPath(row: (self.subCommentData.count) - 1, section: 0)
+                        self.ReplyCommentTable.scrollToRow(at: indexPath as IndexPath , at: .top, animated: true)
+                    }
+                })
+            })
+        }
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //set sub view
+        self.ReplyCommentTable.addSubview(self.refreshControl)
         // Do any additional setup after loading the view.
         
         ReplyCommentTable.reloadData()

@@ -1557,7 +1557,7 @@
             </objects>
             <point key="canvasLocation" x="146" y="-107"/>
         </scene>
-        <!--My Course-->
+        <!--My Courses-->
         <scene sceneID="1aq-qa-WXl">
             <objects>
                 <viewController storyboardIdentifier="MyCourseViewController" id="uNB-Ss-ruL" customClass="MyCourseViewController" customModule="L2D" customModuleProvider="target" sceneMemberID="viewController">
@@ -1717,7 +1717,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3j3-fI-N0j"/>
                     </view>
-                    <navigationItem key="navigationItem" title="My Course" id="nAo-6W-2fU"/>
+                    <navigationItem key="navigationItem" title="My Courses" id="nAo-6W-2fU"/>
                     <connections>
                         <outlet property="homeTable" destination="mti-3C-vPj" id="gZ2-JN-vBZ"/>
                         <outlet property="myCourseTab" destination="gL1-nV-CcD" id="04R-9T-azr"/>

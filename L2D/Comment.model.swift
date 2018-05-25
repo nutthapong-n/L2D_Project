@@ -30,6 +30,35 @@ class Comment : NSObject {
         self.idComment = idComment
     }
     
+    class func getSubComment(parentId : Int, completion : @escaping (_ commentList:[Comment]?)-> Void){
+        
+        let url = "\(Network.IP_Address_Master)/dialogue?id=\(parentId)"
+        
+        var subCommentList = [Comment]()
+        
+        Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON{
+            response in switch response.result{
+            case.success(let value):
+                let json = JSON(value)
+                
+                for (_,subComment) in json["sub-dialogues"] {
+                    
+                    let a_comment = Comment(name: "\(subComment["member"]["name"]) \(subComment["member"]["surname"])", message: subComment["msg"].stringValue, dateTime: Date(timeIntervalSince1970: subComment["editTime"].doubleValue / 1000), idMember: subComment["member"]["idmember"].intValue, idComment: subComment["iddialogue"].intValue)
+                    
+                    subCommentList.append(a_comment)
+                }
+                
+                completion(subCommentList)
+                return
+                
+            case.failure(let error):
+                print(error)
+                completion(nil)
+                return
+            }
+        }
+    }
+    
     class func getComment(courseId : Int, completion : @escaping (_ commentList:[Comment]?)-> Void){
         
         let url = "\(Network.IP_Address_Master)/dialogue?courseId=\(courseId)"
