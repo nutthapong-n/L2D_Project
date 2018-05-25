@@ -12,11 +12,12 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
     
     
     @IBOutlet weak var homeTable: UITableView!
-//    var detail = ["New course" ,"Reccommend","In Trend"]
+    @IBOutlet weak var myCourseTab: UISegmentedControl!
     var detail = ["My Course"]
-//    var courses:[Course] = Course.generateModelArray()
-//    var allMyCourse:[Course] = Course.getMyCourse()
-    var courses:[Course] = []
+//    var courses:[Course] = []
+    var completeCourse:[Course] = []
+    var currentCourse:[Course] = []
+    
     var imgList : [Int:UIImage] = [:]
     
     lazy var refreshControl : UIRefreshControl = {
@@ -46,16 +47,53 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
 //                self.myAlert(title: "Error", text: errMsg!)
                 print("Error : \(errMsg ?? "") in func:actualizarDators")
             }else{
-                self.courses = result!
+                self.completeCourse.removeAll()
+                self.currentCourse.removeAll()
+                for course in result!{
+                    if(course.percentProgress == 100){
+                        self.completeCourse.append(course)
+                    }else{
+                        self.currentCourse.append(course)
+                    }
+                }
                 self.homeTable.reloadData()
             }
 
             refreshControl.endRefreshing()
         }
     }
+    
+    @objc func chageTab(){
+        self.homeTable.reloadData()
+//        self.homeTable.layoutIfNeeded()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //set sub view
+        self.homeTable.addSubview(self.refreshControl)
+        myCourseTab.addTarget(self, action: #selector(chageTab), for: UIControlEvents.valueChanged)
+        
+        
+        Course.getMyCourse{ (result,errMsg) in
+            if(errMsg != nil){
+                //                self.myAlert(title: "Error", text: errMsg!)
+                print("Error : \(errMsg ?? "") in func:viewDidLoad")
+            }else{
+                self.completeCourse.removeAll()
+                self.currentCourse.removeAll()
+                for course in result!{
+                    if(course.percentProgress == 100){
+                        self.completeCourse.append(course)
+                    }else{
+                        self.currentCourse.append(course)
+                    }
+                }
+                self.homeTable.reloadData()
+            }
+            //            print(result)
+        }
 
         // Do any additional setup after loading the view.
     }
@@ -63,17 +101,7 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.homeTable.addSubview(self.refreshControl)
-        Course.getMyCourse{ (result,errMsg) in
-            if(errMsg != nil){
-                //                self.myAlert(title: "Error", text: errMsg!)
-                print("Error : \(errMsg ?? "") in func:viewDidLoad")
-            }else{
-                self.courses = result!
-                self.homeTable.reloadData()
-            }
-            //            print(result)
-        }
+
     }
     
 
@@ -86,25 +114,31 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return courses.count
+        if(myCourseTab.selectedSegmentIndex == 0){
+            return currentCourse.count
+        }else{
+            return completeCourse.count
+        }
+//        return courses.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
+    
+    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = self.homeTable.dequeueReusableCell(withIdentifier: "table_list" , for: indexPath) as! MyCourseTableViewCell
-
-//        cell.textLabel?.numberOfLines = 0
-//
-//        var label : String?
-//
-//        label = detail[indexPath.row];
-//
-//        cell.header_btn.setTitle(label, for: .normal)
+        let modelData : Course
+        if(myCourseTab.selectedSegmentIndex == 0){
+            modelData = self.currentCourse[indexPath.row]
+        }else{
+            modelData = self.completeCourse[indexPath.row]
+        }
         
-        let modelData = courses[indexPath.row]
+        let cell = self.homeTable.dequeueReusableCell(withIdentifier: "table_list" , for: indexPath) as! MyCourseTableViewCell
+        
+        
         
         let thisCourseImg = imgList[modelData.id]
         
@@ -126,7 +160,6 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
         
         
         cell.courseName.text = modelData.name
-//        cell.courseDetail.text = modelData.detail
         cell.instructorName.text = "Instructor : \(modelData.owner)"
         cell.selectionStyle = .none
         cell.ratingBar.settings.updateOnTouch = false
@@ -144,7 +177,11 @@ class MyCourseViewController: BaseViewController , UITableViewDelegate , UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let desView = storyboard?.instantiateViewController(withIdentifier: "CourseControllorBoard") as! CourseContentViewController
-        desView.courseId = courses[indexPath.row].id
+        if(myCourseTab.selectedSegmentIndex == 0){
+            desView.courseId = self.currentCourse[indexPath.row].id
+        }else{
+            desView.courseId = self.completeCourse[indexPath.row].id
+        }
         
         navigationController?.pushViewController(desView, animated: true)
     }

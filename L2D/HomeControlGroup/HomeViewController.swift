@@ -334,13 +334,13 @@ extension HomeViewController : UICollectionViewDataSource , UICollectionViewDele
 
                 })
                 thisCourseImg = UIImage(named: "loading")
-                self.imgList[thisCourse.id] = thisCourseImg
+//                self.imgList[thisCourse.id] = thisCourseImg
             }
             
             if(thisOwnerImg == nil){
                 
                 if(!thisCourse.ownerImgPath.contains("http")){
-                    thisCourse.ownerImgPath = "http://158.108.207.7:8090/elearning/"+thisCourse.ownerImgPath
+                    thisCourse.ownerImgPath = "\(Network.IP_Address_Master)/"+thisCourse.ownerImgPath
                 }
                 
                 Course.fetchImgByURL(picUrl: thisCourse.ownerImgPath, completion: { (myImage) in

@@ -496,6 +496,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 cell.progressBar.isHidden = true
             }
             
+            var isSetImg = false
             
             cell.ratingBar.settings.fillMode = .precise
             cell.ratingBar.settings.updateOnTouch = false
@@ -510,7 +511,7 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                 if(thisOwnerImg == nil){
                     
                     if(!(self.course?.ownerImgPath.contains("http"))!){
-                        self.course?.ownerImgPath = "http://158.108.207.7:8090/elearning/"+(self.course?.ownerImgPath)!
+                        self.course?.ownerImgPath = "\(Network.IP_Address_Master)/"+(self.course?.ownerImgPath)!
                     }
                     
                     Course.fetchImgByURL(picUrl: (self.course?.ownerImgPath)!, completion: { (myImage) in
@@ -524,14 +525,18 @@ class CourseContentViewController: BaseViewController , UITableViewDelegate , UI
                     thisOwnerImg = UIImage(named: "user")
                 }
             }else{
-                thisOwnerImg = UIImage(named: "user")
+                 cell.insImage.image  = UIImage(named: "user")
+                isSetImg = true
             }
 
-            cell.insImage.image = thisOwnerImg
+//            cell.insImage.image = thisOwnerImg
             cell.titleLabel.text = self.course?.name
             self.videoTitle.text = self.course?.name
             cell.insName.text = self.course?.owner
-            cell.insImage.image = thisOwnerImg
+            if(!isSetImg){
+                cell.insImage.image = thisOwnerImg
+            }
+            
 
             self.headerCell = cell
             
