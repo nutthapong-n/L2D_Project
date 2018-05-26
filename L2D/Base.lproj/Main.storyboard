@@ -1178,7 +1178,7 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="608"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bottom Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mvf-Sn-Js0">
-                                        <rect key="frame" x="46" y="376" width="322" height="50"/>
+                                        <rect key="frame" x="46" y="412" width="322" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="N5b-Aa-VCS"/>
                                         </constraints>
@@ -1196,7 +1196,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jAy-Gm-Sbx">
-                                        <rect key="frame" x="111" y="501" width="193" height="72"/>
+                                        <rect key="frame" x="111" y="537" width="193" height="36"/>
                                         <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="193" id="Q6g-LZ-k29"/>
@@ -1221,8 +1221,8 @@
                                     <constraint firstItem="6AG-xM-oC8" firstAttribute="leading" secondItem="Mvf-Sn-Js0" secondAttribute="leading" id="wy8-2y-t69"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VTH-vC-o6p" customClass="CosmosView" customModule="Cosmos">
-                                <rect key="frame" x="35" y="368" width="345" height="65"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VTH-vC-o6p" customClass="CosmosView" customModule="Cosmos">
+                                <rect key="frame" x="35" y="332" width="345" height="137"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="starSize">
                                         <real key="value" value="65"/>

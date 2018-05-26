@@ -89,6 +89,42 @@ class User_model: NSObject {
         }
     }
     
+    class func register(userData : Parameters, completion : @escaping (Bool,Bool) -> ()){
+        let urlString = "\(Network.IP_Address_Master)/member/add"
+        
+        Alamofire.request(urlString,method : .post, parameters : userData , encoding: JSONEncoding.default)
+            .validate().responseJSON{
+                
+                response in switch response.result{
+                case .success(let value):
+                    let json = JSON(value)
+                    let message  = json["message"]
+                    if(message != ""){
+                        let user  = User_model(
+                            username: json["username"].stringValue,
+                            name : json["name"].stringValue,
+                            idmember : Int(json["idmember"].stringValue)!,
+                            surname : json["surname"].stringValue,
+                            email : json["email"].stringValue,
+                            type : json["type"].stringValue,
+                            photoUrl: "http://158.108.207.7:8090/elearning/\(json["photoUrl"].stringValue)"
+                            
+                        )
+                        AppDelegate.hasLogin = true
+                        AppDelegate.userData = user
+                        //request complete & have data
+                        completion(true,true)
+                    }else{
+                        //request complete & have no data
+                        completion(true,false)
+                    }
+                case .failure( _):
+                    //request failed & have no data
+                    completion(false,false)
+                }
+        }
+    }
+    
     class func uploadPicture(image : UIImage,progressBar : UIProgressView?,percentLebel : UILabel?, completion: @escaping (Bool) -> Void){
         let url = "\(Network.IP_Address_Master)/files-up/member/picture"
 

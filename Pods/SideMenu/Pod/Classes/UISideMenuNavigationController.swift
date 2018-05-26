@@ -131,9 +131,8 @@ open class UISideMenuNavigationController: UINavigationController {
     }
     
     open override func viewWillAppear(_ animated: Bool) {
-        SideMenuManager.default.menuFadeStatusBar = false
         super.viewWillAppear(animated)
-    
+        
         // Dismiss keyboard to prevent weird keyboard animations from occurring during transition
         presentingViewController?.view.endEditing(true)
         

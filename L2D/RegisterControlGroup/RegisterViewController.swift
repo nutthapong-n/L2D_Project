@@ -70,46 +70,26 @@ class RegisterViewController: BaseViewController {
                     ]
                     
                     
-                    
-                    Alamofire.request("http://158.108.207.7:8090/elearning/member/add",method : .post, parameters : parameters , encoding: JSONEncoding.default)
-                        .responseJSON{
-                            
-                            response in switch response.result{
-                            case .success(let value):
-                                let json = JSON(value)
-                                let message  = json["message"]
-                                if(message != ""){
-                                    let user  = User_model(
-                                        username: json["username"].stringValue,
-                                        name : json["name"].stringValue,
-                                        idmember : Int(json["idmember"].stringValue)!,
-                                        surname : json["surname"].stringValue,
-                                        email : json["email"].stringValue,
-                                        type : json["type"].stringValue,
-                                        photoUrl: "http://158.108.207.7:8090/elearning/\(json["photoUrl"].stringValue)"
-                                        
-                                    )
-                                    AppDelegate.hasLogin = true
-                                    AppDelegate.userData = user
-                                    if(self.backRequest != nil && self.backRequest!){
-                                        AppDelegate.reLoadRequest = true
-                                        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
-                                        let preView = viewControllers[viewControllers.count - 3 ] as! CourseContentViewController
-                                        preView.isInitPage = false
-                                        preView.videoRestrict = true
-                                        self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3 ], animated: true)
-                                        
-                                    }else{
-                                        let regisSeque = segue as! RegisterSeque
-                                        regisSeque.regis_success = true
-                                        regisSeque.perform()
-                                    }
-                                }else{
-                                    self.alert(text: "usrname already exist in system")
-                                }
-                            case .failure(let error):
-                                self.alert(text : "ERROR CODE : 500 (sever error) : \(error)")
+                    User_model.register(userData: parameters) { (result, data) in
+                        if(result && data){
+                            if(self.backRequest != nil && self.backRequest!){
+                                AppDelegate.reLoadRequest = true
+                                let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
+                                let preView = viewControllers[viewControllers.count - 3 ] as! CourseContentViewController
+                                preView.isInitPage = false
+                                preView.videoRestrict = true
+                                self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3 ], animated: true)
+                                
+                            }else{
+                                let regisSeque = segue as! RegisterSeque
+                                regisSeque.regis_success = true
+                                regisSeque.perform()
                             }
+                        }else if(result && !data){
+                            self.alert(text: "usrname already exist in system")
+                        }else{
+                            self.alert(text : "ERROR CODE : 500 (sever error)")
+                        }
                     }
                 }
 
