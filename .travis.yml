@@ -1,2 +1,5 @@
 language: swift
 osx_image: xcode10.2
+xcode_workspace: /Users/Nutthapong/L2D_Project/L2D.xcworkspace # path to your xcodeproj folder
+xcode_scheme: Venio
+xcode_destination: platform=iOS Simulator,OS=10.1,name=iPad Pro (9.7-inch)
