@@ -1,5 +1,5 @@
 language: swift
 osx_image: xcode10.2
-xcode_workspace: https://github.com/nutthapong-n/L2D_Project/L2D.xcworkspace # path to your xcodeproj folder
+xcode_workspace: https://github.com/nutthapong-n/L2D_Project/tree/master/L2D.xcworkspace # path to your xcodeproj folder
 xcode_scheme: L2D
 xcode_destination: platform=iOS Simulator,OS=10.1,name=iPad Pro (9.7-inch)
